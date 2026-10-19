@@ -185,6 +185,8 @@ namespace EternalRealms.Shared.Client
             MessageReceived?.Invoke(m);
         }
 
+        public void ClearInvite() => PendingInviteFrom = null;
+
         public void SendPing() => Send(new C_Ping { ClientTime = (long)(Now * 1000) });
 
         // ------------------------------------------------------------ LiteNetLib
