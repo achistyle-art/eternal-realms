@@ -12,7 +12,7 @@ namespace EternalRealms.Client
     /// Komplette Spieloberfläche im Sofortmodus (IMGUI) – bewusst ohne Prefabs, damit das Projekt ohne
     /// Grafik-Assets lauffähig ist. Eine UI-Toolkit-Oberfläche mit eigenem Look ersetzt sie in Meilenstein 3.
     /// </summary>
-    public sealed class GameUI : MonoBehaviour
+    public sealed partial class GameUI : MonoBehaviour
     {
         public static GameUI Instance { get; private set; } = null!;
         public static bool PointerOverUi { get; private set; }
@@ -54,6 +54,7 @@ namespace EternalRealms.Client
             Client.MessageReceived += m =>
             {
                 if (m is S_NpcInteraction ni) { _npc = ni; _choice = -1; }
+                OnEconomyMessage(m);
                 if (m is S_LoginResult lr) _status = lr.Message;
                 if (m is S_CreateCharacterResult cr) { _status = cr.Message; if (cr.Success) _screen = Screen.Characters; }
                 if (m is S_LevelUp lu && lu.EntityId == Client.State.MyId) Toast($"Stufe {lu.NewLevel} erreicht!");
@@ -79,7 +80,7 @@ namespace EternalRealms.Client
                 if (Input.GetKeyDown(KeyCode.N)) _showTalents = !_showTalents;
                 if (Input.GetKeyDown(KeyCode.P)) _showGroup = !_showGroup;
                 if (Input.GetKeyDown(KeyCode.K)) _showBook = !_showBook;
-                if (Input.GetKeyDown(KeyCode.Escape)) { _npc = null; _showQuests = _showBags = _showTalents = _showGroup = _showBook = false; }
+                if (Input.GetKeyDown(KeyCode.Escape)) { _npc = null; _showQuests = _showBags = _showTalents = _showGroup = _showBook = false; _bankOpen = _mailOpen = _ahOpen = false; }
             }
             while (_noticeIndex < Client.Notices.Count) Toast(Client.Notices[_noticeIndex++]);
             _toasts.RemoveAll(t => Time.time - t.time > 5);
@@ -308,6 +309,7 @@ namespace EternalRealms.Client
             if (_showGroup) DrawGroupWindow();
             if (_showBook) DrawSpellBook();
             if (_npc != null) DrawNpc();
+            DrawEconomyWindows();
         }
 
         private void DrawUnitFrame(Rect r, ClientEntity e, bool me)
@@ -641,14 +643,26 @@ namespace EternalRealms.Client
                 GUILayout.Label("<b>Angelegt</b> (Klick legt ab)", _wrap);
                 for (int i = 1; i < inv.Equipment.Count; i++)
                     if (inv.Equipment[i].ItemId != "" && GUILayout.Button($"{(EquipSlot)i}: {ItemLabel(inv.Equipment[i].ItemId)}", GUI.skin.label)) Client.Send(new C_UnequipItem { Slot = (EquipSlot)i });
-                GUILayout.Label("<b>Taschen</b> (Klick: benutzen/anlegen · bei Händlern: Rechtsklick verkauft)", _wrap);
+                GUILayout.BeginHorizontal();
+                for (int c = 0; c < inv.Containers.Count; c++)
+                {
+                    var bag = inv.Containers[c];
+                    if (GUILayout.Button(bag.ItemId == "" ? "– leer –" : ItemLabel(bag.ItemId), GUILayout.Width(120)) && bag.ItemId != "") Client.Send(new C_UnequipBag { ContainerSlot = c });
+                }
+                if (GUILayout.Button("Sortieren")) Client.Send(new C_SortBags());
+                GUILayout.EndHorizontal();
+                GUILayout.Label($"<b>Taschen</b> {inv.Bag.Count(b => b.ItemId != "")}/{inv.BagSize} (Klick: benutzen/anlegen · Rechtsklick: verkaufen, einlagern, anhängen oder versteigern – je nach offenem Fenster)", _wrap);
                 for (int i = 0; i < inv.Bag.Count; i++)
                 {
                     if (inv.Bag[i].ItemId == "") continue;
                     var rr = GUILayoutUtility.GetRect(new GUIContent("x"), GUI.skin.button);
                     if (GUI.Button(rr, $"{inv.Bag[i].Count}× {ItemLabel(inv.Bag[i].ItemId)}"))
                     {
-                        if (Event.current.button == 1 && _npc != null) Client.Send(new C_SellItem { NpcId = _npc.NpcId, BagIndex = i });
+                        if (Event.current.button == 1 && _bankOpen && Client.Bank != null) Client.Send(new C_BankDeposit { NpcId = Client.Bank.NpcId, BagIndex = i });
+                        else if (Event.current.button == 1 && _mailOpen) ToggleAttachment(i);
+                        else if (Event.current.button == 1 && _ahOpen) _ahSellIndex = i;
+                        else if (Event.current.button == 1 && _npc != null) Client.Send(new C_SellItem { NpcId = _npc.NpcId, BagIndex = i });
+                        else if (Content.Items.TryGetValue(inv.Bag[i].ItemId, out var bagDef) && bagDef.Category == ItemCategory.Container) Client.Send(new C_EquipBag { BagIndex = i });
                         else Client.Send(new C_UseItem { BagIndex = i, TargetId = Client.Me?.TargetId ?? 0 });
                     }
                 }
@@ -725,6 +739,7 @@ namespace EternalRealms.Client
                 if (m.IsBot && GUILayout.Button("Entlassen")) Client.Send(new C_BotDismiss { EntityId = m.EntityId });
                 GUILayout.EndHorizontal();
             }
+            if (Client.Group.Count > 0) DrawLootRule();
             if (Client.Group.Count > 0 && GUILayout.Button("Gruppe verlassen")) Client.Send(new C_GroupLeave());
             GUILayout.Space(8);
             GUILayout.Label("<b>KI-Mitspieler suchen</b> – Bots füllen fehlende Rollen, kämpfen, heilen, folgen und verstehen Gruppenchat-Befehle wie „Tank, greif den Boss an.“, „Heiler, bitte Mana auffüllen.“, „Magier, kontrolliere den linken Gegner.“ oder „Alle zurückziehen.“ Mit ★ merkt Ihr Euch Lieblingsbegleiter – sie entwickeln sich weiter und erinnern sich an gemeinsame Abenteuer.", _wrap);
@@ -806,6 +821,9 @@ namespace EternalRealms.Client
             foreach (var dest in ni.FlightDestinations)
                 if (GUILayout.Button($"Flug nach {Content.TravelNodes[dest].Name}")) { Client.Send(new C_TakeFlight { NpcId = ni.NpcId, Destination = dest }); _npc = null; }
             if (ni.CanResurrect && GUILayout.Button("Wiederbeleben lassen (Haltbarkeitsverlust, Wiederbelebungsschwäche)")) Client.Send(new C_SpiritHealerResurrect { NpcId = ni.NpcId });
+            if ((npc.Roles & NpcRole.Auctioneer) != 0 && GUILayout.Button("Auktionshaus öffnen")) { OpenAuctionHouse(ni.NpcId); _npc = null; }
+            if ((npc.Roles & NpcRole.ClassTrainer) != 0 && npc.TrainerClass == (Client.Me?.Class ?? CharClass.None) && GUILayout.Button("Talente zurücksetzen …"))
+                Client.Send(new C_ResetTalents { NpcId = ni.NpcId, Confirm = false });
             if (ni.IsInnkeeper) GUILayout.Label("<i>Euer Ruhestein ist an dieses Gasthaus gebunden. Hier sammelt Ihr Ruhebonus.</i>", _wrap);
             GUILayout.EndScrollView();
             if (GUILayout.Button("Auf Wiedersehen")) _npc = null;

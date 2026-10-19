@@ -54,8 +54,11 @@ Unity ist damit **nur** Client: Darstellung, Eingabe, Animation, Sound. Der Serv
 ### Persistenz
 
 * Das Speichern ist „write-behind“: Alle 60 s sowie beim Ausloggen und Beenden wird eine **Kopie** des Charakters (`CharacterData.Clone`) im Hintergrund geschrieben. Der Spielthread wartet nie auf die Datenbank.
-* Jeder Speichervorgang ist eine Transaktion. Kinderdaten (Inventar, Quests, Talente, Ruf, Fähigkeiten) werden je Tabelle mit einem einzigen `INSERT … SELECT unnest(…)` geschrieben.
-* Das Schema für Gilden, Freunde, Auktionshaus und Post ist bereits angelegt (`db/migrations/001_initial.sql`).
+* Alle Datenbankaufträge laufen über die **`PersistenceQueue`** – einen einzigen Hintergrundarbeiter, der Aufträge in genau der Reihenfolge ausführt, in der der Spielthread sie erzeugt. Ein älterer Speicherstand kann so nie einen neueren überschreiben, und ein Charakter wird erst geladen, wenn seine letzte Speicherung fertig ist. Beim Beenden wartet der Server, bis die Warteschlange leer ist.
+* Jeder Speichervorgang ist eine Transaktion. Kinderdaten (Inventar, Bank, Taschen, Quests, Talente, Ruf, Fähigkeiten) werden je Tabelle mit einem einzigen `INSERT … SELECT unnest(…)` geschrieben.
+* **Wirtschaft ohne Duplikate:** Post, Auktionshaus und Beutewürfe ändern zuerst den Zustand im Speicher und schreiben dann in **einer** Transaktion (`IEconomyRepository.CommitAsync`) die beteiligten Charaktere, die Briefe, die Auktionen und das Geldprotokoll. Ein Gegenstand ist immer an genau einem Ort; stürzt der Server vor dem Commit ab, sind Absender und Brief beide auf dem alten Stand.
+* **Geldprotokoll:** Geld ändert sich nur über `EconomySystem.Credit/Debit`. Jede Bewegung landet mit Grund und Kontostand in `economy_log`; `FlowByReason` summiert Quellen und Senken (Beute, Quests, Händler gegen Reparatur, Training, Gebühren, Porto, Talent-Reset) zur Inflationsbeobachtung.
+* Schema: `001_initial.sql` (Konten, Charaktere, Gilden, Freunde), `002_economy.sql` (Post, Auktionen, Geldprotokoll). Briefe und Auktionen werden beim Start vollständig geladen und liegen im Speicher.
 * Migrationen laufen beim Start automatisch (`schema_migrations`).
 
 ## Weg zu großen Spielerzahlen
@@ -82,3 +85,5 @@ Die heutige Struktur ist schon darauf ausgelegt. Die Schritte im Einzelnen:
 * **Kein Navmesh:** Monster und Bots laufen auf geraden Linien, der Server kennt keine Hindernisse und keine Höhe. Geplant ist ein Recast/Detour-Navmesh, das aus der Unity-Szene exportiert wird.
 * **Login über UDP:** Das Passwort wird im Klartext an den Server übertragen und dort mit PBKDF2 gehasht. Für den Betrieb im Internet ist das TLS-Gateway (Schritt 2 oben) Pflicht.
 * **Ein Prozess:** Sharding nach Zonen ist vorbereitet, aber nicht umgesetzt.
+* **Eine Datenbankverbindung für alle Schreibvorgänge:** Die geordnete Warteschlange ist bewusst einfach. Für Hunderte Spieler ist sie ausreichend; danach wird sie je Charakter gestreut (gleiche Ordnung pro Charakter, parallele Arbeiter).
+* **Gebundene Gegenstände:** Gebunden ist bisher, was „beim Aufheben gebunden“ ist oder ein Questgegenstand; „beim Anlegen gebunden“ ist noch nicht modelliert.

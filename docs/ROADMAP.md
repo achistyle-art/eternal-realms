@@ -27,17 +27,18 @@ Stand: in Arbeit. Erledigt (implementiert und getestet):
 - [x] Weltbewohner: Simulationsstufen voll/reduziert/ruhend, Stadtleben, eigenständiges Questen, Weiterziehen
 - [x] Geordnete Persistenz-Warteschlange, Geldprotokoll (`economy_log`) für jede Geldbewegung
 - [x] Taschen (4 Plätze), Stapel teilen/zusammenlegen, Sortieren, Bank beim Bankier
+- [x] Beuteregeln (Jeder für sich, Reihum, Gruppe, Bedarf vor Gier, Plündermeister), faire Bot-Würfe, /würfeln
+- [x] Post (atomar mit dem Absender gespeichert), Auktionshaus (12/24/48 h, Gebote, Sofortkauf, Gebühren), begrenztes Bot-Angebot
+- [x] Talent-Reset gegen Gold, Rufstufen Hasserfüllt bis Ehrfürchtig
+- [x] Unity-Fenster für Bank, Post, Auktionshaus, Würfe, Beuteregel und Talent-Reset (nur kompiliert, nicht im Editor gestartet)
 
 Offen in diesem Meilenstein:
 
-- [ ] Beuteregeln (Jeder für sich, Reihum, Gruppe, Bedarf vor Gier, Plündermeister), Würfeln 1–100
-- [ ] Post (atomar mit dem Absender gespeichert), Auktionshaus (12/24/48 h, Gebote, Sofortkauf, Gebühren)
-- [ ] Talent-Reset gegen Gold, Rufstufen inkl. Hasserfüllt
+- [ ] Reittiere (Stufe 40: +60 %, Stufe 60: +100 %), Gilden und Freunde, Gruppenfinder, Instanz-IDs und Sperren
+- [ ] Berufe
 
 - [ ] Berufe: Kräuterkunde, Bergbau, Kürschnerei, Schmiedekunst, Alchemie, Schneiderei, Lederverarbeitung, Kochen, Erste Hilfe (Schema und Objekt-Felder vorhanden)
-- [ ] Auktionshaus je Fraktion (Tabelle `auctions` vorhanden), Post, Bank
 - [ ] Gilden mit Rängen und Gildenchat, Freundeslisten (Tabellen vorhanden)
-- [ ] Bots im Auktionshaus als Marktteilnehmer (Angebot/Nachfrage)
 - [ ] Regionen 10–30 mit Inhalten: Westmark, Rotsandwüste, Nebelmoor, Splitterküste, Goldene Ebene
 - [ ] Hauptstädte Sonnenfeste und Kharzul
 
