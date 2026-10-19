@@ -45,7 +45,7 @@ namespace EternalRealms.Server.World
 
         public void Populate()
         {
-            var rng = new Random(Def.Id.GetHashCode() ^ InstanceKey.GetHashCode());
+            var rng = new Random(StableHash.Of(Def.Id) ^ StableHash.Of(InstanceKey));
             foreach (var s in Def.Spawns)
             {
                 for (int i = 0; i < s.Count; i++)

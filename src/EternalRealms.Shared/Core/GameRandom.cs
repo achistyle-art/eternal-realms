@@ -28,3 +28,23 @@ namespace EternalRealms.Shared
         public static T Pick<T>(this IRandom r, System.Collections.Generic.IReadOnlyList<T> list) => list[r.Range(0, list.Count - 1)];
     }
 }
+
+namespace EternalRealms.Shared
+{
+    /// <summary>
+    /// Stabiler Hash (FNV-1a). string.GetHashCode ist in .NET pro Prozess zufällig – für reproduzierbare
+    /// Weltgenerierung (Spawnpositionen) braucht es einen Wert, der überall gleich ist.
+    /// </summary>
+    public static class StableHash
+    {
+        public static int Of(string s)
+        {
+            unchecked
+            {
+                uint h = 2166136261;
+                foreach (char c in s) { h ^= c; h *= 16777619; }
+                return (int)h;
+            }
+        }
+    }
+}

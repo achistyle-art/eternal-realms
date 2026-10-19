@@ -182,6 +182,8 @@ namespace EternalRealms.Server.AI
                 Skill = 0.55f + (float)_w.Random.NextDouble() * 0.45f,
             };
             data.Level = level;
+            // Ab Stufe 6 ersetzt die stufengerechte Grundausrüstung die Startausrüstung.
+            if (level >= 6) data.Equipment.Clear();
             // Fähigkeiten und Talente der Stufe
             var tmp = new Player(data, _w.Content);
             _w.Progression.AutoTrain(tmp);

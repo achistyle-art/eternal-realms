@@ -213,7 +213,8 @@ namespace EternalRealms.Server.AI
             if (target == null) { if (InGroup) FollowLeader(); return; }
             if (Me.Target != target) { Me.Target = target; Decide($"Ziel: {target.Name}"); }
 
-            bool ranged = Profile?.Ranged == true || Role == Role.Healer;
+            // Heiler halten Abstand – außer Paladine ohne Gruppe, die selbst in den Nahkampf gehen.
+            bool ranged = Profile?.Ranged == true || (Role == Role.Healer && (InGroup || Me.Class != CharClass.Paladin));
             if (Role == Role.Healer && Me.PowerPct < 0.5f)
             {
                 KeepDistance(target, 22);
@@ -224,6 +225,16 @@ namespace EternalRealms.Server.AI
             if (ranged)
             {
                 float d = Me.DistanceTo(target);
+                // Kiten: Ist der Gegner festgehalten (Frostnova, Wurzeln) und tankt ihn niemand, Abstand gewinnen statt Treffer einzustecken.
+                var tank = Me.Group?.MemberWithRole(Role.Tank);
+                bool tanked = tank != null && tank != Me && target.Target == tank;
+                if (!tanked && target.Target == Me && d < 9 && target.IsRooted)
+                {
+                    var away = (Me.Position - target.Position).NormalizedXZ();
+                    MoveTo(Me.Position + away * 14, 1);
+                    Decide("Abstand gewinnen");
+                    return;
+                }
                 if (d > 28) MoveTo(target.Position, 26);
                 else { _moveTarget = null; Me.Facing = Vec3.FacingTowards(Me.Position, target.Position); }
                 if (Me.Class == CharClass.Hunter) Me.AutoAttacking = d >= 8 || Me.InMeleeRange(target);
@@ -370,6 +381,8 @@ namespace EternalRealms.Server.AI
             foreach (var m in mates)
             {
                 float threshold = !inCombat ? 0.7f : isHealer ? (IsTank(m) ? 0.88f : 0.75f) + Data.Caution * 0.05f : healerAlive ? 0.25f : 0.4f;
+                // Allein heilt man sich sparsam, damit genug Mana für den Kampf bleibt.
+                if (!InGroup) threshold = inCombat ? (isHealer ? 0.45f : 0.35f) + Data.Caution * 0.05f : 0.6f;
                 if (!isHealer && m != Me && healerAlive) continue;
                 if (!isHealer && !inCombat) threshold = 0.5f;
                 if (m.HealthPct < threshold && m.HealthPct < worst) { worst = m.HealthPct; target = m; }
@@ -421,7 +434,7 @@ namespace EternalRealms.Server.AI
             float pct = target.HealthPct;
             if (inCombat)
             {
-                var sh = options.FirstOrDefault(o => o.shield && (IsTank(target) || pct < 0.5f));
+                var sh = options.FirstOrDefault(o => o.shield && (IsTank(target) || pct < 0.5f || !InGroup));
                 if (sh.ab != null) return sh.ab;
             }
             if (pct > 0.5f)
@@ -431,6 +444,7 @@ namespace EternalRealms.Server.AI
             }
             var direct = options.Where(o => !o.hot && !o.shield).ToList();
             if (direct.Count == 0) return options[0].ab;
+            if (!InGroup && inCombat) return direct.OrderByDescending(o => o.heal).First().ab;
             if (pct < 0.4f && inCombat)
                 return direct.OrderBy(o => _w.Combat.EffectiveCastTime(Me, o.ab)).ThenByDescending(o => o.heal).First().ab;
             var fitting = direct.Where(o => o.heal <= deficit * 1.25f).OrderByDescending(o => o.heal).FirstOrDefault();
@@ -557,7 +571,8 @@ namespace EternalRealms.Server.AI
                     }
                     Me.Target = _prey;
                     var ab = OpeningAbility();
-                    float range = Profile?.Ranged == true || Role == Role.Healer ? Math.Min(28, ab?.MaxRange ?? 25) : Me.MeleeReachTo(_prey) - 0.6f;
+                    bool rangedHunter = Profile?.Ranged == true || (Role == Role.Healer && Me.Class != CharClass.Paladin);
+                    float range = rangedHunter ? Math.Min(28, ab?.MaxRange ?? 25) : Me.MeleeReachTo(_prey) - 0.6f;
                     if (Me.DistanceTo(_prey) > range) { MoveTo(_prey.Position, range); return; }
                     _moveTarget = null;
                     Me.AutoAttacking = !(Profile?.Ranged == true) || Me.Class == CharClass.Hunter;
@@ -597,7 +612,7 @@ namespace EternalRealms.Server.AI
         {
             int gray = Experience.GrayLevel(Me.Level);
             return zone.UnitsInRange(Me.Position, 60).OfType<Creature>()
-                .Where(c => c.IsAlive && !c.InCombat && c.TappedBy == null && !c.Template.Elite && !c.Template.Rare && c.Spawn != null
+                .Where(c => c.IsAlive && !c.InCombat && c.TappedBy == null && !c.Template.Elite && !c.Template.Rare && !c.IsSummoned && c.Owner == null && !c.IsPet && !c.Template.IsNpc
                             && (c.Faction == Faction.Hostile || c.Faction == Faction.Neutral) && c.Level > gray && c.Level <= Me.Level + 1)
                 .OrderBy(c => c.DistanceTo(Me)).FirstOrDefault();
         }

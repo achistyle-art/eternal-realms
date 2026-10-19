@@ -165,7 +165,12 @@ namespace EternalRealms.Server.World
                     else if (kv.Key == EquipSlot.Ranged) RangedWeapon = w;
                 }
             }
-            if (Data.IsBot && !MainHand.Present) MainHand = BotGear.VirtualWeapon(this);
+            if (Data.IsBot)
+            {
+                // Bots nutzen ihre echte Waffe nur, wenn sie besser ist als die Grundausrüstung ihrer Stufe.
+                var virtualWeapon = BotGear.VirtualWeapon(this);
+                if (!MainHand.Present || MainHand.Average / MainHand.Speed < virtualWeapon.Average / virtualWeapon.Speed * 0.9f) MainHand = virtualWeapon;
+            }
             Armor = Math.Max(0, (int)((itemArmor + Stats.Agility * 2 + Mod(ModType.ArmorFlat)) * (1 + Mod(ModType.ArmorPercent) / 100f)));
             for (int i = 0; i < Resist.Length; i++) Resist[i] = Mod(ModType.ResistFlat, (School)i);
             AttackPower = Math.Max(0, (int)(Stats.Strength * ClassDef.ApPerStrength + Stats.Agility * ClassDef.ApPerAgility - 20 + Level * 2 + Mod(ModType.AttackPowerFlat)));

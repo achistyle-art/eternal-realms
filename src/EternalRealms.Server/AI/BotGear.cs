@@ -25,7 +25,8 @@ namespace EternalRealms.Server.AI
             int filled = ArmorSlots.Count(s => p.Data.Equipment.ContainsKey(s));
             float share = (Slots - filled) / (float)Slots;
             if (share <= 0) return;
-            float budget = p.Level * 1.6f * share;
+            // Etwa das Wertebudget grüner Ausrüstung der eigenen Stufe (≈ 4 Punkte je Stufe über alle Plätze).
+            float budget = p.Level * 4f * share;
             foreach (var (stat, w) in Weights(p.Class, role))
                 into.Add(new ModifierDef { Type = ModType.StatFlat, Stat = stat, Value = (float)Math.Round(budget * w) });
             int armorFactor = p.ClassDef.MaxArmor switch { ArmorType.Plate => 7, ArmorType.Mail => 4, ArmorType.Leather => 2, _ => 1 };
@@ -85,7 +86,7 @@ namespace EternalRealms.Server.AI
         public static float VirtualSlotScore(Player p)
         {
             var role = p.Data.Bot?.Role ?? Role.MeleeDps;
-            float statsPerSlot = p.Level * 1.6f / Slots;
+            float statsPerSlot = p.Level * 4f / Slots;
             return Weights(p.Class, role).Sum(x => statsPerSlot * x.Item2 * 2);
         }
     }

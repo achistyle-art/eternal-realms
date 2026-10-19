@@ -33,7 +33,7 @@ namespace EternalRealms.Shared.Rules
 
         public static int CreatureHealth(int level, float multiplier, bool elite)
         {
-            double hp = 42 + 15 * level + 1.2 * level * level;
+            double hp = 40 + 13 * level + 1.05 * level * level;
             if (elite) hp *= 3;
             return Math.Max(1, (int)(hp * multiplier));
         }
@@ -41,7 +41,7 @@ namespace EternalRealms.Shared.Rules
         /// <summary>Durchschnittlicher Schaden pro Sekunde einer normalen Kreatur.</summary>
         public static float CreatureDps(int level, float multiplier, bool elite)
         {
-            double dps = 1.5 + 1.1 * level + 0.03 * level * level;
+            double dps = 0.8 + 0.55 * level + 0.012 * level * level;
             if (elite) dps *= 1.6;
             return (float)(dps * multiplier);
         }

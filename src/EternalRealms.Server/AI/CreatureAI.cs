@@ -28,7 +28,7 @@ namespace EternalRealms.Server.AI
         private bool _fled;
         private readonly Dictionary<CreatureAbilityDef, float> _timers = new();
 
-        public CreatureAI(Creature c) { _c = c; _barkTimer = 30 + (c.Template.Id.GetHashCode() & 0x3f); }
+        public CreatureAI(Creature c) { _c = c; _barkTimer = 30 + (StableHash.Of(c.Template.Id) & 0x3f); }
 
         private GameWorld W => _c.World;
         private CreatureDef T => _c.Template;

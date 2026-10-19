@@ -155,7 +155,6 @@ namespace EternalRealms.Tests
             var tank = t.CreatePlayer(Race.Aldorer, CharClass.Warrior, 12, Arena);
             var mage = t.CreatePlayer(Race.Aldorer, CharClass.Mage, 12, Arena + new Vec3(-15, 0, 0));
             var mob = t.Spawn("mob_rotbach_bandit", Arena + new Vec3(4, 0, 0), level: 8);
-            mob.Template.Abilities.Clear();
             var fb = TestContent.Db.GetAbilityRank("mage_fireball", mage.KnownRank("mage_fireball"))!;
             t.World.Combat.TryCast(mage, fb, mob);
             t.Run(4);
@@ -193,7 +192,6 @@ namespace EternalRealms.Tests
             t.ClearMonstersAround(Arena, 80);
             var warlock = t.CreatePlayer(Race.Aldorer, CharClass.Warlock, 10, Arena);
             var mob = t.Spawn("mob_forest_wolf", Arena + new Vec3(15, 0, 0), level: 9);
-            mob.Template.Abilities.Clear();
             var corr = TestContent.Db.GetAbilityRank("warlock_corruption", warlock.KnownRank("warlock_corruption"))!;
             t.World.Combat.TryCast(warlock, corr, mob);
             t.Run(2.2);
