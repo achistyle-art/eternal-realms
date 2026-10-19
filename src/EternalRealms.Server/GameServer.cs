@@ -71,6 +71,12 @@ namespace EternalRealms.Server
                 server.World.Auctions.Load(auctions);
                 log($"Wirtschaft: {mail.Count} Briefe, {auctions.Count} Auktionen geladen");
             }
+            if (chars is ISocialRepository social)
+            {
+                var guilds = await social.LoadGuildsAsync();
+                server.World.Guilds.Load(guilds);
+                log($"Gilden: {guilds.Count} geladen");
+            }
             return server;
         }
 

@@ -97,5 +97,9 @@
   {"event": "town_chat", "personality": "vorsichtig", "lines": ["{target}, sei vorsichtig da draußen. Die Wege sind nicht sicher.", "Ich bleibe lieber in der Nähe der Wachen, {target}."]},
   {"event": "town_chat", "personality": "abenteuerlustig", "lines": ["{target}! Ich habe einen Wasserfall entdeckt, den musst du sehen!", "Ich frage mich, was hinter den Bergen liegt, {target}."]},
   {"event": "town_chat_reply", "lines": ["Klingt gut!", "Danke für den Hinweis.", "Mal sehen, vielleicht.", "Ha, das glaube ich dir sofort.", "Gute Jagd!"]},
-  {"event": "town_chat_reply", "personality": "wortkarg", "lines": ["Mhm.", "Vielleicht."]}
+  {"event": "town_chat_reply", "personality": "wortkarg", "lines": ["Mhm.", "Vielleicht."]},
+  {"event": "guild_accept", "lines": ["Eine Gilde? Mit dir? Sehr gerne, {target}!", "Ich bin dabei. Auf viele gemeinsame Abenteuer!", "Endlich ein Ort, wo man hingehört. Danke!"]},
+  {"event": "guild_accept", "personality": "wortkarg", "lines": ["Hm. Ja.", "Gut. Ich trete bei."]},
+  {"event": "guild_decline", "lines": ["Danke, aber ich kenne dich noch kaum. Lass uns erst einmal zusammen losziehen.", "Vielleicht später, wenn wir uns besser kennen.", "Ich bleibe lieber ungebunden – noch."]},
+  {"event": "guild_levelup", "lines": ["Stufe {level} erreicht! Danke an alle, die mir geholfen haben.", "Wieder ein Stück stärker – Stufe {level}!", "Stufe {level}. Weiter geht's!"]}
 ]

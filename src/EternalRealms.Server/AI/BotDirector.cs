@@ -107,7 +107,43 @@ namespace EternalRealms.Server.AI
             if (p.Group != null && p.Group.IsFull) return "Eure Gruppe ist voll.";
             if (p.Zone == null) return "Nicht in der Welt.";
             _candidates.Remove(candidateId);
-            var data = cand.Data;
+            Summon(p, cand.Data);
+            return null;
+        }
+
+        /// <summary>Gespeicherten Lieblingsbegleiter direkt in die Gruppe rufen (KI-Freundesliste, Kapitel 32).</summary>
+        public string? InviteFavorite(Player p, long characterId)
+        {
+            long account = p.Data.AccountId ?? -1;
+            if (p.Group != null && p.Group.IsFull) return "Eure Gruppe ist voll.";
+            if (p.Group != null && p.Group.Leader != p) return "Nur der Gruppenanführer kann einladen.";
+            if (p.Zone == null) return "Nicht in der Welt.";
+            var online = _w.AllPlayers.FirstOrDefault(b => b.IsBot && b.Data.Id == characterId);
+            if (online != null)
+            {
+                if (!online.Data.Bot!.FavoriteOf.Contains(account)) return "Dieser KI-Charakter ist kein gespeicherter Begleiter.";
+                if (online.Group == p.Group && p.Group != null) return $"{online.Name} ist bereits in Eurer Gruppe.";
+                if (online.Group != null) return $"{online.Name} ist gerade mit {online.Group.Leader.Name} unterwegs.";
+                DespawnBot(online);
+            }
+            if (!_offline.TryGetValue(characterId, out var data) || !data.Bot!.FavoriteOf.Contains(account)) return "Dieser KI-Charakter ist kein gespeicherter Begleiter.";
+            CatchUp(data, p.Level);
+            Summon(p, data);
+            return null;
+        }
+
+        /// <summary>Alle gespeicherten Begleiter eines Kontos mit ihrem aktuellen Aufenthalt (null = ruht).</summary>
+        public List<(CharacterData data, Player? online)> Companions(Player p)
+        {
+            long account = p.Data.AccountId ?? -1;
+            var list = new List<(CharacterData, Player?)>();
+            foreach (var b in _w.AllPlayers.Where(b => b.IsBot && b.Data.Bot!.FavoriteOf.Contains(account))) list.Add((b.Data, b));
+            foreach (var d in _offline.Values.Where(d => d.Bot != null && d.Bot.FavoriteOf.Contains(account))) list.Add((d, null));
+            return list;
+        }
+
+        private void Summon(Player p, CharacterData data)
+        {
             data.Bot!.KnownAccounts.Add(p.Data.AccountId ?? -1);
             _offline.Remove(data.Id);
             // Bots kommen angelaufen, statt neben dem Spieler aufzutauchen.
@@ -119,7 +155,6 @@ namespace EternalRealms.Server.AI
             _w.Groups.Join(p.Group!, bot);
             bot.Bot!.Greet(p);
             if (data.Id == 0) PersistNew(bot);
-            return null;
         }
 
         /// <summary>

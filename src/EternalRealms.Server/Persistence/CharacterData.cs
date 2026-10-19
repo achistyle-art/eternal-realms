@@ -42,6 +42,10 @@ namespace EternalRealms.Server.Persistence
         public int RidingSkill { get; set; }
         /// <summary>Reittier-Sammlung.</summary>
         public HashSet<string> Mounts { get; set; } = new();
+        public List<SocialEntry> Friends { get; set; } = new();
+        public List<SocialEntry> Ignored { get; set; } = new();
+        /// <summary>Freunde dürfen sehen, in welcher Region der Charakter ist.</summary>
+        public bool ShareLocation { get; set; } = true;
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();

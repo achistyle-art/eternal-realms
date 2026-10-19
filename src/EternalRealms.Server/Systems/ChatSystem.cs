@@ -41,15 +41,19 @@ namespace EternalRealms.Server.Systems
             if (text.StartsWith("#") && _w.Config.DevCommands && !from.IsBot) { _w.DevCommands.Execute(from, text); return; }
             if (TryRollCommand(from, text)) return;
             var msg = new S_Chat { Channel = channel, SenderId = from.Id, SenderName = from.Name, Text = text, SenderIsBot = from.IsBot };
+            _w.Social.RememberChat(from, $"[{channel}] {text}");
             switch (channel)
             {
                 case ChatChannel.Say:
                 case ChatChannel.Emote:
-                    from.Zone?.BroadcastInRange(from.Position, SayRange, msg);
+                    InRange(from, SayRange, msg);
                     if (from.Group != null && !from.IsBot) RouteToBots(from, text, saidAloud: true);
                     break;
                 case ChatChannel.Yell:
-                    from.Zone?.BroadcastInRange(from.Position, YellRange, msg);
+                    InRange(from, YellRange, msg);
+                    break;
+                case ChatChannel.Guild:
+                    _w.Guilds.Chat(from, msg);
                     break;
                 case ChatChannel.Party:
                 case ChatChannel.Raid:
@@ -58,11 +62,12 @@ namespace EternalRealms.Server.Systems
                     if (!from.IsBot) RouteToBots(from, text, saidAloud: false);
                     break;
                 case ChatChannel.General:
-                    from.Zone?.BroadcastAll(msg);
+                    if (from.Zone != null) foreach (var p in from.Zone.Players) if (!_w.Social.Ignores(p, from)) p.Send(msg);
                     break;
                 case ChatChannel.Whisper:
                     var to = _w.FindPlayer(whisperTo);
                     if (to == null) { from.Notice($"Niemand namens '{whisperTo}' ist online.", true); return; }
+                    if (_w.Social.Ignores(to, from)) { from.Notice($"{to.Name} ignoriert Euch.", true); return; }
                     to.Send(msg);
                     from.Send(new S_Chat { Channel = ChatChannel.Whisper, SenderId = to.Id, SenderName = "An " + to.Name, Text = text });
                     to.Bot?.OnWhisper(from, text);
@@ -71,6 +76,14 @@ namespace EternalRealms.Server.Systems
                     from.Notice("Dieser Kanal ist nicht verfügbar.", true);
                     break;
             }
+        }
+
+        /// <summary>Sagen/Rufen in Reichweite – ohne Spieler, die den Sprecher ignorieren.</summary>
+        private void InRange(Player from, float range, S_Chat msg)
+        {
+            if (from.Zone == null) return;
+            foreach (var p in from.Zone.PlayersInRange(from.Position, range))
+                if (!_w.Social.Ignores(p, from)) p.Send(msg);
         }
 
         private void RouteToBots(Player from, string text, bool saidAloud)
@@ -86,6 +99,9 @@ namespace EternalRealms.Server.Systems
             {
                 case ChatChannel.Party when bot.Group != null:
                     bot.Group.Broadcast(msg);
+                    break;
+                case ChatChannel.Guild:
+                    _w.Guilds.Chat(bot, msg);
                     break;
                 case ChatChannel.General:
                     bot.Zone?.BroadcastAll(msg);

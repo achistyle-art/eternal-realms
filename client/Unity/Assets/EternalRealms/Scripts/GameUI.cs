@@ -82,6 +82,7 @@ namespace EternalRealms.Client
                 if (Input.GetKeyDown(KeyCode.K)) _showBook = !_showBook;
                 if (Input.GetKeyDown(KeyCode.Y)) Client.Send(new C_Mount());
                 if (Input.GetKeyDown(KeyCode.J)) _showMounts = !_showMounts;
+                if (Input.GetKeyDown(KeyCode.O)) { _showSocial = !_showSocial; if (_showSocial) { Client.Send(new C_FriendList()); Client.Send(new C_GuildRoster()); } }
                 if (Input.GetKeyDown(KeyCode.Escape)) { _npc = null; _showQuests = _showBags = _showTalents = _showGroup = _showBook = false; _bankOpen = _mailOpen = _ahOpen = false; }
             }
             while (_noticeIndex < Client.Notices.Count) Toast(Client.Notices[_noticeIndex++]);
@@ -313,6 +314,8 @@ namespace EternalRealms.Client
             if (_npc != null) DrawNpc();
             DrawEconomyWindows();
             if (_showMounts) DrawMountJournal();
+            if (_showSocial) DrawSocial();
+            if (Client.PendingGuildInvite != null) DrawGuildInvite();
         }
 
         private void DrawUnitFrame(Rect r, ClientEntity e, bool me)

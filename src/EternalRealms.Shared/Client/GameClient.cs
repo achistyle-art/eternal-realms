@@ -50,6 +50,9 @@ namespace EternalRealms.Shared.Client
         public S_LootMethod LootMethod { get; private set; } = new S_LootMethod { Method = Net.LootMethod.GroupLoot, Threshold = ItemQuality.Uncommon };
         public S_TalentResetCost? TalentResetOffer { get; set; }
         public S_MountJournal MountJournal { get; private set; } = new S_MountJournal();
+        public S_GuildRoster Guild { get; private set; } = new S_GuildRoster();
+        public S_FriendList Friends { get; private set; } = new S_FriendList();
+        public S_GuildInvite? PendingGuildInvite { get; set; }
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -209,6 +212,9 @@ namespace EternalRealms.Shared.Client
                 case S_LootMethod lm: LootMethod = lm; break;
                 case S_TalentResetCost trc: TalentResetOffer = trc; break;
                 case S_MountJournal mj: MountJournal = mj; break;
+                case S_GuildRoster gro: Guild = gro; break;
+                case S_FriendList fl: Friends = fl; break;
+                case S_GuildInvite ginv: PendingGuildInvite = ginv; break;
                 case S_NpcInteraction ni: LastInteraction = ni; break;
                 case S_DeathState d: State.DeathState = d.State; State.CorpsePosition = d.CorpsePosition; break;
                 case S_WorldState w: State.World = w; break;

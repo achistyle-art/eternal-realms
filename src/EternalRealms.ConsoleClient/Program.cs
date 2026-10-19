@@ -32,6 +32,22 @@ client.MessageReceived += m =>
         case S_UnitDied d: Print($"  ✝ {Name(d.Id)} stirbt."); break;
         case S_XpGain x: Print($"  ★ +{x.Amount} EP{(x.RestedBonus > 0 ? $" (davon {x.RestedBonus} Ruhebonus)" : "")}"); break;
         case S_LevelUp lu when lu.EntityId == client.State.MyId: Print($"  ★★ STUFE {lu.NewLevel}! +{lu.HealthGained} Leben. Talentpunkte frei: {lu.TalentPoints}"); break;
+        case S_GuildInvite gi2: Print($"{gi2.From} lädt Euch in die Gilde <{gi2.GuildName}> ein (gjoin / gdecline)."); break;
+        case S_GuildRoster gr2:
+            if (gr2.Name == "") { Print("Ihr seid in keiner Gilde."); break; }
+            Print($"<{gr2.Name}> – {gr2.Members.Count} Mitglieder{(gr2.Motd != "" ? " – " + gr2.Motd : "")}");
+            foreach (var gm2 in gr2.Members)
+                Print($"  {gr2.RankNames[gm2.Rank],-14} {gm2.Name}{(gm2.IsBot ? " (KI)" : "")} St. {gm2.Level} {(gm2.Online ? "online " + gm2.Zone : "offline")}");
+            break;
+        case S_FriendList fl2:
+            Print($"Freunde ({fl2.Friends.Count}):" + (fl2.ShareLocation ? "" : " [Standort verborgen]"));
+            foreach (var f in fl2.Friends) Print($"  {f.Name} – {(f.Online ? $"online, St. {f.Level}, {f.Zone}" : "offline")}");
+            Print($"KI-Begleiter ({fl2.Companions.Count}):");
+            foreach (var f in fl2.Companions)
+                Print($"  {f.Name} – St. {f.Level} {RoleName(f.Role)}, Gegenstandsstufe {f.ItemLevel}, {f.Activity}, {f.Availability}" +
+                      (f.SharedAdventures.Count > 0 ? $" – gemeinsam: {string.Join("; ", f.SharedAdventures)}" : ""));
+            if (fl2.Ignored.Count > 0) Print("Ignoriert: " + string.Join(", ", fl2.Ignored));
+            break;
         case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
         case S_MailList ml:
             Print(ml.Mails.Count == 0 ? "Keine Post." : "Post:");
@@ -284,6 +300,31 @@ void Command(string line)
             Print($"Reitfertigkeit {client.MountJournal.RidingSkill}; Reittiere: " + (client.MountJournal.Mounts.Count == 0 ? "keine" :
                   string.Join(", ", client.MountJournal.Mounts.Select(m => content.Mounts.TryGetValue(m, out var md) ? $"{md.Name} [{m}]" : m))));
             break;
+        // ---- Gilde und Freunde
+        case "gcreate": client.Send(new C_GuildCreate { Text = rest }); break;
+        case "ginvite": client.Send(new C_GuildInvite { Text = rest }); break;
+        case "gjoin": client.Send(new C_GuildRespond { Accept = true }); break;
+        case "gdecline": client.Send(new C_GuildRespond { Accept = false }); break;
+        case "gleave": client.Send(new C_GuildLeave()); break;
+        case "gdisband": client.Send(new C_GuildDisband()); break;
+        case "gmotd": client.Send(new C_GuildMotd { Text = rest }); break;
+        case "gkick": client.Send(new C_GuildKick { CharacterId = MemberId(a.Length > 0 ? a[0] : "") }); break;
+        case "grank": client.Send(new C_GuildSetRank { CharacterId = MemberId(a.Length > 0 ? a[0] : ""), Rank = Int(1, 3) }); break;
+        case "guild": client.Send(new C_GuildRoster()); break;
+        case "gu": client.Say(rest, ChatChannel.Guild); break;
+        case "friends": client.Send(new C_FriendList()); break;
+        case "friend": client.Send(new C_FriendAdd { Text = rest }); break;
+        case "unfriend": client.Send(new C_FriendRemove { CharacterId = client.Friends.Friends.FirstOrDefault(f => f.Name.Equals(rest, StringComparison.OrdinalIgnoreCase))?.CharacterId ?? 0 }); break;
+        case "ignore": client.Send(new C_IgnoreAdd { Text = rest }); break;
+        case "unignore":
+        {
+            int ix = client.Friends.Ignored.FindIndex(n => n.Equals(rest, StringComparison.OrdinalIgnoreCase));
+            if (ix >= 0) client.Send(new C_IgnoreRemove { CharacterId = client.Friends.IgnoredIds[ix] });
+            break;
+        }
+        case "report": client.Send(new C_ReportPlayer { Name = a.Length > 0 ? a[0] : "", Reason = "Spielermeldung", Text = rest.Length > 0 && a.Length > 0 ? rest.Substring(a[0].Length).Trim() : "" }); break;
+        case "share": client.Send(new C_ShareLocation { Share = !(a.Length > 0 && a[0] == "aus") }); break;
+        case "summon": client.Send(new C_InviteFavorite { CharacterId = client.Friends.Companions.FirstOrDefault(f => f.Name.Equals(rest, StringComparison.OrdinalIgnoreCase))?.CharacterId ?? 0 }); break;
         case "mark": client.Send(new C_SetMarker { Marker = (byte)Int(0, 8), TargetId = a.Length > 1 ? Int(1) : me?.TargetId ?? 0 }); break;
         case "bot": client.Send(new C_BotInvite { CandidateId = client.BotCandidates[Int(0) - 1].CandidateId }); break;
         case "dismiss": client.Send(new C_BotDismiss { EntityId = Int(0) }); break;
@@ -380,6 +421,8 @@ int Nearest(NpcRole role)
     return client.State.Entities.Values.Where(e => (e.Roles & role) != 0).OrderBy(e => Vec3.DistanceXZ(e.Position, me.Position)).FirstOrDefault()?.Id ?? 0;
 }
 
+long MemberId(string name) => client.Guild.Members.FirstOrDefault(m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase))?.CharacterId ?? 0;
+
 int Mailbox()
 {
     var me = client.Me;
@@ -471,6 +514,8 @@ void Help() => Print(@"Befehle:
   bank | deposit <Platz> | withdraw <Fach>   (beim Bankier)
   mail | send <Name> <Kupfer> <Betreff> [| 3,4] | take <Nr> | delmail <Nr> | return <Nr>   (am Briefkasten)
   ah [Suchtext] | ahmine [gebote] | ahsell <Platz> <Anzahl> <Gebot> [Sofortkauf] [12|24|48] | ahbid <Nr> <Betrag> | ahbuy <Nr> | ahcancel <Nr>
+  gcreate <Name> | ginvite <Name> | gjoin | gdecline | gleave | gkick <Name> | grank <Name> <0-4> | gmotd <Text> | guild | gu <Text> | gdisband
+  friends | friend <Name> | unfriend <Name> | ignore <Name> | unignore <Name> | report <Name> <Text> | share [aus] | summon <KI-Begleiter>
   riding (beim Stallmeister) | mounts | mount [id] | dismount
   need | greed | pass | lootrule [frei|reihum|gruppe|bedarf|meister] | resettalents [ja] | /würfeln
   cmd <befehl> [botId] | mark <1-8> [id]   (8 = Totenkopf, 7 = Kreuz, 5 = Mond/Kontrolle; 0 als Ziel löscht)

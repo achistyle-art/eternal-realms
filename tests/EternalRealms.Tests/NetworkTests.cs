@@ -200,6 +200,33 @@ namespace EternalRealms.Tests
             await store.CommitAsync(del);
             Assert.DoesNotContain(await store.LoadMailAsync(), m => m.Id == mailId);
 
+            // Freunde, Ignorieren und Gilde (Migration 003)
+            var other = new CharacterData { Name = name + "b", Race = Race.Grakar, Class = CharClass.Warrior, AccountId = acc.Id, ZoneId = "zone_aschensteppe" };
+            long otherId = await store.CreateAsync(other);
+            again.Friends.Add(new SocialEntry { CharacterId = otherId, Name = other.Name, Note = "Kumpel" });
+            again.Ignored.Add(new SocialEntry { CharacterId = otherId, Name = other.Name });
+            again.ShareLocation = false;
+            await store.SaveAsync(again);
+            var social = (await store.GetAsync(id))!;
+            Assert.Equal("Kumpel", social.Friends.Single().Note);
+            Assert.Equal(other.Name, social.Ignored.Single().Name);
+            Assert.False(social.ShareLocation);
+            long gid = DateTime.UtcNow.Ticks % 1_000_000_000;
+            var guild = new GuildData { Id = gid, Name = "Testgilde " + name, Faction = Faction.Schattenpakt, LeaderId = id, Motd = "Hallo" };
+            guild.Members.Add(new GuildMemberData { CharacterId = id, Rank = 0 });
+            guild.Members.Add(new GuildMemberData { CharacterId = otherId, Rank = 4 });
+            await store.SaveGuildAsync(guild);
+            guild.Members.RemoveAt(1);
+            guild.Motd = "Neu";
+            await store.SaveGuildAsync(guild);
+            var loaded = (await store.LoadGuildsAsync()).Single(g => g.Id == gid);
+            Assert.Equal("Neu", loaded.Motd);
+            Assert.Equal(name, loaded.Members.Single().Name);
+            await store.SaveReportAsync(new PlayerReport { ReporterId = id, ReporterName = name, TargetId = otherId, TargetName = other.Name, Reason = "Test", Evidence = { "x" } });
+            await store.DeleteGuildAsync(gid);
+            Assert.DoesNotContain(await store.LoadGuildsAsync(), g => g.Id == gid);
+            await store.DeleteAsync(otherId);
+
             await store.DeleteAsync(id);
             Assert.Null(await store.GetAsync(id));
         }

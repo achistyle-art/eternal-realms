@@ -82,6 +82,7 @@ namespace EternalRealms.Server.Systems
             p.Zone?.BroadcastFrom(p, msg);
             if (p.Group != null) p.Group.Broadcast(p.Group.BuildUpdate());
             p.Bot?.OnLevelUp();
+            _w.Guilds.OnLevelUp(p);
             if (p.Pet != null) { p.Pet.Level = p.Level; p.Pet.MarkStatsDirty(); }
             p.Send(p.BuildTalents());
             _w.Quests.RefreshMarkers(p);

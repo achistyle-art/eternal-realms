@@ -349,6 +349,23 @@ namespace EternalRealms.Server.Net
                 case C_Mount mo: err = _w.Mounts.Mount(p, mo.MountId ?? ""); break;
                 case C_Dismount: _w.Mounts.Dismount(p); return;
                 case C_LearnRiding lrd: err = _w.Mounts.LearnRiding(p, lrd.NpcId); break;
+                case C_GuildCreate gc: err = _w.Guilds.Create(p, gc.Text); break;
+                case C_GuildInvite gin: err = _w.Guilds.Invite(p, gin.Text); break;
+                case C_GuildRespond gr: err = _w.Guilds.Respond(p, gr.Accept); break;
+                case C_GuildLeave: err = _w.Guilds.Leave(p); break;
+                case C_GuildKick gk: err = _w.Guilds.Kick(p, gk.CharacterId); break;
+                case C_GuildSetRank gsr: err = _w.Guilds.SetRank(p, gsr.CharacterId, gsr.Rank); break;
+                case C_GuildMotd gm: err = _w.Guilds.SetMotd(p, gm.Text); break;
+                case C_GuildDisband: err = _w.Guilds.Disband(p); break;
+                case C_GuildRoster: p.Send(_w.Guilds.BuildRoster(p)); return;
+                case C_FriendList: p.Send(_w.Social.BuildList(p)); return;
+                case C_FriendAdd fa: _w.Social.AddFriend(p, fa.Text); return;
+                case C_FriendRemove fr: _w.Social.RemoveFriend(p, fr.CharacterId); return;
+                case C_IgnoreAdd ia: _w.Social.Ignore(p, ia.Text); return;
+                case C_IgnoreRemove ir: _w.Social.Unignore(p, ir.CharacterId); return;
+                case C_ShareLocation sl: _w.Social.SetShareLocation(p, sl.Share); return;
+                case C_ReportPlayer rp: _w.Social.Report(p, rp.Name, rp.Reason, rp.Text); return;
+                case C_InviteFavorite ifv: err = _w.Bots.InviteFavorite(p, ifv.CharacterId); if (err == null) p.Send(_w.Social.BuildList(p)); break;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);

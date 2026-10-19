@@ -25,6 +25,8 @@ namespace EternalRealms.Server.World
         public EconomySystem Economy { get; }
         public MailSystem Mail { get; }
         public MountSystem Mounts { get; }
+        public GuildSystem Guilds { get; }
+        public SocialSystem Social { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
@@ -59,6 +61,8 @@ namespace EternalRealms.Server.World
             Economy = new EconomySystem(this);
             Mail = new MailSystem(this);
             Mounts = new MountSystem(this);
+            Guilds = new GuildSystem(this);
+            Social = new SocialSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
@@ -216,6 +220,12 @@ namespace EternalRealms.Server.World
             if (p.Connection == null) return;
             p.Send(new S_EnterWorld { EntityId = p.Id, CharacterId = p.Data.Id, ZoneId = p.Zone!.Def.Id, Position = p.Position, Facing = p.Facing });
             p.Send(Mounts.BuildJournal(p));
+            if (!p.IsBot)
+            {
+                Guilds.OnLogin(p);
+                p.Send(Social.BuildList(p));
+                Social.NotifyFriends(p, true);
+            }
             p.Send(p.BuildSpawn(p));
             p.Send(p.BuildPlayerState());
             p.Send(p.BuildSpellBook());
@@ -235,6 +245,7 @@ namespace EternalRealms.Server.World
             if (p.Group != null) Groups.Leave(p);
             Save(p);
             RemoveFromWorld(p);
+            if (!p.IsBot) Social.NotifyFriends(p, false);
         }
 
         public void RemoveFromWorld(Player p)

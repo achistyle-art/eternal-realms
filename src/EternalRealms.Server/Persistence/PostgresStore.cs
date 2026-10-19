@@ -11,7 +11,7 @@ namespace EternalRealms.Server.Persistence
     /// Quests und Ruf in eigenen Tabellen (abfragbar, z. B. für Auktionshaus und Auswertungen).
     /// Ein Speichervorgang ist eine Transaktion: Entweder alles oder nichts wird geschrieben.
     /// </summary>
-    public sealed class PostgresStore : IAccountRepository, ICharacterRepository, IEconomyRepository, IDisposable
+    public sealed class PostgresStore : IAccountRepository, ICharacterRepository, IEconomyRepository, ISocialRepository, IDisposable
     {
         private readonly NpgsqlDataSource _ds;
         private static readonly JsonSerializerOptions Json = ContentDatabase.CreateOptions();
@@ -92,6 +92,7 @@ namespace EternalRealms.Server.Persistence
             public DateTime LastTalentReset { get; set; }
             public int RidingSkill { get; set; }
             public HashSet<string> Mounts { get; set; } = new();
+            public bool ShareLocation { get; set; } = true;
         }
 
         private const string CharColumns = "id, account_id, name, race, class, gender, appearance, level, xp, rested_xp, money, zone_id, pos_x, pos_y, pos_z, facing, " +
@@ -150,7 +151,7 @@ namespace EternalRealms.Server.Persistence
                     DeathState = (DeathState)r.GetInt16(18), IsBot = r.GetBoolean(19),
                     Bot = r.IsDBNull(20) ? null : JsonSerializer.Deserialize<BotData>(r.GetString(20), Json),
                     CorpseZone = ws.CorpseZone, CorpsePosition = ws.CorpsePosition, BindZone = ws.BindZone, BindPosition = ws.BindPosition,
-                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset, RidingSkill = ws.RidingSkill, Mounts = ws.Mounts,
+                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset, RidingSkill = ws.RidingSkill, Mounts = ws.Mounts, ShareLocation = ws.ShareLocation,
                     DiscoveredAreas = new HashSet<string>(r.GetFieldValue<string[]>(22)), KnownTravelNodes = new HashSet<string>(r.GetFieldValue<string[]>(23)),
                     CompletedQuests = new HashSet<string>(r.GetFieldValue<string[]>(24)), PlayedSeconds = r.GetInt64(25), LoggedOutInInn = r.GetBoolean(26),
                     CreatedAt = r.GetDateTime(27), LastLogout = r.GetDateTime(28),
@@ -161,6 +162,18 @@ namespace EternalRealms.Server.Persistence
                 cmd.Parameters.AddWithValue("id", id);
                 await using var r = await cmd.ExecuteReaderAsync();
                 while (await r.ReadAsync()) c.Abilities[r.GetString(0)] = r.GetInt32(1);
+            }
+            await using (var cmd = new NpgsqlCommand("SELECT f.friend_id, c.name, f.note FROM friends f JOIN characters c ON c.id = f.friend_id WHERE f.character_id = @id", conn))
+            {
+                cmd.Parameters.AddWithValue("id", id);
+                await using var r = await cmd.ExecuteReaderAsync();
+                while (await r.ReadAsync()) c.Friends.Add(new SocialEntry { CharacterId = r.GetInt64(0), Name = r.GetString(1), Note = r.GetString(2) });
+            }
+            await using (var cmd = new NpgsqlCommand("SELECT i.ignored_id, c.name FROM character_ignores i JOIN characters c ON c.id = i.ignored_id WHERE i.character_id = @id", conn))
+            {
+                cmd.Parameters.AddWithValue("id", id);
+                await using var r = await cmd.ExecuteReaderAsync();
+                while (await r.ReadAsync()) c.Ignored.Add(new SocialEntry { CharacterId = r.GetInt64(0), Name = r.GetString(1) });
             }
             await using (var cmd = new NpgsqlCommand("SELECT talent_id, rank FROM character_talents WHERE character_id = @id", conn))
             {
@@ -243,7 +256,7 @@ namespace EternalRealms.Server.Persistence
             var ws = new WorldStateJson
             {
                 CorpseZone = d.CorpseZone, CorpsePosition = d.CorpsePosition, BindZone = d.BindZone, BindPosition = d.BindPosition,
-                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset, RidingSkill = d.RidingSkill, Mounts = d.Mounts,
+                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset, RidingSkill = d.RidingSkill, Mounts = d.Mounts, ShareLocation = d.ShareLocation,
             };
             await using (var cmd = new NpgsqlCommand(
                 "UPDATE characters SET level=@lv, xp=@xp, rested_xp=@rx, money=@m, zone_id=@z, pos_x=@x, pos_y=@y, pos_z=@zz, facing=@f, health=@h, mana=@mn, " +
@@ -261,13 +274,30 @@ namespace EternalRealms.Server.Persistence
                 p.AddWithValue("ll", DateTime.SpecifyKind(d.LastLogout, DateTimeKind.Utc)); p.AddWithValue("id", d.Id);
                 await cmd.ExecuteNonQueryAsync();
             }
-            foreach (var table in new[] { "character_abilities", "character_talents", "character_items", "character_quests", "character_reputation" })
+            foreach (var table in new[] { "character_abilities", "character_talents", "character_items", "character_quests", "character_reputation", "friends", "character_ignores" })
                 await using (var del = new NpgsqlCommand($"DELETE FROM {table} WHERE character_id = @id", conn, tx))
                 {
                     del.Parameters.AddWithValue("id", d.Id);
                     await del.ExecuteNonQueryAsync();
                 }
             // Mehrere Zeilen je Tabelle in einem Befehl (unnest über Arrays) statt einzelner INSERTs.
+            if (d.Friends.Count > 0)
+                await using (var cmd = new NpgsqlCommand("INSERT INTO friends (character_id, friend_id, note) SELECT @id, f, n FROM unnest(@f, @n) AS t(f, n) " +
+                                                         "WHERE EXISTS (SELECT 1 FROM characters WHERE id = f) ON CONFLICT DO NOTHING", conn, tx))
+                {
+                    cmd.Parameters.AddWithValue("id", d.Id);
+                    cmd.Parameters.AddWithValue("f", d.Friends.Select(f => f.CharacterId).ToArray());
+                    cmd.Parameters.AddWithValue("n", d.Friends.Select(f => f.Note).ToArray());
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            if (d.Ignored.Count > 0)
+                await using (var cmd = new NpgsqlCommand("INSERT INTO character_ignores (character_id, ignored_id) SELECT @id, i FROM unnest(@i) AS t(i) " +
+                                                         "WHERE EXISTS (SELECT 1 FROM characters WHERE id = i) ON CONFLICT DO NOTHING", conn, tx))
+                {
+                    cmd.Parameters.AddWithValue("id", d.Id);
+                    cmd.Parameters.AddWithValue("i", d.Ignored.Select(f => f.CharacterId).ToArray());
+                    await cmd.ExecuteNonQueryAsync();
+                }
             await InsertKeyValues(conn, tx, "character_abilities", "ability_id", "rank", d.Id, d.Abilities);
             await InsertKeyValues(conn, tx, "character_talents", "talent_id", "rank", d.Id, d.Talents);
             await InsertKeyValues(conn, tx, "character_reputation", "faction_id", "value", d.Id, d.Reputation);
@@ -419,6 +449,82 @@ namespace EternalRealms.Server.Persistence
             while (await r.ReadAsync())
                 list.Add(new LedgerEntry { At = r.GetDateTime(0), CharacterId = r.GetInt64(1), CharacterName = r.GetString(2), Delta = r.GetInt64(3), Balance = r.GetInt64(4), Reason = r.GetString(5), Reference = r.GetString(6) });
             return list;
+        }
+
+        // ------------------------------------------------------------ Soziales
+
+        public async Task<List<GuildData>> LoadGuildsAsync()
+        {
+            var guilds = new Dictionary<long, GuildData>();
+            await using var conn = await _ds.OpenConnectionAsync();
+            await using (var cmd = new NpgsqlCommand("SELECT id, name, faction, COALESCE(leader_id, 0), motd, info, rank_names, created_at FROM guilds", conn))
+            await using (var r = await cmd.ExecuteReaderAsync())
+                while (await r.ReadAsync())
+                    guilds[r.GetInt64(0)] = new GuildData
+                    {
+                        Id = r.GetInt64(0), Name = r.GetString(1), Faction = (Faction)r.GetInt16(2), LeaderId = r.GetInt64(3), Motd = r.GetString(4), Info = r.GetString(5),
+                        RankNames = ((string[])r.GetValue(6)).ToList(), CreatedAt = r.GetDateTime(7),
+                    };
+            await using (var cmd = new NpgsqlCommand("SELECT m.guild_id, m.character_id, c.name, m.rank, m.note, c.level, c.class, c.is_bot, m.joined_at " +
+                                                     "FROM guild_members m JOIN characters c ON c.id = m.character_id", conn))
+            await using (var r = await cmd.ExecuteReaderAsync())
+                while (await r.ReadAsync())
+                    if (guilds.TryGetValue(r.GetInt64(0), out var g))
+                        g.Members.Add(new GuildMemberData
+                        {
+                            CharacterId = r.GetInt64(1), Name = r.GetString(2), Rank = r.GetInt16(3), Note = r.GetString(4), Level = r.GetInt32(5),
+                            Class = (CharClass)r.GetInt16(6), IsBot = r.GetBoolean(7), JoinedAt = r.GetDateTime(8),
+                        });
+            return guilds.Values.ToList();
+        }
+
+        public async Task SaveGuildAsync(GuildData g)
+        {
+            await using var conn = await _ds.OpenConnectionAsync();
+            await using var tx = await conn.BeginTransactionAsync();
+            await using (var cmd = new NpgsqlCommand("INSERT INTO guilds (id, name, faction, leader_id, motd, info, rank_names, created_at) VALUES (@id, @n, @f, @l, @m, @i, @r, @c) " +
+                                                     "ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, leader_id=EXCLUDED.leader_id, motd=EXCLUDED.motd, info=EXCLUDED.info, rank_names=EXCLUDED.rank_names", conn, tx))
+            {
+                var p = cmd.Parameters;
+                p.AddWithValue("id", g.Id); p.AddWithValue("n", g.Name); p.AddWithValue("f", (short)g.Faction); p.AddWithValue("l", g.LeaderId);
+                p.AddWithValue("m", g.Motd); p.AddWithValue("i", g.Info); p.AddWithValue("r", g.RankNames.ToArray()); p.AddWithValue("c", g.CreatedAt);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            await using (var cmd = new NpgsqlCommand("DELETE FROM guild_members WHERE guild_id = @id", conn, tx))
+            {
+                cmd.Parameters.AddWithValue("id", g.Id);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            if (g.Members.Count > 0)
+                await using (var cmd = new NpgsqlCommand("INSERT INTO guild_members (guild_id, character_id, rank, note, joined_at) SELECT @g, c, r, n, j FROM unnest(@c, @r, @n, @j) AS t(c, r, n, j) " +
+                                                         "WHERE EXISTS (SELECT 1 FROM characters WHERE id = c)", conn, tx))
+                {
+                    var p = cmd.Parameters;
+                    p.AddWithValue("g", g.Id);
+                    p.AddWithValue("c", g.Members.Select(m => m.CharacterId).ToArray());
+                    p.AddWithValue("r", g.Members.Select(m => (short)m.Rank).ToArray());
+                    p.AddWithValue("n", g.Members.Select(m => m.Note).ToArray());
+                    p.AddWithValue("j", g.Members.Select(m => m.JoinedAt).ToArray());
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            await tx.CommitAsync();
+        }
+
+        public async Task DeleteGuildAsync(long guildId)
+        {
+            await using var cmd = _ds.CreateCommand("DELETE FROM guilds WHERE id = @id");
+            cmd.Parameters.AddWithValue("id", guildId);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task SaveReportAsync(PlayerReport rep)
+        {
+            await using var cmd = _ds.CreateCommand("INSERT INTO player_reports (at, reporter_id, reporter_name, target_id, target_name, reason, text, evidence) " +
+                                                    "VALUES (@at, @rid, @rn, @tid, @tn, @r, @t, @e::jsonb)");
+            var p = cmd.Parameters;
+            p.AddWithValue("at", rep.At); p.AddWithValue("rid", rep.ReporterId); p.AddWithValue("rn", rep.ReporterName); p.AddWithValue("tid", (object?)rep.TargetId ?? DBNull.Value);
+            p.AddWithValue("tn", rep.TargetName); p.AddWithValue("r", rep.Reason); p.AddWithValue("t", rep.Text); p.AddWithValue("e", JsonSerializer.Serialize(rep.Evidence, Json));
+            await cmd.ExecuteNonQueryAsync();
         }
 
         public async Task DeleteAsync(long id)

@@ -45,7 +45,7 @@ namespace EternalRealms.Server.Persistence
     }
 
     /// <summary>Speicher im Arbeitsspeicher – für Tests und Einzelspieler ohne Datenbank.</summary>
-    public sealed class InMemoryStore : IAccountRepository, ICharacterRepository, IEconomyRepository
+    public sealed class InMemoryStore : IAccountRepository, ICharacterRepository, IEconomyRepository, ISocialRepository
     {
         private readonly ConcurrentDictionary<long, Account> _accounts = new();
         private readonly ConcurrentDictionary<long, CharacterData> _chars = new();
@@ -136,5 +136,16 @@ namespace EternalRealms.Server.Persistence
         {
             lock (_economyLock) return Task.FromResult(_ledger.Where(l => l.CharacterId == characterId).Reverse().Take(limit).ToList());
         }
+
+        // ------------------------------------------------------------ Soziales
+
+        private readonly Dictionary<long, GuildData> _guilds = new();
+        private readonly List<PlayerReport> _reports = new();
+        public IReadOnlyList<PlayerReport> Reports { get { lock (_economyLock) return _reports.ToList(); } }
+
+        public Task<List<GuildData>> LoadGuildsAsync() { lock (_economyLock) return Task.FromResult(_guilds.Values.Select(g => g.Clone()).ToList()); }
+        public Task SaveGuildAsync(GuildData guild) { lock (_economyLock) _guilds[guild.Id] = guild.Clone(); return Task.CompletedTask; }
+        public Task DeleteGuildAsync(long guildId) { lock (_economyLock) _guilds.Remove(guildId); return Task.CompletedTask; }
+        public Task SaveReportAsync(PlayerReport report) { lock (_economyLock) _reports.Add(report); return Task.CompletedTask; }
     }
 }
