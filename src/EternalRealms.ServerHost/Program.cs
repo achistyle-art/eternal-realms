@@ -25,11 +25,15 @@ if (!server.Start())
 }
 Console.WriteLine($"Server läuft auf UDP-Port {config.Port} mit {config.TickRate} Ticks/s. Strg+C beendet.");
 using var cts = new CancellationTokenSource();
+var stopped = new ManualResetEventSlim(false);
 Console.CancelKeyPress += (_, e) => { e.Cancel = true; cts.Cancel(); };
-AppDomain.CurrentDomain.ProcessExit += (_, _) => cts.Cancel();
+// SIGTERM (systemd, Docker): erst sauber speichern, dann beenden.
+AppDomain.CurrentDomain.ProcessExit += (_, _) => { cts.Cancel(); stopped.Wait(TimeSpan.FromSeconds(20)); };
 server.Run(cts.Token);
 Console.WriteLine("Speichere alle Charaktere …");
 server.Dispose();
+Console.WriteLine("Server beendet.");
+stopped.Set();
 return 0;
 
 static string FindRoot()

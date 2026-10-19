@@ -196,6 +196,7 @@ namespace EternalRealms.Server.World
         {
             if (p.Connection == null) return;
             p.Send(new S_EnterWorld { EntityId = p.Id, CharacterId = p.Data.Id, ZoneId = p.Zone!.Def.Id, Position = p.Position, Facing = p.Facing });
+            p.Send(p.BuildSpawn(p));
             p.Send(p.BuildPlayerState());
             p.Send(p.BuildSpellBook());
             p.Send(p.BuildTalents());

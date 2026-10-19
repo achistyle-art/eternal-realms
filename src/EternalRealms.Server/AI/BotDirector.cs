@@ -160,7 +160,8 @@ namespace EternalRealms.Server.AI
         /// <summary>Erzeugt einen vollständigen Bot-Charakter: Volk/Klasse passend zur Rolle, Fähigkeiten und Talente seiner Stufe.</summary>
         public CharacterData? CreateBotData(Faction faction, Role role, int level, CharClass? cls, string zoneId, bool ambient = false)
         {
-            var classes = _w.Content.BotProfiles.Where(pr => pr.Role == role).Select(pr => pr.Class).Distinct()
+            // Nur Klassen, die diese Rolle auf dieser Stufe schon ausfüllen können (z. B. Bärengestalt erst ab Stufe 10).
+            var classes = _w.Content.BotProfiles.Where(pr => pr.Role == role && RoleAvailableAt(pr, level)).Select(pr => pr.Class).Distinct()
                 .Where(c => _w.Content.Races.Values.Any(r => r.Faction == faction && r.Classes.Contains(c))).ToList();
             if (cls.HasValue) classes = classes.Where(c => c == cls).ToList();
             if (classes.Count == 0) return null;
@@ -193,6 +194,14 @@ namespace EternalRealms.Server.AI
             data.Health = 0;
             data.Mana = 0;
             return data;
+        }
+
+        private bool RoleAvailableAt(BotProfileDef profile, int level)
+        {
+            if (profile.Form == Form.None) return true;
+            var formAbility = _w.Content.ClassAbilityBases(profile.Class).FirstOrDefault(a =>
+                a.Effects.Any(e => e.Type == EffectType.ApplyAura && e.Aura != null && _w.Content.Auras[e.Aura].Form == profile.Form));
+            return formAbility == null || formAbility.Level <= level;
         }
 
         private Persistence.AppearanceDto RandomAppearance(RaceDef r)

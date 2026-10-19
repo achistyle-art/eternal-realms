@@ -117,9 +117,16 @@ namespace EternalRealms.Server
 
         public void Dispose()
         {
-            Stop();
-            Thread.Sleep(500); // Hintergrund-Speichervorgänge abschließen lassen
+            if (_disposed) return;
+            _disposed = true;
+            var pending = World.AllPlayers.ToList();
+            foreach (var p in pending) World.Logout(p);
+            Network.Stop();
+            _running = false;
+            Thread.Sleep(1500); // Hintergrund-Speichervorgänge abschließen lassen
             _store?.Dispose();
         }
+
+        private bool _disposed;
     }
 }
