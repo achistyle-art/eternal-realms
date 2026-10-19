@@ -161,6 +161,8 @@ namespace EternalRealms.Server.Systems
             var stack = p.Data.Bag[bagIndex]!;
             var def = _w.Content.Items[stack.ItemId];
             if (def.IsEquippable) { var err = p.Equip(bagIndex); if (err == null) p.Send(p.BuildInventory()); return err; }
+            if (def.TeachesMount != null) return _w.Mounts.LearnMount(p, bagIndex);
+            if (def.Category == ItemCategory.Container) { var err = p.EquipBag(bagIndex); if (err == null) p.Send(p.BuildInventory()); return err; }
             if (def.UseAbility == null) return "Dieser Gegenstand kann nicht benutzt werden.";
             if (p.Level < def.RequiredLevel) return $"Benötigt Stufe {def.RequiredLevel}.";
             var ab = _w.Content.GetAbilityRank(def.UseAbility, 1)!;

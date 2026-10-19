@@ -45,6 +45,8 @@ namespace EternalRealms.Server.Systems
                     p.RemoveAuras(a => a.Def.Form != Form.None);
             }
             if (ab.RequiresComboPoints && caster.ComboPoints <= 0) return "Keine Kombopunkte.";
+            // Jede andere Fähigkeit wirft vom Reittier.
+            if (caster is Player rider && rider.IsMounted && !ab.Id.StartsWith("mount_ride_", StringComparison.Ordinal)) _w.Mounts.Dismount(rider);
 
             var (target, err) = ResolveTarget(caster, ab, explicitTarget);
             if (err != null) return err;
@@ -560,6 +562,7 @@ namespace EternalRealms.Server.Systems
                 target.RemoveAura(existing);
             }
             if (def.Form != Form.None) target.RemoveAuras(a => a.Def.Form != Form.None);
+            if (def.Mounted) target.RemoveAuras(a => a.Def.Mounted);
             var aura = new Aura(def, caster, sourceAbility)
             {
                 AbsorbLeft = def.Absorb > 0 ? def.Absorb + (int)(def.AbsorbCoefficient * caster.SpellPower) : 0,
@@ -569,6 +572,7 @@ namespace EternalRealms.Server.Systems
             target.AurasChanged = true;
             target.MarkStatsDirty();
             if (def.Form != Form.None) target.SetForm(def.Form);
+            if (def.Mounted && target is Player mounted) _w.Mounts.OnMounted(mounted);
             if ((def.Stun || def.Fear) && target.Cast != null) CancelCast(target, "Unterbrochen");
             if (def.Silence && target.Cast != null && target.Cast.Ability.IsSpell) CancelCast(target, "Unterbrochen");
             if (def.Fear)

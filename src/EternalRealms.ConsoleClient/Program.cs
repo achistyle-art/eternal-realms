@@ -277,6 +277,13 @@ void Command(string line)
             break;
         }
         case "resettalents": client.Send(new C_ResetTalents { NpcId = client.LastInteraction?.NpcId ?? 0, Confirm = a.Length > 0 && a[0] == "ja" }); break;
+        case "mount": client.Send(new C_Mount { MountId = a.Length > 0 ? a[0] : "" }); break;
+        case "dismount": client.Send(new C_Dismount()); break;
+        case "riding": client.Send(new C_LearnRiding { NpcId = Nearest(NpcRole.RidingTrainer) }); break;
+        case "mounts":
+            Print($"Reitfertigkeit {client.MountJournal.RidingSkill}; Reittiere: " + (client.MountJournal.Mounts.Count == 0 ? "keine" :
+                  string.Join(", ", client.MountJournal.Mounts.Select(m => content.Mounts.TryGetValue(m, out var md) ? $"{md.Name} [{m}]" : m))));
+            break;
         case "mark": client.Send(new C_SetMarker { Marker = (byte)Int(0, 8), TargetId = a.Length > 1 ? Int(1) : me?.TargetId ?? 0 }); break;
         case "bot": client.Send(new C_BotInvite { CandidateId = client.BotCandidates[Int(0) - 1].CandidateId }); break;
         case "dismiss": client.Send(new C_BotDismiss { EntityId = Int(0) }); break;
@@ -464,6 +471,7 @@ void Help() => Print(@"Befehle:
   bank | deposit <Platz> | withdraw <Fach>   (beim Bankier)
   mail | send <Name> <Kupfer> <Betreff> [| 3,4] | take <Nr> | delmail <Nr> | return <Nr>   (am Briefkasten)
   ah [Suchtext] | ahmine [gebote] | ahsell <Platz> <Anzahl> <Gebot> [Sofortkauf] [12|24|48] | ahbid <Nr> <Betrag> | ahbuy <Nr> | ahcancel <Nr>
+  riding (beim Stallmeister) | mounts | mount [id] | dismount
   need | greed | pass | lootrule [frei|reihum|gruppe|bedarf|meister] | resettalents [ja] | /würfeln
   cmd <befehl> [botId] | mark <1-8> [id]   (8 = Totenkopf, 7 = Kreuz, 5 = Mond/Kontrolle; 0 als Ziel löscht)
   Chatbefehle: p Tank, greif den Boss an. | p Heiler, bitte Mana auffüllen. | p Magier, kontrolliere den linken Gegner. | p Alle zurückziehen.

@@ -123,6 +123,46 @@
   ]
  },
  {
+  "id": "mount_ride_60",
+  "name": "Aufsitzen",
+  "description": "Ruft Euer Reittier (+60 % Tempo).",
+  "class": "None",
+  "level": 40,
+  "notTrainable": true,
+  "castTime": 1.5,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "mount",
+  "animation": "mount",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mount_60"
+   }
+  ]
+ },
+ {
+  "id": "mount_ride_100",
+  "name": "Aufsitzen",
+  "description": "Ruft Euer Reittier (+100 % Tempo).",
+  "class": "None",
+  "level": 60,
+  "notTrainable": true,
+  "castTime": 1.5,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "mount",
+  "animation": "mount",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mount_100"
+   }
+  ]
+ },
+ {
   "id": "racial_stoneform",
   "name": "Steingestalt",
   "description": "Felsgeborene: Verwandelt die Haut 8 Sekunden lang zu Stein.",

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using EternalRealms.Shared;
 using EternalRealms.Shared.Client;
@@ -197,6 +198,27 @@ namespace EternalRealms.Client
         private Vector3 _from, _to;
         private float _lerpStart;
         private Renderer _body = null!;
+        private GameObject? _mount;
+        private string _mountId = "";
+
+        /// <summary>Platzhalter-Reittier: liegende Kapsel unter der Figur, Farbe aus der Modell-ID.</summary>
+        private void SyncMount(ClientEntity e)
+        {
+            if (e.MountId == _mountId) return;
+            _mountId = e.MountId;
+            if (_mount != null) { Destroy(_mount); _mount = null; }
+            if (_mountId == "") return;
+            _mount = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            Destroy(_mount.GetComponent<Collider>());
+            _mount.name = "Reittier " + _mountId;
+            _mount.transform.SetParent(transform, false);
+            _mount.transform.localPosition = new Vector3(0, -1.0f, 0);
+            _mount.transform.localRotation = Quaternion.Euler(90, 0, 0);
+            _mount.transform.localScale = new Vector3(0.9f, 1.1f, 0.8f);
+            string model = NetworkManager.Instance.Content.Mounts.TryGetValue(_mountId, out var def) ? def.Model : _mountId;
+            int h = model.Aggregate(17, (acc, ch) => acc * 31 + ch);
+            _mount.GetComponent<Renderer>().material.color = Color.HSVToRGB((h & 0xffff) / 65535f, 0.35f, 0.75f);
+        }
 
         public static EntityView Create(ClientEntity e, bool isMe)
         {
@@ -228,7 +250,8 @@ namespace EternalRealms.Client
 
         public void Sync(ClientEntity e, bool isMe)
         {
-            float yOffset = e.Kind == EntityKind.GameObject ? 0.4f : transform.localScale.y;
+            SyncMount(e);
+            float yOffset = e.Kind == EntityKind.GameObject ? 0.4f : transform.localScale.y + (_mount != null ? 0.9f : 0f);
             var target = e.Position.ToUnity() + Vector3.up * yOffset;
             if (isMe)
             {

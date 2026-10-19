@@ -86,6 +86,20 @@ namespace EternalRealms.Server.World
             protected set { }
         }
 
+        // ---------------------------------------------------------------- Reiten
+
+        /// <summary>Aktives Reittier (leer = zu Fuß). Wird nicht gespeichert: Nach dem Einloggen ist man abgesessen.</summary>
+        public string ActiveMount { get; set; } = "";
+        /// <summary>Reittier, das gerade gerufen wird (während der Zauberzeit).</summary>
+        public string PendingMount { get; set; } = "";
+        public bool IsMounted => Auras.Any(a => a.Def.Mounted);
+
+        protected override void OnAuraRemoved(Aura aura)
+        {
+            base.OnAuraRemoved(aura);
+            if (aura.Def.Mounted && Zone != null) World.Mounts.OnDismounted(this);
+        }
+
         public override void SetForm(Form form)
         {
             if (form == Form) return;
@@ -415,7 +429,7 @@ namespace EternalRealms.Server.World
         public override S_EntitySpawn BuildSpawn(Player? viewer) => new()
         {
             Id = Id, Kind = EntityKind.Player, TemplateId = "", Name = Name, Title = IsBot ? "KI-Mitspieler" : "", Race = Race, Class = Class, Gender = Data.Gender,
-            Level = Level, Faction = Faction, PowerType = PowerType, Appearance = Data.Appearance.ToNet(), State = BuildSnapshot(),
+            Level = Level, Faction = Faction, PowerType = PowerType, Appearance = Data.Appearance.ToNet(), State = BuildSnapshot(), MountId = ActiveMount,
         };
 
         public override uint Flags

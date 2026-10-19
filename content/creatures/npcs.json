@@ -904,5 +904,47 @@
   "barks": [
    "Wer bietet mehr?"
   ]
+ },
+ {
+  "id": "npc_mt_stablemaster",
+  "name": "Stallmeisterin Edda Hufschlag",
+  "title": "Stallungen von Morgentau",
+  "faction": "Sonnenbuendnis",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 40,
+  "maxLevel": 40,
+  "model": "npc",
+  "vendorItems": [
+   "item_mount_grey_steed",
+   "item_mount_chestnut_steed",
+   "item_mount_mountain_ram",
+   "item_mount_moon_stag",
+   "item_mount_swift_white_steed"
+  ],
+  "gossip": "Ab Stufe 40 bringe ich Euch das Reiten bei – und ohne Reittier nützt das Können wenig.",
+  "barks": [
+   "Frisches Heu für alle!"
+  ]
+ },
+ {
+  "id": "npc_as_stablemaster",
+  "name": "Wolfshüter Garrok",
+  "title": "Zwinger des Lagers",
+  "faction": "Schattenpakt",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 40,
+  "maxLevel": 40,
+  "model": "npc",
+  "vendorItems": [
+   "item_mount_dune_wolf",
+   "item_mount_bone_mare",
+   "item_mount_plains_strider",
+   "item_mount_marsh_raptor",
+   "item_mount_swift_war_wolf"
+  ],
+  "gossip": "Ab Stufe 40 bringe ich Euch das Reiten bei – und ohne Reittier nützt das Können wenig.",
+  "barks": [
+   "Frisches Heu für alle!"
+  ]
  }
 ]

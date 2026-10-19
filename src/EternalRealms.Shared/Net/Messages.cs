@@ -482,16 +482,18 @@ namespace EternalRealms.Shared.Net
         public QuestMarker Marker;
         public AppearanceData Appearance = new AppearanceData();
         public EntitySnapshotData State = new EntitySnapshotData();
+        /// <summary>Aktives Reittier (leer = zu Fuß).</summary>
+        public string MountId = "";
         public override void Write(NetDataWriter w)
         {
             w.Put(Id); w.Put((byte)Kind); w.Put(TemplateId); w.Put(Name); w.Put(Title); w.Put((byte)Race); w.Put((byte)Class); w.Put((byte)Gender);
-            w.Put(Level); w.Put((byte)Faction); w.Put(NpcRoles); w.Put((byte)PowerType); w.Put((byte)Marker); Appearance.Write(w); State.Write(w);
+            w.Put(Level); w.Put((byte)Faction); w.Put(NpcRoles); w.Put((byte)PowerType); w.Put((byte)Marker); Appearance.Write(w); State.Write(w); w.Put(MountId);
         }
         public override void Read(NetDataReader r)
         {
             Id = r.GetInt(); Kind = (EntityKind)r.GetByte(); TemplateId = r.GetString(); Name = r.GetString(); Title = r.GetString();
             Race = (Race)r.GetByte(); Class = (CharClass)r.GetByte(); Gender = (Gender)r.GetByte(); Level = r.GetInt(); Faction = (Faction)r.GetByte();
-            NpcRoles = r.GetUShort(); PowerType = (PowerType)r.GetByte(); Marker = (QuestMarker)r.GetByte(); Appearance = AppearanceData.Read(r); State = EntitySnapshotData.Read(r);
+            NpcRoles = r.GetUShort(); PowerType = (PowerType)r.GetByte(); Marker = (QuestMarker)r.GetByte(); Appearance = AppearanceData.Read(r); State = EntitySnapshotData.Read(r); MountId = r.GetString();
         }
     }
 

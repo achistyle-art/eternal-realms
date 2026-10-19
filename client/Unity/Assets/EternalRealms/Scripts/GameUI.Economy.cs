@@ -244,5 +244,28 @@ namespace EternalRealms.Client
             LootMethod.FreeForAll => "Jeder für sich", LootMethod.RoundRobin => "Reihum", LootMethod.GroupLoot => "Gruppe",
             LootMethod.NeedBeforeGreed => "Bedarf vor Gier", _ => "Plündermeister",
         };
+
+        // ------------------------------------------------------------ Reittiere
+
+        private bool _showMounts;
+
+        private void DrawMountJournal()
+        {
+            var j = Client.MountJournal;
+            var area = Window("Reittiere (J) – Aufsitzen mit Y", 420, 420);
+            GUILayout.BeginArea(area);
+            string skill = j.RidingSkill >= 150 ? "Experte (+100 %)" : j.RidingSkill >= 75 ? "Lehrling (+60 %)" : "keine – beim Stallmeister ab Stufe 40";
+            GUILayout.Label($"Reitfertigkeit: {skill}", _wrap);
+            if (j.Mounts.Count == 0) GUILayout.Label("<i>Noch keine Reittiere.</i>", _wrap);
+            foreach (var id in j.Mounts)
+            {
+                if (!Content.Mounts.TryGetValue(id, out var m)) continue;
+                string col = m.Quality switch { ItemQuality.Rare => "#0070dd", ItemQuality.Epic => "#a335ee", ItemQuality.Legendary => "#ff8000", _ => "#1eff00" };
+                if (GUILayout.Button($"<color={col}>{m.Name}</color> (+{m.Speed} %){(j.Active == id ? " – aktiv" : "")}", new GUIStyle(GUI.skin.button) { richText = true }))
+                    Client.Send(new C_Mount { MountId = id });
+            }
+            if (GUILayout.Button("Schließen")) _showMounts = false;
+            GUILayout.EndArea();
+        }
     }
 }

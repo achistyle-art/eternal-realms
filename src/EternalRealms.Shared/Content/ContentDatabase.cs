@@ -30,6 +30,7 @@ namespace EternalRealms.Shared.Content
         public Dictionary<string, ZoneDef> Zones { get; } = new Dictionary<string, ZoneDef>();
         public Dictionary<string, QuestDef> Quests { get; } = new Dictionary<string, QuestDef>();
         public Dictionary<string, ReputationDef> Reputations { get; } = new Dictionary<string, ReputationDef>();
+        public Dictionary<string, MountDef> Mounts { get; } = new Dictionary<string, MountDef>();
         public Dictionary<string, TravelNodeDef> TravelNodes { get; } = new Dictionary<string, TravelNodeDef>();
         public List<FlightPathDef> FlightPaths { get; } = new List<FlightPathDef>();
         public List<BotDialogDef> BotDialog { get; } = new List<BotDialogDef>();
@@ -73,6 +74,7 @@ namespace EternalRealms.Shared.Content
             foreach (var z in ReadList<ZoneDef>(root, "zones")) AddUnique(db.Zones, z.Id, z, "Zone");
             foreach (var q in ReadList<QuestDef>(root, "quests")) AddUnique(db.Quests, q.Id, q, "Quest");
             foreach (var r in ReadList<ReputationDef>(root, "reputations")) AddUnique(db.Reputations, r.Id, r, "Ruf");
+            foreach (var m in ReadList<MountDef>(root, "mounts")) AddUnique(db.Mounts, m.Id, m, "Reittier");
             foreach (var n in ReadList<TravelNodeDef>(root, "travel/nodes")) AddUnique(db.TravelNodes, n.Id, n, "Reisepunkt");
             db.FlightPaths.AddRange(ReadList<FlightPathDef>(root, "travel/paths"));
             db.BotDialog.AddRange(ReadList<BotDialogDef>(root, "bots/dialog"));
@@ -336,6 +338,15 @@ namespace EternalRealms.Shared.Content
                 foreach (var x in new[] { p.Resurrect, p.Taunt, p.Interrupt, p.Pet }) if (x != null) Need(HasAbility(x), $"Bot-Profil {p.Class}/{p.Role}: Fähigkeit '{x}' fehlt");
                 Need(TalentTrees.ContainsKey(p.TalentTree), $"Bot-Profil {p.Class}/{p.Role}: Talentbaum '{p.TalentTree}' fehlt");
             }
+            foreach (var m in Mounts.Values)
+            {
+                Need(m.Speed == 60 || m.Speed == 100, $"Reittier {m.Id}: Tempo muss 60 oder 100 sein");
+                Need(m.Speed != 100 || m.RequiredLevel >= 60, $"Reittier {m.Id}: +100 % erst ab Stufe 60");
+                Need(Items.TryGetValue(m.Item, out var mi) && mi.TeachesMount == m.Id, $"Reittier {m.Id}: Zügel {m.Item} fehlt oder lehrt ein anderes Reittier");
+                Need(Abilities.ContainsKey("mount_ride_" + m.Speed) || AbilityRanks.ContainsKey("mount_ride_" + m.Speed), $"Reittier {m.Id}: Fähigkeit mount_ride_{m.Speed} fehlt");
+            }
+            foreach (var it in Items.Values.Where(i => i.TeachesMount != null))
+                Need(Mounts.ContainsKey(it.TeachesMount!), $"Gegenstand {it.Id}: unbekanntes Reittier {it.TeachesMount}");
             return errors;
         }
     }

@@ -38,6 +38,10 @@ namespace EternalRealms.Server.Persistence
         public Dictionary<int, ItemStack> BagContainers { get; set; } = new();
         /// <summary>Bankfächer; null = leer.</summary>
         public List<ItemStack?> Bank { get; set; } = new();
+        /// <summary>Reitfertigkeit: 0, 75 (Lehrling, +60 %) oder 150 (Experte, +100 %).</summary>
+        public int RidingSkill { get; set; }
+        /// <summary>Reittier-Sammlung.</summary>
+        public HashSet<string> Mounts { get; set; } = new();
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();

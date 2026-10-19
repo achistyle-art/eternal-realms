@@ -80,6 +80,8 @@ namespace EternalRealms.Client
                 if (Input.GetKeyDown(KeyCode.N)) _showTalents = !_showTalents;
                 if (Input.GetKeyDown(KeyCode.P)) _showGroup = !_showGroup;
                 if (Input.GetKeyDown(KeyCode.K)) _showBook = !_showBook;
+                if (Input.GetKeyDown(KeyCode.Y)) Client.Send(new C_Mount());
+                if (Input.GetKeyDown(KeyCode.J)) _showMounts = !_showMounts;
                 if (Input.GetKeyDown(KeyCode.Escape)) { _npc = null; _showQuests = _showBags = _showTalents = _showGroup = _showBook = false; _bankOpen = _mailOpen = _ahOpen = false; }
             }
             while (_noticeIndex < Client.Notices.Count) Toast(Client.Notices[_noticeIndex++]);
@@ -310,6 +312,7 @@ namespace EternalRealms.Client
             if (_showBook) DrawSpellBook();
             if (_npc != null) DrawNpc();
             DrawEconomyWindows();
+            if (_showMounts) DrawMountJournal();
         }
 
         private void DrawUnitFrame(Rect r, ClientEntity e, bool me)
@@ -821,6 +824,7 @@ namespace EternalRealms.Client
             foreach (var dest in ni.FlightDestinations)
                 if (GUILayout.Button($"Flug nach {Content.TravelNodes[dest].Name}")) { Client.Send(new C_TakeFlight { NpcId = ni.NpcId, Destination = dest }); _npc = null; }
             if (ni.CanResurrect && GUILayout.Button("Wiederbeleben lassen (Haltbarkeitsverlust, Wiederbelebungsschwäche)")) Client.Send(new C_SpiritHealerResurrect { NpcId = ni.NpcId });
+            if ((npc.Roles & NpcRole.RidingTrainer) != 0 && GUILayout.Button("Reiten lernen")) Client.Send(new C_LearnRiding { NpcId = ni.NpcId });
             if ((npc.Roles & NpcRole.Auctioneer) != 0 && GUILayout.Button("Auktionshaus öffnen")) { OpenAuctionHouse(ni.NpcId); _npc = null; }
             if ((npc.Roles & NpcRole.ClassTrainer) != 0 && npc.TrainerClass == (Client.Me?.Class ?? CharClass.None) && GUILayout.Button("Talente zurücksetzen …"))
                 Client.Send(new C_ResetTalents { NpcId = ni.NpcId, Confirm = false });

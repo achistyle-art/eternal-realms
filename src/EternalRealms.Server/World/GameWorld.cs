@@ -24,6 +24,7 @@ namespace EternalRealms.Server.World
         public PersistenceQueue? Persistence { get; }
         public EconomySystem Economy { get; }
         public MailSystem Mail { get; }
+        public MountSystem Mounts { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
@@ -57,6 +58,7 @@ namespace EternalRealms.Server.World
             Random = random ?? new GameRandom();
             Economy = new EconomySystem(this);
             Mail = new MailSystem(this);
+            Mounts = new MountSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
@@ -213,6 +215,7 @@ namespace EternalRealms.Server.World
         {
             if (p.Connection == null) return;
             p.Send(new S_EnterWorld { EntityId = p.Id, CharacterId = p.Data.Id, ZoneId = p.Zone!.Def.Id, Position = p.Position, Facing = p.Facing });
+            p.Send(Mounts.BuildJournal(p));
             p.Send(p.BuildSpawn(p));
             p.Send(p.BuildPlayerState());
             p.Send(p.BuildSpellBook());
@@ -327,6 +330,7 @@ namespace EternalRealms.Server.World
         public void Transfer(Player p, string zoneId, Vec3 pos, string? instanceKey = null)
         {
             if (!Content.Zones.TryGetValue(zoneId, out var def)) return;
+            if (def.IsInstance && p.IsMounted) Mounts.Dismount(p);
             ZoneInstance target;
             if (def.IsInstance)
             {

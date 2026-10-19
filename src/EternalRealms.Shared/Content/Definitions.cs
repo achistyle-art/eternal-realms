@@ -322,6 +322,8 @@ namespace EternalRealms.Shared.Content
         public bool Unique { get; set; }
         public bool BindOnPickup { get; set; }
         public int BagSlots { get; set; }
+        /// <summary>Benutzen fügt dieses Reittier der Sammlung hinzu.</summary>
+        public string? TeachesMount { get; set; }
         public string Icon { get; set; } = "";
         public string Model { get; set; } = "";
 
@@ -423,6 +425,26 @@ namespace EternalRealms.Shared.Content
         public int Hour { get; set; }
         public Vec3 Position { get; set; }
         public string Activity { get; set; } = "";
+    }
+
+    /// <summary>Reittier (Kapitel 18): Tempo +60 % ab Stufe 40 oder +100 % ab Stufe 60, Seltenheit über die Qualität.</summary>
+    public sealed class MountDef
+    {
+        public string Id { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string Description { get; set; } = "";
+        /// <summary>None = beide Fraktionen.</summary>
+        public Faction Faction { get; set; }
+        public int Speed { get; set; } = 60;
+        public int RequiredLevel { get; set; } = 40;
+        public ItemQuality Quality { get; set; } = ItemQuality.Uncommon;
+        /// <summary>Herkunft: vendor, drop, raid, reputation, achievement.</summary>
+        public string Source { get; set; } = "vendor";
+        public string Model { get; set; } = "";
+        /// <summary>Gegenstand (Zügel), der das Reittier lehrt.</summary>
+        public string Item { get; set; } = "";
+        public int Price { get; set; }
+        public bool BindOnPickup { get; set; }
     }
 
     public sealed class ReputationDef

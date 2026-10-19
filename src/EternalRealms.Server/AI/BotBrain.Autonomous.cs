@@ -45,6 +45,13 @@ namespace EternalRealms.Server.AI
         private void ThinkAutonomous()
         {
             var zone = Me.Zone!;
+            // Weite Wege reitend zurücklegen, am Ziel absitzen.
+            if (_moveTarget is Vec3 dest && !Me.InCombat && Me.Cast == null)
+            {
+                float dist = Vec3.DistanceXZ(Me.Position, dest);
+                if (dist > 80 && !Me.IsMounted && _w.Mounts.BestMount(Me) != null) { _w.Mounts.Mount(Me, ""); return; }
+                if (dist < 25 && Me.IsMounted) _w.Mounts.Dismount(Me);
+            }
             switch (_auto)
             {
                 case AutoState.Hunt: Hunt(zone); return;

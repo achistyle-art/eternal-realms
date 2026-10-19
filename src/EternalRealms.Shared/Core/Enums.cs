@@ -142,6 +142,8 @@ namespace EternalRealms.Shared
         Auctioneer = 1 << 8,
         Repair = 1 << 9,
         ProfessionTrainer = 1 << 10,
+        /// <summary>Stallmeister: lehrt Reiten, verkauft Reittiere.</summary>
+        RidingTrainer = 1 << 11,
     }
 
     [System.Flags]

@@ -49,6 +49,7 @@ namespace EternalRealms.Shared.Client
         public Dictionary<int, S_LootRollStart> OpenRolls { get; } = new Dictionary<int, S_LootRollStart>();
         public S_LootMethod LootMethod { get; private set; } = new S_LootMethod { Method = Net.LootMethod.GroupLoot, Threshold = ItemQuality.Uncommon };
         public S_TalentResetCost? TalentResetOffer { get; set; }
+        public S_MountJournal MountJournal { get; private set; } = new S_MountJournal();
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -207,6 +208,7 @@ namespace EternalRealms.Shared.Client
                 case S_LootRollResult rr: OpenRolls.Remove(rr.RollId); break;
                 case S_LootMethod lm: LootMethod = lm; break;
                 case S_TalentResetCost trc: TalentResetOffer = trc; break;
+                case S_MountJournal mj: MountJournal = mj; break;
                 case S_NpcInteraction ni: LastInteraction = ni; break;
                 case S_DeathState d: State.DeathState = d.State; State.CorpsePosition = d.CorpsePosition; break;
                 case S_WorldState w: State.World = w; break;

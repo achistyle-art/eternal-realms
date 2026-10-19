@@ -681,6 +681,15 @@
      414
     ],
     "facing": 1.4
+   },
+   {
+    "npc": "npc_as_stablemaster",
+    "position": [
+     436,
+     0,
+     430
+    ],
+    "facing": 4.2
    }
   ],
   "objects": [

@@ -575,6 +575,12 @@ for name, lv, mn, mx in (("item_minor_healing_potion", 1, 70, 90), ("item_lesser
       triggersGcd=False, icon="potion_red", animation="drink", effects=[eff("Heal", min=mn, max=mx)])
 A(c, id="item_hearthstone", name="Ruhestein", description="Bringt Euch zum Gasthaus Eures Heimatortes zurück.", **{"class": "None"}, level=1, notTrainable=True,
   castTime=10, cooldown=1800, target="Self", outOfCombatOnly=True, icon="hearthstone", animation="cast_long", effects=[eff("Teleport", zone="@bind")])
+# Reittiere (Kapitel 18): Aufsitzen dauert 1,5 Sekunden, Schaden oder eigene Angriffe werfen ab.
+for sp in (60, 100):
+    AU(c, id=f"mount_{sp}", name="Beritten", description=f"Bewegungstempo um {sp} % erhöht.", permanent=True, mounted=True, breaksOnDamage=True, dispellable=False,
+       modifiers=[{"type": "MoveSpeedPercent", "value": sp}])
+    A(c, id=f"mount_ride_{sp}", name="Aufsitzen", description=f"Ruft Euer Reittier (+{sp} % Tempo).", **{"class": "None"}, level=40 if sp == 60 else 60, notTrainable=True,
+      castTime=1.5, target="Self", outOfCombatOnly=True, triggersGcd=False, icon="mount", animation="mount", effects=[eff("ApplyAura", aura=f"mount_{sp}")])
 # Volksfähigkeiten
 AU(c, id="racial_stoneform", name="Steingestalt", description="Rüstung um 10 % erhöht, Gifte und Blutungen enden.", duration=8, modifiers=[{"type": "ArmorPercent", "value": 10}])
 A(c, id="racial_stoneform", name="Steingestalt", description="Felsgeborene: Verwandelt die Haut 8 Sekunden lang zu Stein.", **{"class": "None"}, level=1, notTrainable=True,

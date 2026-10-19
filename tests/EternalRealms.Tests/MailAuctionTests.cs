@@ -62,11 +62,13 @@ namespace EternalRealms.Tests
             t.World.Logout(b);
             t.Run(0.5);
             t.World.Mail.Send(a, new C_MailSend { ObjectId = box.Id, To = "Empfaenger", Subject = "Offline", Money = 50 });
-            t.Run(1, () => t.World.Mail.Inbox(bId).Count > 0);
+            Assert.True(t.World.Persistence!.Flush(TimeSpan.FromSeconds(5))); // Empfängersuche läuft im Hintergrund
+            t.Run(0.2);
             Assert.Single(t.World.Mail.Inbox(bId));
             a.AddItem("item_hearthstone", 1); // gebunden/Questgegenstand? Ruhestein ist einzigartig, aber nicht gebunden
             t.World.Mail.Send(a, new C_MailSend { ObjectId = box.Id, To = "Niemand", Subject = "x" });
-            t.Run(1);
+            Assert.True(t.World.Persistence!.Flush(TimeSpan.FromSeconds(5)));
+            t.Run(0.2);
             Assert.Contains(t.Conn(a).Of<S_Notice>(), n => n.Text.Contains("nicht gefunden"));
         }
     }

@@ -59,6 +59,36 @@
   ]
  },
  {
+  "id": "mount_60",
+  "name": "Beritten",
+  "description": "Bewegungstempo um 60 % erhöht.",
+  "permanent": true,
+  "mounted": true,
+  "breaksOnDamage": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": 60
+   }
+  ]
+ },
+ {
+  "id": "mount_100",
+  "name": "Beritten",
+  "description": "Bewegungstempo um 100 % erhöht.",
+  "permanent": true,
+  "mounted": true,
+  "breaksOnDamage": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": 100
+   }
+  ]
+ },
+ {
   "id": "racial_stoneform",
   "name": "Steingestalt",
   "description": "Rüstung um 10 % erhöht, Gifte und Blutungen enden.",

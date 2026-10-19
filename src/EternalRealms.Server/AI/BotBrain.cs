@@ -186,6 +186,9 @@ namespace EternalRealms.Server.AI
             var l = Leader;
             if (l == null) return;
             if (!Following) { if (Me.DistanceTo(StayPosition) > 1.5f) MoveTo(StayPosition, 1); return; }
+            // Reitet der Anführer, reiten die Bots mit – und sitzen mit ihm ab.
+            if (l.IsMounted && !Me.IsMounted && Me.Cast == null && !Me.InCombat && _w.Mounts.BestMount(Me) != null) { _w.Mounts.Mount(Me, ""); return; }
+            if (!l.IsMounted && Me.IsMounted) _w.Mounts.Dismount(Me);
             int idx = Me.Group!.Members.Where(m => m.IsBot).ToList().IndexOf(Me);
             float angle = l.Facing + (float)Math.PI + (idx - 1.5f) * 0.55f;
             float dist = 3f + (idx % 2) * 1.2f;
@@ -662,6 +665,7 @@ namespace EternalRealms.Server.AI
         {
             _w.Progression.AutoTrain(Me);
             if (Profile != null) _w.Progression.AutoSpendTalents(Me, Profile.TalentTree);
+            _w.Mounts.BotProgress(Me);
             Me.MarkStatsDirty();
             Say("level_up", force: InGroup);
             if (Me.Level % 10 == 0) RecordShared($"Stufe {Me.Level} erreicht", 1);

@@ -178,8 +178,13 @@ ring("item_wk_morrak_ring", "Ring des ewigen Waldes", "Finger", 19, 15, "Rare", 
 ring("item_wk_heart_trinket", "Pochendes Wurzelherz", "Trinket", 19, 15, "Rare", {"Stamina": 6}, extra=[{"type": "MaxHealthPercent", "value": 2}])
 armor("item_wk_crypt_boots", "Gruftwächterstiefel", "Feet", "Plate", 16, 13, "Uncommon", {"Strength": 4, "Stamina": 4})
 armor("item_wk_crypt_leggings", "Beinkleid des Gruftschlurfers", "Legs", "Cloth", 16, 13, "Uncommon", {"Intellect": 4, "Spirit": 3})
-# ---- Reittier (Platzhalter für das Reitsystem ab Stufe 40)
-misc("item_mount_bridle", "Zügel des Grauen Rosses", "Misc", "Rare", desc="Lehrt das Reiten (ab Stufe 40). Das Reittiersystem folgt in Meilenstein 3.", req=40, buy=800000, ilvl=40)
+# ---- Reittiere: Zügel lehren ein Reittier für die Sammlung (content/mounts.json)
+import json as _json, os as _os
+for m in _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "content", "mounts.json"), encoding="utf-8")):
+    d = misc(m["item"], f"Zügel: {m['name']}", "Misc", m["quality"], desc=f"Lehrt das Reittier „{m['name']}“ (+{m['speed']} % Tempo). {m['description']}",
+             req=m["requiredLevel"], buy=m.get("price", 0), ilvl=m["requiredLevel"])
+    d["teachesMount"] = m["id"]
+    if m.get("bindOnPickup"): d["bindOnPickup"] = True
 
 import os
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "content", "items.json")

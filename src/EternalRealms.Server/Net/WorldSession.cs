@@ -247,6 +247,7 @@ namespace EternalRealms.Server.Net
                     if (p.IsDead) { err = "Ihr seid tot."; break; }
                     p.Target = t;
                     p.AutoAttacking = true;
+                    if (p.IsMounted) _w.Mounts.Dismount(p);
                     return;
                 }
                 case C_AttackStop: p.AutoAttacking = false; return;
@@ -345,6 +346,9 @@ namespace EternalRealms.Server.Net
                 case C_MasterLoot mlt: err = _w.Loot.MasterLoot(p, mlt.CorpseId, mlt.ItemId ?? "", mlt.TargetId); break;
                 case C_SetLootMethod slm: err = _w.Groups.SetLootMethod(p, slm.Method, slm.Threshold, slm.MasterLooterId); break;
                 case C_ResetTalents rt: err = WithNpc(p, rt.NpcId, npc => _w.Progression.ResetTalents(p, npc, rt.Confirm)); break;
+                case C_Mount mo: err = _w.Mounts.Mount(p, mo.MountId ?? ""); break;
+                case C_Dismount: _w.Mounts.Dismount(p); return;
+                case C_LearnRiding lrd: err = _w.Mounts.LearnRiding(p, lrd.NpcId); break;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);

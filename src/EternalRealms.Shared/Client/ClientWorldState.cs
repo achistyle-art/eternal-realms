@@ -31,6 +31,8 @@ namespace EternalRealms.Shared.Client
         public List<AuraData> Auras = new List<AuraData>();
         public S_CastStart? Casting;
         public double CastStartedAt;
+        /// <summary>Aktives Reittier (leer = zu Fuß).</summary>
+        public string MountId = "";
 
         public bool IsDead => (Flags & (UnitFlags.Dead | UnitFlags.Ghost)) != 0;
         public bool IsBot => (Flags & UnitFlags.Bot) != 0;
@@ -76,7 +78,7 @@ namespace EternalRealms.Shared.Client
         {
             if (!Entities.TryGetValue(m.Id, out var e)) Entities[m.Id] = e = new ClientEntity { Id = m.Id };
             e.Kind = m.Kind; e.TemplateId = m.TemplateId; e.Name = m.Name; e.Title = m.Title; e.Race = m.Race; e.Class = m.Class; e.Gender = m.Gender;
-            e.Level = m.Level; e.Faction = m.Faction; e.Roles = (NpcRole)m.NpcRoles; e.PowerType = m.PowerType; e.Marker = m.Marker; e.Appearance = m.Appearance;
+            e.Level = m.Level; e.Faction = m.Faction; e.Roles = (NpcRole)m.NpcRoles; e.PowerType = m.PowerType; e.Marker = m.Marker; e.Appearance = m.Appearance; e.MountId = m.MountId;
             e.Apply(m.State, now);
             e.PreviousPosition = e.Position;
         }
