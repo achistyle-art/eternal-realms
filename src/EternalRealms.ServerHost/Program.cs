@@ -1,2 +1,40 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using EternalRealms.Server;
+
+// Eternal Realms – Realm-Server
+// Konfiguration über Umgebungsvariablen: ER_PORT, ER_DATABASE, ER_CONTENT, ER_DEV_COMMANDS, ER_AMBIENT_BOTS …
+var config = ServerConfig.FromEnvironment();
+string root = FindRoot();
+if (!Path.IsPathRooted(config.ContentPath)) config.ContentPath = Path.Combine(root, config.ContentPath);
+var migrations = Path.Combine(root, "db", "migrations");
+
+Console.WriteLine("Eternal Realms – Realm-Server");
+GameServer server;
+try
+{
+    server = await GameServer.CreateAsync(config, Directory.Exists(migrations) ? migrations : null);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine("Start fehlgeschlagen: " + ex.Message);
+    return 1;
+}
+if (!server.Start())
+{
+    Console.Error.WriteLine($"Port {config.Port} konnte nicht geöffnet werden.");
+    return 1;
+}
+Console.WriteLine($"Server läuft auf UDP-Port {config.Port} mit {config.TickRate} Ticks/s. Strg+C beendet.");
+using var cts = new CancellationTokenSource();
+Console.CancelKeyPress += (_, e) => { e.Cancel = true; cts.Cancel(); };
+AppDomain.CurrentDomain.ProcessExit += (_, _) => cts.Cancel();
+server.Run(cts.Token);
+Console.WriteLine("Speichere alle Charaktere …");
+server.Dispose();
+return 0;
+
+static string FindRoot()
+{
+    var dir = new DirectoryInfo(AppContext.BaseDirectory);
+    while (dir != null && !Directory.Exists(Path.Combine(dir.FullName, "content"))) dir = dir.Parent;
+    return dir?.FullName ?? Directory.GetCurrentDirectory();
+}

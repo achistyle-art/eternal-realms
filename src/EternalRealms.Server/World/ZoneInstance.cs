@@ -1,0 +1,323 @@
+using EternalRealms.Shared;
+using EternalRealms.Shared.Content;
+using EternalRealms.Shared.Net;
+
+namespace EternalRealms.Server.World
+{
+    /// <summary>
+    /// Eine laufende Zone: offene Weltregion oder Dungeon-Instanz. Jede Zone simuliert unabhängig und
+    /// kann später in einen eigenen Prozess ausgelagert werden (siehe docs/ARCHITEKTUR.md).
+    /// </summary>
+    public sealed class ZoneInstance
+    {
+        public const float ViewRange = 110f;
+
+        public ZoneDef Def { get; }
+        public GameWorld World { get; }
+        /// <summary>Für Instanzen: Schlüssel der Gruppe/des Spielers. Für die offene Welt leer.</summary>
+        public string InstanceKey { get; }
+        public Dictionary<int, Entity> Entities { get; } = new();
+        public List<Player> Players { get; } = new();
+        public List<SpawnPoint> SpawnPoints { get; } = new();
+        public List<GameObjectEntity> Objects { get; } = new();
+        public SpatialGrid Grid { get; } = new();
+        public Weather Weather { get; set; } = Weather.Clear;
+        public float WeatherIntensity { get; set; }
+        public float WeatherTimer { get; set; }
+        public float EmptyTimer { get; set; }
+
+        private float _visibilityTimer, _snapshotTimer;
+        private readonly List<Entity> _pendingRemove = new();
+        private uint _tick;
+
+        public ZoneInstance(GameWorld world, ZoneDef def, string instanceKey = "")
+        {
+            World = world;
+            Def = def;
+            InstanceKey = instanceKey;
+            if (def.Weather.Count > 0) Weather = def.Weather[0];
+        }
+
+        public bool IsInstance => Def.IsInstance;
+        public IEnumerable<Unit> Units => Entities.Values.OfType<Unit>();
+
+        // ------------------------------------------------------------ Aufbau
+
+        public void Populate()
+        {
+            var rng = new Random(Def.Id.GetHashCode() ^ InstanceKey.GetHashCode());
+            foreach (var s in Def.Spawns)
+            {
+                for (int i = 0; i < s.Count; i++)
+                {
+                    var pos = s.Position;
+                    if (s.Radius > 0)
+                    {
+                        double ang = rng.NextDouble() * Math.PI * 2, dist = Math.Sqrt(rng.NextDouble()) * s.Radius;
+                        pos = new Vec3(pos.X + (float)(Math.Cos(ang) * dist), pos.Y, pos.Z + (float)(Math.Sin(ang) * dist));
+                    }
+                    var sp = new SpawnPoint(s, pos, s.Facing + (float)rng.NextDouble() * 0.5f, SpawnPoints.Count);
+                    SpawnPoints.Add(sp);
+                    SpawnCreatureAt(sp);
+                }
+            }
+            foreach (var n in Def.Npcs)
+            {
+                var def = World.Content.Creatures[n.Npc];
+                var c = new Creature(def, def.MinLevel) { Home = n.Position, HomeFacing = n.Facing, Position = n.Position, Facing = n.Facing };
+                if (n.Patrol.Count > 0) c.AI.Patrol = n.Patrol;
+                Add(c);
+            }
+            foreach (var o in Def.Objects)
+            {
+                var def = World.Content.Objects[o.Object];
+                for (int i = 0; i < o.Count; i++)
+                {
+                    var pos = o.Position;
+                    if (o.Radius > 0)
+                    {
+                        double ang = rng.NextDouble() * Math.PI * 2, dist = Math.Sqrt(rng.NextDouble()) * o.Radius;
+                        pos = new Vec3(pos.X + (float)(Math.Cos(ang) * dist), pos.Y, pos.Z + (float)(Math.Sin(ang) * dist));
+                    }
+                    var go = new GameObjectEntity(def) { Position = pos, RespawnSeconds = o.RespawnSeconds };
+                    Objects.Add(go);
+                    Add(go);
+                }
+            }
+        }
+
+        public Creature SpawnCreatureAt(SpawnPoint sp)
+        {
+            var def = World.Content.Creatures[sp.Def.Creature];
+            int level = World.Random.Range(def.MinLevel, def.MaxLevel);
+            var c = new Creature(def, level) { Home = sp.Position, HomeFacing = sp.Facing, Position = sp.Position, Facing = sp.Facing, Spawn = sp };
+            if (sp.Def.Patrol.Count > 0) c.AI.Patrol = sp.Def.Patrol;
+            c.AI.WanderRadius = sp.Def.WanderRadius;
+            sp.Current = c;
+            Add(c);
+            return c;
+        }
+
+        /// <summary>Erzeugt eine Kreatur außerhalb fester Spawnpunkte (Boss-Adds, Hinterhalte, Begleiter).</summary>
+        public Creature SpawnCreature(string templateId, Vec3 pos, int? level = null)
+        {
+            var def = World.Content.Creatures[templateId];
+            var c = new Creature(def, level ?? World.Random.Range(def.MinLevel, def.MaxLevel)) { Home = pos, Position = pos, IsSummoned = true };
+            Add(c);
+            return c;
+        }
+
+        // ------------------------------------------------------------ Verwaltung
+
+        public void Add(Entity e)
+        {
+            if (e.Id == 0) e.Id = World.NextEntityId();
+            e.Zone = this;
+            e.Removed = false;
+            Entities[e.Id] = e;
+            Grid.Insert(e);
+            if (e is Player p && !Players.Contains(p)) Players.Add(p);
+        }
+
+        /// <summary>Entfernt am Ende des Ticks (sicher während Iterationen).</summary>
+        public void Remove(Entity e)
+        {
+            if (e.Removed) return;
+            e.Removed = true;
+            _pendingRemove.Add(e);
+        }
+
+        private void FlushRemovals()
+        {
+            foreach (var e in _pendingRemove)
+            {
+                Entities.Remove(e.Id);
+                Grid.Remove(e);
+                if (e is Player p) Players.Remove(p);
+                foreach (var viewer in Players)
+                    if (viewer.VisibleEntities.Remove(e.Id)) viewer.Send(new S_EntityDespawn { Id = e.Id });
+                if (e is Unit u)
+                {
+                    u.ClearCombat();
+                    foreach (var other in Units) if (other.Target == u) { other.Target = null; other.AutoAttacking = false; }
+                    foreach (var c in Entities.Values.OfType<Creature>()) c.Threat.Remove(u);
+                }
+                e.Zone = null;
+            }
+            _pendingRemove.Clear();
+        }
+
+        /// <summary>Sofortiges Herauslösen (Zonenwechsel eines Spielers).</summary>
+        public void Detach(Player p)
+        {
+            Entities.Remove(p.Id);
+            Grid.Remove(p);
+            Players.Remove(p);
+            p.ClearCombat();
+            foreach (var other in Units) if (other.Target == p) { other.Target = null; other.AutoAttacking = false; }
+            foreach (var c in Entities.Values.OfType<Creature>()) c.Threat.Remove(p);
+            foreach (var viewer in Players)
+                if (viewer.VisibleEntities.Remove(p.Id)) viewer.Send(new S_EntityDespawn { Id = p.Id });
+            foreach (var id in p.VisibleEntities) p.Send(new S_EntityDespawn { Id = id });
+            p.VisibleEntities.Clear();
+            p.Zone = null;
+        }
+
+        public void SetPosition(Entity e, Vec3 pos)
+        {
+            e.Position = pos;
+            Grid.Moved(e);
+        }
+
+        public Entity? Get(int id) => Entities.TryGetValue(id, out var e) && !e.Removed ? e : null;
+        public Unit? GetUnit(int id) => Get(id) as Unit;
+
+        public List<Unit> UnitsInRange(Vec3 center, float radius) => Grid.Query(center, radius).OfType<Unit>().Where(u => !u.Removed).ToList();
+        public List<Player> PlayersInRange(Vec3 center, float radius) => Grid.Query(center, radius).OfType<Player>().Where(u => !u.Removed).ToList();
+
+        public AreaDef? AreaAt(Vec3 pos)
+        {
+            AreaDef? best = null;
+            float bestR = float.MaxValue;
+            foreach (var a in Def.Areas)
+                if (Vec3.DistanceXZ(a.Center, pos) <= a.Radius && a.Radius < bestR) { best = a; bestR = a.Radius; }
+            return best;
+        }
+
+        public Vec3 NearestGraveyard(Vec3 pos)
+        {
+            if (Def.Graveyards.Count == 0) return Def.InstanceEntry;
+            return Def.Graveyards.OrderBy(g => Vec3.DistanceXZ(g, pos)).First();
+        }
+
+        // ------------------------------------------------------------ Nachrichten
+
+        /// <summary>An alle Spieler, die die Quelle sehen (inklusive der Quelle selbst, wenn sie ein Spieler ist).</summary>
+        public void BroadcastFrom(Entity source, Message m)
+        {
+            foreach (var p in Players)
+                if (p == source || p.VisibleEntities.Contains(source.Id)) p.Send(m);
+        }
+
+        public void BroadcastInRange(Vec3 pos, float range, Message m)
+        {
+            foreach (var p in Players)
+                if (Vec3.DistanceXZ(p.Position, pos) <= range) p.Send(m);
+        }
+
+        public void BroadcastAll(Message m)
+        {
+            foreach (var p in Players) p.Send(m);
+        }
+
+        // ------------------------------------------------------------ Simulation
+
+        public void Update(float dt)
+        {
+            _tick++;
+            double now = World.Time;
+            foreach (var e in Entities.Values.ToList())
+            {
+                if (e.Removed) continue;
+                switch (e)
+                {
+                    case Player p:
+                        World.UpdatePlayer(p, dt);
+                        break;
+                    case Creature c:
+                        c.UpdateTimers(dt, now);
+                        World.Combat.UpdateUnit(c, dt);
+                        c.Threat.Update(dt);
+                        c.AI.Update(dt);
+                        break;
+                    case GameObjectEntity go when !go.Available:
+                        go.RespawnTimer -= dt;
+                        if (go.RespawnTimer <= 0) go.Available = true;
+                        break;
+                }
+            }
+            foreach (var sp in SpawnPoints)
+            {
+                if (sp.Current != null && !sp.Current.Removed) continue;
+                sp.Current = null;
+                sp.RespawnTimer -= dt;
+                if (sp.RespawnTimer <= 0)
+                {
+                    // Nicht vor den Augen eines Spielers in direkter Nähe erscheinen.
+                    if (PlayersInRange(sp.Position, 8).Any(p => p.IsAlive)) { sp.RespawnTimer = 2; continue; }
+                    SpawnCreatureAt(sp);
+                }
+            }
+            UpdateWeather(dt);
+            FlushRemovals();
+
+            _visibilityTimer -= dt;
+            if (_visibilityTimer <= 0) { _visibilityTimer = 0.25f; UpdateVisibility(); }
+            _snapshotTimer -= dt;
+            if (_snapshotTimer <= 0) { _snapshotTimer = 0.1f; SendSnapshots(); }
+            foreach (var u in Units)
+                if (u.AurasChanged)
+                {
+                    u.AurasChanged = false;
+                    BroadcastFrom(u, new S_AuraUpdate { TargetId = u.Id, Auras = u.Auras.Select(a => a.ToNet()).ToList() });
+                }
+        }
+
+        private void UpdateWeather(float dt)
+        {
+            WeatherTimer -= dt;
+            if (WeatherTimer > 0 || Def.Weather.Count == 0) return;
+            WeatherTimer = 600 + World.Random.Range(0, 600);
+            var next = Def.Weather[World.Random.Range(0, Def.Weather.Count - 1)];
+            if (next == Weather) return;
+            Weather = next;
+            WeatherIntensity = next == Weather.Clear ? 0 : 0.3f + (float)World.Random.NextDouble() * 0.7f;
+            BroadcastAll(World.BuildWorldState(this));
+        }
+
+        private void UpdateVisibility()
+        {
+            foreach (var p in Players)
+            {
+                if (p.Connection == null) continue;
+                var near = new HashSet<int>();
+                foreach (var e in Grid.Query(p.Position, ViewRange))
+                {
+                    if (e == p || e.Removed) continue;
+                    if (e is Unit u && u.IsStealthed && u.IsHostileTo(p) && p.DistanceTo(u) > 4) continue;
+                    near.Add(e.Id);
+                    if (p.VisibleEntities.Add(e.Id)) p.Send(e.BuildSpawn(p));
+                }
+                foreach (var id in p.VisibleEntities.Where(id => !near.Contains(id)).ToList())
+                {
+                    p.VisibleEntities.Remove(id);
+                    p.Send(new S_EntityDespawn { Id = id });
+                }
+            }
+        }
+
+        /// <summary>Höchstens so viele Einheiten pro Paket: unzuverlässige UDP-Pakete dürfen die MTU (~1400 Byte) nicht überschreiten.</summary>
+        private const int SnapshotChunk = 24;
+
+        private void SendSnapshots()
+        {
+            foreach (var p in Players)
+            {
+                if (p.Connection == null) continue;
+                var snap = new S_Snapshot { Tick = _tick, LastProcessedMove = p.LastMoveSequence };
+                snap.Entities.Add(p.BuildSnapshot());
+                foreach (var id in p.VisibleEntities)
+                {
+                    if (!Entities.TryGetValue(id, out var e)) continue;
+                    snap.Entities.Add(e.BuildSnapshot());
+                    if (snap.Entities.Count >= SnapshotChunk)
+                    {
+                        p.Connection.SendUnreliable(snap);
+                        snap = new S_Snapshot { Tick = _tick, LastProcessedMove = p.LastMoveSequence };
+                    }
+                }
+                if (snap.Entities.Count > 0) p.Connection.SendUnreliable(snap);
+            }
+        }
+    }
+}

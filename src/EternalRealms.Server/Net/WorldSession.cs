@@ -1,0 +1,349 @@
+using EternalRealms.Server.AI;
+using EternalRealms.Server.Persistence;
+using EternalRealms.Server.World;
+using EternalRealms.Shared;
+using EternalRealms.Shared.Content;
+using EternalRealms.Shared.Net;
+
+namespace EternalRealms.Server.Net
+{
+    public enum SessionState { Connected, Authenticated, InWorld, Closed }
+
+    /// <summary>
+    /// Eine Verbindung eines Spielers: Anmeldung → Charakterauswahl → Spielwelt. Prüft jede Nachricht
+    /// (Zustand, Eingaben, Rate) bevor sie an die Spielsysteme geht. Läuft im Spielthread.
+    /// </summary>
+    public sealed class WorldSession
+    {
+        private readonly GameWorld _w;
+        private readonly IAccountRepository _accounts;
+        private readonly ICharacterRepository _chars;
+        private readonly SessionRegistry _registry;
+        private int _messagesThisSecond;
+        private double _rateWindow;
+        private bool _busy;
+
+        public IPlayerConnection Connection { get; }
+        public SessionState State { get; private set; } = SessionState.Connected;
+        public Account? Account { get; private set; }
+        public Player? Player { get; private set; }
+
+        public WorldSession(GameWorld world, IAccountRepository accounts, ICharacterRepository chars, SessionRegistry registry, IPlayerConnection connection)
+        {
+            _w = world;
+            _accounts = accounts;
+            _chars = chars;
+            _registry = registry;
+            Connection = connection;
+        }
+
+        private void Error(string text) => Connection.Send(new S_Notice { IsError = true, Text = text });
+
+        public void Handle(Message m)
+        {
+            if (State == SessionState.Closed) return;
+            if (_w.Time - _rateWindow >= 1) { _rateWindow = _w.Time; _messagesThisSecond = 0; }
+            if (++_messagesThisSecond > _w.Config.MaxMessagesPerSecond)
+            {
+                if (m is C_Move) return; // Bewegungen bei Überlast verwerfen statt trennen
+                if (_messagesThisSecond > _w.Config.MaxMessagesPerSecond * 3) { Connection.Disconnect("Zu viele Nachrichten"); Close(); }
+                return;
+            }
+            switch (State)
+            {
+                case SessionState.Connected:
+                    if (m is C_Login login) HandleLogin(login);
+                    else if (m is C_Ping ping) Pong(ping);
+                    break;
+                case SessionState.Authenticated:
+                    HandleCharacterScreen(m);
+                    break;
+                case SessionState.InWorld:
+                    if (Player != null) HandleInWorld(Player, m);
+                    break;
+            }
+        }
+
+        private void Pong(C_Ping p) => Connection.Send(new S_Pong { ClientTime = p.ClientTime, ServerTime = (long)(_w.Time * 1000) });
+
+        // ------------------------------------------------------------ Anmeldung
+
+        private void HandleLogin(C_Login m)
+        {
+            if (_busy) return;
+            if (m.ProtocolVersion != ProtocolInfo.ProtocolVersion) { Connection.Send(new S_LoginResult { Message = "Veralteter Client. Bitte aktualisieren." }); return; }
+            var user = (m.Account ?? "").Trim();
+            if (user.Length < 3 || user.Length > 32 || !user.All(c => char.IsLetterOrDigit(c) || c == '_' || c == '.' || c == '-'))
+            { Connection.Send(new S_LoginResult { Message = "Ungültiger Kontoname (3–32 Zeichen, Buchstaben, Ziffern, _ . -)." }); return; }
+            var pass = m.Password ?? "";
+            if (pass.Length < 6 || pass.Length > 128) { Connection.Send(new S_LoginResult { Message = "Das Passwort muss mindestens 6 Zeichen haben." }); return; }
+            _busy = true;
+            bool register = m.Register;
+            Task.Run(async () =>
+            {
+                Account? acc = null;
+                string error = "";
+                try
+                {
+                    acc = await _accounts.FindByNameAsync(user);
+                    if (register)
+                    {
+                        if (!_w.Config.AllowRegistration) error = "Neue Konten sind derzeit deaktiviert.";
+                        else if (acc != null) { error = "Dieser Kontoname ist vergeben."; acc = null; }
+                        else acc = await _accounts.CreateAsync(user, PasswordHasher.Hash(pass));
+                    }
+                    else if (acc == null || !PasswordHasher.Verify(pass, acc.PasswordHash)) { error = "Kontoname oder Passwort falsch."; acc = null; }
+                    else if (acc.IsBanned) { error = "Dieses Konto ist gesperrt."; acc = null; }
+                    if (acc != null) await _accounts.TouchLoginAsync(acc.Id);
+                }
+                catch (Exception ex) { error = "Anmeldung derzeit nicht möglich."; _w.Post(() => _w.Log("Login-Fehler: " + ex.Message)); }
+                _w.Post(() =>
+                {
+                    _busy = false;
+                    if (State == SessionState.Closed) return;
+                    if (acc == null) { Connection.Send(new S_LoginResult { Success = false, Message = error }); return; }
+                    _registry.KickOther(acc.Id, this);
+                    Account = acc;
+                    State = SessionState.Authenticated;
+                    Connection.Send(new S_LoginResult { Success = true, Message = register ? "Konto erstellt. Willkommen in Eternal Realms!" : "Willkommen zurück!" });
+                });
+            });
+        }
+
+        // ------------------------------------------------------------ Charakterauswahl
+
+        private void HandleCharacterScreen(Message m)
+        {
+            switch (m)
+            {
+                case C_CharacterList: SendCharacterList(); break;
+                case C_CreateCharacter c: CreateCharacter(c); break;
+                case C_DeleteCharacter d: DeleteCharacter(d.CharacterId); break;
+                case C_EnterWorld e: EnterWorld(e.CharacterId); break;
+                case C_Ping p: Pong(p); break;
+            }
+        }
+
+        private void SendCharacterList()
+        {
+            var accountId = Account!.Id;
+            Task.Run(async () =>
+            {
+                var list = await _chars.ListForAccountAsync(accountId);
+                _w.Post(() => Connection.Send(new S_CharacterList { Characters = list.Select(c => c.ToSummary()).ToList() }));
+            });
+        }
+
+        public string? ValidateCreation(C_CreateCharacter c)
+        {
+            var name = NameGenerator.Normalize((c.Name ?? "").Trim());
+            if (!NameGenerator.IsValid(name)) return "Der Name muss 2–12 Buchstaben lang sein.";
+            if (!_w.Content.Races.TryGetValue(c.Race, out var race)) return "Unbekanntes Volk.";
+            if (!_w.Content.Classes.ContainsKey(c.Class)) return "Unbekannte Klasse.";
+            if (!race.Classes.Contains(c.Class)) return $"{race.Name} können keine {_w.Content.Classes[c.Class].Name} werden.";
+            var o = race.Appearance;
+            var a = c.Appearance;
+            if (a.SkinColor >= o.SkinColors || a.Face >= o.Faces || a.HairStyle >= o.HairStyles || a.HairColor >= o.HairColors ||
+                (o.Beards > 0 ? a.Beard >= o.Beards : a.Beard > 0) || a.EyeColor >= o.EyeColors || (o.Scars > 0 ? a.Scar >= o.Scars : a.Scar > 0) ||
+                (o.Tattoos > 0 ? a.Tattoo >= o.Tattoos : a.Tattoo > 0))
+                return "Ungültige Aussehensauswahl.";
+            if (float.IsNaN(a.Height) || a.Height < race.MinHeight - 0.001f || a.Height > race.MaxHeight + 0.001f) return "Ungültige Körpergröße.";
+            return null;
+        }
+
+        private void CreateCharacter(C_CreateCharacter c)
+        {
+            if (_busy) return;
+            var err = ValidateCreation(c);
+            if (err != null) { Connection.Send(new S_CreateCharacterResult { Message = err }); return; }
+            var name = NameGenerator.Normalize(c.Name.Trim());
+            var data = _w.CreateCharacterTemplate(name, c.Race, c.Class, c.Gender, AppearanceDto.From(c.Appearance));
+            data.AccountId = Account!.Id;
+            _busy = true;
+            int max = _w.Config.MaxCharactersPerAccount;
+            Task.Run(async () =>
+            {
+                string message = "";
+                long id = 0;
+                try
+                {
+                    var existing = await _chars.ListForAccountAsync(data.AccountId!.Value);
+                    if (existing.Count >= max) message = $"Höchstens {max} Charaktere pro Konto.";
+                    else if (await _chars.NameExistsAsync(name)) message = "Dieser Name ist bereits vergeben.";
+                    else id = await _chars.CreateAsync(data);
+                }
+                catch (Exception ex) { message = "Erstellen fehlgeschlagen."; _w.Post(() => _w.Log("Erstellen: " + ex.Message)); }
+                _w.Post(() =>
+                {
+                    _busy = false;
+                    if (_w.NameTaken(name) && id == 0 && message == "") message = "Dieser Name ist bereits vergeben.";
+                    Connection.Send(new S_CreateCharacterResult { Success = id > 0, CharacterId = id, Message = id > 0 ? $"{name} wurde erschaffen." : message });
+                    if (id > 0) SendCharacterList();
+                });
+            });
+        }
+
+        private void DeleteCharacter(long id)
+        {
+            var accountId = Account!.Id;
+            Task.Run(async () =>
+            {
+                var c = await _chars.GetAsync(id);
+                if (c != null && c.AccountId == accountId && !c.IsBot) await _chars.DeleteAsync(id);
+                _w.Post(SendCharacterList);
+            });
+        }
+
+        private void EnterWorld(long id)
+        {
+            if (_busy) return;
+            _busy = true;
+            var accountId = Account!.Id;
+            Task.Run(async () =>
+            {
+                CharacterData? data = null;
+                try { data = await _chars.GetAsync(id); }
+                catch (Exception ex) { _w.Post(() => _w.Log("Laden: " + ex.Message)); }
+                _w.Post(() =>
+                {
+                    _busy = false;
+                    if (State != SessionState.Authenticated) return;
+                    if (data == null || data.AccountId != accountId || data.IsBot) { Error("Charakter nicht gefunden."); return; }
+                    if (_w.AllPlayers.Any(p => p.Data.Id == data.Id)) { Error("Dieser Charakter ist bereits in der Welt."); return; }
+                    Player = _w.EnterWorld(data, Connection);
+                    State = SessionState.InWorld;
+                    _w.Log($"{Player.Name} betritt {Player.Zone!.Def.Name} ({Connection.RemoteAddress}).");
+                });
+            });
+        }
+
+        // ------------------------------------------------------------ Spielwelt
+
+        private void HandleInWorld(Player p, Message m)
+        {
+            p.LastActivity = _w.Time;
+            string? err = null;
+            switch (m)
+            {
+                case C_Move mv: _w.HandleMove(p, mv); return;
+                case C_Ping ping: Pong(ping); return;
+                case C_SetTarget t:
+                    p.Target = t.TargetId == 0 ? null : p.Zone?.GetUnit(t.TargetId);
+                    if (p.Target != null && p.DistanceTo(p.Target) > ZoneInstance.ViewRange) p.Target = null;
+                    return;
+                case C_CastAbility c: err = CastAbility(p, c); break;
+                case C_CancelCast: _w.Combat.CancelCast(p, "Abgebrochen"); return;
+                case C_AttackStart a:
+                {
+                    var t = p.Zone?.GetUnit(a.TargetId);
+                    if (t == null || !p.CanAttack(t)) { err = "Ungültiges Ziel."; break; }
+                    if (p.IsDead) { err = "Ihr seid tot."; break; }
+                    p.Target = t;
+                    p.AutoAttacking = true;
+                    return;
+                }
+                case C_AttackStop: p.AutoAttacking = false; return;
+                case C_Chat chat:
+                    if (chat.Text.Trim() == ".pvp") { p.PvP = !p.PvP; p.Notice(p.PvP ? "PvP aktiviert." : "PvP wird deaktiviert."); return; }
+                    _w.Chat.Handle(p, chat.Channel, chat.Text, chat.WhisperTo ?? "");
+                    return;
+                case C_Interact i: err = _w.Interactions.Interact(p, i.EntityId); break;
+                case C_QuestAccept qa: err = WithNpc(p, qa.NpcId, npc => _w.Quests.Accept(p, npc, qa.QuestId)); break;
+                case C_QuestTurnIn qt: err = WithNpc(p, qt.NpcId, npc => _w.Quests.TurnIn(p, npc, qt.QuestId, qt.ChoiceIndex)); break;
+                case C_QuestAbandon ab: _w.Quests.Abandon(p, ab.QuestId); return;
+                case C_Loot l: err = p.Zone?.Get(l.CorpseId) is Creature corpse ? _w.Loot.TryLoot(p, corpse) : "Nichts zu plündern."; break;
+                case C_UseItem u: err = _w.Interactions.UseItem(p, u.BagIndex, u.TargetId); break;
+                case C_EquipItem e: err = p.Equip(e.BagIndex); if (err == null) { p.Send(p.BuildInventory()); p.Send(p.BuildPlayerState()); } break;
+                case C_UnequipItem ue: err = p.Unequip(ue.Slot); if (err == null) { p.Send(p.BuildInventory()); p.Send(p.BuildPlayerState()); } break;
+                case C_BuyItem b: err = _w.Interactions.Buy(p, b.NpcId, b.ItemId, b.Count); break;
+                case C_SellItem s: err = _w.Interactions.Sell(p, s.NpcId, s.BagIndex); break;
+                case C_TrainAbility tr: err = _w.Interactions.Train(p, tr.NpcId, tr.AbilityId); break;
+                case C_LearnTalent lt: err = _w.Progression.LearnTalent(p, lt.TalentId); break;
+                case C_ReleaseSpirit: err = _w.Death.ReleaseSpirit(p); break;
+                case C_ReclaimCorpse: err = _w.Death.ReclaimCorpse(p); break;
+                case C_SpiritHealerResurrect sh: err = p.Zone?.Get(sh.NpcId) is Creature healer ? _w.Death.SpiritHealer(p, healer) : "Kein Geisterheiler."; break;
+                case C_GroupInvite gi: err = _w.Groups.Invite(p, gi.Name ?? ""); break;
+                case C_GroupAccept ga: _w.Groups.Respond(p, ga.Accept); return;
+                case C_GroupLeave: _w.Groups.Leave(p); return;
+                case C_BotSearch bs:
+                    p.Send(new S_BotCandidates { Candidates = _w.Bots.FindCandidates(p, bs.Role == 255 ? null : (Role)Math.Min((int)bs.Role, 3)) });
+                    return;
+                case C_BotInvite bi:
+                    if (p.Group != null && p.Group.Leader != p) { err = "Nur der Gruppenanführer kann einladen."; break; }
+                    err = _w.Bots.Invite(p, bi.CandidateId);
+                    break;
+                case C_BotDismiss bd: err = _w.Bots.Dismiss(p, bd.EntityId); break;
+                case C_CancelAura ca:
+                {
+                    var aura = p.FindAura(ca.AuraId);
+                    if (aura != null && !aura.Def.IsDebuff) p.RemoveAura(aura);
+                    return;
+                }
+                case C_TakeFlight tf: err = _w.Interactions.TakeFlight(p, tf.NpcId, tf.Destination ?? ""); break;
+                case C_Logout: Logout(); return;
+            }
+            if (err != null) p.Notice(err, true);
+        }
+
+        private string? WithNpc(Player p, int npcId, Func<Creature, string?> action) =>
+            p.Zone?.Get(npcId) is Creature npc ? action(npc) : "Niemand da.";
+
+        private string? CastAbility(Player p, C_CastAbility c)
+        {
+            if (string.IsNullOrEmpty(c.AbilityId) || c.AbilityId.Length > 64) return "Unbekannte Fähigkeit.";
+            int known = p.KnownRank(c.AbilityId);
+            if (known <= 0) return "Ihr kennt diese Fähigkeit nicht.";
+            int rank = c.Rank <= 0 ? known : Math.Min(c.Rank, known);
+            var ab = _w.Content.GetAbilityRank(c.AbilityId, rank);
+            if (ab == null) return "Unbekannte Fähigkeit.";
+            var target = c.TargetId != 0 ? p.Zone?.GetUnit(c.TargetId) : null;
+            if (target == null && c.TargetId != 0 && p.Zone?.Get(c.TargetId) == null)
+            {
+                // Tote Spieler sind weiterhin Ziel (Wiederbelebung), auch wenn sie ein Geist sind.
+                target = _w.GetPlayer(c.TargetId);
+            }
+            return _w.Combat.TryCast(p, ab, target);
+        }
+
+        public void Logout()
+        {
+            if (Player != null)
+            {
+                _w.Logout(Player);
+                _w.Log($"{Player.Name} hat die Welt verlassen.");
+                Player.Connection = null;
+                Player = null;
+            }
+            if (State == SessionState.InWorld) State = SessionState.Authenticated;
+            if (Account != null && State != SessionState.Closed) SendCharacterList();
+        }
+
+        public void Close()
+        {
+            if (State == SessionState.Closed) return;
+            if (Player != null) { _w.Logout(Player); Player.Connection = null; Player = null; }
+            State = SessionState.Closed;
+            _registry.Remove(this);
+        }
+    }
+
+    /// <summary>Alle Sitzungen; verhindert doppelte Anmeldung desselben Kontos.</summary>
+    public sealed class SessionRegistry
+    {
+        private readonly List<WorldSession> _sessions = new();
+        public IReadOnlyList<WorldSession> Sessions => _sessions;
+
+        public void Add(WorldSession s) => _sessions.Add(s);
+        public void Remove(WorldSession s) => _sessions.Remove(s);
+
+        public void KickOther(long accountId, WorldSession keep)
+        {
+            foreach (var s in _sessions.Where(s => s != keep && s.Account?.Id == accountId).ToList())
+            {
+                s.Connection.Send(new S_Notice { IsError = true, Text = "Euer Konto wurde an einem anderen Ort angemeldet." });
+                s.Connection.Disconnect("Doppelte Anmeldung");
+                s.Close();
+            }
+        }
+    }
+}
