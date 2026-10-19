@@ -314,6 +314,74 @@ namespace EternalRealms.Server.AI
             return bot.Equip(bagIndex) == null;
         }
 
+        // ================================================================== Weltbewohner (Kapitel 9.4)
+
+        private Dictionary<string, List<string>>? _droppers;
+
+        /// <summary>Welche Kreaturen einen Gegenstand fallen lassen (für Sammelquests der Weltbewohner).</summary>
+        public IReadOnlyList<string> DroppersOf(string itemId)
+        {
+            _droppers ??= _w.Content.Creatures.Values.SelectMany(c => c.Loot.Select(l => (l.Item, c.Id)))
+                .GroupBy(x => x.Item).ToDictionary(g => g.Key, g => g.Select(x => x.Id).Distinct().ToList());
+            return _droppers.TryGetValue(itemId, out var list) ? list : (IReadOnlyList<string>)Array.Empty<string>();
+        }
+
+        /// <summary>
+        /// Besuch beim Auktionator. Solange das Auktionshaus noch nicht angebunden ist, verkauft der Bot gute Stücke dort
+        /// zum normalen Händlerpreis – es entsteht kein zusätzliches Geld.
+        /// </summary>
+        public void OnBotVisitsAuctioneer(Player bot)
+        {
+            for (int i = 0; i < bot.Data.Bag.Count; i++)
+            {
+                var s = bot.Data.Bag[i];
+                if (s == null || !_w.Content.Items.TryGetValue(s.ItemId, out var def)) continue;
+                if (def.Quality < ItemQuality.Uncommon || def.Category is ItemCategory.Quest or ItemCategory.Consumable) continue;
+                if (def.IsEquippable && ConsiderEquip(bot, i)) continue;
+                bot.Money += (long)def.SellPrice * s.Count;
+                bot.Data.Bag[i] = null;
+            }
+        }
+
+        /// <summary>Ein Weltbewohner ist der Zone entwachsen: Er zieht in eine passende Zone oder wird zum Begleiter für Spieler.</summary>
+        public void MoveOn(Player bot)
+        {
+            var data = bot.Data;
+            var next = _w.OpenZones.Where(z => z != bot.Zone && z.Def.Playable && z.Def.AmbientBots > 0 && (z.Def.Faction == bot.Faction || z.Def.Faction == Faction.None)
+                                               && z.Def.MinLevel <= bot.Level && z.Def.MaxLevel + 2 >= bot.Level).FirstOrDefault();
+            data.Bot!.History.Add(next != null ? $"Weitergezogen nach {next.Def.Name}" : $"Hat {bot.Zone?.Def.Name} hinter sich gelassen");
+            if (next != null)
+            {
+                data.Bot.HomeZone = next.Def.Id;
+                var town = next.Def.Areas.FirstOrDefault(a => a.IsCity) ?? next.Def.Areas.First();
+                _w.Transfer(bot, next.Def.Id, town.Center + new Vec3(_w.Random.Range(-8, 8), 0, _w.Random.Range(-8, 8)));
+                return;
+            }
+            data.Bot.Ambient = false;
+            data.Bot.HomeZone = "";
+            DespawnBot(bot);
+        }
+
+        /// <summary>
+        /// Hintergrundfortschritt in ruhenden Zonen: statt jeden Schlag zu simulieren, sammeln Bewohner pauschal Erfahrung
+        /// und Beutegeld (etwa eine Beute je 45 Sekunden, abhängig vom Geschick) und erholen sich.
+        /// </summary>
+        public void BackgroundProgress(Player bot, float seconds)
+        {
+            var bd = bot.Data.Bot;
+            if (bd == null || !bd.Ambient || bot.Group != null || bot.Zone == null) return;
+            if (!bot.IsAlive) _w.Death.ReviveQuietly(bot);
+            bot.AutoAttacking = false;
+            bot.Health = bot.MaxHealth;
+            if (bot.PowerType == PowerType.Mana) bot.Power = bot.MaxPower;
+            double expected = seconds / 45.0 * (0.6 + bd.Skill * 0.6);
+            int kills = (int)expected + (_w.Random.Chance(expected - Math.Floor(expected)) ? 1 : 0);
+            if (kills <= 0) return;
+            if (bot.Level < Experience.MaxLevel) _w.Progression.GiveXp(bot, kills * Experience.KillXp(bot.Level, bot.Level, false), "background");
+            bot.Money += kills * (long)_w.Random.Range(bot.Level * 2, bot.Level * 5);
+            if (bot.Level > bot.Zone.Def.MaxLevel + 2) MoveOn(bot);
+        }
+
         public void OnBotReceivedItem(Player bot, string itemId)
         {
             int idx = bot.Data.Bag.FindIndex(s => s?.ItemId == itemId);

@@ -166,7 +166,7 @@ namespace EternalRealms.Tests
         [Fact]
         public void EveryBotProfileCanFightAlone()
         {
-            var t = new TestWorld(seed: 11);
+            var t = new TestWorld(seed: 11, zoneLod: false); // reine Kampfsimulation ohne Menschen
             var failures = new List<string>();
             foreach (var prof in TestContent.Db.BotProfiles)
             {

@@ -123,6 +123,19 @@ Eingeladene Bots kommen angelaufen und grüßen. Beim Entlassen verabschieden si
 
 Jede Zone hat eine konfigurierbare Zahl eigenständiger Bots (`ambientBots` in der Zonendefinition). Sie jagen Gegner ihrer Stufe, plündern, rasten, kehren nach einer Weile ins Dorf zurück, verkaufen Plunder und rufen im Zonenchat („Suche Gruppe für die Wurzelkrypta!“). Dabei steigen sie selbst auf. Spieler können sie per `/inv Name` einladen; ob sie zusagen, entscheidet der Bot nach Persönlichkeit und Stufenabstand.
 
+**Tagesablauf (9.4):** In der Stadt arbeitet ein Bewohner eine Besorgungsliste ab – fertige Quests abgeben (mit sinnvoller
+Belohnungswahl), beim Händler verkaufen, beim Klassenlehrer lernen, passende Quests annehmen (nur Töten/Sammeln, Stufe
+passend, höchstens vier), dazu zufällig Gasthaus, Auktionshaus oder Bank. Bewohner unterhalten sich untereinander
+(`town_chat` / `town_chat_reply`). Draußen jagen sie bevorzugt Questziele und Träger von Questgegenständen. Ist ein Bewohner
+der Zone entwachsen (Stufe > Zonenmaximum + 2), zieht er in eine passende Zone weiter oder steht künftig als Begleiter
+in der Suche bereit; neue Bewohner füllen die Zone auf.
+
+**Simulationsstufen:** Zonen mit menschlichen Spielern laufen voll (20 Ticks/s). Ohne Menschen läuft eine Zone reduziert
+(5 Schritte/s, Bots denken zusätzlich seltener) und ruht nach fünf Minuten: Dann wird nichts mehr einzeln simuliert,
+sondern alle 30 Sekunden ein Hintergrundschritt ausgeführt – Gegner und Vorkommen erscheinen neu, Bewohner erholen sich,
+werden bei Bedarf an der Leiche wiederbelebt und erhalten pauschal Erfahrung und Beutegeld (≈ eine Beute je 45 s).
+Betritt ein Mensch die Zone, läuft sie sofort wieder voll. Abschaltbar mit `ER_ZONE_LOD=false`.
+
 ## Grundausrüstung
 
 Bots haben keine tausend handgefertigten Gegenstände. Deshalb tragen sie eine **virtuelle Grundausrüstung**, deren Werte etwa grüner Ausrüstung ihrer Stufe entsprechen (`BotGear`). Jeder echte Gegenstand, den ein Bot anlegt, ersetzt den virtuellen Anteil seines Platzes. Bots verbrauchen beim Rasten keine Nahrungsmittel.

@@ -89,5 +89,13 @@
   {"event": "boss_tip:mob_thornmaw", "lines": ["Dornenschlund packt zufällige Ziele mit Wurzeln. Ab der Hälfte schlägt er schneller zu.", "Bleibt nicht alle auf einem Haufen – der Bodenstampfer trifft alle in der Nähe."]},
   {"event": "boss_tip:mob_kharox", "lines": ["Kharox wirft Feuerblitze auf zufällige Ziele. Ab 50 % wird es heiß – Heiler, dann Gas geben.", "Verteilt euch, sein Spalten trifft alles vor ihm. Niemand außer dem Tank steht vorne."]},
   {"event": "boss_tip:mob_grell", "lines": ["Grell unterbricht mit seinem Schildhieb. Zauberer: in Bewegung bleiben. Ab 30 % rastet er aus.", "Bei 30 % wird Grell wütend – spart eure stärksten Fähigkeiten dafür auf."]},
-  {"event": "boss_tip:mob_varga", "lines": ["Varga verängstigt sein Ziel. Tank, halte dich bereit, ihn sofort wieder zu fassen. Ab 30 % Raserei.", "Spaltangriff! Nur der Tank steht vor Varga."]}
+  {"event": "boss_tip:mob_varga", "lines": ["Varga verängstigt sein Ziel. Tank, halte dich bereit, ihn sofort wieder zu fassen. Ab 30 % Raserei.", "Spaltangriff! Nur der Tank steht vor Varga."]},
+  {"event": "town_inn", "lines": ["Ein warmes Feuer und ein kühles Getränk – was will man mehr?", "Ich ruhe mich kurz aus. Die Wildnis läuft nicht weg.", "Wirt, noch einen Eintopf bitte!"]},
+  {"event": "town_auction", "lines": ["Mal sehen, was die Händler heute anbieten.", "Die Preise für Erz sind ja wieder gestiegen...", "Ich biete ein paar Fundstücke an."]},
+  {"event": "town_chat", "lines": ["Hey {target}, warst du schon im Osten? Dort soll es neue Wölfe geben.", "{target}! Lange nicht gesehen. Wie läuft die Jagd?", "Hast du gehört, {target}? Am Fluss treiben sich Banditen herum.", "{target}, kennst du einen guten Lehrer hier?"]},
+  {"event": "town_chat", "personality": "mutig", "lines": ["Ich habe heute schon zwölf Gegner erledigt, {target}. Und du?", "{target}, wollen wir später zusammen auf die Jagd?"]},
+  {"event": "town_chat", "personality": "vorsichtig", "lines": ["{target}, sei vorsichtig da draußen. Die Wege sind nicht sicher.", "Ich bleibe lieber in der Nähe der Wachen, {target}."]},
+  {"event": "town_chat", "personality": "abenteuerlustig", "lines": ["{target}! Ich habe einen Wasserfall entdeckt, den musst du sehen!", "Ich frage mich, was hinter den Bergen liegt, {target}."]},
+  {"event": "town_chat_reply", "lines": ["Klingt gut!", "Danke für den Hinweis.", "Mal sehen, vielleicht.", "Ha, das glaube ich dir sofort.", "Gute Jagd!"]},
+  {"event": "town_chat_reply", "personality": "wortkarg", "lines": ["Mhm.", "Vielleicht."]}
 ]

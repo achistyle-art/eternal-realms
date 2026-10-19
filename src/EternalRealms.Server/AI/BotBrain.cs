@@ -41,11 +41,6 @@ namespace EternalRealms.Server.AI
         private readonly Dictionary<string, double> _lastSaid = new();
         private bool _toldLowMana;
         // eigenständiges Spielen
-        private enum AutoState { Hunt, Rest, ToTown, Town }
-        private AutoState _auto = AutoState.Hunt;
-        private Creature? _prey;
-        private int _killsSinceTown;
-        private float _townTimer, _preySearchTimer;
 
         public BotBrain(Player me, GameWorld world)
         {
@@ -592,53 +587,6 @@ namespace EternalRealms.Server.AI
         /// Ohne Gruppe leben Bots in der Welt: Sie jagen passende Gegner, rasten, kehren ins Dorf zurück,
         /// verkaufen Plunder, unterhalten sich im Zonenchat und steigen dabei selbst auf.
         /// </summary>
-        private void ThinkAutonomous()
-        {
-            var zone = Me.Zone!;
-            switch (_auto)
-            {
-                case AutoState.Hunt:
-                    if (_killsSinceTown >= 12 || Me.FreeBagSlots < 2) { _auto = AutoState.ToTown; return; }
-                    if (_prey != null && (_prey.Removed || _prey.IsDead))
-                    {
-                        if (_prey.Lootable && _prey.TappedBy == Me && Me.DistanceTo(_prey) < 6) { _w.Loot.TryLoot(Me, _prey); _prey = null; return; }
-                        if (_prey.Lootable && _prey.TappedBy == Me) { MoveTo(_prey.Position, 3); return; }
-                        _prey = null;
-                    }
-                    if (_prey == null || _prey.TappedBy != null && _prey.TappedBy != Me)
-                    {
-                        _preySearchTimer -= ReactionTime;
-                        if (_preySearchTimer > 0 && _moveTarget != null) return;
-                        _preySearchTimer = 2;
-                        _prey = FindPrey(zone);
-                        if (_prey == null) { MoveTo(HuntingGround(zone), 5); return; }
-                    }
-                    Me.Target = _prey;
-                    var ab = OpeningAbility();
-                    bool rangedHunter = Profile?.Ranged == true || (Role == Role.Healer && Me.Class != CharClass.Paladin);
-                    float range = rangedHunter ? Math.Min(28, ab?.MaxRange ?? 25) : Me.MeleeReachTo(_prey) - 0.6f;
-                    if (Me.DistanceTo(_prey) > range) { MoveTo(_prey.Position, range); return; }
-                    _moveTarget = null;
-                    Me.AutoAttacking = !(Profile?.Ranged == true) || Me.Class == CharClass.Hunter;
-                    if (ab != null && _w.Combat.TryCast(Me, ab, _prey) == null) return;
-                    return;
-                case AutoState.ToTown:
-                {
-                    var town = zone.Def.Areas.FirstOrDefault(a => a.IsCity) ?? zone.Def.Areas.FirstOrDefault();
-                    if (town == null) { _auto = AutoState.Hunt; return; }
-                    if (Me.DistanceTo(town.Center) > 15) { MoveTo(town.Center, 10); return; }
-                    SellJunk();
-                    _auto = AutoState.Town;
-                    _townTimer = 40 + (float)_w.Random.NextDouble() * 60;
-                    if (_w.Random.Chance(Data.Chattiness * 0.6)) Say("general", channel: ChatChannel.General);
-                    return;
-                }
-                case AutoState.Town:
-                    _townTimer -= ReactionTime;
-                    if (_townTimer <= 0) { _auto = AutoState.Hunt; _killsSinceTown = 0; }
-                    return;
-            }
-        }
 
         private AbilityDef? OpeningAbility()
         {
@@ -652,42 +600,8 @@ namespace EternalRealms.Server.AI
             return null;
         }
 
-        private Creature? FindPrey(ZoneInstance zone)
-        {
-            int gray = Experience.GrayLevel(Me.Level);
-            return zone.UnitsInRange(Me.Position, 60).OfType<Creature>()
-                .Where(c => c.IsAlive && !c.InCombat && c.TappedBy == null && !c.Template.Elite && !c.Template.Rare && !c.IsSummoned && c.Owner == null && !c.IsPet && !c.Template.IsNpc
-                            && (c.Faction == Faction.Hostile || c.Faction == Faction.Neutral) && c.Level > gray && c.Level <= Me.Level + 1)
-                .OrderBy(c => c.DistanceTo(Me)).FirstOrDefault();
-        }
 
-        private Vec3 HuntingGround(ZoneInstance zone)
-        {
-            int gray = Experience.GrayLevel(Me.Level);
-            var spots = zone.SpawnPoints.Where(s =>
-            {
-                var t = _w.Content.Creatures[s.Def.Creature];
-                return !t.Elite && !t.Rare && t.MaxLevel > gray && t.MinLevel <= Me.Level + 1 && (t.Faction == Faction.Hostile || t.Faction == Faction.Neutral);
-            }).ToList();
-            if (spots.Count == 0) return zone.Def.Areas.FirstOrDefault(a => a.IsCity)?.Center ?? Me.Position;
-            // Bevorzugt Gegner der eigenen Stufe, dann die Nähe.
-            var best = spots.OrderBy(s => Math.Abs(_w.Content.Creatures[s.Def.Creature].MaxLevel - Me.Level) * 100 + Vec3.DistanceXZ(s.Position, Me.Position)).First();
-            return best.Position;
-        }
 
-        private void SellJunk()
-        {
-            for (int i = 0; i < Me.Data.Bag.Count; i++)
-            {
-                var s = Me.Data.Bag[i];
-                if (s == null) continue;
-                var def = _w.Content.Items[s.ItemId];
-                if (def.Category == ItemCategory.Quest || def.Category == ItemCategory.Consumable || def.Id == "item_hearthstone") continue;
-                if (def.IsEquippable && _w.Bots.ConsiderEquip(Me, i)) continue;
-                Me.Money += (long)def.SellPrice * s.Count;
-                Me.Data.Bag[i] = null;
-            }
-        }
 
         // ================================================================== Bewegung
 

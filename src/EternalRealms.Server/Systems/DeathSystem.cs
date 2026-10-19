@@ -77,6 +77,9 @@ namespace EternalRealms.Server.Systems
             p.Bot?.Say("resurrected", caster);
         }
 
+        /// <summary>Stille Wiederbelebung an der Leiche (Hintergrundfortschritt ruhender Zonen).</summary>
+        public void ReviveQuietly(Player p) { if (!p.IsAlive) Revive(p, 1f, p.Data.CorpsePosition); }
+
         private void Revive(Player p, float pct, Vec3 at)
         {
             if (p.Zone != null && p.Zone.Def.Id != p.Data.CorpseZone && _w.Content.Zones.ContainsKey(p.Data.CorpseZone))

@@ -14,9 +14,9 @@ namespace EternalRealms.Tests
         public InMemoryStore Store { get; } = new();
         public List<string> Log { get; } = new();
 
-        public TestWorld(int seed = 1234, bool ambientBots = false)
+        public TestWorld(int seed = 1234, bool ambientBots = false, bool zoneLod = true)
         {
-            var config = new ServerConfig { AmbientBots = ambientBots, DevCommands = true };
+            var config = new ServerConfig { AmbientBots = ambientBots, DevCommands = true, ZoneLod = zoneLod };
             World = new GameWorld(TestContent.Db, config, Store, new GameRandom(seed)) { Log = s => { lock (Log) Log.Add(s); } };
             World.Bots.LoadOffline(Array.Empty<CharacterData>());
         }

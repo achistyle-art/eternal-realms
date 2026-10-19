@@ -85,7 +85,7 @@ namespace EternalRealms.Server.World
             {
                 try { a(); } catch (Exception ex) { Log("Fehler im Spielthread: " + ex); }
             }
-            foreach (var z in _zones.Values) z.Update(dt);
+            foreach (var z in _zones.Values) z.Tick(dt);
             foreach (var kv in _instances.ToList())
             {
                 kv.Value.Update(dt);

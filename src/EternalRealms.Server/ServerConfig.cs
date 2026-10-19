@@ -13,6 +13,8 @@ namespace EternalRealms.Server
         /// <summary>Chatbefehle mit # (Stufe setzen, Gegenstände erzeugen …). Nur für Entwicklung!</summary>
         public bool DevCommands { get; set; }
         public bool AmbientBots { get; set; } = true;
+        /// <summary>Detailstufen für Zonen ohne menschliche Spieler (reduziert, ruhend).</summary>
+        public bool ZoneLod { get; set; } = true;
         public double AutosaveSeconds { get; set; } = 60;
         /// <summary>Spielzeit läuft so viel schneller als Echtzeit (6 = ein Spieltag dauert 4 Stunden).</summary>
         public double TimeScale { get; set; } = 6;
@@ -31,6 +33,7 @@ namespace EternalRealms.Server
             if (bool.TryParse(Env("ER_ALLOW_REGISTRATION"), out var reg)) c.AllowRegistration = reg;
             if (bool.TryParse(Env("ER_DEV_COMMANDS"), out var dev)) c.DevCommands = dev;
             if (bool.TryParse(Env("ER_AMBIENT_BOTS"), out var ab)) c.AmbientBots = ab;
+            if (bool.TryParse(Env("ER_ZONE_LOD"), out var lod)) c.ZoneLod = lod;
             if (double.TryParse(Env("ER_AUTOSAVE_SECONDS"), out var ass)) c.AutosaveSeconds = Math.Max(5, ass);
             return c;
         }

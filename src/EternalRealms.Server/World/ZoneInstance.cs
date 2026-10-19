@@ -8,6 +8,8 @@ namespace EternalRealms.Server.World
     /// Eine laufende Zone: offene Weltregion oder Dungeon-Instanz. Jede Zone simuliert unabhängig und
     /// kann später in einen eigenen Prozess ausgelagert werden (siehe docs/ARCHITEKTUR.md).
     /// </summary>
+    public enum SimulationLevel : byte { Full, Reduced, Dormant }
+
     public sealed class ZoneInstance
     {
         public const float ViewRange = 110f;
@@ -211,6 +213,65 @@ namespace EternalRealms.Server.World
         }
 
         // ------------------------------------------------------------ Simulation
+
+        // ================================================================== Simulationsstufen (Kapitel 9.4)
+
+        /// <summary>Voll (Menschen in der Zone), Reduziert (5 Schritte/s) oder Ruhend (alle 30 s Hintergrundfortschritt).</summary>
+        public SimulationLevel Lod { get; private set; } = SimulationLevel.Full;
+        public const float ReducedStep = 0.2f, DormantAfter = 300f, DormantStep = 30f;
+        private float _noHumanTime, _lodAccum;
+
+        /// <summary>
+        /// Ein Weltschritt mit Detailstufe: Ohne menschliche Spieler läuft die Zone gröber, nach fünf Minuten ruht sie und
+        /// schreitet nur noch ereignisbasiert voran (Bots sammeln Erfahrung, Gegner erscheinen neu). Betritt ein Mensch
+        /// die Zone, läuft sie sofort wieder voll.
+        /// </summary>
+        public void Tick(float dt)
+        {
+            bool humans = IsInstance || !World.Config.ZoneLod || Players.Any(p => !p.IsBot);
+            if (humans)
+            {
+                if (Lod != SimulationLevel.Full) { Lod = SimulationLevel.Full; _lodAccum = 0; }
+                _noHumanTime = 0;
+                Update(dt);
+                return;
+            }
+            _noHumanTime += dt;
+            _lodAccum += dt;
+            if (_noHumanTime < DormantAfter)
+            {
+                Lod = SimulationLevel.Reduced;
+                if (_lodAccum < ReducedStep) return;
+                float step = _lodAccum;
+                _lodAccum = 0;
+                Update(step);
+                return;
+            }
+            if (Lod != SimulationLevel.Dormant) { Lod = SimulationLevel.Dormant; _lodAccum = 0; return; }
+            if (_lodAccum < DormantStep) return;
+            float elapsed = _lodAccum;
+            _lodAccum = 0;
+            BackgroundStep(elapsed);
+        }
+
+        /// <summary>Ereignisbasierter Fortschritt einer ruhenden Zone.</summary>
+        private void BackgroundStep(float elapsed)
+        {
+            foreach (var sp in SpawnPoints)
+            {
+                if (sp.Current != null && !sp.Current.Removed) continue;
+                sp.Current = null;
+                sp.RespawnTimer -= elapsed;
+                if (sp.RespawnTimer <= 0) SpawnCreatureAt(sp);
+            }
+            foreach (var go in Objects.Where(o => !o.Available))
+            {
+                go.RespawnTimer -= elapsed;
+                if (go.RespawnTimer <= 0) go.Available = true;
+            }
+            foreach (var b in Players.Where(p => p.IsBot).ToList()) World.Bots.BackgroundProgress(b, elapsed);
+            FlushRemovals();
+        }
 
         public void Update(float dt)
         {
