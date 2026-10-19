@@ -27,6 +27,7 @@ namespace EternalRealms.Shared.Net
         C_Mount, C_Dismount, C_LearnRiding,
         C_GuildCreate, C_GuildInvite, C_GuildRespond, C_GuildLeave, C_GuildKick, C_GuildSetRank, C_GuildMotd, C_GuildRoster, C_GuildDisband,
         C_FriendAdd, C_FriendRemove, C_IgnoreAdd, C_IgnoreRemove, C_FriendList, C_ReportPlayer, C_ShareLocation, C_InviteFavorite,
+        C_ResetInstances, C_InstanceInfo,
 
         // Server -> Client
         S_LoginResult = 100, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,
@@ -35,7 +36,7 @@ namespace EternalRealms.Shared.Net
         S_GroupUpdate, S_BotCandidates, S_DeathState, S_WorldState, S_Pong, S_Cooldown, S_GroupInviteRequest, S_QuestMarker,
         S_GroupMarkers,
         S_Bank, S_LootMethod, S_LootRollStart, S_LootRollResult, S_MailList, S_NewMail, S_AuctionList, S_TalentResetCost,
-        S_MountJournal, S_GuildRoster, S_GuildInvite, S_FriendList,
+        S_MountJournal, S_GuildRoster, S_GuildInvite, S_FriendList, S_InstanceInfo,
     }
 
     public abstract class Message

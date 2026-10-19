@@ -366,6 +366,8 @@ namespace EternalRealms.Server.Net
                 case C_ShareLocation sl: _w.Social.SetShareLocation(p, sl.Share); return;
                 case C_ReportPlayer rp: _w.Social.Report(p, rp.Name, rp.Reason, rp.Text); return;
                 case C_InviteFavorite ifv: err = _w.Bots.InviteFavorite(p, ifv.CharacterId); if (err == null) p.Send(_w.Social.BuildList(p)); break;
+                case C_ResetInstances: err = _w.Instances.Reset(p); break;
+                case C_InstanceInfo: p.Send(_w.Instances.BuildInfo(p)); return;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);

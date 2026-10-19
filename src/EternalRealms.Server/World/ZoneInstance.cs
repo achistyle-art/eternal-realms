@@ -32,6 +32,12 @@ namespace EternalRealms.Server.World
         private readonly List<Entity> _pendingRemove = new();
         private uint _tick;
 
+        /// <summary>Eindeutige Instanz-ID (0 = offene Welt).</summary>
+        public long InstanceId { get; set; }
+        /// <summary>In dieser Instanz bereits besiegte Bosse (überdauert über die Bindungen auch einen Neustart).</summary>
+        public HashSet<string> KilledBosses { get; } = new();
+        public DateTime? LockoutUntil { get; set; }
+
         public ZoneInstance(GameWorld world, ZoneDef def, string instanceKey = "")
         {
             World = world;
@@ -50,6 +56,7 @@ namespace EternalRealms.Server.World
             var rng = new Random(StableHash.Of(Def.Id) ^ StableHash.Of(InstanceKey));
             foreach (var s in Def.Spawns)
             {
+                if (KilledBosses.Contains(s.Creature)) continue; // besiegte Bosse bleiben besiegt
                 for (int i = 0; i < s.Count; i++)
                 {
                     var pos = s.Position;

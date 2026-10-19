@@ -46,6 +46,12 @@ namespace EternalRealms.Server.Persistence
         public List<SocialEntry> Ignored { get; set; } = new();
         /// <summary>Freunde dürfen sehen, in welcher Region der Charakter ist.</summary>
         public bool ShareLocation { get; set; } = true;
+        /// <summary>Instanzbindungen je Instanzzone (Kapitel 10/11).</summary>
+        public Dictionary<string, InstanceBind> InstanceBinds { get; set; } = new();
+        /// <summary>Instanz, in der der Charakter zuletzt war (Wiederverbindung).</summary>
+        public long CurrentInstanceId { get; set; }
+        /// <summary>Zeitpunkte neu betretener Instanzen (Begrenzung je Stunde).</summary>
+        public List<DateTime> RecentInstances { get; set; } = new();
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();
@@ -116,6 +122,15 @@ namespace EternalRealms.Server.Persistence
         public float TimeLeft { get; set; }
 
         public QuestProgressData ToNet() => new() { QuestId = QuestId, State = State, Counts = Counts.ToList() };
+    }
+
+    /// <summary>Bindung an eine Instanz: Schlachtzüge bis zum Reset, Dungeons solange die Instanz besteht.</summary>
+    public sealed class InstanceBind
+    {
+        public long InstanceId { get; set; }
+        /// <summary>Ende der Schlachtzugsperre (null = Dungeon ohne feste Sperre).</summary>
+        public DateTime? ExpiresAt { get; set; }
+        public List<string> KilledBosses { get; set; } = new();
     }
 
     /// <summary>Zusätzliche Daten eines KI-Mitspielers.</summary>

@@ -553,6 +553,9 @@ namespace EternalRealms.Shared.Content
         public List<Weather> Weather { get; set; } = new List<Weather>();
         public bool IsInstance { get; set; }
         public int MaxPlayers { get; set; }
+        /// <summary>Schlachtzugsperre in Tagen (7 = wöchentlich, 3 = alle drei Tage, 0 = keine Sperre wie bei Dungeons).</summary>
+        public int LockoutDays { get; set; }
+        public bool IsRaid => IsInstance && MaxPlayers > 5;
         public Vec3 InstanceEntry { get; set; }
         /// <summary>Wohin man beim Verlassen/Tod im Dungeon gebracht wird.</summary>
         public string? ExitZone { get; set; }

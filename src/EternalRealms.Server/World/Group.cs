@@ -17,6 +17,8 @@ namespace EternalRealms.Server.World
         /// <summary>Ab dieser Qualität wird gewürfelt bzw. vom Plündermeister verteilt.</summary>
         public ItemQuality LootThreshold { get; set; } = ItemQuality.Uncommon;
         public int MasterLooterId { get; set; }
+        /// <summary>Instanzen der Gruppe je Instanzzone.</summary>
+        public Dictionary<string, long> InstanceIds { get; } = new();
 
         public S_LootMethod BuildLootMethod() => new() { Method = LootMethod, Threshold = LootThreshold, MasterLooterId = MasterLooterId };
         /// <summary>Zielmarkierungen: Symbol (1–8) → Einheit. 8 = Totenkopf (zuerst töten), 7 = Kreuz (danach), 5 = Mond (kontrollieren).</summary>

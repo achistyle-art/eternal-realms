@@ -48,6 +48,10 @@ client.MessageReceived += m =>
                       (f.SharedAdventures.Count > 0 ? $" – gemeinsam: {string.Join("; ", f.SharedAdventures)}" : ""));
             if (fl2.Ignored.Count > 0) Print("Ignoriert: " + string.Join(", ", fl2.Ignored));
             break;
+        case S_InstanceInfo ii:
+            Print(ii.Binds.Count == 0 ? "Keine Instanzbindungen." : "Instanzbindungen:");
+            foreach (var b in ii.Binds) Print($"  {b.Name} #{b.InstanceId}: {b.BossesKilled}/{b.BossesTotal} Bosse{(b.HoursLeft >= 0 ? $", Reset in {b.HoursLeft:0} h" : "")}");
+            break;
         case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
         case S_MailList ml:
             Print(ml.Mails.Count == 0 ? "Keine Post." : "Post:");
@@ -325,6 +329,8 @@ void Command(string line)
         case "report": client.Send(new C_ReportPlayer { Name = a.Length > 0 ? a[0] : "", Reason = "Spielermeldung", Text = rest.Length > 0 && a.Length > 0 ? rest.Substring(a[0].Length).Trim() : "" }); break;
         case "share": client.Send(new C_ShareLocation { Share = !(a.Length > 0 && a[0] == "aus") }); break;
         case "summon": client.Send(new C_InviteFavorite { CharacterId = client.Friends.Companions.FirstOrDefault(f => f.Name.Equals(rest, StringComparison.OrdinalIgnoreCase))?.CharacterId ?? 0 }); break;
+        case "instances": client.Send(new C_InstanceInfo()); break;
+        case "resetinstances": client.Send(new C_ResetInstances()); break;
         case "mark": client.Send(new C_SetMarker { Marker = (byte)Int(0, 8), TargetId = a.Length > 1 ? Int(1) : me?.TargetId ?? 0 }); break;
         case "bot": client.Send(new C_BotInvite { CandidateId = client.BotCandidates[Int(0) - 1].CandidateId }); break;
         case "dismiss": client.Send(new C_BotDismiss { EntityId = Int(0) }); break;
@@ -516,6 +522,7 @@ void Help() => Print(@"Befehle:
   ah [Suchtext] | ahmine [gebote] | ahsell <Platz> <Anzahl> <Gebot> [Sofortkauf] [12|24|48] | ahbid <Nr> <Betrag> | ahbuy <Nr> | ahcancel <Nr>
   gcreate <Name> | ginvite <Name> | gjoin | gdecline | gleave | gkick <Name> | grank <Name> <0-4> | gmotd <Text> | guild | gu <Text> | gdisband
   friends | friend <Name> | unfriend <Name> | ignore <Name> | unignore <Name> | report <Name> <Text> | share [aus] | summon <KI-Begleiter>
+  instances | resetinstances
   riding (beim Stallmeister) | mounts | mount [id] | dismount
   need | greed | pass | lootrule [frei|reihum|gruppe|bedarf|meister] | resettalents [ja] | /würfeln
   cmd <befehl> [botId] | mark <1-8> [id]   (8 = Totenkopf, 7 = Kreuz, 5 = Mond/Kontrolle; 0 als Ziel löscht)

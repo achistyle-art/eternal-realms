@@ -797,6 +797,7 @@ namespace EternalRealms.Server.Systems
                     c.CorpseTimer = 5;
                     return;
                 }
+                if (c.IsBoss) _w.Instances.OnBossKilled(c);
                 var tapper = c.TappedBy ?? killerPlayer;
                 if (tapper != null && !tapper.Removed)
                 {

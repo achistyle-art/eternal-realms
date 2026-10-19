@@ -26,6 +26,7 @@ namespace EternalRealms.Server.World
         public MailSystem Mail { get; }
         public MountSystem Mounts { get; }
         public GuildSystem Guilds { get; }
+        public InstanceSystem Instances { get; }
         public SocialSystem Social { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
@@ -44,7 +45,6 @@ namespace EternalRealms.Server.World
         public DevCommands DevCommands { get; }
 
         private readonly Dictionary<string, ZoneInstance> _zones = new();
-        private readonly Dictionary<string, ZoneInstance> _instances = new();
         private readonly Dictionary<int, Player> _players = new();
         private readonly ConcurrentQueue<Action> _mainThread = new();
         private int _nextEntityId = 1;
@@ -62,6 +62,7 @@ namespace EternalRealms.Server.World
             Mail = new MailSystem(this);
             Mounts = new MountSystem(this);
             Guilds = new GuildSystem(this);
+            Instances = new InstanceSystem(this);
             Social = new SocialSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
@@ -85,7 +86,7 @@ namespace EternalRealms.Server.World
 
         public int NextEntityId() => _nextEntityId++;
         public IEnumerable<ZoneInstance> OpenZones => _zones.Values;
-        public IEnumerable<ZoneInstance> AllZones => _zones.Values.Concat(_instances.Values);
+        public IEnumerable<ZoneInstance> AllZones => _zones.Values.Concat(Instances.All);
         public IEnumerable<Player> AllPlayers => _players.Values;
         public ZoneInstance? Zone(string id) => _zones.TryGetValue(id, out var z) ? z : null;
 
@@ -105,16 +106,7 @@ namespace EternalRealms.Server.World
                 try { a(); } catch (Exception ex) { Log("Fehler im Spielthread: " + ex); }
             }
             foreach (var z in _zones.Values) z.Tick(dt);
-            foreach (var kv in _instances.ToList())
-            {
-                kv.Value.Update(dt);
-                if (kv.Value.Players.Count == 0)
-                {
-                    kv.Value.EmptyTimer += dt;
-                    if (kv.Value.EmptyTimer > 30 * 60) _instances.Remove(kv.Key); // Instanz nach 30 Minuten ohne Spieler zurücksetzen
-                }
-                else kv.Value.EmptyTimer = 0;
-            }
+            Instances.Update(dt);
             Groups.Update(dt);
             Bots.Update(dt);
             Mail.Update(dt);
@@ -193,6 +185,15 @@ namespace EternalRealms.Server.World
             }
             string zoneId = data.ZoneId;
             var pos = data.Position;
+            // In einer Instanz ausgeloggt und die Instanz besteht noch: dorthin zurück (Wiederverbindung).
+            var rejoin = Content.Zones.TryGetValue(zoneId, out var zdef) && zdef.IsInstance ? Instances.Get(data.CurrentInstanceId) : null;
+            if (rejoin != null && rejoin.Def.Id == zoneId)
+            {
+                AddToZone(p, rejoin, pos);
+                SendFullState(p);
+                if (p.IsDead) p.Send(new S_DeathState { State = p.DeathState, CorpsePosition = p.Data.CorpsePosition });
+                return p;
+            }
             if (!_zones.ContainsKey(zoneId))
             {
                 // In einer Instanz ausgeloggt (oder Zone nicht mehr verfügbar): zurück an den Rückkehrpunkt.
@@ -213,6 +214,7 @@ namespace EternalRealms.Server.World
             p.LastMoveTime = Time;
             p.CurrentArea = zone.AreaAt(pos);
             p.Data.ZoneId = zone.Def.Id;
+            p.Data.CurrentInstanceId = zone.InstanceId;
         }
 
         public void SendFullState(Player p)
@@ -345,14 +347,10 @@ namespace EternalRealms.Server.World
             ZoneInstance target;
             if (def.IsInstance)
             {
-                string key = instanceKey ?? (p.Group != null ? "g" + p.Group.Leader.Data.Id + "_" + p.Group.Id : "p" + p.Data.Id + "_" + p.Id);
-                string full = zoneId + "|" + key;
-                if (!_instances.TryGetValue(full, out target!))
-                {
-                    target = new ZoneInstance(this, def, key);
-                    target.Populate();
-                    _instances[full] = target;
-                }
+                long explicitId = instanceKey != null && instanceKey.StartsWith("i") && long.TryParse(instanceKey.Substring(1), out var iid) ? iid : 0;
+                var resolved = Instances.Resolve(p, def, explicitId, out var instErr);
+                if (resolved == null) { p.Notice(instErr ?? "Instanz nicht verfügbar.", true); return; }
+                target = resolved;
                 if (target.Players.Count(x => !x.IsBot) >= Math.Max(1, def.MaxPlayers) && !p.IsBot) { p.Notice("Diese Instanz ist voll.", true); return; }
                 if (p.Zone != null && !p.Zone.IsInstance)
                 {
