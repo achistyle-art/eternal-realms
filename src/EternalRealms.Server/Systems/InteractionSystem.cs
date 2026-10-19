@@ -92,6 +92,12 @@ namespace EternalRealms.Server.Systems
         private string? UseObject(Player p, GameObjectEntity go)
         {
             if (p.IsDead) return "Ihr seid tot.";
+            if (go.Def.IsMailbox)
+            {
+                if (!_w.Mail.NearMailbox(p, go.Id)) return "Zu weit entfernt.";
+                _w.Mail.Open(p);
+                return null;
+            }
             if (!go.Available) return "Das wurde bereits benutzt.";
             if (p.DistanceTo(go) > ObjectRange) return "Zu weit entfernt.";
             if (p.InCombat && go.Def.TeleportZone == null) return "Nicht im Kampf.";

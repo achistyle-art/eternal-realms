@@ -327,11 +327,20 @@ namespace EternalRealms.Server.AI
         }
 
         /// <summary>
-        /// Besuch beim Auktionator. Solange das Auktionshaus noch nicht angebunden ist, verkauft der Bot gute Stücke dort
-        /// zum normalen Händlerpreis – es entsteht kein zusätzliches Geld.
+        /// Besuch beim Auktionator: Post abholen (Erlöse, Rücksendungen) und gute Funde in begrenzter Zahl einstellen.
+        /// Was nicht eingestellt werden kann, verkauft der Bot zum Händlerpreis.
         /// </summary>
         public void OnBotVisitsAuctioneer(Player bot)
         {
+            foreach (var m in _w.Mail.Inbox(bot.Data.Id).ToList()) _w.Mail.Take(bot, m.Id, 255);
+            for (int i = 0; i < bot.Data.Bag.Count; i++)
+            {
+                var st = bot.Data.Bag[i];
+                if (st == null || !_w.Content.Items.TryGetValue(st.ItemId, out var d)) continue;
+                if (d.Quality < ItemQuality.Uncommon || d.Category is ItemCategory.Quest or ItemCategory.Consumable or ItemCategory.Container) continue;
+                if (d.IsEquippable && ConsiderEquip(bot, i)) continue;
+                _w.Auctions.TryBotPost(bot, i);
+            }
             for (int i = 0; i < bot.Data.Bag.Count; i++)
             {
                 var s = bot.Data.Bag[i];

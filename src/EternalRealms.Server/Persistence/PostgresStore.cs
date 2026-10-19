@@ -11,7 +11,7 @@ namespace EternalRealms.Server.Persistence
     /// Quests und Ruf in eigenen Tabellen (abfragbar, z. B. für Auktionshaus und Auswertungen).
     /// Ein Speichervorgang ist eine Transaktion: Entweder alles oder nichts wird geschrieben.
     /// </summary>
-    public sealed class PostgresStore : IAccountRepository, ICharacterRepository, IDisposable
+    public sealed class PostgresStore : IAccountRepository, ICharacterRepository, IEconomyRepository, IDisposable
     {
         private readonly NpgsqlDataSource _ds;
         private static readonly JsonSerializerOptions Json = ContentDatabase.CreateOptions();
@@ -302,6 +302,121 @@ namespace EternalRealms.Server.Persistence
             cmd.Parameters.AddWithValue("k", values.Keys.ToArray());
             cmd.Parameters.AddWithValue("v", values.Values.ToArray());
             await cmd.ExecuteNonQueryAsync();
+        }
+
+        // ------------------------------------------------------------ Wirtschaft
+
+        /// <summary>Charaktere, Briefe, Auktionen und Geldprotokoll in genau einer Transaktion.</summary>
+        public async Task CommitAsync(EconomyCommit c)
+        {
+            await using var conn = await _ds.OpenConnectionAsync();
+            await using var tx = await conn.BeginTransactionAsync();
+            foreach (var d in c.Characters) if (d.Id > 0) await WriteAsync(conn, tx, d);
+            foreach (var m in c.UpsertMail)
+                await using (var cmd = new NpgsqlCommand(
+                    "INSERT INTO mail (id, recipient_id, sender_id, sender_name, subject, body, money, cod, items, deliver_at, expires_at, is_read, returned, created_at) " +
+                    "VALUES (@id, @r, @s, @sn, @sub, @b, @m, @cod, @it::jsonb, @da, @ea, @rd, @ret, @ca) ON CONFLICT (id) DO UPDATE SET " +
+                    "recipient_id=EXCLUDED.recipient_id, sender_id=EXCLUDED.sender_id, sender_name=EXCLUDED.sender_name, subject=EXCLUDED.subject, money=EXCLUDED.money, " +
+                    "cod=EXCLUDED.cod, items=EXCLUDED.items, deliver_at=EXCLUDED.deliver_at, expires_at=EXCLUDED.expires_at, is_read=EXCLUDED.is_read, returned=EXCLUDED.returned", conn, tx))
+                {
+                    var p = cmd.Parameters;
+                    p.AddWithValue("id", m.Id); p.AddWithValue("r", m.RecipientId); p.AddWithValue("s", (object?)m.SenderId ?? DBNull.Value);
+                    p.AddWithValue("sn", m.SenderName); p.AddWithValue("sub", m.Subject); p.AddWithValue("b", m.Body); p.AddWithValue("m", m.Money); p.AddWithValue("cod", m.Cod);
+                    p.AddWithValue("it", JsonSerializer.Serialize(m.Items, Json)); p.AddWithValue("da", m.DeliverAt); p.AddWithValue("ea", m.ExpiresAt);
+                    p.AddWithValue("rd", m.Read); p.AddWithValue("ret", m.Returned); p.AddWithValue("ca", m.CreatedAt);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            if (c.DeleteMail.Count > 0)
+                await using (var cmd = new NpgsqlCommand("DELETE FROM mail WHERE id = ANY(@ids)", conn, tx))
+                {
+                    cmd.Parameters.AddWithValue("ids", c.DeleteMail.ToArray());
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            foreach (var a in c.UpsertAuctions)
+                await using (var cmd = new NpgsqlCommand(
+                    "INSERT INTO auctions (id, house, seller_id, seller_name, seller_is_bot, item_id, count, durability, start_bid, buyout, current_bid, bidder_id, bidder_name, " +
+                    "deposit, duration_hours, created_at, expires_at) VALUES (@id, @h, @s, @sn, @sb, @i, @n, @d, @sbid, @bo, @cb, @bid, @bn, @dep, @dh, @ca, @ea) " +
+                    "ON CONFLICT (id) DO UPDATE SET current_bid=EXCLUDED.current_bid, bidder_id=EXCLUDED.bidder_id, bidder_name=EXCLUDED.bidder_name, expires_at=EXCLUDED.expires_at", conn, tx))
+                {
+                    var p = cmd.Parameters;
+                    p.AddWithValue("id", a.Id); p.AddWithValue("h", (short)a.House); p.AddWithValue("s", a.SellerId); p.AddWithValue("sn", a.SellerName); p.AddWithValue("sb", a.SellerIsBot);
+                    p.AddWithValue("i", a.ItemId); p.AddWithValue("n", a.Count); p.AddWithValue("d", a.Durability); p.AddWithValue("sbid", a.StartBid); p.AddWithValue("bo", a.Buyout);
+                    p.AddWithValue("cb", a.CurrentBid); p.AddWithValue("bid", (object?)a.BidderId ?? DBNull.Value); p.AddWithValue("bn", a.BidderName); p.AddWithValue("dep", a.Deposit);
+                    p.AddWithValue("dh", (short)a.DurationHours); p.AddWithValue("ca", a.CreatedAt); p.AddWithValue("ea", a.ExpiresAt);
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            if (c.DeleteAuctions.Count > 0)
+                await using (var cmd = new NpgsqlCommand("DELETE FROM auctions WHERE id = ANY(@ids)", conn, tx))
+                {
+                    cmd.Parameters.AddWithValue("ids", c.DeleteAuctions.ToArray());
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            if (c.Ledger.Count > 0)
+                await using (var cmd = new NpgsqlCommand(
+                    "INSERT INTO economy_log (at, character_id, character_name, delta, balance, reason, reference) " +
+                    "SELECT unnest(@at), NULLIF(unnest(@cid), 0), unnest(@cn), unnest(@d), unnest(@b), unnest(@r), unnest(@ref)", conn, tx))
+                {
+                    var p = cmd.Parameters;
+                    p.AddWithValue("at", c.Ledger.Select(l => l.At).ToArray()); p.AddWithValue("cid", c.Ledger.Select(l => l.CharacterId).ToArray());
+                    p.AddWithValue("cn", c.Ledger.Select(l => l.CharacterName).ToArray()); p.AddWithValue("d", c.Ledger.Select(l => l.Delta).ToArray());
+                    p.AddWithValue("b", c.Ledger.Select(l => l.Balance).ToArray()); p.AddWithValue("r", c.Ledger.Select(l => l.Reason).ToArray());
+                    p.AddWithValue("ref", c.Ledger.Select(l => l.Reference).ToArray());
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            await tx.CommitAsync();
+        }
+
+        public async Task<List<MailData>> LoadMailAsync()
+        {
+            var list = new List<MailData>();
+            await using var cmd = _ds.CreateCommand("SELECT id, recipient_id, sender_id, sender_name, subject, body, money, cod, items, deliver_at, expires_at, is_read, returned, created_at FROM mail");
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync())
+                list.Add(new MailData
+                {
+                    Id = r.GetInt64(0), RecipientId = r.GetInt64(1), SenderId = r.IsDBNull(2) ? null : r.GetInt64(2), SenderName = r.GetString(3), Subject = r.GetString(4),
+                    Body = r.GetString(5), Money = r.GetInt64(6), Cod = r.GetInt64(7), Items = JsonSerializer.Deserialize<List<ItemStack>>(r.GetString(8), Json) ?? new(),
+                    DeliverAt = r.GetDateTime(9), ExpiresAt = r.GetDateTime(10), Read = r.GetBoolean(11), Returned = r.GetBoolean(12), CreatedAt = r.GetDateTime(13),
+                });
+            return list;
+        }
+
+        public async Task<List<AuctionData>> LoadAuctionsAsync()
+        {
+            var list = new List<AuctionData>();
+            await using var cmd = _ds.CreateCommand("SELECT id, house, seller_id, seller_name, seller_is_bot, item_id, count, durability, start_bid, buyout, current_bid, bidder_id, " +
+                                                    "bidder_name, deposit, duration_hours, created_at, expires_at FROM auctions");
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync())
+                list.Add(new AuctionData
+                {
+                    Id = r.GetInt64(0), House = (byte)r.GetInt16(1), SellerId = r.GetInt64(2), SellerName = r.GetString(3), SellerIsBot = r.GetBoolean(4), ItemId = r.GetString(5),
+                    Count = r.GetInt32(6), Durability = r.GetInt32(7), StartBid = r.GetInt64(8), Buyout = r.GetInt64(9), CurrentBid = r.GetInt64(10),
+                    BidderId = r.IsDBNull(11) ? null : r.GetInt64(11), BidderName = r.GetString(12), Deposit = r.GetInt64(13), DurationHours = r.GetInt16(14),
+                    CreatedAt = r.GetDateTime(15), ExpiresAt = r.GetDateTime(16),
+                });
+            return list;
+        }
+
+        public async Task<CharacterRef?> FindCharacterAsync(string name)
+        {
+            await using var cmd = _ds.CreateCommand("SELECT id, account_id, name, race FROM characters WHERE lower(name) = lower(@n)");
+            cmd.Parameters.AddWithValue("n", name);
+            await using var r = await cmd.ExecuteReaderAsync();
+            if (!await r.ReadAsync()) return null;
+            return new CharacterRef { Id = r.GetInt64(0), AccountId = r.IsDBNull(1) ? null : r.GetInt64(1), Name = r.GetString(2), Race = (Race)r.GetInt16(3) };
+        }
+
+        public async Task<List<LedgerEntry>> LedgerForAsync(long characterId, int limit)
+        {
+            var list = new List<LedgerEntry>();
+            await using var cmd = _ds.CreateCommand("SELECT at, character_id, character_name, delta, balance, reason, reference FROM economy_log WHERE character_id = @c ORDER BY id DESC LIMIT @l");
+            cmd.Parameters.AddWithValue("c", characterId);
+            cmd.Parameters.AddWithValue("l", limit);
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync())
+                list.Add(new LedgerEntry { At = r.GetDateTime(0), CharacterId = r.GetInt64(1), CharacterName = r.GetString(2), Delta = r.GetInt64(3), Balance = r.GetInt64(4), Reason = r.GetString(5), Reference = r.GetString(6) });
+            return list;
         }
 
         public async Task DeleteAsync(long id)

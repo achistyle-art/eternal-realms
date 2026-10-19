@@ -63,6 +63,14 @@ namespace EternalRealms.Server
             server.World.Log = log;
             var bots = await chars.ListBotsAsync();
             server.World.Bots.LoadOffline(bots);
+            if (chars is IEconomyRepository eco)
+            {
+                var mail = await eco.LoadMailAsync();
+                server.World.Mail.Load(mail);
+                var auctions = await eco.LoadAuctionsAsync();
+                server.World.Auctions.Load(auctions);
+                log($"Wirtschaft: {mail.Count} Briefe, {auctions.Count} Auktionen geladen");
+            }
             return server;
         }
 

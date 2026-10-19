@@ -311,6 +311,36 @@ namespace EternalRealms.Server.Net
                     err = Inv(p, p.BankWithdraw(bw.BankIndex));
                     if (err == null) { p.Send(p.BuildBank(bw.NpcId)); _w.Quests.OnItemsChanged(p); }
                     break;
+                case C_MailList ml:
+                    if (!_w.Mail.NearMailbox(p, ml.ObjectId)) { err = "Kein Briefkasten in der Nähe."; break; }
+                    _w.Mail.Open(p);
+                    return;
+                case C_MailSend ms:
+                    if (!_w.Mail.NearMailbox(p, ms.ObjectId)) { err = "Kein Briefkasten in der Nähe."; break; }
+                    _w.Mail.Send(p, ms);
+                    return;
+                case C_MailTake mt: err = _w.Mail.NearMailbox(p, mt.ObjectId) ? _w.Mail.Take(p, mt.MailId, mt.Index) : "Kein Briefkasten in der Nähe."; break;
+                case C_MailDelete md: err = _w.Mail.NearMailbox(p, md.ObjectId) ? _w.Mail.Delete(p, md.MailId) : "Kein Briefkasten in der Nähe."; break;
+                case C_MailReturn mr: err = _w.Mail.NearMailbox(p, mr.ObjectId) ? _w.Mail.Return(p, mr.MailId) : "Kein Briefkasten in der Nähe."; break;
+                case C_AuctionSearch asr:
+                    if (Auctioneer(p, asr.NpcId) is string e1) { err = e1; break; }
+                    p.Send(_w.Auctions.Search(p, asr));
+                    return;
+                case C_AuctionMine am:
+                    if (Auctioneer(p, am.NpcId) is string e2) { err = e2; break; }
+                    p.Send(_w.Auctions.Mine(p, am.Bids));
+                    return;
+                case C_AuctionPost ap:
+                    err = Auctioneer(p, ap.NpcId) ?? _w.Auctions.Post(p, ap.BagIndex, ap.Count, ap.StartBid, ap.Buyout, ap.DurationHours);
+                    if (err == null) p.Send(_w.Auctions.Mine(p, false));
+                    break;
+                case C_AuctionBid ab:
+                    err = Auctioneer(p, ab.NpcId) ?? _w.Auctions.Bid(p, ab.AuctionId, ab.Amount);
+                    break;
+                case C_AuctionCancel ac:
+                    err = Auctioneer(p, ac.NpcId) ?? _w.Auctions.Cancel(p, ac.AuctionId);
+                    if (err == null) p.Send(_w.Auctions.Mine(p, false));
+                    break;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);
@@ -335,6 +365,9 @@ namespace EternalRealms.Server.Net
             foreach (var b in bots) b.Bot?.Execute(order, p);
             return null;
         }
+
+        private string? Auctioneer(Player p, int npcId) =>
+            _w.Interactions.NpcWithRole(p, npcId, NpcRole.Auctioneer) == null ? "Kein Auktionator in der Nähe." : null;
 
         /// <summary>Nach einer Inventaränderung: bei Erfolg das neue Inventar senden.</summary>
         private static string? Inv(Player p, string? err)

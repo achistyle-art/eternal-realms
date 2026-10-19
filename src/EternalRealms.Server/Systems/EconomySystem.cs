@@ -36,6 +36,14 @@ namespace EternalRealms.Server.Systems
             return true;
         }
 
+        /// <summary>Geld, das ohne Zielkonto vernichtet wird (z. B. Auktionsgebühr, die vom Erlös einbehalten wird).</summary>
+        public void RecordSink(string reason, long amount)
+        {
+            if (amount <= 0) return;
+            FlowByReason[reason] = FlowByReason.GetValueOrDefault(reason) - amount;
+            _pending.Add(new LedgerEntry { Delta = -amount, Reason = reason });
+        }
+
         private void Record(Player p, long delta, string reason, string reference)
         {
             FlowByReason[reason] = FlowByReason.GetValueOrDefault(reason) + delta;

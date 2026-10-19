@@ -168,6 +168,38 @@ namespace EternalRealms.Tests
             Assert.Equal(3, back.Appearance.Face);
             Assert.True(await store.NameExistsAsync(name.ToUpperInvariant()));
             Assert.Single(await store.ListForAccountAsync(acc.Id));
+
+            // Bank, Taschen, Talent-Resets und Wirtschaft: alles in einer Transaktion
+            back.Bank.Add(null); back.Bank.Add(new ItemStack { ItemId = "item_wolf_fang", Count = 5 });
+            back.BagContainers[1] = new ItemStack { ItemId = "item_bag_leather", Count = 1 };
+            back.TalentResets = 2;
+            back.Bag[3] = null; // Gegenstand wandert in einen Brief
+            long mailId = DateTime.UtcNow.Ticks, auctionId = mailId + 1;
+            var commit = new EconomyCommit();
+            commit.Characters.Add(back);
+            commit.UpsertMail.Add(new MailData { Id = mailId, RecipientId = id, SenderName = "Test", Subject = "Paket", Money = 77,
+                Items = { new ItemStack { ItemId = "item_minor_healing_potion", Count = 4 } }, DeliverAt = DateTime.UtcNow, ExpiresAt = DateTime.UtcNow.AddDays(30) });
+            commit.UpsertAuctions.Add(new AuctionData { Id = auctionId, House = 2, SellerId = id, SellerName = name, ItemId = "item_wolf_fang", Count = 2, StartBid = 10, Buyout = 20,
+                DurationHours = 24, ExpiresAt = DateTime.UtcNow.AddHours(24) });
+            commit.Ledger.Add(new LedgerEntry { CharacterId = id, CharacterName = name, Delta = -30, Balance = 98735, Reason = "mail_send", Reference = "Test" });
+            await store.CommitAsync(commit);
+            var again = (await store.GetAsync(id))!;
+            Assert.True(again.Bag.Count <= 3 || again.Bag[3] == null);
+            Assert.Equal(5, again.Bank[1]!.Count);
+            Assert.Equal("item_bag_leather", again.BagContainers[1].ItemId);
+            Assert.Equal(2, again.TalentResets);
+            var mail = (await store.LoadMailAsync()).Single(m => m.Id == mailId);
+            Assert.Equal(4, mail.Items.Single().Count);
+            Assert.Equal(77, mail.Money);
+            Assert.Contains(await store.LoadAuctionsAsync(), a => a.Id == auctionId && a.Buyout == 20);
+            Assert.Equal(-30, (await store.LedgerForAsync(id, 5)).Single().Delta);
+            Assert.Equal(id, (await store.FindCharacterAsync(name.ToLowerInvariant()))!.Id);
+            var del = new EconomyCommit();
+            del.DeleteMail.Add(mailId);
+            del.DeleteAuctions.Add(auctionId);
+            await store.CommitAsync(del);
+            Assert.DoesNotContain(await store.LoadMailAsync(), m => m.Id == mailId);
+
             await store.DeleteAsync(id);
             Assert.Null(await store.GetAsync(id));
         }

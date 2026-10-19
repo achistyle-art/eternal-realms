@@ -23,6 +23,8 @@ namespace EternalRealms.Server.World
         /// <summary>Geordnete Datenbankaufträge (null ohne Datenbank).</summary>
         public PersistenceQueue? Persistence { get; }
         public EconomySystem Economy { get; }
+        public MailSystem Mail { get; }
+        public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
         public Action<string> Log { get; set; } = Console.WriteLine;
 
@@ -53,6 +55,8 @@ namespace EternalRealms.Server.World
             if (characters != null) Persistence = new PersistenceQueue(ex => Post(() => Log("Datenbankfehler: " + ex.Message)));
             Random = random ?? new GameRandom();
             Economy = new EconomySystem(this);
+            Mail = new MailSystem(this);
+            Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
             Quests = new QuestSystem(this);
             Progression = new ProgressionSystem(this);
@@ -105,6 +109,8 @@ namespace EternalRealms.Server.World
             }
             Groups.Update(dt);
             Bots.Update(dt);
+            Mail.Update(dt);
+            Auctions.Update(dt);
             Economy.Update(dt);
             if (Time - _lastWorldStateBroadcast > 30)
             {
