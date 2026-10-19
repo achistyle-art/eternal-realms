@@ -103,3 +103,61 @@ namespace EternalRealms.Tests
         }
     }
 }
+
+namespace EternalRealms.Tests
+{
+    using EternalRealms.Server.Systems;
+    using EternalRealms.Server.World;
+    using EternalRealms.Shared;
+    using EternalRealms.Shared.Net;
+
+    public class TalentResetAndReputationTests
+    {
+        [Fact]
+        public void ResettingTalentsCostsRisingGoldAndRefundsPoints()
+        {
+            var t = new TestWorld();
+            var zone = t.World.Zone("zone_morgentauwald")!;
+            var trainer = zone.Entities.Values.OfType<Creature>().First(c => c.Template.Id == "npc_mt_trainer_warrior");
+            var p = t.CreatePlayer(Race.Aldorer, CharClass.Warrior, 20, trainer.Position + new Vec3(2, 0, 0));
+            var tree = TestContent.Db.BotProfiles.First(b => b.Class == CharClass.Warrior).TalentTree;
+            t.World.Progression.AutoSpendTalents(p, tree);
+            Assert.True(p.TalentPointsSpent > 0);
+            Assert.Equal(10000, t.World.Progression.TalentResetCost(p));
+            Assert.NotNull(t.World.Progression.ResetTalents(p, trainer, true)); // kein Geld
+            t.World.Economy.Credit(p, 200_000, "test");
+            Assert.Null(t.World.Progression.ResetTalents(p, trainer, false)); // nur Preis
+            Assert.Equal(10000, t.Conn(p).Of<S_TalentResetCost>().Last().Cost);
+            Assert.Null(t.World.Progression.ResetTalents(p, trainer, true));
+            Assert.Equal(0, p.TalentPointsSpent);
+            Assert.Equal(190_000, p.Money);
+            t.World.Progression.AutoSpendTalents(p, tree);
+            Assert.Equal(50000, t.World.Progression.TalentResetCost(p)); // zweites Mal: 5 Gold
+            p.Data.LastTalentReset = DateTime.UtcNow.AddDays(-31);
+            Assert.Equal(10000, t.World.Progression.TalentResetCost(p)); // nach einem Monat wieder günstiger
+            var mage = zone.Entities.Values.OfType<Creature>().First(c => c.Template.Id == "npc_mt_trainer_mage");
+            Assert.NotNull(t.World.Progression.ResetTalents(p, mage, true)); // falscher Lehrer
+        }
+
+        [Fact]
+        public void ReputationHasEightStandingsAndIsCapped()
+        {
+            Assert.Equal("Hasserfüllt", ProgressionSystem.Standing(-10000));
+            Assert.Equal("Feindselig", ProgressionSystem.Standing(-4000));
+            Assert.Equal("Unfreundlich", ProgressionSystem.Standing(-1));
+            Assert.Equal("Neutral", ProgressionSystem.Standing(0));
+            Assert.Equal("Freundlich", ProgressionSystem.Standing(3000));
+            Assert.Equal("Wohlwollend", ProgressionSystem.Standing(9000));
+            Assert.Equal("Respektvoll", ProgressionSystem.Standing(21000));
+            Assert.Equal("Ehrfürchtig", ProgressionSystem.Standing(42000));
+            var t = new TestWorld();
+            var p = t.CreatePlayer(Race.Elarii, CharClass.Mage, 5);
+            var rep = TestContent.Db.Reputations.Keys.First();
+            t.World.Progression.AddReputation(p, rep, 100000);
+            Assert.Equal(ProgressionSystem.ReputationMax, p.Data.Reputation[rep]);
+            t.World.Progression.AddReputation(p, rep, -200000);
+            Assert.Equal(ProgressionSystem.ReputationMin, p.Data.Reputation[rep]);
+            Assert.Contains(t.Conn(p).Of<S_Notice>(), n => n.Text.Contains("Hasserfüllt"));
+        }
+    }
+}

@@ -40,6 +40,16 @@ namespace EternalRealms.Shared.Client
         public S_NpcInteraction? LastInteraction { get; private set; }
         public string? PendingInviteFrom { get; private set; }
 
+        // Wirtschaft
+        public S_Bank? Bank { get; private set; }
+        public List<MailSummaryData> Mail { get; private set; } = new List<MailSummaryData>();
+        public int UnreadMail { get; private set; }
+        public S_AuctionList? Auctions { get; private set; }
+        /// <summary>Offene Bedarf/Gier-Würfe (RollId → Start), bis das Ergebnis kommt.</summary>
+        public Dictionary<int, S_LootRollStart> OpenRolls { get; } = new Dictionary<int, S_LootRollStart>();
+        public S_LootMethod LootMethod { get; private set; } = new S_LootMethod { Method = Net.LootMethod.GroupLoot, Threshold = ItemQuality.Uncommon };
+        public S_TalentResetCost? TalentResetOffer { get; set; }
+
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
         public event Action<string>? Disconnected;
@@ -189,6 +199,14 @@ namespace EternalRealms.Shared.Client
                     for (int i = 0; i < gm.Markers.Count && i < gm.Targets.Count; i++) Markers[gm.Targets[i]] = gm.Markers[i];
                     break;
                 case S_GroupInviteRequest gi: PendingInviteFrom = gi.FromName; break;
+                case S_Bank bank: Bank = bank; break;
+                case S_MailList ml: Mail = ml.Mails; UnreadMail = 0; break;
+                case S_NewMail nm: UnreadMail = nm.Unread; break;
+                case S_AuctionList al: Auctions = al; break;
+                case S_LootRollStart rs: OpenRolls[rs.RollId] = rs; break;
+                case S_LootRollResult rr: OpenRolls.Remove(rr.RollId); break;
+                case S_LootMethod lm: LootMethod = lm; break;
+                case S_TalentResetCost trc: TalentResetOffer = trc; break;
                 case S_NpcInteraction ni: LastInteraction = ni; break;
                 case S_DeathState d: State.DeathState = d.State; State.CorpsePosition = d.CorpsePosition; break;
                 case S_WorldState w: State.World = w; break;
@@ -198,6 +216,12 @@ namespace EternalRealms.Shared.Client
         }
 
         public void ClearInvite() => PendingInviteFrom = null;
+
+        public void Roll(int rollId, RollChoice choice)
+        {
+            Send(new C_LootRoll { RollId = rollId, Choice = choice });
+            OpenRolls.Remove(rollId);
+        }
 
         public void SendPing() => Send(new C_Ping { ClientTime = (long)(Now * 1000) });
 

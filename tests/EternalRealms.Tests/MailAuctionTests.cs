@@ -138,3 +138,83 @@ namespace EternalRealms.Tests
         }
     }
 }
+
+namespace EternalRealms.Tests
+{
+    using EternalRealms.Server.World;
+    using EternalRealms.Shared;
+    using EternalRealms.Shared.Net;
+
+    public class LootRuleTests
+    {
+        private static readonly Vec3 Field = new(520, 0, 820);
+
+        private static (TestWorld t, Player p, Player bot, Creature corpse) KillWithDrop(string itemId, int seed = 1)
+        {
+            var t = new TestWorld(seed);
+            t.ClearMonstersAround(Field, 120);
+            var p = t.CreatePlayer(Race.Aldorer, CharClass.Warrior, 10, Field);
+            t.World.Groups.Create(p);
+            var bot = t.CreateBot(p, Role.Healer, CharClass.Priest);
+            t.World.Groups.Join(p.Group!, bot);
+            var mob = t.Spawn("mob_forest_wolf", Field + new Vec3(3, 0, 0), level: 1);
+            t.World.Combat.Kill(p, mob);
+            mob.Loot.Clear();
+            mob.Loot.Add(new LootItem { ItemId = itemId, Count = 1 });
+            mob.Lootable = true;
+            return (t, p, bot, mob);
+        }
+
+        [Fact]
+        public void GroupLootRollsAndExactlyOneWinnerGetsTheItem()
+        {
+            // Ein Kettenhemd o. Ä. ab „Ungewöhnlich“, das der Krieger tragen kann
+            var item = TestContent.Db.Items.Values.First(i => i.Quality == ItemQuality.Uncommon && i.IsEquippable && i.RequiredLevel <= 10 && i.Classes.Count == 0 && i.ArmorType == ArmorType.Mail);
+            var (t, p, bot, corpse) = KillWithDrop(item.Id);
+            Assert.Null(t.World.Loot.TryLoot(p, corpse));
+            Assert.Empty(corpse.Loot); // der Gegenstand gehört jetzt dem Wurf
+            var start = Assert.Single(t.Conn(p).Of<S_LootRollStart>());
+            Assert.True(start.CanNeed);
+            Assert.Null(t.World.LootRolls.Choose(p, start.RollId, RollChoice.Need));
+            t.Run(1);
+            Assert.Equal(0, t.World.LootRolls.Active);
+            var result = Assert.Single(t.Conn(p).Of<S_LootRollResult>());
+            Assert.Equal(p.Id, result.WinnerId); // Bot hat fair verzichtet (Mensch hatte Bedarf)
+            Assert.Equal(1, p.CountItem(item.Id) + p.Data.Equipment.Values.Count(e => e.ItemId == item.Id));
+            Assert.Equal(0, bot.CountItem(item.Id));
+        }
+
+        [Fact]
+        public void BotsGreedOnlyWhenHumansPassAndMasterLooterAssigns()
+        {
+            var item = TestContent.Db.Items.Values.First(i => i.Quality == ItemQuality.Uncommon && i.IsEquippable && i.RequiredLevel <= 10);
+            var (t, p, bot, corpse) = KillWithDrop(item.Id, seed: 3);
+            t.World.Loot.TryLoot(p, corpse);
+            var start = t.Conn(p).Of<S_LootRollStart>().Single();
+            t.World.LootRolls.Choose(p, start.RollId, RollChoice.Pass);
+            t.Run(1);
+            var result = t.Conn(p).Of<S_LootRollResult>().Single();
+            Assert.Equal(bot.Id, result.WinnerId);
+
+            // Plündermeister
+            var (t2, p2, bot2, corpse2) = KillWithDrop(item.Id, seed: 4);
+            Assert.Null(t2.World.Groups.SetLootMethod(p2, LootMethod.MasterLooter, ItemQuality.Uncommon, p2.Id));
+            t2.World.Loot.TryLoot(p2, corpse2);
+            Assert.Single(corpse2.Loot); // bleibt liegen
+            Assert.NotNull(t2.World.Loot.MasterLoot(bot2, corpse2.Id, item.Id, bot2.Id)); // nur der Plündermeister
+            Assert.Null(t2.World.Loot.MasterLoot(p2, corpse2.Id, item.Id, bot2.Id));
+            Assert.Empty(corpse2.Loot);
+            Assert.True(bot2.CountItem(item.Id) + bot2.Data.Equipment.Values.Count(e => e.ItemId == item.Id) == 1);
+        }
+
+        [Fact]
+        public void RollCommandShowsResultToTheGroup()
+        {
+            var t = new TestWorld();
+            var p = t.CreatePlayer(Race.Aldorer, CharClass.Warrior, 5);
+            t.World.Chat.Handle(p, ChatChannel.Say, "/würfeln", "");
+            var line = t.Conn(p).Of<S_Chat>().Last();
+            Assert.Matches(@"würfelt \d+ \(1–100\)", line.Text);
+        }
+    }
+}

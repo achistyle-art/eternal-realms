@@ -32,6 +32,27 @@ client.MessageReceived += m =>
         case S_UnitDied d: Print($"  ✝ {Name(d.Id)} stirbt."); break;
         case S_XpGain x: Print($"  ★ +{x.Amount} EP{(x.RestedBonus > 0 ? $" (davon {x.RestedBonus} Ruhebonus)" : "")}"); break;
         case S_LevelUp lu when lu.EntityId == client.State.MyId: Print($"  ★★ STUFE {lu.NewLevel}! +{lu.HealthGained} Leben. Talentpunkte frei: {lu.TalentPoints}"); break;
+        case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
+        case S_MailList ml:
+            Print(ml.Mails.Count == 0 ? "Keine Post." : "Post:");
+            for (int i = 0; i < ml.Mails.Count; i++)
+            {
+                var ma = ml.Mails[i];
+                Print($"  {i + 1}. von {ma.Sender}: „{ma.Subject}“ {(ma.Money > 0 ? Money(ma.Money) : "")} {string.Join(", ", ma.Items.Select(x => $"{x.Count}× {ItemName(x.ItemId)}"))}{(ma.Cod > 0 ? $" Nachnahme {Money(ma.Cod)}" : "")} ({ma.DaysLeft:0} Tage)");
+            }
+            break;
+        case S_NewMail nm: Print($"Ihr habt neue Post ({nm.Unread})."); break;
+        case S_AuctionList al:
+            Print($"Auktionshaus: {al.Total} Angebote" + (al.Kind == 1 ? " (eigene)" : al.Kind == 2 ? " (Gebote)" : ""));
+            for (int i = 0; i < al.Auctions.Count; i++)
+            {
+                var x = al.Auctions[i];
+                Print($"  {i + 1}. {x.Count}× {ItemName(x.ItemId)} – {x.Seller} – Gebot {Money(x.MinBid)}{(x.Buyout > 0 ? $", Sofortkauf {Money(x.Buyout)}" : "")}{(x.IsMyBid ? " [Höchstgebot]" : "")}");
+            }
+            break;
+        case S_LootRollStart rs: Print($"Würfeln um {ItemName(rs.ItemId)} ({rs.Seconds:0} s): need{(rs.CanNeed ? "" : " (nicht möglich)")} / greed / pass"); break;
+        case S_LootRollResult rres: Print($"  Würfe um {ItemName(rres.ItemId)}: {string.Join(", ", rres.Rolls.Select(r => $"{r.Name}{(r.IsBot ? " (KI)" : "")} {r.Choice} {r.Value}"))}"); break;
+        case S_TalentResetCost trc: Print($"Talente zurücksetzen kostet {Money(trc.Cost)}. Bestätigen mit: resettalents ja"); break;
         case S_LootResult lr: Print($"  Beute: {string.Join(", ", lr.Items.Select(i => $"{i.Count}× {ItemName(i.ItemId)}"))}{(lr.Money > 0 ? $" {Money(lr.Money)}" : "")}"); break;
         case S_NpcInteraction ni: ShowNpc(ni); break;
         case S_BotCandidates bc:
@@ -202,6 +223,60 @@ void Command(string line)
             client.Send(new C_BotCommand { Command = (byte)order, BotEntityId = Int(1, 0), TargetId = me?.TargetId ?? 0 });
             break;
         }
+        // ---- Taschen und Bank
+        case "move": client.Send(new C_MoveItem { From = Int(0) - 1, To = Int(1) - 1 }); break;
+        case "split": client.Send(new C_SplitStack { From = Int(0) - 1, Count = Int(1, 1) }); break;
+        case "sort": client.Send(new C_SortBags()); break;
+        case "destroy": client.Send(new C_DestroyItem { BagIndex = Int(0) - 1 }); break;
+        case "bag": client.Send(new C_EquipBag { BagIndex = Int(0) - 1 }); break;
+        case "unbag": client.Send(new C_UnequipBag { ContainerSlot = Int(0) - 1 }); break;
+        case "bank": ShowBank(); break;
+        case "deposit": client.Send(new C_BankDeposit { NpcId = Nearest(NpcRole.Banker), BagIndex = Int(0) - 1 }); break;
+        case "withdraw": client.Send(new C_BankWithdraw { NpcId = Nearest(NpcRole.Banker), BankIndex = Int(0) - 1 }); break;
+        // ---- Post
+        case "mail": client.Send(new C_MailList { ObjectId = Mailbox() }); break;
+        case "send":
+        {
+            // send <Name> <Kupfer> <Betreff …> [| Taschenplatz,Taschenplatz]
+            var bar = rest.Split('|');
+            var head = bar[0].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (head.Length < 2) { Print("send <Name> <Kupfer> <Betreff> [| 3,4]"); break; }
+            var ms = new C_MailSend { ObjectId = Mailbox(), To = head[0], Money = long.TryParse(head[1], out var mny) ? mny : 0, Subject = string.Join(" ", head.Skip(2)) };
+            if (bar.Length > 1) foreach (var x in bar[1].Split(',', StringSplitOptions.RemoveEmptyEntries)) if (int.TryParse(x.Trim(), out var bi)) ms.BagIndices.Add(bi - 1);
+            client.Send(ms);
+            break;
+        }
+        case "take" or "delmail" or "return" when Int(0) < 1 || Int(0) > client.Mail.Count:
+            Print("Zuerst die Post öffnen (mail) und eine gültige Nummer angeben."); break;
+        case "take": client.Send(new C_MailTake { ObjectId = Mailbox(), MailId = client.Mail[Int(0) - 1].Id, Index = 255 }); break;
+        case "delmail": client.Send(new C_MailDelete { ObjectId = Mailbox(), MailId = client.Mail[Int(0) - 1].Id }); break;
+        case "return": client.Send(new C_MailReturn { ObjectId = Mailbox(), MailId = client.Mail[Int(0) - 1].Id }); break;
+        // ---- Auktionshaus
+        case "ah": client.Send(new C_AuctionSearch { NpcId = Nearest(NpcRole.Auctioneer), Query = rest, Page = 0 }); break;
+        case "ahmine": client.Send(new C_AuctionMine { NpcId = Nearest(NpcRole.Auctioneer), Bids = a.Length > 0 && a[0] == "gebote" }); break;
+        case "ahsell": client.Send(new C_AuctionPost { NpcId = Nearest(NpcRole.Auctioneer), BagIndex = Int(0) - 1, Count = Int(1, 1), StartBid = Int(2, 100), Buyout = Int(3, 0), DurationHours = Int(4, 24) }); break;
+        case "ahbid" or "ahbuy" or "ahcancel" when client.Auctions == null || Int(0) < 1 || Int(0) > client.Auctions.Auctions.Count:
+            Print("Zuerst suchen (ah …) und eine gültige Nummer angeben."); break;
+        case "ahbid": client.Send(new C_AuctionBid { NpcId = Nearest(NpcRole.Auctioneer), AuctionId = client.Auctions!.Auctions[Int(0) - 1].Id, Amount = Int(1, 0) }); break;
+        case "ahbuy":
+        {
+            var it = client.Auctions!.Auctions[Int(0) - 1];
+            client.Send(new C_AuctionBid { NpcId = Nearest(NpcRole.Auctioneer), AuctionId = it.Id, Amount = it.Buyout });
+            break;
+        }
+        case "ahcancel": client.Send(new C_AuctionCancel { NpcId = Nearest(NpcRole.Auctioneer), AuctionId = client.Auctions!.Auctions[Int(0) - 1].Id }); break;
+        // ---- Beute und Talente
+        case "need": case "greed": case "pass":
+            foreach (var r in client.OpenRolls.Keys.ToList())
+                client.Roll(r, cmd == "need" ? RollChoice.Need : cmd == "greed" ? RollChoice.Greed : RollChoice.Pass);
+            break;
+        case "lootrule":
+        {
+            var method = (a.Length > 0 ? a[0] : "") switch { "frei" => LootMethod.FreeForAll, "reihum" => LootMethod.RoundRobin, "bedarf" => LootMethod.NeedBeforeGreed, "meister" => LootMethod.MasterLooter, _ => LootMethod.GroupLoot };
+            client.Send(new C_SetLootMethod { Method = method, Threshold = ItemQuality.Uncommon, MasterLooterId = client.State.MyId });
+            break;
+        }
+        case "resettalents": client.Send(new C_ResetTalents { NpcId = client.LastInteraction?.NpcId ?? 0, Confirm = a.Length > 0 && a[0] == "ja" }); break;
         case "mark": client.Send(new C_SetMarker { Marker = (byte)Int(0, 8), TargetId = a.Length > 1 ? Int(1) : me?.TargetId ?? 0 }); break;
         case "bot": client.Send(new C_BotInvite { CandidateId = client.BotCandidates[Int(0) - 1].CandidateId }); break;
         case "dismiss": client.Send(new C_BotDismiss { EntityId = Int(0) }); break;
@@ -286,7 +361,30 @@ void Inventory()
     if (inv == null) return;
     Print($"Geld: {Money(inv.Money)}");
     for (int i = 0; i < inv.Equipment.Count; i++) if (inv.Equipment[i].ItemId != "") Print($"  angelegt {(EquipSlot)i,-10} {ItemName(inv.Equipment[i].ItemId)}");
+    for (int i = 0; i < inv.Containers.Count; i++) if (inv.Containers[i].ItemId != "") Print($"  Tasche {i + 1}: {ItemName(inv.Containers[i].ItemId)}");
+    Print($"  Plätze: {inv.Bag.Count(s => s.ItemId != "")}/{inv.BagSize}");
     for (int i = 0; i < inv.Bag.Count; i++) if (inv.Bag[i].ItemId != "") Print($"  {i + 1,2}. {inv.Bag[i].Count}× {ItemName(inv.Bag[i].ItemId)}");
+}
+
+int Nearest(NpcRole role)
+{
+    var me = client.Me;
+    if (me == null) return 0;
+    return client.State.Entities.Values.Where(e => (e.Roles & role) != 0).OrderBy(e => Vec3.DistanceXZ(e.Position, me.Position)).FirstOrDefault()?.Id ?? 0;
+}
+
+int Mailbox()
+{
+    var me = client.Me;
+    if (me == null) return 0;
+    return client.State.Entities.Values.Where(e => e.TemplateId == "obj_mailbox").OrderBy(e => Vec3.DistanceXZ(e.Position, me.Position)).FirstOrDefault()?.Id ?? 0;
+}
+
+void ShowBank()
+{
+    var b = client.Bank;
+    if (b == null) { Print("Sprecht zuerst einen Bankier an."); return; }
+    for (int i = 0; i < b.Slots.Count; i++) if (b.Slots[i].ItemId != "") Print($"  Fach {i + 1,2}: {b.Slots[i].Count}× {ItemName(b.Slots[i].ItemId)}");
 }
 
 void Talents()
@@ -362,6 +460,11 @@ void Help() => Print(@"Befehle:
   go <id> | go <x> <z> | follow <id> | talk [id] | loot [id] | accept <Nr> | turnin <Nr> [Belohnung] | quests | abandon <quest>
   inv | equip <Platz> | item <Platz> | buy <Nr> [Anzahl] | sell <Platz> | train | talents | talent <id>
   bots [tank|heiler|dd|fern] [anfänger|normal|erfahren|veteran] | bot <Nr> | dismiss <id> | fav <id> [aus]
+  move <von> <nach> | split <Platz> <Anzahl> | sort | destroy <Platz> | bag <Platz> | unbag <1-4>
+  bank | deposit <Platz> | withdraw <Fach>   (beim Bankier)
+  mail | send <Name> <Kupfer> <Betreff> [| 3,4] | take <Nr> | delmail <Nr> | return <Nr>   (am Briefkasten)
+  ah [Suchtext] | ahmine [gebote] | ahsell <Platz> <Anzahl> <Gebot> [Sofortkauf] [12|24|48] | ahbid <Nr> <Betrag> | ahbuy <Nr> | ahcancel <Nr>
+  need | greed | pass | lootrule [frei|reihum|gruppe|bedarf|meister] | resettalents [ja] | /würfeln
   cmd <befehl> [botId] | mark <1-8> [id]   (8 = Totenkopf, 7 = Kreuz, 5 = Mond/Kontrolle; 0 als Ziel löscht)
   Chatbefehle: p Tank, greif den Boss an. | p Heiler, bitte Mana auffüllen. | p Magier, kontrolliere den linken Gegner. | p Alle zurückziehen.
   group | invite <Name> | join | leave

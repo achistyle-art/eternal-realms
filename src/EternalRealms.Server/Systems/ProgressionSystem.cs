@@ -205,18 +205,63 @@ namespace EternalRealms.Server.Systems
             }
         }
 
+        // ------------------------------------------------------------ Talente zurücksetzen
+
+        /// <summary>
+        /// Preis: 1 Gold beim ersten Mal, dann 5, 10, 15 … bis höchstens 50 Gold. Alle 30 Tage ohne Zurücksetzen sinkt
+        /// der Preis wieder um eine Stufe – die Kosten bremsen ständiges Umskillen, ohne es zu verbieten.
+        /// </summary>
+        public long TalentResetCost(Player p)
+        {
+            int steps = p.Data.TalentResets;
+            if (p.Data.LastTalentReset != default)
+                steps -= (int)((DateTime.UtcNow - p.Data.LastTalentReset).TotalDays / 30);
+            steps = Math.Max(0, steps);
+            return steps == 0 ? 10000 : Math.Min(50, steps * 5) * 10000L;
+        }
+
+        public string? ResetTalents(Player p, Creature trainer, bool confirm)
+        {
+            if (!trainer.Template.Roles.HasFlag(NpcRole.ClassTrainer) || trainer.Template.TrainerClass != p.Class) return "Nur Euer Klassenlehrer kann Eure Talente zurücksetzen.";
+            if (p.DistanceTo(trainer) > InteractionSystem.NpcRange) return "Zu weit entfernt.";
+            if (p.TalentPointsSpent == 0) return "Ihr habt keine Talentpunkte verteilt.";
+            long cost = TalentResetCost(p);
+            if (!confirm) { p.Send(new S_TalentResetCost { NpcId = trainer.Id, Cost = cost }); return null; }
+            if (!_w.Economy.Debit(p, cost, "talent_reset")) return $"Das Zurücksetzen kostet {LootSystem.Money(cost)}.";
+            var granted = p.Data.Talents.Keys.Select(t => _w.Content.Talents[t].GrantsAbility).Where(a => a != null).ToList();
+            foreach (var a in granted) p.Data.Abilities.Remove(a!);
+            p.Data.Talents.Clear();
+            int steps = Math.Max(0, p.Data.TalentResets - (p.Data.LastTalentReset == default ? 0 : (int)((DateTime.UtcNow - p.Data.LastTalentReset).TotalDays / 30)));
+            p.Data.TalentResets = steps + 1;
+            p.Data.LastTalentReset = DateTime.UtcNow;
+            p.MarkStatsDirty();
+            p.Send(p.BuildTalents());
+            p.Send(p.BuildSpellBook());
+            p.Send(p.BuildPlayerState());
+            p.Notice($"Eure Talente wurden für {LootSystem.Money(cost)} zurückgesetzt.");
+            _w.Save(p);
+            return null;
+        }
+
         // ------------------------------------------------------------ Ruf
 
         public void AddReputation(Player p, string factionId, int amount)
         {
             if (p.Race == Race.Aldorer && amount > 0) amount = (int)(amount * 1.1f); // Volksfähigkeit "Diplomatie"
-            p.Data.Reputation[factionId] = p.Data.Reputation.GetValueOrDefault(factionId) + amount;
-            if (_w.Content.Reputations.TryGetValue(factionId, out var rep))
-                p.Notice($"Ruf bei {rep.Name} um {amount} gestiegen.");
+            int old = p.Data.Reputation.GetValueOrDefault(factionId);
+            int now = Math.Clamp(old + amount, ReputationMin, ReputationMax);
+            p.Data.Reputation[factionId] = now;
+            if (!_w.Content.Reputations.TryGetValue(factionId, out var rep) || now == old) return;
+            p.Notice($"Ruf bei {rep.Name} um {Math.Abs(now - old)} {(now > old ? "gestiegen" : "gesunken")}.");
+            if (Standing(now) != Standing(old)) p.Notice($"Ihr seid jetzt „{Standing(now)}“ bei {rep.Name}.");
         }
 
+        public const int ReputationMin = -42000, ReputationMax = 42999;
+
+        /// <summary>Rufstufen (Kapitel 24): Hasserfüllt bis Ehrfürchtig.</summary>
         public static string Standing(int value) => value switch
         {
+            < -6000 => "Hasserfüllt",
             < -3000 => "Feindselig",
             < 0 => "Unfreundlich",
             < 3000 => "Neutral",

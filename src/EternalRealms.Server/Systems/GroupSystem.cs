@@ -99,5 +99,25 @@ namespace EternalRealms.Server.Systems
             _updateTimer = 1f;
             foreach (var g in All) if (g.Humans.Any()) g.Broadcast(g.BuildUpdate());
         }
+
+        public string? SetLootMethod(Player p, LootMethod method, ItemQuality threshold, int masterLooterId)
+        {
+            var g = p.Group;
+            if (g == null) return "Ihr seid in keiner Gruppe.";
+            if (g.Leader != p) return "Nur der Gruppenanführer legt die Beuteregel fest.";
+            if (!Enum.IsDefined(typeof(LootMethod), method) || threshold < ItemQuality.Uncommon || threshold > ItemQuality.Epic) return "Ungültige Beuteregel.";
+            if (method == LootMethod.MasterLooter && g.Members.All(m => m.Id != masterLooterId)) masterLooterId = p.Id;
+            g.LootMethod = method;
+            g.LootThreshold = threshold;
+            g.MasterLooterId = method == LootMethod.MasterLooter ? masterLooterId : 0;
+            g.Broadcast(g.BuildLootMethod());
+            string name = method switch
+            {
+                LootMethod.FreeForAll => "Jeder für sich", LootMethod.RoundRobin => "Reihum", LootMethod.GroupLoot => "Gruppenbeute",
+                LootMethod.NeedBeforeGreed => "Bedarf vor Gier", _ => "Plündermeister",
+            };
+            g.Broadcast(new S_Chat { Channel = ChatChannel.System, Text = $"Beuteregel: {name} (ab {threshold})." });
+            return null;
+        }
     }
 }

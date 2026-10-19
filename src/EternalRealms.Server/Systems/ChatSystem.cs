@@ -12,12 +12,34 @@ namespace EternalRealms.Server.Systems
         public const float SayRange = 40f, YellRange = 200f;
         public const int MaxLength = 255;
 
+        /// <summary>„/würfeln“ bzw. „/roll“ [max] oder [min-max]: sichtbar für die Gruppe, sonst für die Umgebung.</summary>
+        private bool TryRollCommand(Player from, string text)
+        {
+            var parts = text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var cmd = parts[0].ToLowerInvariant();
+            if (cmd != "/würfeln" && cmd != "/wuerfeln" && cmd != "/roll") return false;
+            int min = 1, max = 100;
+            if (parts.Length > 1)
+            {
+                var r = parts[1].Split('-');
+                if (r.Length == 2 && int.TryParse(r[0], out var a) && int.TryParse(r[1], out var b)) { min = a; max = b; }
+                else if (int.TryParse(parts[1], out var m)) max = m;
+            }
+            min = Math.Clamp(min, 0, 1_000_000); max = Math.Clamp(max, min, 1_000_000);
+            int value = _w.Random.Range(min, max);
+            var msg = new S_Chat { Channel = ChatChannel.System, Text = $"{from.Name} würfelt {value} ({min}–{max})." };
+            if (from.Group != null) from.Group.Broadcast(msg);
+            else from.Zone?.BroadcastInRange(from.Position, SayRange, msg);
+            return true;
+        }
+
         public void Handle(Player from, ChatChannel channel, string text, string whisperTo)
         {
             text = (text ?? "").Trim();
             if (text.Length == 0) return;
             if (text.Length > MaxLength) text = text.Substring(0, MaxLength);
             if (text.StartsWith("#") && _w.Config.DevCommands && !from.IsBot) { _w.DevCommands.Execute(from, text); return; }
+            if (TryRollCommand(from, text)) return;
             var msg = new S_Chat { Channel = channel, SenderId = from.Id, SenderName = from.Name, Text = text, SenderIsBot = from.IsBot };
             switch (channel)
             {

@@ -341,6 +341,10 @@ namespace EternalRealms.Server.Net
                     err = Auctioneer(p, ac.NpcId) ?? _w.Auctions.Cancel(p, ac.AuctionId);
                     if (err == null) p.Send(_w.Auctions.Mine(p, false));
                     break;
+                case C_LootRoll lr: err = _w.LootRolls.Choose(p, lr.RollId, lr.Choice); break;
+                case C_MasterLoot mlt: err = _w.Loot.MasterLoot(p, mlt.CorpseId, mlt.ItemId ?? "", mlt.TargetId); break;
+                case C_SetLootMethod slm: err = _w.Groups.SetLootMethod(p, slm.Method, slm.Threshold, slm.MasterLooterId); break;
+                case C_ResetTalents rt: err = WithNpc(p, rt.NpcId, npc => _w.Progression.ResetTalents(p, npc, rt.Confirm)); break;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);

@@ -306,12 +306,17 @@ namespace EternalRealms.Server.AI
         public bool ConsiderEquip(Player bot, int bagIndex)
         {
             var stack = bot.Data.Bag[bagIndex];
-            if (stack == null || !_w.Content.Items.TryGetValue(stack.ItemId, out var item) || !item.IsEquippable) return false;
-            if (bot.CanEquip(item) != null) return false;
+            if (stack == null || !_w.Content.Items.TryGetValue(stack.ItemId, out var item)) return false;
+            return IsUpgrade(bot, item) && bot.Equip(bagIndex) == null;
+        }
+
+        /// <summary>Wäre der Gegenstand für diesen Bot eine echte Verbesserung (mindestens 5 %)?</summary>
+        public bool IsUpgrade(Player bot, ItemDef item)
+        {
+            if (!item.IsEquippable || bot.CanEquip(item) != null) return false;
             var slot = bot.SlotFor(item);
             float current = bot.Data.Equipment.TryGetValue(slot, out var cur) ? BotGear.Score(bot, _w.Content.Items[cur.ItemId]) : BotGear.VirtualSlotScore(bot);
-            if (BotGear.Score(bot, item) <= current * 1.05f) return false;
-            return bot.Equip(bagIndex) == null;
+            return BotGear.Score(bot, item) > current * 1.05f;
         }
 
         // ================================================================== Weltbewohner (Kapitel 9.4)

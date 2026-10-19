@@ -5,7 +5,13 @@ using EternalRealms.Server;
 var config = ServerConfig.FromEnvironment();
 string root = FindRoot();
 if (!Path.IsPathRooted(config.ContentPath)) config.ContentPath = Path.Combine(root, config.ContentPath);
-var migrations = Path.Combine(root, "db", "migrations");
+// Migrationen: ER_MIGRATIONS, sonst neben dem Content-Ordner (…/content → …/db/migrations), sonst im Projektwurzelverzeichnis.
+var migrations = Environment.GetEnvironmentVariable("ER_MIGRATIONS") is { Length: > 0 } envMig ? envMig
+    : Directory.Exists(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(config.ContentPath)) ?? root, "db", "migrations"))
+        ? Path.Combine(Path.GetDirectoryName(Path.GetFullPath(config.ContentPath))!, "db", "migrations")
+        : Path.Combine(root, "db", "migrations");
+if (!string.IsNullOrWhiteSpace(config.ConnectionString) && !Directory.Exists(migrations))
+    Console.WriteLine($"Warnung: Migrationsordner {migrations} nicht gefunden – Datenbankschema wird nicht aktualisiert (ER_MIGRATIONS setzen).");
 
 Console.WriteLine("Eternal Realms – Realm-Server");
 GameServer server;

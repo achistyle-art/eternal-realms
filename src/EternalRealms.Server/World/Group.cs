@@ -13,6 +13,12 @@ namespace EternalRealms.Server.World
         public bool IsRaid { get; set; }
         public int MaxSize => IsRaid ? 40 : 5;
         public int LootRobin { get; set; }
+        public LootMethod LootMethod { get; set; } = LootMethod.GroupLoot;
+        /// <summary>Ab dieser Qualität wird gewürfelt bzw. vom Plündermeister verteilt.</summary>
+        public ItemQuality LootThreshold { get; set; } = ItemQuality.Uncommon;
+        public int MasterLooterId { get; set; }
+
+        public S_LootMethod BuildLootMethod() => new() { Method = LootMethod, Threshold = LootThreshold, MasterLooterId = MasterLooterId };
         /// <summary>Zielmarkierungen: Symbol (1–8) → Einheit. 8 = Totenkopf (zuerst töten), 7 = Kreuz (danach), 5 = Mond (kontrollieren).</summary>
         public Dictionary<int, int> Markers { get; } = new();
         public const int MarkSkull = 8, MarkCross = 7, MarkMoon = 5;

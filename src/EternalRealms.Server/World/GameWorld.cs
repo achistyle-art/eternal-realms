@@ -24,6 +24,7 @@ namespace EternalRealms.Server.World
         public PersistenceQueue? Persistence { get; }
         public EconomySystem Economy { get; }
         public MailSystem Mail { get; }
+        public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
         public Action<string> Log { get; set; } = Console.WriteLine;
@@ -56,6 +57,7 @@ namespace EternalRealms.Server.World
             Random = random ?? new GameRandom();
             Economy = new EconomySystem(this);
             Mail = new MailSystem(this);
+            LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
             Quests = new QuestSystem(this);
@@ -110,6 +112,7 @@ namespace EternalRealms.Server.World
             Groups.Update(dt);
             Bots.Update(dt);
             Mail.Update(dt);
+            LootRolls.Update();
             Auctions.Update(dt);
             Economy.Update(dt);
             if (Time - _lastWorldStateBroadcast > 30)
