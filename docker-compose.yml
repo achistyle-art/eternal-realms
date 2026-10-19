@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: realms
+      POSTGRES_PASSWORD: realms
+      POSTGRES_DB: eternal_realms
+    volumes:
+      - realm-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U realms"]
+      interval: 5s
+      retries: 10
+
+  realm:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ER_DATABASE: "Host=db;Username=realms;Password=realms;Database=eternal_realms"
+      ER_PORT: "7777"
+    ports:
+      - "7777:7777/udp"
+    stop_grace_period: 30s
+
+volumes:
+  realm-data:

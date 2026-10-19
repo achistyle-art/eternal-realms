@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: realms
+          POSTGRES_PASSWORD: realms
+          POSTGRES_DB: er_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U realms" --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Content-Werkzeuge erzeugen identische Dateien
+        run: |
+          python3 tools/gen_class_content.py
+          python3 tools/gen_items.py
+          git diff --exit-code content/
+      - name: Tests
+        env:
+          ER_TEST_DATABASE: "Host=localhost;Username=realms;Password=realms;Database=er_test"
+        run: dotnet test --configuration Release
