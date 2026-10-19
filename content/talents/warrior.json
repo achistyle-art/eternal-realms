@@ -1,0 +1,352 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "warrior_arms",
+  "class": "Warrior",
+  "name": "Waffen",
+  "description": "Meisterschaft über schwere Waffen und brutale Treffer.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "wa_improved_heroic",
+    "name": "Verbesserter Heldenhafter Stoß",
+    "description": "Heldenhafter Stoß verursacht 4 % mehr Schaden.",
+    "tier": 0,
+    "column": 0,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 4,
+      "ability": "warrior_heroic_strike"
+     }
+    ]
+   },
+   {
+    "id": "wa_deflection",
+    "name": "Abwehr",
+    "description": "Erhöht die Parierchance um 1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ParryChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "wa_tactical_mastery",
+    "name": "Taktische Meisterschaft",
+    "description": "Erhöht die Angriffskraft um 6.",
+    "tier": 1,
+    "column": 0,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "AttackPowerFlat",
+      "value": 6
+     }
+    ]
+   },
+   {
+    "id": "wa_improved_rend",
+    "name": "Verbessertes Verwunden",
+    "description": "Verwunden verursacht 15 % mehr Schaden.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 15,
+      "ability": "warrior_rend"
+     }
+    ]
+   },
+   {
+    "id": "wa_impale",
+    "name": "Durchbohren",
+    "description": "Kritische Treffer verursachen 10 % mehr Schaden.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 10
+     }
+    ]
+   },
+   {
+    "id": "wa_two_hand_spec",
+    "name": "Zweihandspezialisierung",
+    "description": "Verursachter körperlicher Schaden +2 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Physical"
+     }
+    ]
+   },
+   {
+    "id": "wa_sweeping",
+    "name": "Weitreichende Hiebe",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Melee"
+     }
+    ]
+   },
+   {
+    "id": "wa_mortal_strike",
+    "name": "Tödlicher Stoß",
+    "description": "Schaltet Tödlicher Stoß frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "requires": "wa_two_hand_spec",
+    "grantsAbility": "warrior_mortal_strike"
+   }
+  ]
+ },
+ {
+  "id": "warrior_fury",
+  "class": "Warrior",
+  "name": "Furor",
+  "description": "Ungebremster Zorn und beidhändiger Kampf.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "wf_cruelty",
+    "name": "Grausamkeit",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Melee"
+     }
+    ]
+   },
+   {
+    "id": "wf_booming_voice",
+    "name": "Donnernde Stimme",
+    "description": "Schlachtruf wirkt 10 % stärker auf die Gruppe (mehr Bedrohung).",
+    "tier": 0,
+    "column": 0,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "ThreatPercent",
+      "value": 5,
+      "ability": "warrior_battle_shout"
+     }
+    ]
+   },
+   {
+    "id": "wf_unbridled",
+    "name": "Ungezügelter Zorn",
+    "description": "Wutgewinn +8 %.",
+    "tier": 1,
+    "column": 0,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "RageGenerationPercent",
+      "value": 8
+     }
+    ]
+   },
+   {
+    "id": "wf_improved_execute",
+    "name": "Verbessertes Hinrichten",
+    "description": "Hinrichten kostet 15 % weniger.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -15,
+      "ability": "warrior_execute"
+     }
+    ]
+   },
+   {
+    "id": "wf_dual_wield",
+    "name": "Beidhändigkeitsspezialisierung",
+    "description": "Körperlicher Schaden +2 %.",
+    "tier": 2,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Physical"
+     }
+    ]
+   },
+   {
+    "id": "wf_flurry",
+    "name": "Schlaghagel",
+    "description": "Angriffstempo +3 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "AttackSpeedPercent",
+      "value": 3
+     }
+    ],
+    "requires": "wf_cruelty"
+   },
+   {
+    "id": "wf_bloodthirst",
+    "name": "Blutdurst",
+    "description": "Angriffskraft +20.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "AttackPowerFlat",
+      "value": 20
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warrior_protection",
+  "class": "Warrior",
+  "name": "Schutz",
+  "description": "Unerschütterlicher Beschützer seiner Gruppe.",
+  "primaryRole": "Tank",
+  "talents": [
+   {
+    "id": "wp_shield_spec",
+    "name": "Schildspezialisierung",
+    "description": "Blockchance +1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "BlockChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "wp_anticipation",
+    "name": "Vorahnung",
+    "description": "Ausweichchance +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DodgeChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "wp_toughness",
+    "name": "Zähigkeit",
+    "description": "Rüstung +2 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ArmorPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "wp_last_stand",
+    "name": "Letztes Gefecht",
+    "description": "Schaltet Letztes Gefecht frei.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "warrior_last_stand"
+   },
+   {
+    "id": "wp_defiance",
+    "name": "Trotz",
+    "description": "Bedrohung +3 %.",
+    "tier": 2,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ThreatPercent",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "id": "wp_improved_sunder",
+    "name": "Verbessertes Rüstung zerreißen",
+    "description": "Rüstung zerreißen kostet 10 % weniger.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -10,
+      "ability": "warrior_sunder_armor"
+     }
+    ]
+   },
+   {
+    "id": "wp_vitality",
+    "name": "Vitalität",
+    "description": "Maximales Leben +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxHealthPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "wp_shield_slam",
+    "name": "Schildschlag",
+    "description": "Schaltet Schildschlag frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "requires": "wp_improved_sunder",
+    "grantsAbility": "warrior_shield_slam"
+   }
+  ]
+ }
+]

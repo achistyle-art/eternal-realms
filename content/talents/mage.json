@@ -1,0 +1,359 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "mage_arcane",
+  "class": "Mage",
+  "name": "Arkan",
+  "description": "Reine Magie und Manabeherrschung.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "ma_arcane_subtlety",
+    "name": "Arkane Feinsinnigkeit",
+    "description": "Bedrohung durch Arkanzauber -10 %.",
+    "tier": 0,
+    "column": 0,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "ThreatPercent",
+      "value": -10,
+      "school": "Arcane"
+     }
+    ]
+   },
+   {
+    "id": "ma_arcane_focus",
+    "name": "Arkane Konzentration",
+    "description": "Trefferchance mit Arkanzaubern +2 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "HitChance",
+      "value": 2,
+      "school": "Arcane"
+     }
+    ]
+   },
+   {
+    "id": "ma_arcane_mind",
+    "name": "Arkaner Verstand",
+    "description": "Maximales Mana +2 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxPowerPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "ma_arcane_meditation",
+    "name": "Arkane Meditation",
+    "description": "Manaregeneration +5 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "PowerRegenPercent",
+      "value": 5
+     }
+    ]
+   },
+   {
+    "id": "ma_arcane_instability",
+    "name": "Arkane Instabilität",
+    "description": "Verursachter Schaden +1 %, krit. Zaubertrefferchance +1 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 1
+     },
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Spell"
+     }
+    ]
+   },
+   {
+    "id": "ma_improved_missiles",
+    "name": "Verbesserte Arkane Geschosse",
+    "description": "Arkane Geschosse +5 % Schaden.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "ability": "mage_arcane_missiles"
+     }
+    ]
+   },
+   {
+    "id": "ma_arcane_power",
+    "name": "Arkane Macht",
+    "description": "Verursachter Schaden +6 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 6
+     }
+    ],
+    "requires": "ma_arcane_instability"
+   }
+  ]
+ },
+ {
+  "id": "mage_fire",
+  "class": "Mage",
+  "name": "Feuer",
+  "description": "Alles verzehrende Flammen.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "mf_improved_fireball",
+    "name": "Verbesserter Feuerball",
+    "description": "Feuerball: Zauberzeit -0,1 s.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "mage_fireball"
+     }
+    ]
+   },
+   {
+    "id": "mf_impact",
+    "name": "Einschlag",
+    "description": "Feuerschlag: Abklingzeit -0,5 s.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CooldownFlat",
+      "value": -0.5,
+      "ability": "mage_fire_blast"
+     }
+    ]
+   },
+   {
+    "id": "mf_ignite",
+    "name": "Entzünden",
+    "description": "Kritischer Schaden mit Feuer +8 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 8,
+      "school": "Fire"
+     }
+    ]
+   },
+   {
+    "id": "mf_pyroblast",
+    "name": "Pyroschlag",
+    "description": "Schaltet Pyroschlag frei.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "mage_pyroblast"
+   },
+   {
+    "id": "mf_critical_mass",
+    "name": "Kritische Masse",
+    "description": "Kritische Trefferchance mit Feuer +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 2,
+      "school": "Fire"
+     }
+    ]
+   },
+   {
+    "id": "mf_fire_power",
+    "name": "Feuermacht",
+    "description": "Feuerschaden +2 %.",
+    "tier": 4,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Fire"
+     }
+    ]
+   },
+   {
+    "id": "mf_combustion",
+    "name": "Verbrennung",
+    "description": "Kritische Trefferchance mit Feuer +5 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 5,
+      "school": "Fire"
+     }
+    ],
+    "requires": "mf_critical_mass"
+   }
+  ]
+ },
+ {
+  "id": "mage_frost",
+  "class": "Mage",
+  "name": "Frost",
+  "description": "Eis, Kälte und Kontrolle.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "mfr_improved_frostbolt",
+    "name": "Verbesserter Frostblitz",
+    "description": "Frostblitz: Zauberzeit -0,1 s.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "mage_frostbolt"
+     }
+    ]
+   },
+   {
+    "id": "mfr_elemental_precision",
+    "name": "Elementare Präzision",
+    "description": "Trefferchance mit Feuer und Frost +2 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "HitChance",
+      "value": 2,
+      "school": "Frost"
+     },
+     {
+      "type": "HitChance",
+      "value": 2,
+      "school": "Fire"
+     }
+    ]
+   },
+   {
+    "id": "mfr_ice_shards",
+    "name": "Eissplitter",
+    "description": "Kritischer Schaden mit Frost +20 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 20,
+      "school": "Frost"
+     }
+    ]
+   },
+   {
+    "id": "mfr_frostbite",
+    "name": "Erfrierung",
+    "description": "Kritische Trefferchance mit Frost +1 %.",
+    "tier": 1,
+    "column": 2,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "school": "Frost"
+     }
+    ]
+   },
+   {
+    "id": "mfr_piercing_ice",
+    "name": "Durchdringendes Eis",
+    "description": "Frostschaden +2 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Frost"
+     }
+    ]
+   },
+   {
+    "id": "mfr_arctic_reach",
+    "name": "Arktische Reichweite",
+    "description": "Frostnova: Abklingzeit -2 s.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "CooldownFlat",
+      "value": -2,
+      "ability": "mage_frost_nova"
+     }
+    ]
+   },
+   {
+    "id": "mfr_winters_chill",
+    "name": "Winterkälte",
+    "description": "Kritische Zaubertrefferchance +1 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Spell"
+     }
+    ],
+    "requires": "mfr_piercing_ice"
+   },
+   {
+    "id": "mfr_icy_veins",
+    "name": "Eisige Adern",
+    "description": "Schaltet Eisige Adern frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "mage_icy_veins"
+   }
+  ]
+ }
+]

@@ -1,0 +1,878 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "warrior_battle_stance",
+  "name": "Kampfhaltung",
+  "description": "Wechselt in die Kampfhaltung.",
+  "class": "Warrior",
+  "level": 1,
+  "powerType": "Rage",
+  "cost": 0,
+  "target": "Self",
+  "triggersGcd": false,
+  "cooldown": 1,
+  "notTrainable": true,
+  "icon": "stance_battle",
+  "animation": "stance",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_battle_stance"
+   }
+  ]
+ },
+ {
+  "id": "warrior_heroic_strike",
+  "name": "Heldenhafter Stoß",
+  "description": "Ein mächtiger Hieb, der Waffenschaden plus Zusatzschaden verursacht.",
+  "class": "Warrior",
+  "powerType": "Rage",
+  "cost": 15,
+  "target": "Enemy",
+  "maxRange": 5,
+  "icon": "heroic_strike",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "threat": 20,
+    "min": 5,
+    "max": 6
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 15,
+    "values": [
+     [
+      5,
+      6
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 15,
+    "values": [
+     [
+      11,
+      14
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 15,
+    "values": [
+     [
+      19,
+      25
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 15,
+    "values": [
+     [
+      28,
+      38
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 15,
+    "values": [
+     [
+      39,
+      53
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 15,
+    "values": [
+     [
+      51,
+      70
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 15,
+    "values": [
+     [
+      65,
+      88
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 15,
+    "values": [
+     [
+      80,
+      108
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 15,
+    "values": [
+     [
+      96,
+      130
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 15,
+    "values": [
+     [
+      114,
+      154
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 15,
+    "values": [
+     [
+      133,
+      180
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warrior_battle_shout",
+  "name": "Schlachtruf",
+  "description": "Erhöht die Angriffskraft aller Gruppenmitglieder für 2 Minuten.",
+  "class": "Warrior",
+  "powerType": "Rage",
+  "cost": 10,
+  "target": "Party",
+  "maxRange": 30,
+  "icon": "battle_shout",
+  "animation": "shout",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "threat": 10,
+    "aura": "warrior_battle_shout_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_battle_shout_r1"
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_battle_shout_r12"
+   },
+   {
+    "level": 22,
+    "trainingCost": 4840,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_battle_shout_r22"
+   },
+   {
+    "level": 32,
+    "trainingCost": 10240,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_battle_shout_r32"
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_battle_shout_r42"
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_battle_shout_r52"
+   }
+  ]
+ },
+ {
+  "id": "warrior_charge",
+  "name": "Sturmangriff",
+  "description": "Stürmt auf den Gegner zu, betäubt ihn kurz und erzeugt 9 Wut. Nur außerhalb des Kampfes.",
+  "class": "Warrior",
+  "level": 4,
+  "trainingCost": 160,
+  "powerType": "Rage",
+  "cost": 0,
+  "cooldown": 15,
+  "minRange": 8,
+  "maxRange": 25,
+  "target": "Enemy",
+  "outOfCombatOnly": true,
+  "requiredForms": [
+   "BattleStance"
+  ],
+  "triggersGcd": false,
+  "icon": "charge",
+  "animation": "charge",
+  "effects": [
+   {
+    "type": "Charge"
+   },
+   {
+    "type": "GainPower",
+    "min": 9,
+    "max": 9,
+    "onSelf": true
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_charge_stun"
+   }
+  ]
+ },
+ {
+  "id": "warrior_rend",
+  "name": "Verwunden",
+  "description": "Lässt das Ziel 15 Sekunden lang bluten.",
+  "class": "Warrior",
+  "powerType": "Rage",
+  "cost": 10,
+  "target": "Enemy",
+  "maxRange": 5,
+  "icon": "rend",
+  "animation": "attack",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_rend_r4"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r4"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r10"
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r18"
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r26"
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r34"
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r42"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r50"
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "warrior_rend_r58"
+   }
+  ]
+ },
+ {
+  "id": "warrior_thunder_clap",
+  "name": "Donnerknall",
+  "description": "Erschüttert alle Gegner in der Nähe: Schaden und verlangsamtes Angriffstempo.",
+  "class": "Warrior",
+  "level": 6,
+  "powerType": "Rage",
+  "cost": 20,
+  "cooldown": 4,
+  "target": "AreaAroundSelf",
+  "radius": 8,
+  "icon": "thunder_clap",
+  "animation": "stomp",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "threatMultiplier": 1.75,
+    "min": 9,
+    "max": 12
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_thunderclap_slow"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 20,
+    "values": [
+     [
+      9,
+      12
+     ],
+     null
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 20,
+    "values": [
+     [
+      23,
+      31
+     ],
+     null
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 20,
+    "values": [
+     [
+      39,
+      52
+     ],
+     null
+    ]
+   },
+   {
+    "level": 38,
+    "trainingCost": 14440,
+    "cost": 20,
+    "values": [
+     [
+      57,
+      77
+     ],
+     null
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 20,
+    "values": [
+     [
+      79,
+      106
+     ],
+     null
+    ]
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 20,
+    "values": [
+     [
+      103,
+      140
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warrior_defensive_stance",
+  "name": "Verteidigungshaltung",
+  "description": "Wechselt in die Verteidigungshaltung für den Einsatz als Tank.",
+  "class": "Warrior",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Rage",
+  "cost": 0,
+  "target": "Self",
+  "triggersGcd": false,
+  "cooldown": 1,
+  "icon": "stance_defensive",
+  "animation": "stance",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_defensive_stance"
+   }
+  ]
+ },
+ {
+  "id": "warrior_taunt",
+  "name": "Spott",
+  "description": "Zwingt das Ziel, Euch anzugreifen.",
+  "class": "Warrior",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Rage",
+  "cost": 0,
+  "cooldown": 10,
+  "maxRange": 10,
+  "target": "Enemy",
+  "triggersGcd": false,
+  "requiredForms": [
+   "DefensiveStance"
+  ],
+  "icon": "taunt",
+  "animation": "taunt",
+  "effects": [
+   {
+    "type": "Taunt"
+   }
+  ]
+ },
+ {
+  "id": "warrior_sunder_armor",
+  "name": "Rüstung zerreißen",
+  "description": "Verringert die Rüstung des Ziels (bis zu 5-mal stapelbar) und erzeugt viel Bedrohung.",
+  "class": "Warrior",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Rage",
+  "cost": 15,
+  "target": "Enemy",
+  "maxRange": 5,
+  "icon": "sunder",
+  "animation": "attack",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_sunder",
+    "threat": 100
+   }
+  ]
+ },
+ {
+  "id": "warrior_demoralizing_shout",
+  "name": "Demoralisierender Ruf",
+  "description": "Verringert die Angriffskraft aller Gegner in der Nähe.",
+  "class": "Warrior",
+  "level": 14,
+  "trainingCost": 1960,
+  "powerType": "Rage",
+  "cost": 10,
+  "target": "AreaAroundSelf",
+  "radius": 10,
+  "icon": "demo_shout",
+  "animation": "shout",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_demo_shout",
+    "threat": 40
+   }
+  ]
+ },
+ {
+  "id": "warrior_shield_block",
+  "name": "Schildblock",
+  "description": "Erhöht die Blockchance 5 Sekunden lang stark.",
+  "class": "Warrior",
+  "level": 16,
+  "trainingCost": 2560,
+  "powerType": "Rage",
+  "cost": 10,
+  "cooldown": 5,
+  "target": "Self",
+  "requiresShield": true,
+  "triggersGcd": false,
+  "requiredForms": [
+   "DefensiveStance"
+  ],
+  "icon": "shield_block",
+  "animation": "block",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_shield_block"
+   }
+  ]
+ },
+ {
+  "id": "warrior_execute",
+  "name": "Hinrichten",
+  "description": "Versucht, einen geschwächten Gegner (unter 20 % Leben) zu erledigen.",
+  "class": "Warrior",
+  "powerType": "Rage",
+  "cost": 15,
+  "target": "Enemy",
+  "maxRange": 5,
+  "targetHealthBelow": 0.2,
+  "requiredForms": [
+   "BattleStance",
+   "BerserkerStance"
+  ],
+  "icon": "execute",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "min": 114,
+    "max": 154
+   }
+  ],
+  "ranks": [
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 15,
+    "values": [
+     [
+      114,
+      154
+     ]
+    ]
+   },
+   {
+    "level": 32,
+    "trainingCost": 10240,
+    "cost": 15,
+    "values": [
+     [
+      162,
+      220
+     ]
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 15,
+    "values": [
+     [
+      218,
+      294
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 15,
+    "values": [
+     [
+      280,
+      379
+     ]
+    ]
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 15,
+    "values": [
+     [
+      349,
+      472
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warrior_berserker_stance",
+  "name": "Berserkerhaltung",
+  "description": "Aggressive Haltung mit mehr kritischen Treffern.",
+  "class": "Warrior",
+  "level": 30,
+  "trainingCost": 9000,
+  "powerType": "Rage",
+  "cost": 0,
+  "target": "Self",
+  "triggersGcd": false,
+  "cooldown": 1,
+  "icon": "stance_berserker",
+  "animation": "stance",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_berserker_stance"
+   }
+  ]
+ },
+ {
+  "id": "warrior_mortal_strike",
+  "name": "Tödlicher Stoß",
+  "description": "Starker Hieb, der die erhaltene Heilung des Ziels halbiert. (Talent)",
+  "class": "Warrior",
+  "powerType": "Rage",
+  "cost": 30,
+  "cooldown": 6,
+  "target": "Enemy",
+  "maxRange": 5,
+  "notTrainable": true,
+  "icon": "mortal_strike",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "min": 84,
+    "max": 114
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_mortal_wound"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 30,
+    "values": [
+     [
+      84,
+      114
+     ],
+     null
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 30,
+    "values": [
+     [
+      122,
+      166
+     ],
+     null
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 30,
+    "values": [
+     [
+      167,
+      226
+     ],
+     null
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 30,
+    "values": [
+     [
+      217,
+      294
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warrior_shield_slam",
+  "name": "Schildschlag",
+  "description": "Schlägt mit dem Schild zu. Erzeugt sehr viel Bedrohung. (Talent)",
+  "class": "Warrior",
+  "powerType": "Rage",
+  "cost": 20,
+  "cooldown": 6,
+  "target": "Enemy",
+  "maxRange": 5,
+  "requiresShield": true,
+  "notTrainable": true,
+  "icon": "shield_slam",
+  "animation": "shield_bash",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "threat": 150,
+    "threatMultiplier": 1.5,
+    "min": 112,
+    "max": 152
+   }
+  ],
+  "ranks": [
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 20,
+    "values": [
+     [
+      112,
+      152
+     ]
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 20,
+    "values": [
+     [
+      163,
+      221
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 20,
+    "values": [
+     [
+      222,
+      301
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 20,
+    "values": [
+     [
+      290,
+      392
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warrior_last_stand",
+  "name": "Letztes Gefecht",
+  "description": "Erhöht das maximale Leben 20 Sekunden lang um 30 %. (Talent)",
+  "class": "Warrior",
+  "level": 20,
+  "powerType": "Rage",
+  "cost": 0,
+  "cooldown": 300,
+  "target": "Self",
+  "triggersGcd": false,
+  "notTrainable": true,
+  "icon": "last_stand",
+  "animation": "roar",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warrior_last_stand"
+   }
+  ]
+ },
+ {
+  "id": "warrior_bloodrage",
+  "name": "Blutrausch",
+  "description": "Erzeugt sofort 10 Wut.",
+  "class": "Warrior",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Rage",
+  "cost": 0,
+  "cooldown": 60,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "bloodrage",
+  "animation": "roar",
+  "effects": [
+   {
+    "type": "GainPower",
+    "min": 10,
+    "max": 10,
+    "onSelf": true
+   }
+  ]
+ }
+]

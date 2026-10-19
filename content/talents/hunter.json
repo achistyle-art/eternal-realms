@@ -1,0 +1,326 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "hunter_beast_mastery",
+  "class": "Hunter",
+  "name": "Tierherrschaft",
+  "description": "Eins mit dem tierischen Gefährten.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "hb_endurance",
+    "name": "Ausdauertraining",
+    "description": "Maximales Leben +2 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxHealthPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "hb_improved_hawk",
+    "name": "Verbesserter Aspekt des Falken",
+    "description": "Angriffskraft +6.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "AttackPowerFlat",
+      "value": 6
+     }
+    ]
+   },
+   {
+    "id": "hb_thick_hide",
+    "name": "Dickes Fell",
+    "description": "Rüstung +4 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "ArmorPercent",
+      "value": 4
+     }
+    ]
+   },
+   {
+    "id": "hb_pathfinding",
+    "name": "Pfadfinder",
+    "description": "Bewegungstempo +2 %.",
+    "tier": 1,
+    "column": 2,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "MoveSpeedPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "hb_ferocity",
+    "name": "Wildheit",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "hb_frenzy",
+    "name": "Raserei",
+    "description": "Verursachter Schaden +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "hb_bestial_wrath",
+    "name": "Zorn des Wildtiers",
+    "description": "Angriffskraft +30.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "AttackPowerFlat",
+      "value": 30
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hunter_marksmanship",
+  "class": "Hunter",
+  "name": "Treffsicherheit",
+  "description": "Der perfekte Schuss aus großer Distanz.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "hm_lethal_shots",
+    "name": "Tödliche Schüsse",
+    "description": "Kritische Distanztrefferchance +1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Ranged"
+     }
+    ]
+   },
+   {
+    "id": "hm_efficiency",
+    "name": "Effizienz",
+    "description": "Schüsse kosten 2 % weniger Mana.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -2
+     }
+    ]
+   },
+   {
+    "id": "hm_aimed_shot",
+    "name": "Gezielter Schuss",
+    "description": "Schaltet Gezielter Schuss frei.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "hunter_aimed_shot"
+   },
+   {
+    "id": "hm_improved_arcane",
+    "name": "Verbesserter Arkaner Schuss",
+    "description": "Arkaner Schuss: Abklingzeit -0,2 s.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CooldownFlat",
+      "value": -0.2,
+      "ability": "hunter_arcane_shot"
+     }
+    ]
+   },
+   {
+    "id": "hm_mortal_shots",
+    "name": "Tödliche Schüsse",
+    "description": "Kritischer Schaden +6 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 6
+     }
+    ]
+   },
+   {
+    "id": "hm_barrage",
+    "name": "Sperrfeuer",
+    "description": "Mehrfachschuss +5 % Schaden.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "ability": "hunter_multi_shot"
+     }
+    ]
+   },
+   {
+    "id": "hm_trueshot",
+    "name": "Aura des Volltreffers",
+    "description": "Angriffskraft +40.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "AttackPowerFlat",
+      "value": 40
+     }
+    ],
+    "requires": "hm_mortal_shots"
+   }
+  ]
+ },
+ {
+  "id": "hunter_survival",
+  "class": "Hunter",
+  "name": "Überleben",
+  "description": "Fallen, Instinkt und Ausdauer.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "hs_survivalist",
+    "name": "Überlebenskünstler",
+    "description": "Maximales Leben +2 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxHealthPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "hs_deflection",
+    "name": "Abwehr",
+    "description": "Parierchance +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ParryChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "hs_savage_strikes",
+    "name": "Wilde Stöße",
+    "description": "Raptorstoß: kritische Trefferchance +10 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 10,
+      "ability": "hunter_raptor_strike"
+     }
+    ]
+   },
+   {
+    "id": "hs_surefooted",
+    "name": "Trittsicherheit",
+    "description": "Trefferchance +1 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "HitChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "hs_killer_instinct",
+    "name": "Killerinstinkt",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "hs_lightning_reflexes",
+    "name": "Blitzartige Reflexe",
+    "description": "Beweglichkeit +3 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 3,
+      "stat": "Agility"
+     }
+    ]
+   },
+   {
+    "id": "hs_wyvern",
+    "name": "Wyverngift",
+    "description": "Verursachter Schaden +5 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5
+     }
+    ]
+   }
+  ]
+ }
+]

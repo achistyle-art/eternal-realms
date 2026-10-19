@@ -1,0 +1,130 @@
+[
+  {
+    "id": "Aldorer", "name": "Aldorer", "faction": "Sonnenbuendnis",
+    "lore": "Die Aldorer sind ein zähes Volk aus Bauern, Rittern und Gelehrten. Ihr Königreich Aldoria überstand den Aschenkrieg nur knapp – seitdem bauen sie Mauern, Straßen und Bündnisse. Sie sind anpassungsfähig und ehrgeizig, aber ihre Adelshäuser streiten öfter untereinander als mit ihren Feinden.",
+    "startZone": "zone_morgentauwald", "startPosition": [200, 0, 200], "startFacing": 0.8,
+    "statBonus": { "strength": 0, "agility": 0, "stamina": 0, "intellect": 0, "spirit": 2 },
+    "classes": ["Warrior", "Paladin", "Rogue", "Priest", "Mage", "Warlock"],
+    "traits": [
+      { "name": "Diplomatie", "description": "Rufgewinn +10 %. (Wirkt über die Ruf-Belohnung von Quests.)", "modifiers": [ { "type": "StatPercent", "stat": "Spirit", "value": 3 } ] },
+      { "name": "Wachsamkeit", "description": "Aktivierbar: +5 % kritische Trefferchance für 20 Sekunden.", "modifiers": [], "ability": "racial_perception" },
+      { "name": "Waffenkunde", "description": "Trefferchance +1 %.", "modifiers": [ { "type": "HitChance", "value": 1 } ] }
+    ],
+    "minHeight": 0.94, "maxHeight": 1.06,
+    "appearance": { "skinColors": 10, "faces": 9, "hairStyles": 14, "hairColors": 10, "beards": 9, "eyeColors": 6, "scars": 5, "tattoos": 4, "animationSet": "humanoid_upright" },
+    "nameStarts": ["Al", "Bren", "Ced", "Dar", "El", "Gar", "Hal", "Ilm", "Jor", "Kel", "Lor", "Mar", "Ner", "Os", "Ral", "Sel", "Tor", "Wil"],
+    "nameEnds": ["dric", "wen", "ric", "a", "ian", "ena", "mund", "is", "or", "elle", "win", "ard", "ine", "an"]
+  },
+  {
+    "id": "Felsgeborene", "name": "Felsgeborene", "faction": "Sonnenbuendnis",
+    "lore": "Tief im Eisenhang meißelten die Felsgeborenen ihre Hallen aus lebendem Stein. Sie glauben, dass ihre Ahnen im Fels weiterleben, und hören ihr Flüstern in jedem Erzgang. Sie sind Schmiede, Bergleute und Runenkundige von unerschütterlicher Sturheit.",
+    "startZone": "zone_morgentauwald", "startPosition": [120, 0, 320], "startFacing": 1.2,
+    "statBonus": { "strength": 2, "agility": -3, "stamina": 3, "intellect": -1, "spirit": -1 },
+    "classes": ["Warrior", "Paladin", "Hunter", "Rogue", "Priest"],
+    "traits": [
+      { "name": "Steingestalt", "description": "Aktivierbar: Rüstung +10 % und entfernt Gifte und Blutungen.", "modifiers": [], "ability": "racial_stoneform" },
+      { "name": "Frostwiderstand", "description": "Frostwiderstand +10.", "modifiers": [ { "type": "ResistFlat", "school": "Frost", "value": 10 } ] },
+      { "name": "Ahnenhaut", "description": "Rüstung +3 %.", "modifiers": [ { "type": "ArmorPercent", "value": 3 } ] }
+    ],
+    "minHeight": 0.92, "maxHeight": 1.04,
+    "appearance": { "skinColors": 9, "faces": 8, "hairStyles": 10, "hairColors": 9, "beards": 12, "eyeColors": 5, "scars": 6, "tattoos": 6, "animationSet": "stout" },
+    "nameStarts": ["Bal", "Dur", "Gro", "Har", "Kor", "Mag", "Nor", "Ror", "Stur", "Thor", "Ulf", "Bor", "Dag", "Hel"],
+    "nameEnds": ["gin", "rim", "dun", "na", "grim", "hild", "bek", "rak", "ga", "drin", "mir", "dis"]
+  },
+  {
+    "id": "Elarii", "name": "Elarii", "faction": "Sonnenbuendnis",
+    "lore": "Die Elarii sind Kinder des Mondlichts und hüteten einst die Silbertau-Lichtungen. Als die Hohle Flut ihre heiligen Bäume verdorrte, schlossen sie sich widerwillig dem Bündnis an. Sie leben Jahrhunderte, erinnern sich an alles und vergeben selten.",
+    "startZone": "zone_morgentauwald", "startPosition": [300, 0, 120], "startFacing": 2.4,
+    "statBonus": { "strength": -2, "agility": 3, "stamina": -1, "intellect": 1, "spirit": 1 },
+    "classes": ["Warrior", "Hunter", "Rogue", "Priest", "Druid", "Mage"],
+    "traits": [
+      { "name": "Schattenmimik", "description": "Aktivierbar: Verschmilzt außerhalb des Kampfes mit den Schatten.", "modifiers": [], "ability": "racial_shadowmeld" },
+      { "name": "Flinkheit", "description": "Ausweichchance +1 %.", "modifiers": [ { "type": "DodgeChance", "value": 1 } ] },
+      { "name": "Naturwiderstand", "description": "Naturwiderstand +10.", "modifiers": [ { "type": "ResistFlat", "school": "Nature", "value": 10 } ] }
+    ],
+    "minHeight": 0.96, "maxHeight": 1.08,
+    "appearance": { "skinColors": 8, "faces": 8, "hairStyles": 12, "hairColors": 12, "beards": 4, "eyeColors": 8, "scars": 3, "tattoos": 8, "animationSet": "graceful" },
+    "nameStarts": ["Ae", "Ela", "Fae", "Ithi", "Lae", "Myr", "Nae", "Syl", "Tha", "Vae", "Ili", "Ari"],
+    "nameEnds": ["ndra", "riel", "thas", "lin", "wyn", "ara", "lor", "eth", "iel", "nis", "dra"]
+  },
+  {
+    "id": "Fennlinge", "name": "Fennlinge", "faction": "Sonnenbuendnis",
+    "lore": "Klein, neugierig und unerschöpflich erfinderisch: Die Fennlinge bauten in den Sumpfdörfern von Fenmarsch Windmühlen, Uhrwerke und gelegentlich explodierende Teekessel. Seit die Hohle Flut ihre Heimat überschwemmte, leben sie verstreut im Bündnis und beweisen, dass Größe nichts mit Mut zu tun hat.",
+    "startZone": "zone_morgentauwald", "startPosition": [260, 0, 300], "startFacing": 0.2,
+    "statBonus": { "strength": -3, "agility": 2, "stamina": -1, "intellect": 3, "spirit": 0 },
+    "classes": ["Warrior", "Rogue", "Mage", "Warlock", "Priest"],
+    "traits": [
+      { "name": "Entfesselungskunst", "description": "Aktivierbar: Befreit sich aus Bewegungseinschränkungen.", "modifiers": [], "ability": "racial_escape_artist" },
+      { "name": "Erfindergeist", "description": "Intelligenz +5 %.", "modifiers": [ { "type": "StatPercent", "stat": "Intellect", "value": 5 } ] },
+      { "name": "Arkaner Widerstand", "description": "Arkanwiderstand +10.", "modifiers": [ { "type": "ResistFlat", "school": "Arcane", "value": 10 } ] }
+    ],
+    "minHeight": 0.9, "maxHeight": 1.05,
+    "appearance": { "skinColors": 7, "faces": 7, "hairStyles": 12, "hairColors": 14, "beards": 6, "eyeColors": 7, "scars": 3, "tattoos": 3, "animationSet": "small_quick" },
+    "nameStarts": ["Bix", "Fizz", "Ging", "Nim", "Pip", "Quib", "Tink", "Wib", "Zap", "Mopp", "Kli", "Rin"],
+    "nameEnds": ["bel", "wick", "ko", "sprock", "li", "nok", "wiz", "pin", "zel", "le"]
+  },
+  {
+    "id": "Grakar", "name": "Grakar", "faction": "Schattenpakt",
+    "lore": "Die Grakar sind ein stolzes Kriegervolk mit grauer, narbiger Haut. Jahrhundertelang wurden sie als Söldner verheizt und als Ungeheuer gejagt. In der Aschensteppe fanden sie eine Heimat, die niemand sonst wollte – und machten sie zu einer Festung. Ehre ist für sie keine Floskel, sondern ein Versprechen mit Blut.",
+    "startZone": "zone_aschensteppe", "startPosition": [210, 0, 220], "startFacing": 0.5,
+    "statBonus": { "strength": 3, "agility": -3, "stamina": 2, "intellect": -3, "spirit": 2 },
+    "classes": ["Warrior", "Hunter", "Rogue", "Shaman", "Warlock"],
+    "traits": [
+      { "name": "Blutwut", "description": "Aktivierbar: Angriffskraft für 15 Sekunden erhöht.", "modifiers": [], "ability": "racial_bloodfury" },
+      { "name": "Zähigkeit", "description": "Erlittener Schaden -1 %.", "modifiers": [ { "type": "DamageTakenPercent", "value": -1 } ] },
+      { "name": "Axtspezialisierung", "description": "Kritische Nahkampftrefferchance +1 %.", "modifiers": [ { "type": "CritChance", "crit": "Melee", "value": 1 } ] }
+    ],
+    "minHeight": 0.95, "maxHeight": 1.07,
+    "appearance": { "skinColors": 9, "faces": 8, "hairStyles": 9, "hairColors": 8, "beards": 8, "eyeColors": 5, "scars": 9, "tattoos": 10, "animationSet": "brute" },
+    "nameStarts": ["Gor", "Kra", "Mug", "Rok", "Thar", "Urg", "Zug", "Bru", "Dro", "Garr", "Nar", "Ska"],
+    "nameEnds": ["ash", "ok", "ra", "gul", "tha", "rok", "mash", "ka", "grim", "zar", "ga"]
+  },
+  {
+    "id": "Nachtgeborene", "name": "Nachtgeborene", "faction": "Schattenpakt",
+    "lore": "Die Nachtgeborenen starben in der Seuchennacht von Grabesmoor – und erwachten wieder, mit freiem Willen, aber ohne Herzschlag. Von den Lebenden verstoßen, fanden sie im Pakt Verbündete, die nicht nach dem Woher fragen. Sie sind kühle Gelehrte, bittere Spötter und erstaunlich treue Freunde.",
+    "startZone": "zone_aschensteppe", "startPosition": [320, 0, 140], "startFacing": 2.0,
+    "statBonus": { "strength": -1, "agility": -2, "stamina": 1, "intellect": -2, "spirit": 5 },
+    "classes": ["Warrior", "Rogue", "Priest", "Mage", "Warlock"],
+    "traits": [
+      { "name": "Wille der Nacht", "description": "Aktivierbar: Beendet Furcht und ähnliche Effekte.", "modifiers": [], "ability": "racial_will_of_the_night" },
+      { "name": "Schattenwiderstand", "description": "Schattenwiderstand +10.", "modifiers": [ { "type": "ResistFlat", "school": "Shadow", "value": 10 } ] },
+      { "name": "Totenstarre", "description": "Erlittener Schattenschaden -2 %.", "modifiers": [ { "type": "DamageTakenPercent", "school": "Shadow", "value": -2 } ] }
+    ],
+    "minHeight": 0.94, "maxHeight": 1.04,
+    "appearance": { "skinColors": 6, "faces": 9, "hairStyles": 10, "hairColors": 10, "beards": 5, "eyeColors": 4, "scars": 8, "tattoos": 2, "animationSet": "hunched" },
+    "nameStarts": ["Mor", "Sil", "Vel", "Cyr", "Ash", "Ere", "Lys", "Oth", "Sev", "Vex", "Nyx", "Rav"],
+    "nameEnds": ["dred", "ith", "ane", "us", "wyn", "ora", "ix", "en", "elle", "thas", "is"]
+  },
+  {
+    "id": "Hornvolk", "name": "Hornvolk", "faction": "Schattenpakt",
+    "lore": "Das Hornvolk zieht seit Urzeiten mit seinen Herden über die Hornweiden. Riesig, gehörnt und sanftmütig – bis man ihre Herden bedroht. Ihre Schamanen und Druiden sprechen mit Erde und Wind, und ihre Ältesten sind die geduldigsten Richter des Paktes.",
+    "startZone": "zone_aschensteppe", "startPosition": [140, 0, 330], "startFacing": 1.0,
+    "statBonus": { "strength": 5, "agility": -4, "stamina": 3, "intellect": -4, "spirit": 2 },
+    "classes": ["Warrior", "Hunter", "Shaman", "Druid"],
+    "traits": [
+      { "name": "Kriegsdonner", "description": "Aktivierbar: Betäubt Gegner in der Nähe 2 Sekunden lang.", "modifiers": [], "ability": "racial_warstomp" },
+      { "name": "Ausdauer", "description": "Maximales Leben +5 %.", "modifiers": [ { "type": "MaxHealthPercent", "value": 5 } ] },
+      { "name": "Naturwiderstand", "description": "Naturwiderstand +10.", "modifiers": [ { "type": "ResistFlat", "school": "Nature", "value": 10 } ] }
+    ],
+    "minHeight": 0.96, "maxHeight": 1.06,
+    "appearance": { "skinColors": 8, "faces": 6, "hairStyles": 8, "hairColors": 8, "beards": 7, "eyeColors": 4, "scars": 5, "tattoos": 7, "animationSet": "massive" },
+    "nameStarts": ["Ba", "Haw", "Mo", "Ta", "Ura", "Kai", "Ho", "Nah", "Ono", "We", "Ama", "Che"],
+    "nameEnds": ["hono", "kai", "tanka", "wen", "mani", "roh", "sa", "nok", "lani", "ta", "he"]
+  },
+  {
+    "id": "Skarr", "name": "Skarr", "faction": "Schattenpakt",
+    "lore": "Die echsenhaften Skarr kamen aus den Schlangendschungeln von Kharvath. Ihr Volk wechselt die Haut wie die Jahreszeiten und vergisst nie einen Gefallen. Ihre Geisterseher sprechen mit den Ahnen im Schlangenblut, ihre Jäger schleichen lautlos wie der Regen.",
+    "startZone": "zone_aschensteppe", "startPosition": [280, 0, 320], "startFacing": 3.4,
+    "statBonus": { "strength": 1, "agility": 2, "stamina": 1, "intellect": -3, "spirit": 0 },
+    "classes": ["Warrior", "Hunter", "Rogue", "Priest", "Shaman", "Mage"],
+    "traits": [
+      { "name": "Schuppenregeneration", "description": "Aktivierbar: Stellt 10 Sekunden lang 20 % Leben wieder her.", "modifiers": [], "ability": "racial_scale_regen" },
+      { "name": "Kaltblut", "description": "Kritische Fernkampftrefferchance +1 %.", "modifiers": [ { "type": "CritChance", "crit": "Ranged", "value": 1 } ] },
+      { "name": "Schlangengift-Resistenz", "description": "Naturwiderstand +10.", "modifiers": [ { "type": "ResistFlat", "school": "Nature", "value": 10 } ] }
+    ],
+    "minHeight": 0.95, "maxHeight": 1.08,
+    "appearance": { "skinColors": 12, "faces": 6, "hairStyles": 6, "hairColors": 6, "beards": 0, "eyeColors": 8, "scars": 6, "tattoos": 9, "animationSet": "reptile" },
+    "nameStarts": ["Ssa", "Zith", "Xal", "Ksh", "Riss", "Tez", "Vass", "Sha", "Iss", "Zek", "Ssir", "Kas"],
+    "nameEnds": ["ra", "ix", "ssa", "tek", "zul", "ith", "ka", "sh", "eel", "ozz", "ar"]
+  }
+]

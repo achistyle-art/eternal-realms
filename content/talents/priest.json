@@ -1,0 +1,344 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "priest_discipline",
+  "class": "Priest",
+  "name": "Disziplin",
+  "description": "Willenskraft, Schilde und Manaeffizienz.",
+  "primaryRole": "Healer",
+  "talents": [
+   {
+    "id": "pd_unbreakable_will",
+    "name": "Unbeugsamer Wille",
+    "description": "Erlittener Schaden -1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageTakenPercent",
+      "value": -1
+     }
+    ]
+   },
+   {
+    "id": "pd_wand_spec",
+    "name": "Zauberstabspezialisierung",
+    "description": "Intelligenz +2 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 2,
+      "stat": "Intellect"
+     }
+    ]
+   },
+   {
+    "id": "pd_improved_shield",
+    "name": "Verbessertes Machtwort: Schild",
+    "description": "Heilung +2 % (inkl. Schilde).",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "pd_meditation",
+    "name": "Meditation",
+    "description": "Manaregeneration +5 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "PowerRegenPercent",
+      "value": 5
+     }
+    ]
+   },
+   {
+    "id": "pd_mental_agility",
+    "name": "Geistige Beweglichkeit",
+    "description": "Sofortzauber kosten 2 % weniger.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -2
+     }
+    ]
+   },
+   {
+    "id": "pd_mental_strength",
+    "name": "Geistige Stärke",
+    "description": "Maximales Mana +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxPowerPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "pd_power_infusion",
+    "name": "Seele der Macht",
+    "description": "Kritische Zaubertrefferchance +3 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 3,
+      "crit": "Spell"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "priest_holy",
+  "class": "Priest",
+  "name": "Heilig",
+  "description": "Die reinste Form der Heilung.",
+  "primaryRole": "Healer",
+  "talents": [
+   {
+    "id": "pho_healing_focus",
+    "name": "Heilfokus",
+    "description": "Zurückwerfen beim Heilen -14 %.",
+    "tier": 0,
+    "column": 0,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "PushbackResistPercent",
+      "value": 14
+     }
+    ]
+   },
+   {
+    "id": "pho_holy_spec",
+    "name": "Heilige Spezialisierung",
+    "description": "Kritische Zaubertrefferchance +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Spell"
+     }
+    ]
+   },
+   {
+    "id": "pho_improved_renew",
+    "name": "Verbesserte Erneuerung",
+    "description": "Heilung +2 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "pho_divine_fury",
+    "name": "Göttlicher Furor",
+    "description": "Göttliche Pein und Heilung: Zauberzeit -0,1 s.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "priest_smite"
+     },
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "priest_heal"
+     },
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "priest_greater_heal"
+     }
+    ]
+   },
+   {
+    "id": "pho_holy_nova",
+    "name": "Heilige Nova",
+    "description": "Schaltet Heilige Nova frei.",
+    "tier": 2,
+    "column": 2,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "priest_holy_nova"
+   },
+   {
+    "id": "pho_spiritual_healing",
+    "name": "Spirituelle Heilung",
+    "description": "Heilung +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 2
+     }
+    ],
+    "requires": "pho_improved_renew"
+   },
+   {
+    "id": "pho_spirit_of_redemption",
+    "name": "Geist der Erlösung",
+    "description": "Willenskraft +5 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 5,
+      "stat": "Spirit"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "priest_shadow",
+  "class": "Priest",
+  "name": "Schatten",
+  "description": "Die dunkle Seite des Glaubens.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "ps_spirit_tap",
+    "name": "Willensentzug",
+    "description": "Willenskraft +2 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 2,
+      "stat": "Spirit"
+     }
+    ]
+   },
+   {
+    "id": "ps_blackout",
+    "name": "Blackout",
+    "description": "Schattenschaden +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 1,
+      "school": "Shadow"
+     }
+    ]
+   },
+   {
+    "id": "ps_improved_swp",
+    "name": "Verbessertes Schattenwort: Schmerz",
+    "description": "Schattenwort: Schmerz +5 % Schaden.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "ability": "priest_shadow_word_pain"
+     }
+    ]
+   },
+   {
+    "id": "ps_mind_flay",
+    "name": "Gedankenschinden",
+    "description": "Schaltet Gedankenschinden frei.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "priest_mind_flay"
+   },
+   {
+    "id": "ps_shadow_focus",
+    "name": "Schattenfokus",
+    "description": "Trefferchance mit Schattenzaubern +2 %.",
+    "tier": 2,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "HitChance",
+      "value": 2,
+      "school": "Shadow"
+     }
+    ]
+   },
+   {
+    "id": "ps_darkness",
+    "name": "Dunkelheit",
+    "description": "Schattenschaden +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Shadow"
+     }
+    ]
+   },
+   {
+    "id": "ps_shadowform",
+    "name": "Schattengestalt",
+    "description": "Schattenschaden +10 %, erlittener körperlicher Schaden -10 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 10,
+      "school": "Shadow"
+     },
+     {
+      "type": "DamageTakenPercent",
+      "value": -10,
+      "school": "Physical"
+     }
+    ],
+    "requires": "ps_darkness"
+   }
+  ]
+ }
+]

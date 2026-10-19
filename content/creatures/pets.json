@@ -1,0 +1,78 @@
+[
+ {
+  "id": "pet_wolf",
+  "name": "Wolfsbegleiter",
+  "family": "Wolf",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Friendly",
+  "healthMultiplier": 0.9,
+  "damageMultiplier": 0.6,
+  "model": "wolf",
+  "abilities": [
+   {
+    "ability": "pet_growl",
+    "interval": 5,
+    "initialDelay": 1,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_bite",
+    "interval": 7,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ]
+ },
+ {
+  "id": "pet_imp",
+  "name": "Wichtel",
+  "family": "Demon",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Friendly",
+  "healthMultiplier": 0.5,
+  "damageMultiplier": 0.2,
+  "ranged": true,
+  "preferredRange": 25,
+  "powerType": "Mana",
+  "manaFactor": 3,
+  "model": "imp",
+  "abilities": [
+   {
+    "ability": "pet_imp_firebolt",
+    "interval": 2.5,
+    "initialDelay": 0.5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ]
+ },
+ {
+  "id": "pet_voidwalker",
+  "name": "Leerwandler",
+  "family": "Demon",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Friendly",
+  "healthMultiplier": 1.3,
+  "damageMultiplier": 0.4,
+  "armorMultiplier": 2,
+  "model": "voidwalker",
+  "abilities": [
+   {
+    "ability": "pet_torment",
+    "interval": 5,
+    "initialDelay": 1,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ]
+ }
+]

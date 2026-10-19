@@ -1,0 +1,342 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "paladin_holy",
+  "class": "Paladin",
+  "name": "Heilig",
+  "description": "Heilendes Licht für die Verbündeten.",
+  "primaryRole": "Healer",
+  "talents": [
+   {
+    "id": "ph_divine_strength",
+    "name": "Göttliche Stärke",
+    "description": "Stärke +2 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 2,
+      "stat": "Strength"
+     }
+    ]
+   },
+   {
+    "id": "ph_divine_intellect",
+    "name": "Göttliche Intelligenz",
+    "description": "Intelligenz +2 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 2,
+      "stat": "Intellect"
+     }
+    ]
+   },
+   {
+    "id": "ph_healing_light",
+    "name": "Heilendes Licht",
+    "description": "Heilung +4 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 4
+     }
+    ]
+   },
+   {
+    "id": "ph_illumination",
+    "name": "Erleuchtung",
+    "description": "Heilzauber kosten 4 % weniger.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -4,
+      "ability": "paladin_holy_light"
+     },
+     {
+      "type": "CostPercent",
+      "value": -4,
+      "ability": "paladin_flash_of_light"
+     }
+    ]
+   },
+   {
+    "id": "ph_holy_power",
+    "name": "Heilige Macht",
+    "description": "Kritische Zaubertrefferchance +1 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Spell"
+     }
+    ]
+   },
+   {
+    "id": "ph_lasting_judgement",
+    "name": "Dauerhaftes Richturteil",
+    "description": "Heiligschaden +2 %.",
+    "tier": 3,
+    "column": 2,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Holy"
+     }
+    ]
+   },
+   {
+    "id": "ph_holy_shock",
+    "name": "Heiliger Schock",
+    "description": "Schaltet Heiliger Schock frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "requires": "ph_holy_power",
+    "grantsAbility": "paladin_holy_shock"
+   }
+  ]
+ },
+ {
+  "id": "paladin_protection",
+  "class": "Paladin",
+  "name": "Schutz",
+  "description": "Schild und Aura gegen jede Übermacht.",
+  "primaryRole": "Tank",
+  "talents": [
+   {
+    "id": "pp_improved_devotion",
+    "name": "Verbesserte Aura der Hingabe",
+    "description": "Rüstung +3 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ArmorPercent",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "id": "pp_redoubt",
+    "name": "Wehrhaftigkeit",
+    "description": "Blockchance +2 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "BlockChance",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "pp_toughness",
+    "name": "Zähigkeit",
+    "description": "Maximales Leben +2 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxHealthPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "pp_improved_fury",
+    "name": "Verbesserter Zorn der Gerechtigkeit",
+    "description": "Bedrohung +5 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "ThreatPercent",
+      "value": 5
+     }
+    ]
+   },
+   {
+    "id": "pp_shield_spec",
+    "name": "Schildspezialisierung",
+    "description": "Ausweichchance +1 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DodgeChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "pp_anticipation",
+    "name": "Vorahnung",
+    "description": "Erlittener Schaden -1 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageTakenPercent",
+      "value": -1
+     }
+    ]
+   },
+   {
+    "id": "pp_holy_shield",
+    "name": "Heiliger Schild",
+    "description": "Blockchance +10 %, Heiligbedrohung +10 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "BlockChance",
+      "value": 10
+     },
+     {
+      "type": "ThreatPercent",
+      "value": 10,
+      "school": "Holy"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "paladin_retribution",
+  "class": "Paladin",
+  "name": "Vergeltung",
+  "description": "Gerechter Zorn mit Siegel und Schwert.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "pr_benediction",
+    "name": "Segnung",
+    "description": "Siegel und Richturteil kosten 3 % weniger.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -3,
+      "ability": "paladin_judgement"
+     },
+     {
+      "type": "CostPercent",
+      "value": -3,
+      "ability": "paladin_seal_of_righteousness"
+     }
+    ]
+   },
+   {
+    "id": "pr_improved_judgement",
+    "name": "Verbessertes Richturteil",
+    "description": "Richturteil: Abklingzeit -1 Sekunde.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "CooldownFlat",
+      "value": -1,
+      "ability": "paladin_judgement"
+     }
+    ]
+   },
+   {
+    "id": "pr_improved_might",
+    "name": "Verbesserter Segen der Macht",
+    "description": "Angriffskraft +8.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "AttackPowerFlat",
+      "value": 8
+     }
+    ]
+   },
+   {
+    "id": "pr_conviction",
+    "name": "Überzeugung",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Melee"
+     }
+    ]
+   },
+   {
+    "id": "pr_two_hand",
+    "name": "Zweihandspezialisierung",
+    "description": "Körperlicher Schaden +2 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Physical"
+     }
+    ]
+   },
+   {
+    "id": "pr_vengeance",
+    "name": "Rache",
+    "description": "Verursachter Schaden +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2
+     }
+    ],
+    "requires": "pr_conviction"
+   },
+   {
+    "id": "pr_crusader_strike",
+    "name": "Kreuzfahrerstoß",
+    "description": "Schaltet Kreuzfahrerstoß frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "paladin_crusader_strike"
+   }
+  ]
+ }
+]

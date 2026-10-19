@@ -1,0 +1,241 @@
+[
+ {
+  "id": "dungeon_wurzelkrypta",
+  "name": "Die Wurzelkrypta",
+  "continent": "Unterwelt",
+  "minLevel": 13,
+  "maxLevel": 18,
+  "faction": "None",
+  "biome": "Gruft",
+  "description": "Unter dem Wald, wo Wurzeln Grabkammern sprengen, herrscht der Wurzelfürst Morrak. Die Hohle Flut hat ihn verdorben – und mit ihm alles, was hier wächst.",
+  "music": "music_dungeon_roots",
+  "ambience": "amb_crypt_drip",
+  "weather": [
+   "Fog"
+  ],
+  "size": 400,
+  "playable": true,
+  "isInstance": true,
+  "maxPlayers": 5,
+  "instanceEntry": [
+   50,
+   0,
+   50
+  ],
+  "exitZone": "zone_morgentauwald",
+  "exitPosition": [
+   870,
+   0,
+   805
+  ],
+  "areas": [
+   {
+    "id": "area_wk_vorhalle",
+    "name": "Vorhalle der Wurzeln",
+    "center": [
+     60,
+     0,
+     60
+    ],
+    "radius": 30
+   },
+   {
+    "id": "area_wk_pilzgrotte",
+    "name": "Pilzgrotte",
+    "center": [
+     150,
+     0,
+     120
+    ],
+    "radius": 40
+   },
+   {
+    "id": "area_wk_dryadenhain",
+    "name": "Verdorbener Dryadenhain",
+    "center": [
+     240,
+     0,
+     200
+    ],
+    "radius": 40
+   },
+   {
+    "id": "area_wk_herz",
+    "name": "Herz der Wurzeln",
+    "center": [
+     320,
+     0,
+     320
+    ],
+    "radius": 40
+   }
+  ],
+  "graveyards": [
+   [
+    40,
+    0,
+    40
+   ]
+  ],
+  "spawns": [
+   {
+    "creature": "dmob_root_crawler",
+    "position": [
+     90,
+     0,
+     80
+    ],
+    "count": 2,
+    "radius": 4,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_crypt_shambler",
+    "position": [
+     115,
+     0,
+     95
+    ],
+    "count": 2,
+    "radius": 4,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_root_crawler",
+    "position": [
+     130,
+     0,
+     120
+    ],
+    "count": 3,
+    "radius": 5,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "boss_moderkeim",
+    "position": [
+     160,
+     0,
+     130
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 86400,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_crypt_shambler",
+    "position": [
+     190,
+     0,
+     160
+    ],
+    "count": 2,
+    "radius": 4,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_blighted_dryad",
+    "position": [
+     205,
+     0,
+     170
+    ],
+    "count": 2,
+    "radius": 4,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_blighted_dryad",
+    "position": [
+     225,
+     0,
+     185
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_crypt_shambler",
+    "position": [
+     228,
+     0,
+     192
+    ],
+    "count": 2,
+    "radius": 3,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "boss_elvaine",
+    "position": [
+     250,
+     0,
+     210
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 86400,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_root_crawler",
+    "position": [
+     280,
+     0,
+     260
+    ],
+    "count": 3,
+    "radius": 5,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "dmob_crypt_shambler",
+    "position": [
+     300,
+     0,
+     290
+    ],
+    "count": 2,
+    "radius": 4,
+    "respawnSeconds": 3600,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "boss_morrak",
+    "position": [
+     325,
+     0,
+     325
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 86400,
+    "wanderRadius": 0
+   }
+  ],
+  "npcs": [],
+  "objects": [
+   {
+    "object": "obj_crypt_exit",
+    "position": [
+     40,
+     0,
+     50
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
+   }
+  ]
+ }
+]

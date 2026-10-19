@@ -1,0 +1,848 @@
+[
+ {
+  "id": "npc_mt_jorin",
+  "name": "Bauer Jorin",
+  "title": "Hof Lindenruh",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 8,
+  "maxLevel": 8,
+  "model": "npc",
+  "gossip": "Die Wölfe werden jedes Jahr frecher. Und die Eber fressen mir die Rüben vom Feld.",
+  "barks": [
+   "Diese verflixten Wölfe!",
+   "Schönes Wetter für die Aussaat... wenn nur die Wölfe nicht wären."
+  ]
+ },
+ {
+  "id": "npc_mt_martha",
+  "name": "Martha Lenz",
+  "title": "Bäuerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 5,
+  "maxLevel": 5,
+  "model": "npc",
+  "gossip": "Mein Junge... ist er wirklich zu diesen Räubern gegangen?",
+  "schedule": [
+   {
+    "hour": 6,
+    "position": [
+     215,
+     0,
+     195
+    ],
+    "activity": "Feldarbeit"
+   },
+   {
+    "hour": 20,
+    "position": [
+     208,
+     0,
+     188
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_mt_dagra",
+  "name": "Steinwächterin Dagra",
+  "title": "Grauklippe",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 12,
+  "maxLevel": 12,
+  "model": "npc",
+  "gossip": "Der Fels flüstert, Kind. Hörst du es? Er sagt: Arbeite!"
+ },
+ {
+  "id": "npc_mt_ilythra",
+  "name": "Mondhüterin Ilythra",
+  "title": "Silberquell",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 15,
+  "maxLevel": 15,
+  "model": "npc",
+  "gossip": "Die Quelle ist getrübt. Etwas Fremdes sickert in das Wasser."
+ },
+ {
+  "id": "npc_mt_pimwick",
+  "name": "Tüftler Pimwick",
+  "title": "Fennling-Erfinder",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 9,
+  "maxLevel": 9,
+  "model": "npc",
+  "gossip": "Vorsicht, nicht berühren! Das ist... war... ein Teekessel."
+ },
+ {
+  "id": "npc_mt_vogt",
+  "name": "Vogt Aldric Brenner",
+  "title": "Vogt von Morgentau",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "model": "npc",
+  "gossip": "Morgentau ist ein friedliches Dorf. Ich beabsichtige, dass es so bleibt."
+ },
+ {
+  "id": "npc_mt_innkeeper",
+  "name": "Wirtin Hella Rotwang",
+  "title": "Gasthaus Zum Goldenen Hahn",
+  "faction": "Sonnenbuendnis",
+  "roles": "Innkeeper, Vendor",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "model": "npc",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_minor_healing_potion"
+  ],
+  "gossip": "Ein warmes Bett, ein kühles Bier und keine Fragen. Wollt Ihr hier Euer Heim machen?",
+  "barks": [
+   "Wer will noch Eintopf?",
+   "Füße hoch, Stiefel aus!"
+  ]
+ },
+ {
+  "id": "npc_mt_tanner",
+  "name": "Gerberin Ilsa",
+  "title": "Lederhandwerk",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 12,
+  "maxLevel": 12,
+  "model": "npc",
+  "gossip": "Gute Pelze sind dieses Jahr selten. Die Wölfe sind krank – oder hungrig."
+ },
+ {
+  "id": "npc_mt_smith",
+  "name": "Schmied Torvald",
+  "title": "Waffen und Rüstungen",
+  "faction": "Sonnenbuendnis",
+  "roles": "Vendor, Repair",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "model": "npc",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ],
+  "gossip": "Klinge stumpf? Rüstung zerbeult? Her damit."
+ },
+ {
+  "id": "npc_mt_dagna",
+  "name": "Vorarbeiterin Dagna Erzbart",
+  "title": "Funkenloch-Mine",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 14,
+  "maxLevel": 14,
+  "model": "npc",
+  "gossip": "Grubenwichte! In MEINER Mine! Wo bleibt die Gerechtigkeit?"
+ },
+ {
+  "id": "npc_mt_rhea",
+  "name": "Hauptfrau Rhea Falkenau",
+  "title": "Alter Wachturm",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 22,
+  "maxLevel": 22,
+  "model": "npc",
+  "gossip": "Vom Turm aus sieht man alles. Und mir gefällt nicht, was ich sehe."
+ },
+ {
+  "id": "npc_mt_bram",
+  "name": "Holzfäller Bram",
+  "title": "Verwundet",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 6,
+  "maxLevel": 6,
+  "model": "npc",
+  "gossip": "Spinnen... überall Spinnen... bitte, holt mich hier raus."
+ },
+ {
+  "id": "npc_mt_bram_escort",
+  "name": "Holzfäller Bram",
+  "title": "Begleitet",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 6,
+  "maxLevel": 6,
+  "model": "npc",
+  "healthMultiplier": 1.5
+ },
+ {
+  "id": "npc_mt_lenz",
+  "name": "Lenz",
+  "title": "Gefangener Räuber",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 7,
+  "maxLevel": 7,
+  "model": "npc",
+  "gossip": "Ich wollte doch nur... meiner Mutter Geld schicken. Grell hat gelogen."
+ },
+ {
+  "id": "npc_mt_hermit",
+  "name": "Eremit Thalwin",
+  "title": "Hüter der Wurzeln",
+  "faction": "Friendly",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Unter dem Wald schläft etwas Altes. Und es träumt schlecht.",
+  "reputationFaction": "rep_hueter_der_wurzeln"
+ },
+ {
+  "id": "npc_mt_flightmaster",
+  "name": "Greifenmeisterin Sela",
+  "title": "Flugmeisterin",
+  "faction": "Sonnenbuendnis",
+  "roles": "FlightMaster",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Hoch hinaus? Meine Greifen kennen jeden Weg."
+ },
+ {
+  "id": "npc_mt_flightmaster_tower",
+  "name": "Greifenhüter Olm",
+  "title": "Flugmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "FlightMaster",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Der Turm hat den besten Blick – und den schnellsten Weg ins Dorf."
+ },
+ {
+  "id": "npc_mt_lamplighter",
+  "name": "Laternenanzünder Pell",
+  "title": "Dorf Morgentau",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 5,
+  "maxLevel": 5,
+  "model": "npc",
+  "gossip": "Wenn es dunkel wird, bin ich der wichtigste Mann im Dorf!",
+  "barks": [
+   "Licht für Morgentau!",
+   "Noch eine Laterne, dann ist Feierabend."
+  ],
+  "schedule": [
+   {
+    "hour": 6,
+    "position": [
+     395,
+     0,
+     405
+    ],
+    "activity": "Schlafen"
+   },
+   {
+    "hour": 18,
+    "position": [
+     440,
+     0,
+     440
+    ],
+    "activity": "Laternen am Nordtor"
+   },
+   {
+    "hour": 20,
+    "position": [
+     360,
+     0,
+     380
+    ],
+    "activity": "Laternen am Westtor"
+   },
+   {
+    "hour": 22,
+    "position": [
+     405,
+     0,
+     395
+    ],
+    "activity": "Gasthaus"
+   }
+  ]
+ },
+ {
+  "id": "npc_mt_guard",
+  "name": "Wache von Morgentau",
+  "title": "",
+  "faction": "Sonnenbuendnis",
+  "roles": "Guard",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "healthMultiplier": 3,
+  "damageMultiplier": 2,
+  "aggroRadius": 20,
+  "barks": [
+   "Alles ruhig.",
+   "Haltet die Augen offen."
+  ]
+ },
+ {
+  "id": "npc_mt_spirit_healer",
+  "name": "Geisterheilerin",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Deine Zeit ist noch nicht gekommen. Ich kann dich zurückschicken – doch es hat seinen Preis."
+ },
+ {
+  "id": "npc_mt_trainer_warrior",
+  "name": "Ser Gawin Steinfaust",
+  "title": "Kriegerlehrer",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Warrior",
+  "gossip": "Willkommen. Ich lehre die Künste der Krieger. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_trainer_paladin",
+  "name": "Schwester Liora",
+  "title": "Paladinlehrerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Paladin",
+  "gossip": "Willkommen. Ich lehre die Künste der Paladine. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_trainer_hunter",
+  "name": "Fährtenleser Kael",
+  "title": "Jägerlehrer",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Hunter",
+  "gossip": "Willkommen. Ich lehre die Künste der Jäger. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_trainer_rogue",
+  "name": "Schattenhand Vina",
+  "title": "Schurkenlehrerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Rogue",
+  "gossip": "Willkommen. Ich lehre die Künste der Schurken. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_trainer_priest",
+  "name": "Mutter Aveline",
+  "title": "Priesterin",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Priest",
+  "gossip": "Willkommen. Ich lehre die Künste der Priester. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_trainer_mage",
+  "name": "Magistra Elsbeth",
+  "title": "Magierlehrerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Mage",
+  "gossip": "Willkommen. Ich lehre die Künste der Magier. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_trainer_warlock",
+  "name": "Morwen der Graue",
+  "title": "Hexenmeisterlehrer",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Warlock",
+  "gossip": "Willkommen. Ich lehre die Künste der Hexenmeister. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_trainer_druid",
+  "name": "Lunara Silberblatt",
+  "title": "Druidenlehrerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Druid",
+  "gossip": "Willkommen. Ich lehre die Künste der Druiden. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_durgash",
+  "name": "Kriegsrufer Durgash",
+  "title": "Grakar-Lager",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 12,
+  "maxLevel": 12,
+  "model": "npc",
+  "gossip": "Ein Grakar zählt seine Narben nicht. Er verdient sie."
+ },
+ {
+  "id": "npc_as_sylva",
+  "name": "Totenwächterin Sylva",
+  "title": "Grabwacht",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 14,
+  "maxLevel": 14,
+  "model": "npc",
+  "gossip": "Die Toten reden. Die meisten haben nur nichts Interessantes zu sagen."
+ },
+ {
+  "id": "npc_as_haweno",
+  "name": "Ältester Haweno",
+  "title": "Hornweide-Lager",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "model": "npc",
+  "gossip": "Die Erde ist geduldig, junger Läufer. Sei du es auch."
+ },
+ {
+  "id": "npc_as_zissa",
+  "name": "Geisterseherin Zissa",
+  "title": "Skarr-Lager",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 14,
+  "maxLevel": 14,
+  "model": "npc",
+  "gossip": "Ssso jung. Ssso hungrig nach Taten. Gut."
+ },
+ {
+  "id": "npc_as_asha",
+  "name": "Mutter Asha",
+  "title": "Grakar-Lager",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 6,
+  "maxLevel": 6,
+  "model": "npc",
+  "gossip": "Elron... mein Sohn. Was haben sie aus dir gemacht?"
+ },
+ {
+  "id": "npc_as_chief",
+  "name": "Lagerhauptmann Krothar",
+  "title": "Lager Kargrak",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 22,
+  "maxLevel": 22,
+  "model": "npc",
+  "gossip": "Der Pakt hält, weil jeder seinen Teil trägt. Was trägst du?"
+ },
+ {
+  "id": "npc_as_innkeeper",
+  "name": "Wirtin Mogra",
+  "title": "Gasthaus Zum Rauchenden Kessel",
+  "faction": "Schattenpakt",
+  "roles": "Innkeeper, Vendor",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "model": "npc",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_minor_healing_potion"
+  ],
+  "gossip": "Setz dich ans Feuer. Wer hier schläft, wacht stärker auf.",
+  "barks": [
+   "Eintopf! Heiß und scharf!",
+   "Wer zahlt, bekommt Nachschlag."
+  ]
+ },
+ {
+  "id": "npc_as_saltboiler",
+  "name": "Salzsiederin Tesh",
+  "title": "Glutsalzsiederei",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 12,
+  "maxLevel": 12,
+  "model": "npc",
+  "gossip": "Ohne Glutsalz verdirbt alles. Auch die Moral."
+ },
+ {
+  "id": "npc_as_smith",
+  "name": "Waffenmeister Brug",
+  "title": "Waffen und Rüstungen",
+  "faction": "Schattenpakt",
+  "roles": "Vendor, Repair",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "model": "npc",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ],
+  "gossip": "Eine gute Axt ist der beste Freund. Der zweitbeste ist ein Schild."
+ },
+ {
+  "id": "npc_as_beastmaster",
+  "name": "Bestienmeisterin Rakka",
+  "title": "Jagdhütte",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 14,
+  "maxLevel": 14,
+  "model": "npc",
+  "gossip": "Die Hyänen werden kühner. Ich will wissen, warum."
+ },
+ {
+  "id": "npc_as_scout",
+  "name": "Kundschafterin Raskha",
+  "title": "Oase Zharim",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 22,
+  "maxLevel": 22,
+  "model": "npc",
+  "gossip": "Die Oase ist das einzige Wasser für Meilen. Wer sie hält, hält die Steppe."
+ },
+ {
+  "id": "npc_as_tukan",
+  "name": "Späher Tukan",
+  "title": "Verwundet",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 6,
+  "maxLevel": 6,
+  "model": "npc",
+  "gossip": "Hyänen... sie haben mich eingekreist. Mein Bein..."
+ },
+ {
+  "id": "npc_as_tukan_escort",
+  "name": "Späher Tukan",
+  "title": "Begleitet",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 6,
+  "maxLevel": 6,
+  "model": "npc",
+  "healthMultiplier": 1.5
+ },
+ {
+  "id": "npc_as_elron",
+  "name": "Elron",
+  "title": "Gefangener Kultist",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 7,
+  "maxLevel": 7,
+  "model": "npc",
+  "gossip": "Die Flut hat mir Stimmen versprochen... sie haben nur geschrien."
+ },
+ {
+  "id": "npc_as_seer",
+  "name": "Seherin Ohanzee",
+  "title": "Hüterin der Wurzeln",
+  "faction": "Friendly",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Unter der Asche liegen Wurzeln. Alte Wurzeln. Kranke Wurzeln.",
+  "reputationFaction": "rep_hueter_der_wurzeln"
+ },
+ {
+  "id": "npc_as_flightmaster",
+  "name": "Windreiter Gorruk",
+  "title": "Flugmeister",
+  "faction": "Schattenpakt",
+  "roles": "FlightMaster",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Meine Windreiter sind schneller als jeder Sandsturm."
+ },
+ {
+  "id": "npc_as_flightmaster_oasis",
+  "name": "Windreiterin Shala",
+  "title": "Flugmeisterin",
+  "faction": "Schattenpakt",
+  "roles": "FlightMaster",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Von der Oase zurück ins Lager? Steig auf."
+ },
+ {
+  "id": "npc_as_drummer",
+  "name": "Trommler Brokk",
+  "title": "Lager Kargrak",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 5,
+  "maxLevel": 5,
+  "model": "npc",
+  "gossip": "Die Trommel ruft zum Essen, zur Wache und zum Krieg. Heute nur zum Essen.",
+  "barks": [
+   "BUMM! BUMM!",
+   "Essen ist fertig!"
+  ],
+  "schedule": [
+   {
+    "hour": 6,
+    "position": [
+     430,
+     0,
+     430
+    ],
+    "activity": "Morgentrommel"
+   },
+   {
+    "hour": 12,
+    "position": [
+     410,
+     0,
+     405
+    ],
+    "activity": "Mittag"
+   },
+   {
+    "hour": 19,
+    "position": [
+     445,
+     0,
+     420
+    ],
+    "activity": "Abendtrommel"
+   },
+   {
+    "hour": 23,
+    "position": [
+     415,
+     0,
+     425
+    ],
+    "activity": "Schlafen"
+   }
+  ]
+ },
+ {
+  "id": "npc_as_guard",
+  "name": "Wache von Kargrak",
+  "title": "",
+  "faction": "Schattenpakt",
+  "roles": "Guard",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "healthMultiplier": 3,
+  "damageMultiplier": 2,
+  "aggroRadius": 20,
+  "barks": [
+   "Für den Pakt.",
+   "Lok'tar."
+  ]
+ },
+ {
+  "id": "npc_as_spirit_healer",
+  "name": "Geisterheiler",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Deine Seele ist noch nicht frei. Geh zurück – oder lass mich helfen, gegen einen Preis."
+ },
+ {
+  "id": "npc_as_trainer_warrior",
+  "name": "Gorrakh Eisenhieb",
+  "title": "Kriegerlehrer",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Warrior",
+  "gossip": "Willkommen. Ich lehre die Künste der Krieger. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_trainer_hunter",
+  "name": "Jägerin Shai",
+  "title": "Jägerlehrer",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Hunter",
+  "gossip": "Willkommen. Ich lehre die Künste der Jäger. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_trainer_rogue",
+  "name": "Klinge Vex",
+  "title": "Schurkenlehrerin",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Rogue",
+  "gossip": "Willkommen. Ich lehre die Künste der Schurken. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_trainer_priest",
+  "name": "Totenpriesterin Morvi",
+  "title": "Priesterin",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Priest",
+  "gossip": "Willkommen. Ich lehre die Künste der Priester. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_trainer_shaman",
+  "name": "Ahnenrufer Tharok",
+  "title": "Schamanenlehrer",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Shaman",
+  "gossip": "Willkommen. Ich lehre die Künste der Schamanen. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_trainer_mage",
+  "name": "Glutmagier Zel",
+  "title": "Magierlehrerin",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Mage",
+  "gossip": "Willkommen. Ich lehre die Künste der Magier. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_trainer_warlock",
+  "name": "Seelenbinder Krask",
+  "title": "Hexenmeisterlehrer",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Warlock",
+  "gossip": "Willkommen. Ich lehre die Künste der Hexenmeister. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_as_trainer_druid",
+  "name": "Erdmutter Nahe",
+  "title": "Druidenlehrerin",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer, QuestGiver",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "trainerClass": "Druid",
+  "gossip": "Willkommen. Ich lehre die Künste der Druiden. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ }
+]

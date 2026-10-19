@@ -1,0 +1,1270 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "druid_wrath",
+  "name": "Zorn",
+  "description": "Schleudert Naturenergie auf den Gegner.",
+  "class": "Druid",
+  "powerType": "Mana",
+  "castTime": 2.0,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Nature",
+  "icon": "wrath",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Nature",
+    "coefficient": 0.57,
+    "min": 9,
+    "max": 12
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 13,
+    "values": [
+     [
+      9,
+      12
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 26,
+    "values": [
+     [
+      20,
+      27
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 44,
+    "values": [
+     [
+      36,
+      48
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 65,
+    "values": [
+     [
+      54,
+      73
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 87,
+    "values": [
+     [
+      75,
+      101
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 112,
+    "values": [
+     [
+      98,
+      133
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 139,
+    "values": [
+     [
+      124,
+      168
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 168,
+    "values": [
+     [
+      153,
+      206
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 199,
+    "values": [
+     [
+      184,
+      248
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 232,
+    "values": [
+     [
+      217,
+      294
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 268,
+    "values": [
+     [
+      253,
+      343
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "druid_moonfire",
+  "name": "Mondfeuer",
+  "description": "Arkaner Sofortschaden und Schaden über Zeit.",
+  "class": "Druid",
+  "level": 4,
+  "powerType": "Mana",
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Arcane",
+  "icon": "moonfire",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Arcane",
+    "coefficient": 0.15,
+    "min": 5,
+    "max": 7
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "druid_moonfire_r4"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 16,
+    "values": [
+     [
+      5,
+      7
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r4"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 30,
+    "values": [
+     [
+      10,
+      14
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r10"
+   },
+   {
+    "level": 16,
+    "trainingCost": 2560,
+    "cost": 46,
+    "values": [
+     [
+      16,
+      22
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r16"
+   },
+   {
+    "level": 22,
+    "trainingCost": 4840,
+    "cost": 64,
+    "values": [
+     [
+      23,
+      30
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r22"
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 83,
+    "values": [
+     [
+      30,
+      41
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r28"
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 104,
+    "values": [
+     [
+      38,
+      52
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r34"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 126,
+    "values": [
+     [
+      48,
+      64
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r40"
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 151,
+    "values": [
+     [
+      58,
+      78
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r46"
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 177,
+    "values": [
+     [
+      69,
+      93
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r52"
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 205,
+    "values": [
+     [
+      80,
+      109
+     ],
+     null
+    ],
+    "aura": "druid_moonfire_r58"
+   }
+  ]
+ },
+ {
+  "id": "druid_healing_touch",
+  "name": "Heilende Berührung",
+  "description": "Heilt ein Ziel.",
+  "class": "Druid",
+  "powerType": "Mana",
+  "castTime": 3.0,
+  "maxRange": 40,
+  "target": "FriendlyOrSelf",
+  "school": "Nature",
+  "icon": "healing_touch",
+  "animation": "cast_heal",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.86,
+    "min": 17,
+    "max": 24
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 18,
+    "values": [
+     [
+      17,
+      24
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 37,
+    "values": [
+     [
+      38,
+      52
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 62,
+    "values": [
+     [
+      68,
+      92
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 91,
+    "values": [
+     [
+      103,
+      139
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 122,
+    "values": [
+     [
+      143,
+      193
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 157,
+    "values": [
+     [
+      187,
+      253
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 194,
+    "values": [
+     [
+      236,
+      320
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 235,
+    "values": [
+     [
+      291,
+      393
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 279,
+    "values": [
+     [
+      350,
+      473
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 325,
+    "values": [
+     [
+      414,
+      560
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 375,
+    "values": [
+     [
+      483,
+      653
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "druid_rejuvenation",
+  "name": "Verjüngung",
+  "description": "Heilt das Ziel 12 Sekunden lang.",
+  "class": "Druid",
+  "level": 4,
+  "powerType": "Mana",
+  "maxRange": 40,
+  "target": "FriendlyOrSelf",
+  "school": "Nature",
+  "icon": "rejuvenation",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "druid_rejuv_r4"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 16,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r4"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 30,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r10"
+   },
+   {
+    "level": 16,
+    "trainingCost": 2560,
+    "cost": 46,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r16"
+   },
+   {
+    "level": 22,
+    "trainingCost": 4840,
+    "cost": 64,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r22"
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 83,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r28"
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 104,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r34"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 126,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r40"
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 151,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r46"
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 177,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r52"
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 205,
+    "values": [
+     null
+    ],
+    "aura": "druid_rejuv_r58"
+   }
+  ]
+ },
+ {
+  "id": "druid_mark_of_the_wild",
+  "name": "Mal der Wildnis",
+  "description": "Erhöht Rüstung und alle Werte des Ziels für 30 Minuten.",
+  "class": "Druid",
+  "powerType": "Mana",
+  "maxRange": 30,
+  "target": "FriendlyOrSelf",
+  "school": "Nature",
+  "icon": "mark_wild",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "druid_motw_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 8,
+    "values": [
+     null
+    ],
+    "aura": "druid_motw_r1"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 23,
+    "values": [
+     null
+    ],
+    "aura": "druid_motw_r10"
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 43,
+    "values": [
+     null
+    ],
+    "aura": "druid_motw_r20"
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 67,
+    "values": [
+     null
+    ],
+    "aura": "druid_motw_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 95,
+    "values": [
+     null
+    ],
+    "aura": "druid_motw_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 126,
+    "values": [
+     null
+    ],
+    "aura": "druid_motw_r50"
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 161,
+    "values": [
+     null
+    ],
+    "aura": "druid_motw_r60"
+   }
+  ]
+ },
+ {
+  "id": "druid_entangling_roots",
+  "name": "Wucherwurzeln",
+  "description": "Hält das Ziel bis zu 12 Sekunden fest.",
+  "class": "Druid",
+  "level": 8,
+  "trainingCost": 640,
+  "powerType": "Mana",
+  "cost": 50,
+  "castTime": 1.5,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Nature",
+  "icon": "entangling_roots",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "druid_roots"
+   }
+  ]
+ },
+ {
+  "id": "druid_bear_form",
+  "name": "Bärengestalt",
+  "description": "Verwandelt Euch in einen Bären – der Tank des Druiden.",
+  "class": "Druid",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Mana",
+  "cost": 50,
+  "target": "Self",
+  "icon": "bear_form",
+  "animation": "shapeshift",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "druid_bear_form"
+   }
+  ]
+ },
+ {
+  "id": "druid_maul",
+  "name": "Zermalmen",
+  "description": "Ein mächtiger Prankenhieb mit viel Bedrohung.",
+  "class": "Druid",
+  "powerType": "Rage",
+  "cost": 12,
+  "maxRange": 5,
+  "target": "Enemy",
+  "requiredForms": [
+   "Bear"
+  ],
+  "icon": "maul",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "threat": 30,
+    "threatMultiplier": 1.75,
+    "min": 14,
+    "max": 20
+   }
+  ],
+  "ranks": [
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 12,
+    "values": [
+     [
+      14,
+      20
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 12,
+    "values": [
+     [
+      26,
+      35
+     ]
+    ]
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 12,
+    "values": [
+     [
+      39,
+      53
+     ]
+    ]
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 12,
+    "values": [
+     [
+      55,
+      74
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 12,
+    "values": [
+     [
+      73,
+      98
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 12,
+    "values": [
+     [
+      93,
+      125
+     ]
+    ]
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 12,
+    "values": [
+     [
+      115,
+      155
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "druid_growl",
+  "name": "Knurren",
+  "description": "Zwingt das Ziel, Euch anzugreifen.",
+  "class": "Druid",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Rage",
+  "cost": 0,
+  "cooldown": 10,
+  "maxRange": 10,
+  "target": "Enemy",
+  "triggersGcd": false,
+  "requiredForms": [
+   "Bear"
+  ],
+  "icon": "growl",
+  "animation": "roar",
+  "effects": [
+   {
+    "type": "Taunt"
+   }
+  ]
+ },
+ {
+  "id": "druid_swipe",
+  "name": "Prankenhieb",
+  "description": "Trifft bis zu drei Gegner vor Euch.",
+  "class": "Druid",
+  "powerType": "Rage",
+  "cost": 20,
+  "target": "AreaAroundSelf",
+  "radius": 6,
+  "maxTargets": 3,
+  "requiredForms": [
+   "Bear"
+  ],
+  "icon": "swipe",
+  "animation": "attack_wide",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "threatMultiplier": 1.5,
+    "min": 20,
+    "max": 28
+   }
+  ],
+  "ranks": [
+   {
+    "level": 16,
+    "trainingCost": 2560,
+    "cost": 20,
+    "values": [
+     [
+      20,
+      28
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 20,
+    "values": [
+     [
+      32,
+      43
+     ]
+    ]
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 20,
+    "values": [
+     [
+      49,
+      67
+     ]
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 20,
+    "values": [
+     [
+      70,
+      94
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 20,
+    "values": [
+     [
+      93,
+      126
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "druid_cat_form",
+  "name": "Katzengestalt",
+  "description": "Verwandelt Euch in eine Raubkatze.",
+  "class": "Druid",
+  "level": 20,
+  "trainingCost": 4000,
+  "powerType": "Mana",
+  "cost": 60,
+  "target": "Self",
+  "icon": "cat_form",
+  "animation": "shapeshift",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "druid_cat_form"
+   }
+  ]
+ },
+ {
+  "id": "druid_claw",
+  "name": "Klaue",
+  "description": "Ein Klauenhieb. Erzeugt einen Kombopunkt.",
+  "class": "Druid",
+  "powerType": "Energy",
+  "cost": 40,
+  "maxRange": 5,
+  "target": "Enemy",
+  "requiredForms": [
+   "Cat"
+  ],
+  "icon": "claw",
+  "animation": "attack",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "min": 23,
+    "max": 31
+   },
+   {
+    "type": "ComboPoints",
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 40,
+    "values": [
+     [
+      23,
+      31
+     ],
+     null
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 40,
+    "values": [
+     [
+      34,
+      46
+     ],
+     null
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 40,
+    "values": [
+     [
+      47,
+      64
+     ],
+     null
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 40,
+    "values": [
+     [
+      62,
+      84
+     ],
+     null
+    ]
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 40,
+    "values": [
+     [
+      78,
+      106
+     ],
+     null
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 40,
+    "values": [
+     [
+      97,
+      131
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "druid_rip",
+  "name": "Zerfetzen",
+  "description": "Finishing-Move: Starker Blutungsschaden pro Kombopunkt.",
+  "class": "Druid",
+  "powerType": "Energy",
+  "cost": 30,
+  "maxRange": 5,
+  "target": "Enemy",
+  "requiresComboPoints": true,
+  "requiredForms": [
+   "Cat"
+  ],
+  "icon": "rip",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "perComboPoint": 1,
+    "min": 26,
+    "max": 35
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 30,
+    "values": [
+     [
+      26,
+      35
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 30,
+    "values": [
+     [
+      42,
+      57
+     ]
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 30,
+    "values": [
+     [
+      61,
+      83
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 30,
+    "values": [
+     [
+      83,
+      113
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 30,
+    "values": [
+     [
+      109,
+      147
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "druid_rebirth",
+  "name": "Wiedergeburt",
+  "description": "Belebt ein totes Gruppenmitglied auch im Kampf wieder.",
+  "class": "Druid",
+  "level": 20,
+  "trainingCost": 4000,
+  "powerType": "Mana",
+  "cost": 200,
+  "castTime": 2,
+  "cooldown": 1800,
+  "maxRange": 30,
+  "target": "DeadFriendly",
+  "school": "Nature",
+  "icon": "rebirth",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "Resurrect",
+    "min": 40,
+    "max": 40
+   }
+  ]
+ },
+ {
+  "id": "druid_starfire",
+  "name": "Sternenfeuer",
+  "description": "Ein gewaltiger arkaner Zauber. (Talent)",
+  "class": "Druid",
+  "powerType": "Mana",
+  "castTime": 3.5,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Arcane",
+  "notTrainable": true,
+  "icon": "starfire",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Arcane",
+    "coefficient": 1.0,
+    "min": 110,
+    "max": 149
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 115,
+    "values": [
+     [
+      110,
+      149
+     ]
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 166,
+    "values": [
+     [
+      163,
+      221
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 222,
+    "values": [
+     [
+      225,
+      304
+     ]
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 285,
+    "values": [
+     [
+      294,
+      398
+     ]
+    ]
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 354,
+    "values": [
+     [
+      372,
+      504
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 429,
+    "values": [
+     [
+      459,
+      621
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "druid_swiftmend",
+  "name": "Rasche Heilung",
+  "description": "Sofortige Heilung. (Talent)",
+  "class": "Druid",
+  "powerType": "Mana",
+  "cooldown": 15,
+  "maxRange": 40,
+  "target": "FriendlyOrSelf",
+  "school": "Nature",
+  "notTrainable": true,
+  "icon": "swiftmend",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.5,
+    "min": 204,
+    "max": 276
+   }
+  ],
+  "ranks": [
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 126,
+    "values": [
+     [
+      204,
+      276
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 168,
+    "values": [
+     [
+      278,
+      376
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 214,
+    "values": [
+     [
+      362,
+      490
+     ]
+    ]
+   }
+  ]
+ }
+]

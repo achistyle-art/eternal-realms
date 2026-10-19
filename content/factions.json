@@ -1,0 +1,14 @@
+[
+  {
+    "id": "Sonnenbuendnis",
+    "name": "Das Sonnenbündnis",
+    "capital": "Sonnenfeste",
+    "description": "Nach dem Aschenkrieg schworen Aldorer, Felsgeborene, Elarii und Fennlinge an den Sonnenquellen von Aurelion, einander nie wieder im Stich zu lassen. Das Bündnis glaubt an Ordnung, Handel und den Schutz der alten Quellen – und misstraut allem, was aus dem Osten kommt."
+  },
+  {
+    "id": "Schattenpakt",
+    "name": "Der Schattenpakt",
+    "capital": "Kharzul",
+    "description": "Die Völker von Kharvath wurden von den Reichen des Westens vertrieben, verflucht oder vergessen. Im Schatten des Weltenrisses schlossen Grakar, Nachtgeborene, Hornvolk und Skarr einen Pakt: Überleben durch Zusammenhalt, Ehre durch Taten. Der Pakt kennt keine Gnade für Verräter – aber auch keinen Unterschied zwischen Herkunft und Gestalt."
+  }
+]

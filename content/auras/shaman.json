@@ -1,0 +1,229 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "shaman_rockbiter_r1",
+  "name": "Waffe des Felsbeißers",
+  "description": "Zusätzlicher Schaden pro Treffer.",
+  "duration": 300,
+  "dispellable": false,
+  "procMin": 1,
+  "procMax": 2,
+  "procSchool": "Nature",
+  "procCoefficient": 0.05
+ },
+ {
+  "id": "shaman_rockbiter_r8",
+  "name": "Waffe des Felsbeißers",
+  "description": "Zusätzlicher Schaden pro Treffer.",
+  "duration": 300,
+  "dispellable": false,
+  "procMin": 4,
+  "procMax": 5,
+  "procSchool": "Nature",
+  "procCoefficient": 0.05
+ },
+ {
+  "id": "shaman_rockbiter_r16",
+  "name": "Waffe des Felsbeißers",
+  "description": "Zusätzlicher Schaden pro Treffer.",
+  "duration": 300,
+  "dispellable": false,
+  "procMin": 8,
+  "procMax": 10,
+  "procSchool": "Nature",
+  "procCoefficient": 0.05
+ },
+ {
+  "id": "shaman_rockbiter_r24",
+  "name": "Waffe des Felsbeißers",
+  "description": "Zusätzlicher Schaden pro Treffer.",
+  "duration": 300,
+  "dispellable": false,
+  "procMin": 12,
+  "procMax": 16,
+  "procSchool": "Nature",
+  "procCoefficient": 0.05
+ },
+ {
+  "id": "shaman_rockbiter_r34",
+  "name": "Waffe des Felsbeißers",
+  "description": "Zusätzlicher Schaden pro Treffer.",
+  "duration": 300,
+  "dispellable": false,
+  "procMin": 19,
+  "procMax": 25,
+  "procSchool": "Nature",
+  "procCoefficient": 0.05
+ },
+ {
+  "id": "shaman_rockbiter_r44",
+  "name": "Waffe des Felsbeißers",
+  "description": "Zusätzlicher Schaden pro Treffer.",
+  "duration": 300,
+  "dispellable": false,
+  "procMin": 27,
+  "procMax": 36,
+  "procSchool": "Nature",
+  "procCoefficient": 0.05
+ },
+ {
+  "id": "shaman_rockbiter_r54",
+  "name": "Waffe des Felsbeißers",
+  "description": "Zusätzlicher Schaden pro Treffer.",
+  "duration": 300,
+  "dispellable": false,
+  "procMin": 36,
+  "procMax": 48,
+  "procSchool": "Nature",
+  "procCoefficient": 0.05
+ },
+ {
+  "id": "shaman_flame_shock_r10",
+  "name": "Flammenschock",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 4,
+  "tickMax": 5,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "shaman_flame_shock_r18",
+  "name": "Flammenschock",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 8,
+  "tickMax": 9,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "shaman_flame_shock_r28",
+  "name": "Flammenschock",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 14,
+  "tickMax": 15,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "shaman_flame_shock_r40",
+  "name": "Flammenschock",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 22,
+  "tickMax": 25,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "shaman_flame_shock_r52",
+  "name": "Flammenschock",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 32,
+  "tickMax": 36,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "shaman_soe_r10",
+  "name": "Erdstärke",
+  "description": "Stärke erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 16
+   }
+  ]
+ },
+ {
+  "id": "shaman_soe_r24",
+  "name": "Erdstärke",
+  "description": "Stärke erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 31
+   }
+  ]
+ },
+ {
+  "id": "shaman_soe_r38",
+  "name": "Erdstärke",
+  "description": "Stärke erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 46
+   }
+  ]
+ },
+ {
+  "id": "shaman_soe_r52",
+  "name": "Erdstärke",
+  "description": "Stärke erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 62
+   }
+  ]
+ },
+ {
+  "id": "shaman_frost_slow",
+  "name": "Frostschock",
+  "description": "Bewegungstempo um 50 % verringert.",
+  "isDebuff": true,
+  "duration": 8,
+  "school": "Frost",
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": -50
+   }
+  ]
+ },
+ {
+  "id": "shaman_ghost_wolf",
+  "name": "Geisterwolf",
+  "description": "Bewegungstempo um 40 % erhöht.",
+  "permanent": true,
+  "form": "Travel",
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": 40
+   }
+  ]
+ }
+]

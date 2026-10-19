@@ -1,0 +1,878 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "paladin_seal_of_righteousness",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Jeder Nahkampftreffer verursacht 30 Sekunden lang zusätzlichen Heiligschaden.",
+  "class": "Paladin",
+  "powerType": "Mana",
+  "target": "Self",
+  "icon": "seal_righteousness",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "paladin_seal_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 9,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r1"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 27,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r10"
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 45,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r18"
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 67,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r26"
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 91,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r34"
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 118,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r42"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 147,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r50"
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 179,
+    "values": [
+     null
+    ],
+    "aura": "paladin_seal_r58"
+   }
+  ]
+ },
+ {
+  "id": "paladin_judgement",
+  "name": "Richturteil",
+  "description": "Entfesselt heiliges Licht auf den Gegner.",
+  "class": "Paladin",
+  "level": 4,
+  "powerType": "Mana",
+  "cooldown": 8,
+  "target": "Enemy",
+  "maxRange": 10,
+  "school": "Holy",
+  "icon": "judgement",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Holy",
+    "coefficient": 0.43,
+    "min": 13,
+    "max": 18
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 16,
+    "values": [
+     [
+      13,
+      18
+     ]
+    ]
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 30,
+    "values": [
+     [
+      26,
+      35
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 52,
+    "values": [
+     [
+      46,
+      63
+     ]
+    ]
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 76,
+    "values": [
+     [
+      71,
+      95
+     ]
+    ]
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 104,
+    "values": [
+     [
+      99,
+      134
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 134,
+    "values": [
+     [
+      131,
+      177
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 168,
+    "values": [
+     [
+      167,
+      226
+     ]
+    ]
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 205,
+    "values": [
+     [
+      207,
+      280
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "paladin_holy_light",
+  "name": "Heiliges Licht",
+  "description": "Heilt ein freundliches Ziel.",
+  "class": "Paladin",
+  "powerType": "Mana",
+  "castTime": 2.5,
+  "target": "FriendlyOrSelf",
+  "maxRange": 40,
+  "school": "Holy",
+  "icon": "holy_light",
+  "animation": "cast_heal",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.71,
+    "min": 14,
+    "max": 19
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 16,
+    "values": [
+     [
+      14,
+      19
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 34,
+    "values": [
+     [
+      31,
+      42
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 58,
+    "values": [
+     [
+      55,
+      74
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 84,
+    "values": [
+     [
+      82,
+      111
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 113,
+    "values": [
+     [
+      114,
+      154
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 146,
+    "values": [
+     [
+      150,
+      202
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 181,
+    "values": [
+     [
+      189,
+      256
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 218,
+    "values": [
+     [
+      233,
+      315
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 259,
+    "values": [
+     [
+      280,
+      379
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 302,
+    "values": [
+     [
+      331,
+      448
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 348,
+    "values": [
+     [
+      386,
+      523
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "paladin_devotion_aura",
+  "name": "Aura der Hingabe",
+  "description": "Erhöht die Rüstung aller Gruppenmitglieder in der Nähe.",
+  "class": "Paladin",
+  "powerType": "Mana",
+  "cost": 0,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "devotion_aura",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "paladin_devotion_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 0,
+    "values": [
+     null
+    ],
+    "aura": "paladin_devotion_r1"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 0,
+    "values": [
+     null
+    ],
+    "aura": "paladin_devotion_r10"
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 0,
+    "values": [
+     null
+    ],
+    "aura": "paladin_devotion_r20"
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 0,
+    "values": [
+     null
+    ],
+    "aura": "paladin_devotion_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 0,
+    "values": [
+     null
+    ],
+    "aura": "paladin_devotion_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 0,
+    "values": [
+     null
+    ],
+    "aura": "paladin_devotion_r50"
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 0,
+    "values": [
+     null
+    ],
+    "aura": "paladin_devotion_r60"
+   }
+  ]
+ },
+ {
+  "id": "paladin_blessing_of_might",
+  "name": "Segen der Macht",
+  "description": "Erhöht die Angriffskraft des Ziels für 5 Minuten.",
+  "class": "Paladin",
+  "level": 4,
+  "powerType": "Mana",
+  "target": "FriendlyOrSelf",
+  "maxRange": 30,
+  "icon": "blessing_might",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "paladin_bom_r4"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 8,
+    "values": [
+     null
+    ],
+    "aura": "paladin_bom_r4"
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 18,
+    "values": [
+     null
+    ],
+    "aura": "paladin_bom_r12"
+   },
+   {
+    "level": 22,
+    "trainingCost": 4840,
+    "cost": 32,
+    "values": [
+     null
+    ],
+    "aura": "paladin_bom_r22"
+   },
+   {
+    "level": 32,
+    "trainingCost": 10240,
+    "cost": 48,
+    "values": [
+     null
+    ],
+    "aura": "paladin_bom_r32"
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 67,
+    "values": [
+     null
+    ],
+    "aura": "paladin_bom_r42"
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 88,
+    "values": [
+     null
+    ],
+    "aura": "paladin_bom_r52"
+   }
+  ]
+ },
+ {
+  "id": "paladin_divine_protection",
+  "name": "Göttlicher Schutz",
+  "description": "Verringert 8 Sekunden lang jeden erlittenen Schaden um 50 %.",
+  "class": "Paladin",
+  "level": 6,
+  "trainingCost": 360,
+  "powerType": "Mana",
+  "cost": 30,
+  "cooldown": 300,
+  "target": "Self",
+  "icon": "divine_protection",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "paladin_divine_protection"
+   }
+  ]
+ },
+ {
+  "id": "paladin_hammer_of_justice",
+  "name": "Hammer der Gerechtigkeit",
+  "description": "Betäubt das Ziel 4 Sekunden lang.",
+  "class": "Paladin",
+  "level": 8,
+  "trainingCost": 640,
+  "powerType": "Mana",
+  "cost": 40,
+  "cooldown": 60,
+  "maxRange": 10,
+  "target": "Enemy",
+  "school": "Holy",
+  "icon": "hammer_justice",
+  "animation": "throw",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "paladin_hammer_stun"
+   },
+   {
+    "type": "Interrupt",
+    "duration": 0
+   }
+  ]
+ },
+ {
+  "id": "paladin_redemption",
+  "name": "Erlösung",
+  "description": "Belebt ein totes Gruppenmitglied mit 35 % Leben wieder.",
+  "class": "Paladin",
+  "level": 12,
+  "trainingCost": 1440,
+  "powerType": "Mana",
+  "cost": 120,
+  "castTime": 10,
+  "maxRange": 30,
+  "target": "DeadFriendly",
+  "outOfCombatOnly": true,
+  "school": "Holy",
+  "icon": "redemption",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "Resurrect",
+    "min": 35,
+    "max": 35
+   }
+  ]
+ },
+ {
+  "id": "paladin_righteous_fury",
+  "name": "Zorn der Gerechtigkeit",
+  "description": "Erhöht 30 Minuten lang die Bedrohung durch Heiligschaden um 60 %.",
+  "class": "Paladin",
+  "level": 16,
+  "trainingCost": 2560,
+  "powerType": "Mana",
+  "cost": 60,
+  "target": "Self",
+  "school": "Holy",
+  "icon": "righteous_fury",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "paladin_righteous_fury"
+   }
+  ]
+ },
+ {
+  "id": "paladin_flash_of_light",
+  "name": "Lichtblitz",
+  "description": "Schnelle, sparsame Heilung.",
+  "class": "Paladin",
+  "powerType": "Mana",
+  "castTime": 1.5,
+  "target": "FriendlyOrSelf",
+  "maxRange": 40,
+  "school": "Holy",
+  "icon": "flash_of_light",
+  "animation": "cast_heal",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.43,
+    "min": 40,
+    "max": 55
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 43,
+    "values": [
+     [
+      40,
+      55
+     ]
+    ]
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 57,
+    "values": [
+     [
+      55,
+      74
+     ]
+    ]
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 78,
+    "values": [
+     [
+      77,
+      104
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 101,
+    "values": [
+     [
+      102,
+      138
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 126,
+    "values": [
+     [
+      130,
+      175
+     ]
+    ]
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 154,
+    "values": [
+     [
+      161,
+      217
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "paladin_consecration",
+  "name": "Weihe",
+  "description": "Heiligt den Boden: Heiligschaden an allen Gegnern in der Nähe.",
+  "class": "Paladin",
+  "powerType": "Mana",
+  "cooldown": 8,
+  "target": "AreaAroundSelf",
+  "radius": 8,
+  "school": "Holy",
+  "icon": "consecration",
+  "animation": "cast_ground",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Holy",
+    "coefficient": 0.33,
+    "min": 46,
+    "max": 63
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 101,
+    "values": [
+     [
+      46,
+      63
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 157,
+    "values": [
+     [
+      75,
+      101
+     ]
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 221,
+    "values": [
+     [
+      109,
+      147
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 294,
+    "values": [
+     [
+      148,
+      201
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 375,
+    "values": [
+     [
+      193,
+      261
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "paladin_holy_shock",
+  "name": "Heiliger Schock",
+  "description": "Sofortige Heilung eines Verbündeten. (Talent)",
+  "class": "Paladin",
+  "powerType": "Mana",
+  "cooldown": 30,
+  "target": "FriendlyOrSelf",
+  "maxRange": 20,
+  "school": "Holy",
+  "notTrainable": true,
+  "icon": "holy_shock",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.43,
+    "min": 163,
+    "max": 221
+   }
+  ],
+  "ranks": [
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 158,
+    "values": [
+     [
+      163,
+      221
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 199,
+    "values": [
+     [
+      210,
+      284
+     ]
+    ]
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 244,
+    "values": [
+     [
+      262,
+      354
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "paladin_crusader_strike",
+  "name": "Kreuzfahrerstoß",
+  "description": "Heiliger Waffenschlag. (Talent)",
+  "class": "Paladin",
+  "powerType": "Mana",
+  "cooldown": 6,
+  "target": "Enemy",
+  "maxRange": 5,
+  "notTrainable": true,
+  "icon": "crusader_strike",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.1,
+    "min": 41,
+    "max": 55
+   }
+  ],
+  "ranks": [
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 79,
+    "values": [
+     [
+      41,
+      55
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 105,
+    "values": [
+     [
+      56,
+      75
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 134,
+    "values": [
+     [
+      72,
+      98
+     ]
+    ]
+   }
+  ]
+ }
+]

@@ -1,0 +1,986 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "mage_fireball",
+  "name": "Feuerball",
+  "description": "Schleudert einen flammenden Ball.",
+  "class": "Mage",
+  "powerType": "Mana",
+  "castTime": 3.0,
+  "maxRange": 35,
+  "target": "Enemy",
+  "school": "Fire",
+  "icon": "fireball",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "coefficient": 1.0,
+    "min": 14,
+    "max": 19
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 19,
+    "values": [
+     [
+      14,
+      19
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 39,
+    "values": [
+     [
+      31,
+      42
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 66,
+    "values": [
+     [
+      55,
+      74
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 97,
+    "values": [
+     [
+      82,
+      111
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 131,
+    "values": [
+     [
+      114,
+      154
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 168,
+    "values": [
+     [
+      150,
+      202
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 208,
+    "values": [
+     [
+      189,
+      256
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 252,
+    "values": [
+     [
+      233,
+      315
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 299,
+    "values": [
+     [
+      280,
+      379
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 349,
+    "values": [
+     [
+      331,
+      448
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 402,
+    "values": [
+     [
+      386,
+      523
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mage_frostbolt",
+  "name": "Frostblitz",
+  "description": "Frostschaden und Verlangsamung.",
+  "class": "Mage",
+  "level": 4,
+  "powerType": "Mana",
+  "castTime": 2.5,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Frost",
+  "icon": "frostbolt",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Frost",
+    "coefficient": 0.81,
+    "min": 19,
+    "max": 26
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mage_chill"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 27,
+    "values": [
+     [
+      19,
+      26
+     ],
+     null
+    ]
+   },
+   {
+    "level": 8,
+    "trainingCost": 640,
+    "cost": 41,
+    "values": [
+     [
+      31,
+      42
+     ],
+     null
+    ]
+   },
+   {
+    "level": 14,
+    "trainingCost": 1960,
+    "cost": 66,
+    "values": [
+     [
+      52,
+      70
+     ],
+     null
+    ]
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 94,
+    "values": [
+     [
+      75,
+      102
+     ],
+     null
+    ]
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 124,
+    "values": [
+     [
+      102,
+      138
+     ],
+     null
+    ]
+   },
+   {
+    "level": 32,
+    "trainingCost": 10240,
+    "cost": 157,
+    "values": [
+     [
+      132,
+      178
+     ],
+     null
+    ]
+   },
+   {
+    "level": 38,
+    "trainingCost": 14440,
+    "cost": 193,
+    "values": [
+     [
+      165,
+      223
+     ],
+     null
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 232,
+    "values": [
+     [
+      201,
+      272
+     ],
+     null
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 273,
+    "values": [
+     [
+      241,
+      326
+     ],
+     null
+    ]
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 317,
+    "values": [
+     [
+      284,
+      384
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mage_arcane_intellect",
+  "name": "Arkane Intelligenz",
+  "description": "Erhöht die Intelligenz des Ziels 30 Minuten lang.",
+  "class": "Mage",
+  "powerType": "Mana",
+  "maxRange": 30,
+  "target": "FriendlyOrSelf",
+  "school": "Arcane",
+  "icon": "arcane_intellect",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mage_ai_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 8,
+    "values": [
+     null
+    ],
+    "aura": "mage_ai_r1"
+   },
+   {
+    "level": 14,
+    "trainingCost": 1960,
+    "cost": 31,
+    "values": [
+     null
+    ],
+    "aura": "mage_ai_r14"
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 62,
+    "values": [
+     null
+    ],
+    "aura": "mage_ai_r28"
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 101,
+    "values": [
+     null
+    ],
+    "aura": "mage_ai_r42"
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 146,
+    "values": [
+     null
+    ],
+    "aura": "mage_ai_r56"
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_armor",
+  "name": "Frostrüstung",
+  "description": "Erhöht die Rüstung für 30 Minuten.",
+  "class": "Mage",
+  "powerType": "Mana",
+  "target": "Self",
+  "school": "Frost",
+  "icon": "frost_armor",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mage_frost_armor_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 6,
+    "values": [
+     null
+    ],
+    "aura": "mage_frost_armor_r1"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 19,
+    "values": [
+     null
+    ],
+    "aura": "mage_frost_armor_r10"
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 36,
+    "values": [
+     null
+    ],
+    "aura": "mage_frost_armor_r20"
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 56,
+    "values": [
+     null
+    ],
+    "aura": "mage_frost_armor_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 79,
+    "values": [
+     null
+    ],
+    "aura": "mage_frost_armor_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 105,
+    "values": [
+     null
+    ],
+    "aura": "mage_frost_armor_r50"
+   }
+  ]
+ },
+ {
+  "id": "mage_fire_blast",
+  "name": "Feuerschlag",
+  "description": "Sofortiger Feuerschaden.",
+  "class": "Mage",
+  "level": 6,
+  "powerType": "Mana",
+  "cooldown": 8,
+  "maxRange": 20,
+  "target": "Enemy",
+  "school": "Fire",
+  "icon": "fire_blast",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "coefficient": 0.43,
+    "min": 19,
+    "max": 26
+   }
+  ],
+  "ranks": [
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 26,
+    "values": [
+     [
+      19,
+      26
+     ]
+    ]
+   },
+   {
+    "level": 14,
+    "trainingCost": 1960,
+    "cost": 51,
+    "values": [
+     [
+      40,
+      54
+     ]
+    ]
+   },
+   {
+    "level": 22,
+    "trainingCost": 4840,
+    "cost": 80,
+    "values": [
+     [
+      64,
+      87
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 112,
+    "values": [
+     [
+      94,
+      126
+     ]
+    ]
+   },
+   {
+    "level": 38,
+    "trainingCost": 14440,
+    "cost": 148,
+    "values": [
+     [
+      127,
+      172
+     ]
+    ]
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 188,
+    "values": [
+     [
+      165,
+      223
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 232,
+    "values": [
+     [
+      207,
+      280
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mage_polymorph",
+  "name": "Verwandlung",
+  "description": "Verwandelt einen Gegner bis zu 20 Sekunden lang in ein Schaf.",
+  "class": "Mage",
+  "level": 8,
+  "trainingCost": 640,
+  "powerType": "Mana",
+  "cost": 60,
+  "castTime": 1.5,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Arcane",
+  "icon": "polymorph",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mage_polymorph"
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_nova",
+  "name": "Frostnova",
+  "description": "Friert Gegner in der Nähe am Boden fest.",
+  "class": "Mage",
+  "powerType": "Mana",
+  "cooldown": 25,
+  "target": "AreaAroundSelf",
+  "radius": 10,
+  "school": "Frost",
+  "icon": "frost_nova",
+  "animation": "cast_ground",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Frost",
+    "coefficient": 0.13,
+    "min": 6,
+    "max": 8
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mage_frost_nova"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 30,
+    "values": [
+     [
+      6,
+      8
+     ],
+     null
+    ]
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 76,
+    "values": [
+     [
+      16,
+      21
+     ],
+     null
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 126,
+    "values": [
+     [
+      27,
+      37
+     ],
+     null
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 186,
+    "values": [
+     [
+      41,
+      56
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mage_arcane_explosion",
+  "name": "Arkane Explosion",
+  "description": "Arkaner Schaden an allen Gegnern in der Nähe.",
+  "class": "Mage",
+  "powerType": "Mana",
+  "target": "AreaAroundSelf",
+  "radius": 10,
+  "school": "Arcane",
+  "icon": "arcane_explosion",
+  "animation": "cast_ground",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Arcane",
+    "coefficient": 0.14,
+    "min": 18,
+    "max": 24
+   }
+  ],
+  "ranks": [
+   {
+    "level": 14,
+    "trainingCost": 1960,
+    "cost": 61,
+    "values": [
+     [
+      18,
+      24
+     ]
+    ]
+   },
+   {
+    "level": 22,
+    "trainingCost": 4840,
+    "cost": 95,
+    "values": [
+     [
+      29,
+      39
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 134,
+    "values": [
+     [
+      42,
+      57
+     ]
+    ]
+   },
+   {
+    "level": 38,
+    "trainingCost": 14440,
+    "cost": 178,
+    "values": [
+     [
+      57,
+      77
+     ]
+    ]
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 226,
+    "values": [
+     [
+      74,
+      100
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 279,
+    "values": [
+     [
+      93,
+      126
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mage_arcane_missiles",
+  "name": "Arkane Geschosse",
+  "description": "Eine Salve arkaner Geschosse.",
+  "class": "Mage",
+  "powerType": "Mana",
+  "castTime": 3.0,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Arcane",
+  "icon": "arcane_missiles",
+  "animation": "cast_channel",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Arcane",
+    "coefficient": 1.0,
+    "min": 37,
+    "max": 50
+   }
+  ],
+  "ranks": [
+   {
+    "level": 8,
+    "trainingCost": 640,
+    "cost": 51,
+    "values": [
+     [
+      37,
+      50
+     ]
+    ]
+   },
+   {
+    "level": 16,
+    "trainingCost": 2560,
+    "cost": 92,
+    "values": [
+     [
+      70,
+      95
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 140,
+    "values": [
+     [
+      110,
+      149
+     ]
+    ]
+   },
+   {
+    "level": 32,
+    "trainingCost": 10240,
+    "cost": 193,
+    "values": [
+     [
+      157,
+      213
+     ]
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 253,
+    "values": [
+     [
+      211,
+      285
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 319,
+    "values": [
+     [
+      271,
+      367
+     ]
+    ]
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 391,
+    "values": [
+     [
+      338,
+      457
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mage_counterspell",
+  "name": "Gegenzauber",
+  "description": "Unterbricht einen Zauber und sperrt die Schule 8 Sekunden.",
+  "class": "Mage",
+  "level": 24,
+  "trainingCost": 5760,
+  "powerType": "Mana",
+  "cost": 100,
+  "cooldown": 24,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Arcane",
+  "triggersGcd": false,
+  "icon": "counterspell",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "Interrupt",
+    "duration": 8
+   }
+  ]
+ },
+ {
+  "id": "mage_teleport_home",
+  "name": "Teleportieren: Heimat",
+  "description": "Teleportiert Euch zur Hauptsiedlung Eurer Fraktion.",
+  "class": "Mage",
+  "level": 20,
+  "trainingCost": 4000,
+  "powerType": "Mana",
+  "cost": 120,
+  "castTime": 10,
+  "cooldown": 60,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "school": "Arcane",
+  "icon": "teleport",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "Teleport",
+    "zone": "@home"
+   }
+  ]
+ },
+ {
+  "id": "mage_pyroblast",
+  "name": "Pyroschlag",
+  "description": "Ein gewaltiger Feuerball mit Nachbrennen. (Talent)",
+  "class": "Mage",
+  "powerType": "Mana",
+  "castTime": 6,
+  "maxRange": 35,
+  "target": "Enemy",
+  "school": "Fire",
+  "notTrainable": true,
+  "icon": "pyroblast",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "coefficient": 1.0,
+    "min": 150,
+    "max": 203
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mage_pyro_burn_r20"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 158,
+    "values": [
+     [
+      150,
+      203
+     ],
+     null
+    ],
+    "aura": "mage_pyro_burn_r20"
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 246,
+    "values": [
+     [
+      243,
+      329
+     ],
+     null
+    ],
+    "aura": "mage_pyro_burn_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 348,
+    "values": [
+     [
+      354,
+      478
+     ],
+     null
+    ],
+    "aura": "mage_pyro_burn_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 462,
+    "values": [
+     [
+      482,
+      652
+     ],
+     null
+    ],
+    "aura": "mage_pyro_burn_r50"
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 590,
+    "values": [
+     [
+      628,
+      849
+     ],
+     null
+    ],
+    "aura": "mage_pyro_burn_r60"
+   }
+  ]
+ },
+ {
+  "id": "mage_icy_veins",
+  "name": "Eisige Adern",
+  "description": "Verkürzt 20 Sekunden lang alle Zauberzeiten. (Talent)",
+  "class": "Mage",
+  "level": 40,
+  "powerType": "Mana",
+  "cost": 100,
+  "cooldown": 180,
+  "target": "Self",
+  "triggersGcd": false,
+  "notTrainable": true,
+  "icon": "icy_veins",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mage_icy_veins"
+   }
+  ]
+ }
+]

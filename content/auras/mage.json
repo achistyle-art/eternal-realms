@@ -1,0 +1,262 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "mage_chill",
+  "name": "Frostblitz",
+  "description": "Bewegungstempo um 40 % verringert.",
+  "isDebuff": true,
+  "duration": 5,
+  "school": "Frost",
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": -40
+   }
+  ]
+ },
+ {
+  "id": "mage_ai_r1",
+  "name": "Arkane Intelligenz",
+  "description": "Intelligenz erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 2
+   }
+  ]
+ },
+ {
+  "id": "mage_ai_r14",
+  "name": "Arkane Intelligenz",
+  "description": "Intelligenz erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 9
+   }
+  ]
+ },
+ {
+  "id": "mage_ai_r28",
+  "name": "Arkane Intelligenz",
+  "description": "Intelligenz erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 17
+   }
+  ]
+ },
+ {
+  "id": "mage_ai_r42",
+  "name": "Arkane Intelligenz",
+  "description": "Intelligenz erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 25
+   }
+  ]
+ },
+ {
+  "id": "mage_ai_r56",
+  "name": "Arkane Intelligenz",
+  "description": "Intelligenz erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 32
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_armor_r1",
+  "name": "Frostrüstung",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 38
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_armor_r10",
+  "name": "Frostrüstung",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 110
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_armor_r20",
+  "name": "Frostrüstung",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 190
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_armor_r30",
+  "name": "Frostrüstung",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 270
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_armor_r40",
+  "name": "Frostrüstung",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 350
+   }
+  ]
+ },
+ {
+  "id": "mage_frost_armor_r50",
+  "name": "Frostrüstung",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 430
+   }
+  ]
+ },
+ {
+  "id": "mage_polymorph",
+  "name": "Verwandlung",
+  "description": "In ein Schaf verwandelt. Schaden beendet den Effekt.",
+  "isDebuff": true,
+  "duration": 20,
+  "stun": true,
+  "breaksOnDamage": true,
+  "school": "Arcane"
+ },
+ {
+  "id": "mage_frost_nova",
+  "name": "Frostnova",
+  "description": "Eingefroren.",
+  "isDebuff": true,
+  "duration": 8,
+  "root": true,
+  "breaksOnDamage": false,
+  "school": "Frost"
+ },
+ {
+  "id": "mage_pyro_burn_r20",
+  "name": "Pyroschlag",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 12,
+  "tickMax": 14,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "mage_pyro_burn_r30",
+  "name": "Pyroschlag",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 20,
+  "tickMax": 23,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "mage_pyro_burn_r40",
+  "name": "Pyroschlag",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 30,
+  "tickMax": 33,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "mage_pyro_burn_r50",
+  "name": "Pyroschlag",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 41,
+  "tickMax": 45,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "mage_pyro_burn_r60",
+  "name": "Pyroschlag",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 53,
+  "tickMax": 59,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "mage_icy_veins",
+  "name": "Eisige Adern",
+  "description": "Zaubertempo erhöht.",
+  "duration": 20,
+  "modifiers": [
+   {
+    "type": "CastTimeFlat",
+    "value": -0.5
+   }
+  ]
+ }
+]

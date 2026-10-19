@@ -1,0 +1,495 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "mob_bite",
+  "name": "Biss",
+  "description": "Ein kräftiger Biss.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_bite",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 6,
+  "maxRange": 5,
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.2
+   }
+  ]
+ },
+ {
+  "id": "mob_poison_bite",
+  "name": "Giftbiss",
+  "description": "Vergiftet das Ziel.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_poison_bite",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 10,
+  "maxRange": 5,
+  "school": "Nature",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_poison"
+   }
+  ]
+ },
+ {
+  "id": "mob_strong_poison_bite",
+  "name": "Lähmender Giftbiss",
+  "description": "Starkes, stapelbares Gift.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_strong_poison_bite",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 8,
+  "maxRange": 5,
+  "school": "Nature",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_strong_poison"
+   }
+  ]
+ },
+ {
+  "id": "mob_web_spit",
+  "name": "Netz spucken",
+  "description": "Hält das Ziel fest.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_web_spit",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 15,
+  "maxRange": 20,
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_web"
+   }
+  ]
+ },
+ {
+  "id": "mob_rend",
+  "name": "Zerfleischen",
+  "description": "Verursacht Blutungen.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_rend",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 12,
+  "maxRange": 5,
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_bleed"
+   }
+  ]
+ },
+ {
+  "id": "mob_firebolt",
+  "name": "Glutstoß",
+  "description": "Feuerschaden.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_firebolt",
+  "animation": "attack",
+  "class": "None",
+  "castTime": 2.0,
+  "maxRange": 30,
+  "school": "Fire",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "min": 14,
+    "max": 20
+   }
+  ]
+ },
+ {
+  "id": "mob_firebolt_strong",
+  "name": "Flammenstoß",
+  "description": "Starker Feuerschaden.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_firebolt_strong",
+  "animation": "attack",
+  "class": "None",
+  "castTime": 2.5,
+  "maxRange": 30,
+  "school": "Fire",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "min": 40,
+    "max": 55
+   }
+  ]
+ },
+ {
+  "id": "mob_shadowbolt",
+  "name": "Schattenstoß",
+  "description": "Schattenschaden.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_shadowbolt",
+  "animation": "attack",
+  "class": "None",
+  "castTime": 2.5,
+  "maxRange": 30,
+  "school": "Shadow",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Shadow",
+    "min": 45,
+    "max": 60
+   }
+  ]
+ },
+ {
+  "id": "mob_heal_self",
+  "name": "Dunkle Genesung",
+  "description": "Heilt sich selbst.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_heal_self",
+  "animation": "attack",
+  "class": "None",
+  "castTime": 2.0,
+  "target": "Self",
+  "school": "Shadow",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 120,
+    "max": 160
+   }
+  ]
+ },
+ {
+  "id": "mob_heal_ally",
+  "name": "Verderbte Heilung",
+  "description": "Heilt einen Verbündeten.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_heal_ally",
+  "animation": "attack",
+  "class": "None",
+  "castTime": 2.0,
+  "target": "FriendlyOrSelf",
+  "maxRange": 30,
+  "school": "Nature",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 90,
+    "max": 120
+   }
+  ]
+ },
+ {
+  "id": "mob_shield_bash",
+  "name": "Schildhieb",
+  "description": "Unterbricht Zauber und betäubt kurz.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_shield_bash",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 12,
+  "maxRange": 5,
+  "effects": [
+   {
+    "type": "Interrupt",
+    "duration": 4
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mob_stun"
+   }
+  ]
+ },
+ {
+  "id": "mob_cleave",
+  "name": "Spalten",
+  "description": "Trifft mehrere Gegner vor sich.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_cleave",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 8,
+  "target": "AreaAroundSelf",
+  "radius": 6,
+  "maxTargets": 3,
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0
+   }
+  ]
+ },
+ {
+  "id": "mob_enrage",
+  "name": "Raserei",
+  "description": "Gerät in Raserei.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_enrage",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 600,
+  "target": "Self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_enrage"
+   }
+  ]
+ },
+ {
+  "id": "mob_ground_slam",
+  "name": "Erdstoß",
+  "description": "Schlägt auf den Boden und betäubt alle in der Nähe.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_ground_slam",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 18,
+  "castTime": 1.5,
+  "target": "AreaAroundSelf",
+  "radius": 10,
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "min": 60,
+    "max": 80
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mob_stun"
+   }
+  ]
+ },
+ {
+  "id": "mob_terrify",
+  "name": "Schreckensschrei",
+  "description": "Lässt nahe Gegner fliehen.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_terrify",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 25,
+  "target": "AreaAroundSelf",
+  "radius": 10,
+  "school": "Shadow",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_fear"
+   }
+  ]
+ },
+ {
+  "id": "mob_root_grip",
+  "name": "Wurzelgriff",
+  "description": "Wurzeln brechen aus dem Boden.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_root_grip",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 14,
+  "maxRange": 40,
+  "school": "Nature",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_rootgrip"
+   }
+  ]
+ },
+ {
+  "id": "mob_armor_crush",
+  "name": "Rüstungsbrecher",
+  "description": "Zerschmettert die Rüstung.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_armor_crush",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 6,
+  "maxRange": 5,
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 0.8
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mob_armor_crush"
+   }
+  ]
+ },
+ {
+  "id": "mob_spore_burst",
+  "name": "Sporenausbruch",
+  "description": "Giftige Sporen um sich herum.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_spore_burst",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 12,
+  "target": "AreaAroundSelf",
+  "radius": 12,
+  "school": "Nature",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_spore_cloud"
+   }
+  ]
+ },
+ {
+  "id": "mob_scorch",
+  "name": "Versengen",
+  "description": "Setzt das Ziel in Brand.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_scorch",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 9,
+  "maxRange": 25,
+  "school": "Fire",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "min": 10,
+    "max": 14
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mob_scorch"
+   }
+  ]
+ },
+ {
+  "id": "mob_throw",
+  "name": "Wurfaxt",
+  "description": "Wirft eine Axt.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_throw",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 6,
+  "minRange": 5,
+  "maxRange": 25,
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "min": 12,
+    "max": 18
+   }
+  ]
+ },
+ {
+  "id": "mob_net",
+  "name": "Netzwurf",
+  "description": "Hält das Ziel fest.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_net",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 20,
+  "maxRange": 15,
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_web"
+   }
+  ]
+ },
+ {
+  "id": "pet_imp_firebolt",
+  "name": "Feuerblitz",
+  "description": "Der Wichtel schleudert einen Feuerblitz.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "pet_imp_firebolt",
+  "animation": "attack",
+  "class": "None",
+  "castTime": 2.0,
+  "maxRange": 30,
+  "school": "Fire",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "min": 8,
+    "max": 12,
+    "coefficient": 0.1
+   }
+  ]
+ },
+ {
+  "id": "pet_torment",
+  "name": "Qual",
+  "description": "Der Leerwandler zieht die Aufmerksamkeit auf sich.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "pet_torment",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 5,
+  "maxRange": 5,
+  "school": "Shadow",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Shadow",
+    "min": 2,
+    "max": 4,
+    "threat": 120
+   }
+  ]
+ },
+ {
+  "id": "pet_growl",
+  "name": "Knurren",
+  "description": "Der Wolf zieht die Aufmerksamkeit auf sich.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "pet_growl",
+  "animation": "attack",
+  "class": "None",
+  "cooldown": 5,
+  "maxRange": 5,
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "min": 2,
+    "max": 4,
+    "threat": 80
+   }
+  ]
+ }
+]

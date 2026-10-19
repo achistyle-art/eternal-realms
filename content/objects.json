@@ -1,0 +1,147 @@
+[
+ {
+  "id": "obj_iron_ore",
+  "name": "Eisenerzader",
+  "model": "ore_vein",
+  "quest": "q_mt_felsgeborene",
+  "loot": [
+   {
+    "item": "item_q_iron_ore_chunk",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2,
+    "quest": "q_mt_felsgeborene"
+   }
+  ],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_fennling_crate",
+  "name": "Verstreute Werkzeugkiste",
+  "model": "crate",
+  "quest": "q_mt_fennlinge",
+  "loot": [
+   {
+    "item": "item_q_gear_part",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_fennlinge"
+   }
+  ]
+ },
+ {
+  "id": "obj_tainted_wellstone",
+  "name": "Getrübter Quellstein",
+  "model": "moonstone",
+  "quest": "q_mt_elarii",
+  "interactTime": 3.0
+ },
+ {
+  "id": "obj_sparkstone_chest",
+  "name": "Funkenstein-Truhe",
+  "model": "chest_mine",
+  "quest": "q_mt_funkenstein",
+  "loot": [
+   {
+    "item": "item_q_sparkstone",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_funkenstein"
+   }
+  ],
+  "interactTime": 3.0
+ },
+ {
+  "id": "obj_moonpetal",
+  "name": "Mondblüte",
+  "model": "flower_silver",
+  "quest": "q_mt_hain",
+  "loot": [
+   {
+    "item": "item_q_moonpetal",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_hain"
+   }
+  ]
+ },
+ {
+  "id": "obj_crypt_entrance_mt",
+  "name": "Eingang der Wurzelkrypta",
+  "model": "portal_roots",
+  "teleportZone": "dungeon_wurzelkrypta",
+  "teleportPosition": [
+   50,
+   0,
+   50
+  ],
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_ember_salt",
+  "name": "Glutsalzader",
+  "model": "salt_vein",
+  "quest": "q_as_glutsalz",
+  "loot": [
+   {
+    "item": "item_q_ember_salt",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2,
+    "quest": "q_as_glutsalz"
+   }
+  ],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_grave_marker",
+  "name": "Unruhiges Grab",
+  "model": "grave",
+  "quest": "q_as_nachtgeborene",
+  "interactTime": 3.0
+ },
+ {
+  "id": "obj_bone_totem",
+  "name": "Knochentotem",
+  "model": "totem_bone",
+  "quest": "q_as_skarr",
+  "loot": [
+   {
+    "item": "item_q_bone_charm",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_as_skarr"
+   }
+  ]
+ },
+ {
+  "id": "obj_ritual_brazier",
+  "name": "Ritualkohlebecken",
+  "model": "brazier",
+  "quest": "q_as_ritual",
+  "interactTime": 2.5
+ },
+ {
+  "id": "obj_crypt_entrance_as",
+  "name": "Eingang der Wurzelkrypta",
+  "model": "portal_roots",
+  "teleportZone": "dungeon_wurzelkrypta",
+  "teleportPosition": [
+   50,
+   0,
+   50
+  ],
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_crypt_exit",
+  "name": "Ausgang der Wurzelkrypta",
+  "model": "portal_roots",
+  "teleportZone": "@return",
+  "interactTime": 0.5
+ }
+]

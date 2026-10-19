@@ -1,0 +1,406 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "priest_renew_r8",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 8,
+  "tickMax": 8,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r14",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 13,
+  "tickMax": 14,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r20",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 19,
+  "tickMax": 21,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r26",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 26,
+  "tickMax": 29,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r32",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 34,
+  "tickMax": 37,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r38",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 42,
+  "tickMax": 47,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r44",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 51,
+  "tickMax": 57,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r50",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 62,
+  "tickMax": 68,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_renew_r56",
+  "name": "Erneuerung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 15,
+  "school": "Holy",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 73,
+  "tickMax": 80,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "priest_weakened_soul",
+  "name": "Geschwächte Seele",
+  "description": "Kann 15 Sekunden lang nicht erneut geschützt werden.",
+  "isDebuff": true,
+  "duration": 15,
+  "dispellable": false
+ },
+ {
+  "id": "priest_pws_r6",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 31,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r12",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 56,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r18",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 84,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r24",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 117,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r30",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 154,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r36",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 194,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r42",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 239,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r48",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 288,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r54",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 340,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_pws_r60",
+  "name": "Machtwort: Schild",
+  "description": "Absorbiert Schaden.",
+  "duration": 30,
+  "absorb": 397,
+  "absorbCoefficient": 0.1
+ },
+ {
+  "id": "priest_fort_r1",
+  "name": "Machtwort: Seelenstärke",
+  "description": "Ausdauer erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ]
+ },
+ {
+  "id": "priest_fort_r12",
+  "name": "Machtwort: Seelenstärke",
+  "description": "Ausdauer erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 13
+   }
+  ]
+ },
+ {
+  "id": "priest_fort_r24",
+  "name": "Machtwort: Seelenstärke",
+  "description": "Ausdauer erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 24
+   }
+  ]
+ },
+ {
+  "id": "priest_fort_r36",
+  "name": "Machtwort: Seelenstärke",
+  "description": "Ausdauer erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 35
+   }
+  ]
+ },
+ {
+  "id": "priest_fort_r48",
+  "name": "Machtwort: Seelenstärke",
+  "description": "Ausdauer erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 46
+   }
+  ]
+ },
+ {
+  "id": "priest_fort_r60",
+  "name": "Machtwort: Seelenstärke",
+  "description": "Ausdauer erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 57
+   }
+  ]
+ },
+ {
+  "id": "priest_swp_r4",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 3,
+  "tickMax": 3,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_swp_r10",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 6,
+  "tickMax": 7,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_swp_r18",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 11,
+  "tickMax": 12,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_swp_r26",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 17,
+  "tickMax": 19,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_swp_r34",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 24,
+  "tickMax": 27,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_swp_r42",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 32,
+  "tickMax": 35,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_swp_r50",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 41,
+  "tickMax": 45,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_swp_r58",
+  "name": "Schattenwort: Schmerz",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 51,
+  "tickMax": 56,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "priest_scream",
+  "name": "Psychischer Schrei",
+  "description": "Flieht voller Furcht.",
+  "isDebuff": true,
+  "duration": 8,
+  "fear": true,
+  "breaksOnDamage": true,
+  "school": "Shadow"
+ }
+]

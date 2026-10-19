@@ -1,0 +1,127 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "food_regen",
+  "name": "Essen",
+  "description": "Stellt Leben wieder her. Bewegung beendet den Effekt.",
+  "duration": 18,
+  "breaksOnMove": true,
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 0,
+  "tickMax": 0
+ },
+ {
+  "id": "drink_regen",
+  "name": "Trinken",
+  "description": "Stellt Mana wieder her. Bewegung beendet den Effekt.",
+  "duration": 18,
+  "breaksOnMove": true,
+  "periodic": "Power",
+  "tickInterval": 3,
+  "tickMin": 0,
+  "tickMax": 0
+ },
+ {
+  "id": "resurrection_sickness",
+  "name": "Wiederbelebungsschwäche",
+  "description": "Alle Werte um 75 % verringert.",
+  "isDebuff": true,
+  "duration": 600,
+  "dispellable": false,
+  "persistsThroughDeath": true,
+  "modifiers": [
+   {
+    "type": "StatPercent",
+    "stat": "Strength",
+    "value": -75
+   },
+   {
+    "type": "StatPercent",
+    "stat": "Agility",
+    "value": -75
+   },
+   {
+    "type": "StatPercent",
+    "stat": "Stamina",
+    "value": -75
+   },
+   {
+    "type": "StatPercent",
+    "stat": "Intellect",
+    "value": -75
+   },
+   {
+    "type": "StatPercent",
+    "stat": "Spirit",
+    "value": -75
+   }
+  ]
+ },
+ {
+  "id": "racial_stoneform",
+  "name": "Steingestalt",
+  "description": "Rüstung um 10 % erhöht, Gifte und Blutungen enden.",
+  "duration": 8,
+  "modifiers": [
+   {
+    "type": "ArmorPercent",
+    "value": 10
+   }
+  ]
+ },
+ {
+  "id": "racial_bloodfury",
+  "name": "Blutwut",
+  "description": "Angriffskraft erhöht.",
+  "duration": 15,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 60
+   }
+  ]
+ },
+ {
+  "id": "racial_warstomp",
+  "name": "Kriegsdonner",
+  "description": "Betäubt.",
+  "isDebuff": true,
+  "duration": 2,
+  "stun": true
+ },
+ {
+  "id": "racial_regeneration",
+  "name": "Echsenhaut-Regeneration",
+  "description": "Regeneriert Leben.",
+  "duration": 10,
+  "periodic": "Heal",
+  "tickInterval": 2,
+  "tickMin": 0,
+  "tickMax": 0
+ },
+ {
+  "id": "racial_escape",
+  "name": "Entfesselungskunst",
+  "description": "Bewegungstempo erhöht.",
+  "duration": 4,
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": 40
+   }
+  ]
+ },
+ {
+  "id": "racial_perception",
+  "name": "Wachsamkeit",
+  "description": "Kritische Trefferchance erhöht.",
+  "duration": 20,
+  "modifiers": [
+   {
+    "type": "CritChance",
+    "value": 5
+   }
+  ]
+ }
+]

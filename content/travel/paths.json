@@ -1,0 +1,26 @@
+[
+ {
+  "from": "tn_mt_dorf",
+  "to": "tn_mt_turm",
+  "cost": 50,
+  "durationSeconds": 25
+ },
+ {
+  "from": "tn_mt_turm",
+  "to": "tn_mt_dorf",
+  "cost": 50,
+  "durationSeconds": 25
+ },
+ {
+  "from": "tn_as_lager",
+  "to": "tn_as_oase",
+  "cost": 50,
+  "durationSeconds": 25
+ },
+ {
+  "from": "tn_as_oase",
+  "to": "tn_as_lager",
+  "cost": 50,
+  "durationSeconds": 25
+ }
+]

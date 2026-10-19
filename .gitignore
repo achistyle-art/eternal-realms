@@ -1,0 +1,12 @@
+bin/
+obj/
+*.user
+.vs/
+.idea/
+TestResults/
+client/Unity/Library/
+client/Unity/Temp/
+client/Unity/Logs/
+client/Unity/UserSettings/
+client/Unity/Assets/Plugins/EternalRealms/*.dll
+client/Unity/Assets/StreamingAssets/content/

@@ -1,0 +1,757 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "hunter_raptor_strike",
+  "name": "Raptorstoß",
+  "description": "Ein schneller Nahkampfhieb.",
+  "class": "Hunter",
+  "powerType": "Mana",
+  "cooldown": 6,
+  "target": "Enemy",
+  "maxRange": 5,
+  "icon": "raptor_strike",
+  "animation": "attack",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "min": 3,
+    "max": 4
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 4,
+    "values": [
+     [
+      3,
+      4
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 8,
+    "values": [
+     [
+      7,
+      9
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 13,
+    "values": [
+     [
+      12,
+      16
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 19,
+    "values": [
+     [
+      18,
+      24
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 26,
+    "values": [
+     [
+      25,
+      34
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 34,
+    "values": [
+     [
+      33,
+      44
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 42,
+    "values": [
+     [
+      41,
+      56
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 50,
+    "values": [
+     [
+      51,
+      69
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 60,
+    "values": [
+     [
+      61,
+      83
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 70,
+    "values": [
+     [
+      72,
+      98
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 80,
+    "values": [
+     [
+      84,
+      114
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hunter_arcane_shot",
+  "name": "Arkaner Schuss",
+  "description": "Ein sofortiger Schuss mit arkanem Schaden.",
+  "class": "Hunter",
+  "level": 6,
+  "powerType": "Mana",
+  "cooldown": 6,
+  "minRange": 8,
+  "maxRange": 35,
+  "target": "Enemy",
+  "school": "Arcane",
+  "requiresRangedWeapon": true,
+  "icon": "arcane_shot",
+  "animation": "shoot",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Arcane",
+    "coefficient": 0.15,
+    "min": 13,
+    "max": 18
+   }
+  ],
+  "ranks": [
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 16,
+    "values": [
+     [
+      13,
+      18
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 27,
+    "values": [
+     [
+      24,
+      32
+     ]
+    ]
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 43,
+    "values": [
+     [
+      40,
+      55
+     ]
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 62,
+    "values": [
+     [
+      60,
+      81
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 83,
+    "values": [
+     [
+      83,
+      112
+     ]
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 107,
+    "values": [
+     [
+      108,
+      147
+     ]
+    ]
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 133,
+    "values": [
+     [
+      137,
+      186
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 161,
+    "values": [
+     [
+      169,
+      229
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hunter_serpent_sting",
+  "name": "Schlangenbiss",
+  "description": "Vergiftet das Ziel 15 Sekunden lang.",
+  "class": "Hunter",
+  "level": 4,
+  "powerType": "Mana",
+  "minRange": 8,
+  "maxRange": 35,
+  "target": "Enemy",
+  "school": "Nature",
+  "requiresRangedWeapon": true,
+  "icon": "serpent_sting",
+  "animation": "shoot",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "hunter_serpent_sting_r4"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 10,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r4"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 19,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r10"
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 32,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r18"
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 48,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r26"
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 65,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r34"
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 84,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r42"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 105,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r50"
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 128,
+    "values": [
+     null
+    ],
+    "aura": "hunter_serpent_sting_r58"
+   }
+  ]
+ },
+ {
+  "id": "hunter_aspect_of_the_hawk",
+  "name": "Aspekt des Falken",
+  "description": "Erhöht die Distanzangriffskraft.",
+  "class": "Hunter",
+  "level": 10,
+  "powerType": "Mana",
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "aspect_hawk",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "hunter_hawk_r10"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 11,
+    "values": [
+     null
+    ],
+    "aura": "hunter_hawk_r10"
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 22,
+    "values": [
+     null
+    ],
+    "aura": "hunter_hawk_r20"
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 34,
+    "values": [
+     null
+    ],
+    "aura": "hunter_hawk_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 47,
+    "values": [
+     null
+    ],
+    "aura": "hunter_hawk_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 63,
+    "values": [
+     null
+    ],
+    "aura": "hunter_hawk_r50"
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 80,
+    "values": [
+     null
+    ],
+    "aura": "hunter_hawk_r60"
+   }
+  ]
+ },
+ {
+  "id": "hunter_concussive_shot",
+  "name": "Erschütternder Schuss",
+  "description": "Verlangsamt das Ziel 4 Sekunden lang.",
+  "class": "Hunter",
+  "level": 8,
+  "trainingCost": 640,
+  "powerType": "Mana",
+  "cost": 50,
+  "cooldown": 12,
+  "minRange": 8,
+  "maxRange": 35,
+  "target": "Enemy",
+  "requiresRangedWeapon": true,
+  "icon": "concussive",
+  "animation": "shoot",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "hunter_concussive"
+   }
+  ]
+ },
+ {
+  "id": "hunter_call_pet",
+  "name": "Begleiter rufen",
+  "description": "Ruft Euren Wolfsbegleiter, der an Eurer Seite kämpft.",
+  "class": "Hunter",
+  "level": 1,
+  "powerType": "Mana",
+  "cost": 20,
+  "castTime": 2,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "icon": "call_pet",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "SummonPet",
+    "pet": "pet_wolf"
+   }
+  ]
+ },
+ {
+  "id": "hunter_mend_pet",
+  "name": "Tier heilen",
+  "description": "Heilt Euren Begleiter über 15 Sekunden.",
+  "class": "Hunter",
+  "level": 12,
+  "powerType": "Mana",
+  "target": "Friendly",
+  "maxRange": 40,
+  "icon": "mend_pet",
+  "animation": "cast_heal",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.3,
+    "min": 41,
+    "max": 55
+   }
+  ],
+  "ranks": [
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 27,
+    "values": [
+     [
+      41,
+      55
+     ]
+    ]
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 43,
+    "values": [
+     [
+      69,
+      94
+     ]
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 62,
+    "values": [
+     [
+      103,
+      139
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 83,
+    "values": [
+     [
+      142,
+      192
+     ]
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 107,
+    "values": [
+     [
+      186,
+      251
+     ]
+    ]
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 133,
+    "values": [
+     [
+      235,
+      318
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 161,
+    "values": [
+     [
+      290,
+      392
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hunter_multi_shot",
+  "name": "Mehrfachschuss",
+  "description": "Trifft bis zu drei Gegner um das Ziel.",
+  "class": "Hunter",
+  "level": 18,
+  "powerType": "Mana",
+  "cooldown": 10,
+  "minRange": 8,
+  "maxRange": 35,
+  "target": "AreaAroundTarget",
+  "radius": 8,
+  "maxTargets": 3,
+  "requiresRangedWeapon": true,
+  "icon": "multi_shot",
+  "animation": "shoot",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "min": 15,
+    "max": 21
+   }
+  ],
+  "ranks": [
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 58,
+    "values": [
+     [
+      15,
+      21
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 101,
+    "values": [
+     [
+      28,
+      38
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 151,
+    "values": [
+     [
+      44,
+      59
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 209,
+    "values": [
+     [
+      62,
+      84
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "hunter_feign_death",
+  "name": "Totstellen",
+  "description": "Stellt sich tot – alle Gegner vergessen ihre Bedrohung.",
+  "class": "Hunter",
+  "level": 30,
+  "trainingCost": 9000,
+  "powerType": "Mana",
+  "cost": 80,
+  "cooldown": 30,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "feign_death",
+  "animation": "die",
+  "effects": [
+   {
+    "type": "ReduceThreat",
+    "min": 100,
+    "max": 100
+   }
+  ]
+ },
+ {
+  "id": "hunter_aimed_shot",
+  "name": "Gezielter Schuss",
+  "description": "Ein präziser, starker Schuss. (Talent)",
+  "class": "Hunter",
+  "powerType": "Mana",
+  "castTime": 3,
+  "cooldown": 6,
+  "minRange": 8,
+  "maxRange": 35,
+  "target": "Enemy",
+  "requiresRangedWeapon": true,
+  "notTrainable": true,
+  "icon": "aimed_shot",
+  "animation": "shoot_aim",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "min": 58,
+    "max": 78
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 72,
+    "values": [
+     [
+      58,
+      78
+     ]
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 104,
+    "values": [
+     [
+      86,
+      116
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 139,
+    "values": [
+     [
+      118,
+      160
+     ]
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 178,
+    "values": [
+     [
+      155,
+      210
+     ]
+    ]
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 221,
+    "values": [
+     [
+      196,
+      265
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 268,
+    "values": [
+     [
+      241,
+      327
+     ]
+    ]
+   }
+  ]
+ }
+]

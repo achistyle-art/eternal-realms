@@ -1,0 +1,390 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "warlock_immolate_r1",
+  "name": "Feuerbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 1,
+  "tickMax": 1,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_immolate_r10",
+  "name": "Feuerbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 5,
+  "tickMax": 6,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_immolate_r20",
+  "name": "Feuerbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 11,
+  "tickMax": 12,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_immolate_r30",
+  "name": "Feuerbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 18,
+  "tickMax": 20,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_immolate_r40",
+  "name": "Feuerbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 27,
+  "tickMax": 30,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_immolate_r50",
+  "name": "Feuerbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 37,
+  "tickMax": 41,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_immolate_r60",
+  "name": "Feuerbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 48,
+  "tickMax": 53,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_corruption_r4",
+  "name": "Verderbnis",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 3,
+  "tickMax": 3,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_corruption_r14",
+  "name": "Verderbnis",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 9,
+  "tickMax": 10,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_corruption_r24",
+  "name": "Verderbnis",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 16,
+  "tickMax": 18,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_corruption_r34",
+  "name": "Verderbnis",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 25,
+  "tickMax": 28,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_corruption_r44",
+  "name": "Verderbnis",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 36,
+  "tickMax": 39,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_corruption_r54",
+  "name": "Verderbnis",
+  "description": "Erleidet Schattenschaden.",
+  "isDebuff": true,
+  "duration": 18,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 48,
+  "tickMax": 53,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_coa_r8",
+  "name": "Fluch der Pein",
+  "description": "Verflucht.",
+  "isDebuff": true,
+  "duration": 24,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 4,
+  "tickMax": 5,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_coa_r18",
+  "name": "Fluch der Pein",
+  "description": "Verflucht.",
+  "isDebuff": true,
+  "duration": 24,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 10,
+  "tickMax": 11,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_coa_r28",
+  "name": "Fluch der Pein",
+  "description": "Verflucht.",
+  "isDebuff": true,
+  "duration": 24,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 16,
+  "tickMax": 18,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_coa_r38",
+  "name": "Fluch der Pein",
+  "description": "Verflucht.",
+  "isDebuff": true,
+  "duration": 24,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 24,
+  "tickMax": 27,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_coa_r48",
+  "name": "Fluch der Pein",
+  "description": "Verflucht.",
+  "isDebuff": true,
+  "duration": 24,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 34,
+  "tickMax": 37,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_coa_r58",
+  "name": "Fluch der Pein",
+  "description": "Verflucht.",
+  "isDebuff": true,
+  "duration": 24,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 44,
+  "tickMax": 49,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_fear",
+  "name": "Furcht",
+  "description": "Flieht voller Furcht.",
+  "isDebuff": true,
+  "duration": 10,
+  "fear": true,
+  "breaksOnDamage": true,
+  "school": "Shadow"
+ },
+ {
+  "id": "warlock_demon_skin_r1",
+  "name": "Dämonenhaut",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 49
+   }
+  ]
+ },
+ {
+  "id": "warlock_demon_skin_r10",
+  "name": "Dämonenhaut",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 130
+   }
+  ]
+ },
+ {
+  "id": "warlock_demon_skin_r20",
+  "name": "Dämonenhaut",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 220
+   }
+  ]
+ },
+ {
+  "id": "warlock_demon_skin_r30",
+  "name": "Dämonenhaut",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 310
+   }
+  ]
+ },
+ {
+  "id": "warlock_demon_skin_r40",
+  "name": "Dämonenhaut",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 400
+   }
+  ]
+ },
+ {
+  "id": "warlock_demon_skin_r50",
+  "name": "Dämonenhaut",
+  "description": "Rüstung erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 490
+   }
+  ]
+ },
+ {
+  "id": "warlock_siphon_r30",
+  "name": "Lebensentzug",
+  "description": "Leben wird entzogen.",
+  "isDebuff": true,
+  "duration": 30,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 10,
+  "tickMax": 11,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_siphon_r40",
+  "name": "Lebensentzug",
+  "description": "Leben wird entzogen.",
+  "isDebuff": true,
+  "duration": 30,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 15,
+  "tickMax": 16,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_siphon_r50",
+  "name": "Lebensentzug",
+  "description": "Leben wird entzogen.",
+  "isDebuff": true,
+  "duration": 30,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 20,
+  "tickMax": 22,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warlock_siphon_r60",
+  "name": "Lebensentzug",
+  "description": "Leben wird entzogen.",
+  "isDebuff": true,
+  "duration": 30,
+  "school": "Shadow",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 26,
+  "tickMax": 29,
+  "tickCoefficient": 0.10000000000000002
+ }
+]

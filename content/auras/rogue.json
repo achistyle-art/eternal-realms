@@ -1,0 +1,74 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "rogue_stealth",
+  "name": "Verstohlenheit",
+  "description": "Getarnt. Bewegungstempo verringert.",
+  "permanent": true,
+  "stealth": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": -30
+   }
+  ]
+ },
+ {
+  "id": "rogue_gouge",
+  "name": "Solarplexus",
+  "description": "Außer Gefecht gesetzt. Schaden beendet den Effekt.",
+  "isDebuff": true,
+  "duration": 4,
+  "stun": true,
+  "breaksOnDamage": true
+ },
+ {
+  "id": "rogue_evasion",
+  "name": "Entrinnen",
+  "description": "Ausweichchance um 50 % erhöht.",
+  "duration": 15,
+  "modifiers": [
+   {
+    "type": "DodgeChance",
+    "value": 50
+   }
+  ]
+ },
+ {
+  "id": "rogue_snd",
+  "name": "Zerhäckseln",
+  "description": "Angriffstempo um 20 % erhöht.",
+  "duration": 21,
+  "modifiers": [
+   {
+    "type": "AttackSpeedPercent",
+    "value": 20
+   }
+  ]
+ },
+ {
+  "id": "rogue_sprint",
+  "name": "Sprinten",
+  "description": "Bewegungstempo um 70 % erhöht.",
+  "duration": 8,
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": 70
+   }
+  ]
+ },
+ {
+  "id": "rogue_adrenaline",
+  "name": "Adrenalinrausch",
+  "description": "Energieregeneration stark erhöht.",
+  "duration": 15,
+  "modifiers": [
+   {
+    "type": "PowerRegenPercent",
+    "value": 100
+   }
+  ]
+ }
+]

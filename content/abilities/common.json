@@ -1,0 +1,296 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "item_eat",
+  "name": "Essen",
+  "description": "Stellt 18 Sekunden lang Leben wieder her.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "food",
+  "animation": "eat",
+  "effects": [
+   {
+    "type": "RestorePercent",
+    "min": 100,
+    "max": 100,
+    "aura": "food_regen"
+   }
+  ]
+ },
+ {
+  "id": "item_drink",
+  "name": "Trinken",
+  "description": "Stellt 18 Sekunden lang Mana wieder her.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "drink",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "RestorePercent",
+    "min": 100,
+    "max": 100,
+    "aura": "drink_regen"
+   }
+  ]
+ },
+ {
+  "id": "item_minor_healing_potion",
+  "name": "Heiltrank",
+  "description": "Stellt sofort Leben wieder her.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_red",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 70,
+    "max": 90
+   }
+  ]
+ },
+ {
+  "id": "item_lesser_healing_potion",
+  "name": "Heiltrank",
+  "description": "Stellt sofort Leben wieder her.",
+  "class": "None",
+  "level": 10,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_red",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 140,
+    "max": 180
+   }
+  ]
+ },
+ {
+  "id": "item_healing_potion",
+  "name": "Heiltrank",
+  "description": "Stellt sofort Leben wieder her.",
+  "class": "None",
+  "level": 20,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_red",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 280,
+    "max": 360
+   }
+  ]
+ },
+ {
+  "id": "item_hearthstone",
+  "name": "Ruhestein",
+  "description": "Bringt Euch zum Gasthaus Eures Heimatortes zurück.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "castTime": 10,
+  "cooldown": 1800,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "icon": "hearthstone",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "Teleport",
+    "zone": "@bind"
+   }
+  ]
+ },
+ {
+  "id": "racial_stoneform",
+  "name": "Steingestalt",
+  "description": "Felsgeborene: Verwandelt die Haut 8 Sekunden lang zu Stein.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 180,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "stoneform",
+  "animation": "stoneform",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "racial_stoneform"
+   },
+   {
+    "type": "Dispel",
+    "min": 2,
+    "max": 2,
+    "onSelf": true
+   }
+  ]
+ },
+ {
+  "id": "racial_bloodfury",
+  "name": "Blutwut",
+  "description": "Grakar: Erhöht 15 Sekunden lang die Angriffskraft.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 120,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "bloodfury",
+  "animation": "roar",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "racial_bloodfury"
+   }
+  ]
+ },
+ {
+  "id": "racial_warstomp",
+  "name": "Kriegsdonner",
+  "description": "Hornvolk: Betäubt Gegner in 8 m für 2 Sekunden.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 120,
+  "castTime": 0.5,
+  "target": "AreaAroundSelf",
+  "radius": 8,
+  "maxTargets": 5,
+  "icon": "warstomp",
+  "animation": "stomp",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "racial_warstomp"
+   }
+  ]
+ },
+ {
+  "id": "racial_shadowmeld",
+  "name": "Schattenmimik",
+  "description": "Elarii: Verschmilzt außerhalb des Kampfes mit den Schatten.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 10,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "shadowmeld",
+  "animation": "crouch",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "rogue_stealth"
+   }
+  ]
+ },
+ {
+  "id": "racial_will_of_the_night",
+  "name": "Wille der Nacht",
+  "description": "Nachtgeborene: Beendet Furcht und ähnliche Effekte.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 120,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "will_night",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "Dispel",
+    "min": 1,
+    "max": 1,
+    "onSelf": true
+   }
+  ]
+ },
+ {
+  "id": "racial_scale_regen",
+  "name": "Schuppenregeneration",
+  "description": "Skarr: Stellt 10 Sekunden lang 20 % Leben wieder her.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 180,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "scale_regen",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "RestorePercent",
+    "min": 20,
+    "max": 20,
+    "aura": "racial_regeneration"
+   }
+  ]
+ },
+ {
+  "id": "racial_escape_artist",
+  "name": "Entfesselungskunst",
+  "description": "Fennlinge: Befreit sich aus Bewegungseinschränkungen.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 105,
+  "castTime": 0.5,
+  "target": "Self",
+  "icon": "escape_artist",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "Dispel",
+    "min": 1,
+    "max": 1,
+    "onSelf": true
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "racial_escape"
+   }
+  ]
+ },
+ {
+  "id": "racial_perception",
+  "name": "Wachsamkeit",
+  "description": "Aldorer: Erhöht 20 Sekunden lang die kritische Trefferchance.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "cooldown": 180,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "perception",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "racial_perception"
+   }
+  ]
+ }
+]

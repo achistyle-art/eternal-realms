@@ -1,0 +1,921 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "warlock_shadow_bolt",
+  "name": "Schattenblitz",
+  "description": "Ein Blitz aus purem Schatten.",
+  "class": "Warlock",
+  "powerType": "Mana",
+  "castTime": 3.0,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Shadow",
+  "icon": "shadow_bolt",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Shadow",
+    "coefficient": 0.86,
+    "min": 13,
+    "max": 18
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 18,
+    "values": [
+     [
+      13,
+      18
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 37,
+    "values": [
+     [
+      30,
+      40
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 62,
+    "values": [
+     [
+      53,
+      72
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 91,
+    "values": [
+     [
+      80,
+      108
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 122,
+    "values": [
+     [
+      110,
+      149
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 157,
+    "values": [
+     [
+      145,
+      196
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 194,
+    "values": [
+     [
+      183,
+      248
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 235,
+    "values": [
+     [
+      225,
+      305
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 279,
+    "values": [
+     [
+      271,
+      367
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 325,
+    "values": [
+     [
+      321,
+      434
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 375,
+    "values": [
+     [
+      374,
+      506
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warlock_immolate",
+  "name": "Feuerbrand",
+  "description": "Feuerschaden und zusätzlicher Brand über 15 Sekunden.",
+  "class": "Warlock",
+  "powerType": "Mana",
+  "castTime": 2.0,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Fire",
+  "icon": "immolate",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "coefficient": 0.2,
+    "min": 4,
+    "max": 6
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "warlock_immolate_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 13,
+    "values": [
+     [
+      4,
+      6
+     ],
+     null
+    ],
+    "aura": "warlock_immolate_r1"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 38,
+    "values": [
+     [
+      14,
+      20
+     ],
+     null
+    ],
+    "aura": "warlock_immolate_r10"
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 72,
+    "values": [
+     [
+      29,
+      39
+     ],
+     null
+    ],
+    "aura": "warlock_immolate_r20"
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 112,
+    "values": [
+     [
+      47,
+      63
+     ],
+     null
+    ],
+    "aura": "warlock_immolate_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 158,
+    "values": [
+     [
+      68,
+      92
+     ],
+     null
+    ],
+    "aura": "warlock_immolate_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 210,
+    "values": [
+     [
+      93,
+      125
+     ],
+     null
+    ],
+    "aura": "warlock_immolate_r50"
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 268,
+    "values": [
+     [
+      121,
+      163
+     ],
+     null
+    ],
+    "aura": "warlock_immolate_r60"
+   }
+  ]
+ },
+ {
+  "id": "warlock_corruption",
+  "name": "Verderbnis",
+  "description": "Verdirbt das Ziel und verursacht 18 Sekunden lang Schattenschaden.",
+  "class": "Warlock",
+  "level": 4,
+  "powerType": "Mana",
+  "castTime": 2.0,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Shadow",
+  "icon": "corruption",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warlock_corruption_r4"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 16,
+    "values": [
+     null
+    ],
+    "aura": "warlock_corruption_r4"
+   },
+   {
+    "level": 14,
+    "trainingCost": 1960,
+    "cost": 41,
+    "values": [
+     null
+    ],
+    "aura": "warlock_corruption_r14"
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 70,
+    "values": [
+     null
+    ],
+    "aura": "warlock_corruption_r24"
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 104,
+    "values": [
+     null
+    ],
+    "aura": "warlock_corruption_r34"
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 142,
+    "values": [
+     null
+    ],
+    "aura": "warlock_corruption_r44"
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 186,
+    "values": [
+     null
+    ],
+    "aura": "warlock_corruption_r54"
+   }
+  ]
+ },
+ {
+  "id": "warlock_curse_of_agony",
+  "name": "Fluch der Pein",
+  "description": "Fluch: 24 Sekunden lang Schattenschaden.",
+  "class": "Warlock",
+  "level": 8,
+  "powerType": "Mana",
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Shadow",
+  "icon": "curse_agony",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warlock_coa_r8"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 8,
+    "trainingCost": 640,
+    "cost": 19,
+    "values": [
+     null
+    ],
+    "aura": "warlock_coa_r8"
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 39,
+    "values": [
+     null
+    ],
+    "aura": "warlock_coa_r18"
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 62,
+    "values": [
+     null
+    ],
+    "aura": "warlock_coa_r28"
+   },
+   {
+    "level": 38,
+    "trainingCost": 14440,
+    "cost": 89,
+    "values": [
+     null
+    ],
+    "aura": "warlock_coa_r38"
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 119,
+    "values": [
+     null
+    ],
+    "aura": "warlock_coa_r48"
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 154,
+    "values": [
+     null
+    ],
+    "aura": "warlock_coa_r58"
+   }
+  ]
+ },
+ {
+  "id": "warlock_life_tap",
+  "name": "Aderlass",
+  "description": "Wandelt Leben in Mana um.",
+  "class": "Warlock",
+  "level": 6,
+  "powerType": "Mana",
+  "cost": 0,
+  "target": "Self",
+  "icon": "life_tap",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "GainPower",
+    "onSelf": true,
+    "min": 17,
+    "max": 23
+   },
+   {
+    "type": "SchoolDamage",
+    "school": "Shadow",
+    "onSelf": true,
+    "min": 17,
+    "max": 23
+   }
+  ],
+  "ranks": [
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 0,
+    "values": [
+     [
+      17,
+      23
+     ],
+     [
+      17,
+      23
+     ]
+    ]
+   },
+   {
+    "level": 16,
+    "trainingCost": 2560,
+    "cost": 0,
+    "values": [
+     [
+      41,
+      55
+     ],
+     [
+      41,
+      55
+     ]
+    ]
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 0,
+    "values": [
+     [
+      71,
+      95
+     ],
+     [
+      71,
+      95
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 0,
+    "values": [
+     [
+      106,
+      144
+     ],
+     [
+      106,
+      144
+     ]
+    ]
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 0,
+    "values": [
+     [
+      148,
+      201
+     ],
+     [
+      148,
+      201
+     ]
+    ]
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 0,
+    "values": [
+     [
+      196,
+      266
+     ],
+     [
+      196,
+      266
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warlock_summon_imp",
+  "name": "Wichtel beschwören",
+  "description": "Beschwört einen Wichtel, der Feuerblitze schleudert.",
+  "class": "Warlock",
+  "level": 1,
+  "powerType": "Mana",
+  "cost": 40,
+  "castTime": 6,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "icon": "summon_imp",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "SummonPet",
+    "pet": "pet_imp"
+   }
+  ]
+ },
+ {
+  "id": "warlock_summon_voidwalker",
+  "name": "Leerwandler beschwören",
+  "description": "Beschwört einen Leerwandler, der Gegner bindet.",
+  "class": "Warlock",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Mana",
+  "cost": 80,
+  "castTime": 8,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "icon": "summon_voidwalker",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "SummonPet",
+    "pet": "pet_voidwalker"
+   }
+  ]
+ },
+ {
+  "id": "warlock_fear",
+  "name": "Furcht",
+  "description": "Lässt das Ziel bis zu 10 Sekunden lang fliehen.",
+  "class": "Warlock",
+  "level": 8,
+  "trainingCost": 640,
+  "powerType": "Mana",
+  "cost": 60,
+  "castTime": 1.5,
+  "maxRange": 20,
+  "target": "Enemy",
+  "school": "Shadow",
+  "icon": "fear",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warlock_fear"
+   }
+  ]
+ },
+ {
+  "id": "warlock_demon_skin",
+  "name": "Dämonenhaut",
+  "description": "Erhöht Rüstung und Lebensregeneration für 30 Minuten.",
+  "class": "Warlock",
+  "powerType": "Mana",
+  "target": "Self",
+  "school": "Shadow",
+  "icon": "demon_skin",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warlock_demon_skin_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 6,
+    "values": [
+     null
+    ],
+    "aura": "warlock_demon_skin_r1"
+   },
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 19,
+    "values": [
+     null
+    ],
+    "aura": "warlock_demon_skin_r10"
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 36,
+    "values": [
+     null
+    ],
+    "aura": "warlock_demon_skin_r20"
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 56,
+    "values": [
+     null
+    ],
+    "aura": "warlock_demon_skin_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 79,
+    "values": [
+     null
+    ],
+    "aura": "warlock_demon_skin_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 105,
+    "values": [
+     null
+    ],
+    "aura": "warlock_demon_skin_r50"
+   }
+  ]
+ },
+ {
+  "id": "warlock_drain_life",
+  "name": "Blutsauger",
+  "description": "Entzieht dem Ziel Leben. (Schattenschaden)",
+  "class": "Warlock",
+  "level": 14,
+  "powerType": "Mana",
+  "castTime": 2.5,
+  "maxRange": 20,
+  "target": "Enemy",
+  "school": "Shadow",
+  "icon": "drain_life",
+  "animation": "cast_channel",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Shadow",
+    "coefficient": 0.5,
+    "min": 36,
+    "max": 48
+   },
+   {
+    "type": "Heal",
+    "onSelf": true,
+    "coefficient": 0.3,
+    "min": 24,
+    "max": 32
+   }
+  ],
+  "ranks": [
+   {
+    "level": 14,
+    "trainingCost": 1960,
+    "cost": 51,
+    "values": [
+     [
+      36,
+      48
+     ],
+     [
+      24,
+      32
+     ]
+    ]
+   },
+   {
+    "level": 22,
+    "trainingCost": 4840,
+    "cost": 80,
+    "values": [
+     [
+      58,
+      78
+     ],
+     [
+      39,
+      52
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 112,
+    "values": [
+     [
+      84,
+      114
+     ],
+     [
+      56,
+      76
+     ]
+    ]
+   },
+   {
+    "level": 38,
+    "trainingCost": 14440,
+    "cost": 148,
+    "values": [
+     [
+      114,
+      155
+     ],
+     [
+      76,
+      103
+     ]
+    ]
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 188,
+    "values": [
+     [
+      148,
+      201
+     ],
+     [
+      99,
+      134
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 232,
+    "values": [
+     [
+      186,
+      252
+     ],
+     [
+      124,
+      168
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warlock_shadowburn",
+  "name": "Schattenbrand",
+  "description": "Sofortiger Schattenschaden. (Talent)",
+  "class": "Warlock",
+  "powerType": "Mana",
+  "cooldown": 15,
+  "maxRange": 20,
+  "target": "Enemy",
+  "school": "Shadow",
+  "notTrainable": true,
+  "icon": "shadowburn",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Shadow",
+    "coefficient": 0.43,
+    "min": 64,
+    "max": 86
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 72,
+    "values": [
+     [
+      64,
+      86
+     ]
+    ]
+   },
+   {
+    "level": 32,
+    "trainingCost": 10240,
+    "cost": 121,
+    "values": [
+     [
+      112,
+      151
+     ]
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 178,
+    "values": [
+     [
+      170,
+      231
+     ]
+    ]
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 244,
+    "values": [
+     [
+      240,
+      325
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "warlock_siphon_life",
+  "name": "Lebensentzug",
+  "description": "Saugt dem Ziel 30 Sekunden lang Leben aus. (Talent)",
+  "class": "Warlock",
+  "powerType": "Mana",
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Shadow",
+  "notTrainable": true,
+  "icon": "siphon_life",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "warlock_siphon_r30"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 90,
+    "values": [
+     null
+    ],
+    "aura": "warlock_siphon_r30"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 126,
+    "values": [
+     null
+    ],
+    "aura": "warlock_siphon_r40"
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 168,
+    "values": [
+     null
+    ],
+    "aura": "warlock_siphon_r50"
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 214,
+    "values": [
+     null
+    ],
+    "aura": "warlock_siphon_r60"
+   }
+  ]
+ }
+]

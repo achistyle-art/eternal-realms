@@ -1,0 +1,957 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "shaman_lightning_bolt",
+  "name": "Blitzschlag",
+  "description": "Schleudert einen Blitz auf den Gegner.",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "castTime": 2.5,
+  "maxRange": 30,
+  "target": "Enemy",
+  "school": "Nature",
+  "icon": "lightning_bolt",
+  "animation": "cast",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Nature",
+    "coefficient": 0.71,
+    "min": 11,
+    "max": 15
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 14,
+    "values": [
+     [
+      11,
+      15
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 29,
+    "values": [
+     [
+      25,
+      34
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 49,
+    "values": [
+     [
+      44,
+      60
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 71,
+    "values": [
+     [
+      67,
+      91
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 96,
+    "values": [
+     [
+      93,
+      125
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 123,
+    "values": [
+     [
+      122,
+      164
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 153,
+    "values": [
+     [
+      154,
+      208
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 185,
+    "values": [
+     [
+      189,
+      256
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 219,
+    "values": [
+     [
+      227,
+      308
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 256,
+    "values": [
+     [
+      269,
+      364
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 295,
+    "values": [
+     [
+      314,
+      425
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "shaman_rockbiter_weapon",
+  "name": "Waffe des Felsbeißers",
+  "description": "Erdkraft in der Waffe: Zusatzschaden pro Treffer für 5 Minuten.",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "target": "Self",
+  "icon": "rockbiter",
+  "animation": "cast_self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "shaman_rockbiter_r1"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 6,
+    "values": [
+     null
+    ],
+    "aura": "shaman_rockbiter_r1"
+   },
+   {
+    "level": 8,
+    "trainingCost": 640,
+    "cost": 16,
+    "values": [
+     null
+    ],
+    "aura": "shaman_rockbiter_r8"
+   },
+   {
+    "level": 16,
+    "trainingCost": 2560,
+    "cost": 29,
+    "values": [
+     null
+    ],
+    "aura": "shaman_rockbiter_r16"
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 44,
+    "values": [
+     null
+    ],
+    "aura": "shaman_rockbiter_r24"
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 65,
+    "values": [
+     null
+    ],
+    "aura": "shaman_rockbiter_r34"
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 89,
+    "values": [
+     null
+    ],
+    "aura": "shaman_rockbiter_r44"
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 116,
+    "values": [
+     null
+    ],
+    "aura": "shaman_rockbiter_r54"
+   }
+  ]
+ },
+ {
+  "id": "shaman_earth_shock",
+  "name": "Erdschock",
+  "description": "Sofortiger Naturschaden, unterbricht Zauber.",
+  "class": "Shaman",
+  "level": 4,
+  "powerType": "Mana",
+  "cooldown": 6,
+  "maxRange": 20,
+  "target": "Enemy",
+  "school": "Nature",
+  "icon": "earth_shock",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Nature",
+    "coefficient": 0.39,
+    "min": 13,
+    "max": 18
+   },
+   {
+    "type": "Interrupt",
+    "duration": 2
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 16,
+    "values": [
+     [
+      13,
+      18
+     ],
+     null
+    ]
+   },
+   {
+    "level": 8,
+    "trainingCost": 640,
+    "cost": 26,
+    "values": [
+     [
+      22,
+      29
+     ],
+     null
+    ]
+   },
+   {
+    "level": 14,
+    "trainingCost": 1960,
+    "cost": 41,
+    "values": [
+     [
+      36,
+      48
+     ],
+     null
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 70,
+    "values": [
+     [
+      64,
+      87
+     ],
+     null
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 111,
+    "values": [
+     [
+      106,
+      144
+     ],
+     null
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 159,
+    "values": [
+     [
+      157,
+      213
+     ],
+     null
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 214,
+    "values": [
+     [
+      217,
+      294
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "shaman_healing_wave",
+  "name": "Welle der Heilung",
+  "description": "Heilt ein Ziel.",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "castTime": 3.0,
+  "maxRange": 40,
+  "target": "FriendlyOrSelf",
+  "school": "Nature",
+  "icon": "healing_wave",
+  "animation": "cast_heal",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.86,
+    "min": 17,
+    "max": 22
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 18,
+    "values": [
+     [
+      17,
+      22
+     ]
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 37,
+    "values": [
+     [
+      37,
+      49
+     ]
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 62,
+    "values": [
+     [
+      65,
+      88
+     ]
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 91,
+    "values": [
+     [
+      98,
+      132
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 122,
+    "values": [
+     [
+      135,
+      183
+     ]
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 157,
+    "values": [
+     [
+      178,
+      240
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 194,
+    "values": [
+     [
+      225,
+      304
+     ]
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 235,
+    "values": [
+     [
+      276,
+      374
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 279,
+    "values": [
+     [
+      332,
+      450
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 325,
+    "values": [
+     [
+      393,
+      532
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 375,
+    "values": [
+     [
+      459,
+      621
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "shaman_flame_shock",
+  "name": "Flammenschock",
+  "description": "Feuerschaden und zusätzlicher Brand.",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "cooldown": 6,
+  "maxRange": 20,
+  "target": "Enemy",
+  "school": "Fire",
+  "icon": "flame_shock",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Fire",
+    "coefficient": 0.15,
+    "min": 12,
+    "max": 16
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "shaman_flame_shock_r10"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 30,
+    "values": [
+     [
+      12,
+      16
+     ],
+     null
+    ],
+    "aura": "shaman_flame_shock_r10"
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 52,
+    "values": [
+     [
+      21,
+      28
+     ],
+     null
+    ],
+    "aura": "shaman_flame_shock_r18"
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 83,
+    "values": [
+     [
+      34,
+      46
+     ],
+     null
+    ],
+    "aura": "shaman_flame_shock_r28"
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 126,
+    "values": [
+     [
+      54,
+      74
+     ],
+     null
+    ],
+    "aura": "shaman_flame_shock_r40"
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 177,
+    "values": [
+     [
+      78,
+      106
+     ],
+     null
+    ],
+    "aura": "shaman_flame_shock_r52"
+   }
+  ]
+ },
+ {
+  "id": "shaman_strength_of_earth",
+  "name": "Totem der Erdstärke",
+  "description": "Erhöht die Stärke der Gruppe für 2 Minuten.",
+  "class": "Shaman",
+  "level": 10,
+  "powerType": "Mana",
+  "target": "Party",
+  "maxRange": 30,
+  "icon": "strength_earth",
+  "animation": "cast_ground",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "shaman_soe_r10"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 10,
+    "trainingCost": 1000,
+    "cost": 19,
+    "values": [
+     null
+    ],
+    "aura": "shaman_soe_r10"
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 44,
+    "values": [
+     null
+    ],
+    "aura": "shaman_soe_r24"
+   },
+   {
+    "level": 38,
+    "trainingCost": 14440,
+    "cost": 74,
+    "values": [
+     null
+    ],
+    "aura": "shaman_soe_r38"
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 111,
+    "values": [
+     null
+    ],
+    "aura": "shaman_soe_r52"
+   }
+  ]
+ },
+ {
+  "id": "shaman_ancestral_spirit",
+  "name": "Geist der Ahnen",
+  "description": "Belebt ein totes Gruppenmitglied wieder.",
+  "class": "Shaman",
+  "level": 12,
+  "trainingCost": 1440,
+  "powerType": "Mana",
+  "cost": 110,
+  "castTime": 10,
+  "maxRange": 30,
+  "target": "DeadFriendly",
+  "outOfCombatOnly": true,
+  "school": "Nature",
+  "icon": "ancestral_spirit",
+  "animation": "cast_long",
+  "effects": [
+   {
+    "type": "Resurrect",
+    "min": 35,
+    "max": 35
+   }
+  ]
+ },
+ {
+  "id": "shaman_frost_shock",
+  "name": "Frostschock",
+  "description": "Frostschaden und Verlangsamung.",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "cooldown": 6,
+  "maxRange": 20,
+  "target": "Enemy",
+  "school": "Frost",
+  "icon": "frost_shock",
+  "animation": "cast_point",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Frost",
+    "coefficient": 0.39,
+    "min": 55,
+    "max": 74
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "shaman_frost_slow"
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 65,
+    "values": [
+     [
+      55,
+      74
+     ],
+     null
+    ]
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 117,
+    "values": [
+     [
+      104,
+      141
+     ],
+     null
+    ]
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 170,
+    "values": [
+     [
+      157,
+      212
+     ],
+     null
+    ]
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 230,
+    "values": [
+     [
+      218,
+      295
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "shaman_lesser_healing_wave",
+  "name": "Geringe Welle der Heilung",
+  "description": "Schnelle Heilung.",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "castTime": 1.5,
+  "maxRange": 40,
+  "target": "FriendlyOrSelf",
+  "school": "Nature",
+  "icon": "lesser_healing_wave",
+  "animation": "cast_heal",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.43,
+    "min": 58,
+    "max": 78
+   }
+  ],
+  "ranks": [
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 58,
+    "values": [
+     [
+      58,
+      78
+     ]
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 83,
+    "values": [
+     [
+      86,
+      116
+     ]
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 111,
+    "values": [
+     [
+      118,
+      160
+     ]
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 142,
+    "values": [
+     [
+      155,
+      210
+     ]
+    ]
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 177,
+    "values": [
+     [
+      196,
+      265
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 214,
+    "values": [
+     [
+      241,
+      327
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "shaman_ghost_wolf",
+  "name": "Geisterwolf",
+  "description": "Verwandelt Euch in einen Geisterwolf (40 % schneller).",
+  "class": "Shaman",
+  "level": 20,
+  "trainingCost": 4000,
+  "powerType": "Mana",
+  "cost": 60,
+  "castTime": 2,
+  "target": "Self",
+  "icon": "ghost_wolf",
+  "animation": "shapeshift",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "shaman_ghost_wolf"
+   }
+  ]
+ },
+ {
+  "id": "shaman_stormstrike",
+  "name": "Sturmschlag",
+  "description": "Ein Schlag mit zwei Waffen voller Sturmkraft. (Talent)",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "cooldown": 10,
+  "maxRange": 5,
+  "target": "Enemy",
+  "notTrainable": true,
+  "icon": "stormstrike",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.4,
+    "min": 27,
+    "max": 37
+   }
+  ],
+  "ranks": [
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 95,
+    "values": [
+     [
+      27,
+      37
+     ]
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 126,
+    "values": [
+     [
+      37,
+      50
+     ]
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 161,
+    "values": [
+     [
+      48,
+      65
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "shaman_chain_heal",
+  "name": "Kettenheilung",
+  "description": "Heilt das Ziel und springt auf weitere Verbündete. (Talent)",
+  "class": "Shaman",
+  "powerType": "Mana",
+  "castTime": 2.5,
+  "maxRange": 40,
+  "target": "FriendlyOrSelf",
+  "school": "Nature",
+  "notTrainable": true,
+  "icon": "chain_heal",
+  "animation": "cast_heal",
+  "effects": [
+   {
+    "type": "Heal",
+    "coefficient": 0.71,
+    "min": 218,
+    "max": 294
+   }
+  ],
+  "ranks": [
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 205,
+    "values": [
+     [
+      218,
+      294
+     ]
+    ]
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 245,
+    "values": [
+     [
+      264,
+      357
+     ]
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 302,
+    "values": [
+     [
+      331,
+      448
+     ]
+    ]
+   }
+  ]
+ }
+]

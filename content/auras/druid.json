@@ -1,0 +1,582 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "druid_moonfire_r4",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 2,
+  "tickMax": 2,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r10",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 4,
+  "tickMax": 4,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r16",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 6,
+  "tickMax": 7,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r22",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 8,
+  "tickMax": 9,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r28",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 11,
+  "tickMax": 13,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r34",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 15,
+  "tickMax": 16,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r40",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 19,
+  "tickMax": 21,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r46",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 23,
+  "tickMax": 25,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r52",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 27,
+  "tickMax": 30,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_moonfire_r58",
+  "name": "Mondfeuer",
+  "description": "Mondfeuer.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Arcane",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 32,
+  "tickMax": 35,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "druid_rejuv_r4",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 5,
+  "tickMax": 5,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r10",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 10,
+  "tickMax": 11,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r16",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 16,
+  "tickMax": 18,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r22",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 23,
+  "tickMax": 25,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r28",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 31,
+  "tickMax": 34,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r34",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 39,
+  "tickMax": 44,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r40",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 49,
+  "tickMax": 54,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r46",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 59,
+  "tickMax": 66,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r52",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 71,
+  "tickMax": 78,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_rejuv_r58",
+  "name": "Verjüngung",
+  "description": "Wird geheilt.",
+  "isDebuff": false,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Heal",
+  "tickInterval": 3,
+  "tickMin": 83,
+  "tickMax": 92,
+  "tickCoefficient": 0.12
+ },
+ {
+  "id": "druid_motw_r1",
+  "name": "Mal der Wildnis",
+  "description": "Werte erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 29
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 1
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 1
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 1
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 1
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 1
+   }
+  ]
+ },
+ {
+  "id": "druid_motw_r10",
+  "name": "Mal der Wildnis",
+  "description": "Werte erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 65
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ]
+ },
+ {
+  "id": "druid_motw_r20",
+  "name": "Mal der Wildnis",
+  "description": "Werte erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 105
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 5
+   }
+  ]
+ },
+ {
+  "id": "druid_motw_r30",
+  "name": "Mal der Wildnis",
+  "description": "Werte erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 145
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 7
+   }
+  ]
+ },
+ {
+  "id": "druid_motw_r40",
+  "name": "Mal der Wildnis",
+  "description": "Werte erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 185
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 9
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 9
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 9
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 9
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 9
+   }
+  ]
+ },
+ {
+  "id": "druid_motw_r50",
+  "name": "Mal der Wildnis",
+  "description": "Werte erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 225
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 11
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 11
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 11
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 11
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 11
+   }
+  ]
+ },
+ {
+  "id": "druid_motw_r60",
+  "name": "Mal der Wildnis",
+  "description": "Werte erhöht.",
+  "isDebuff": false,
+  "duration": 1800,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 265
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 13
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 13
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 13
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 13
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 13
+   }
+  ]
+ },
+ {
+  "id": "druid_roots",
+  "name": "Wucherwurzeln",
+  "description": "Von Wurzeln festgehalten.",
+  "isDebuff": true,
+  "duration": 12,
+  "root": true,
+  "school": "Nature"
+ },
+ {
+  "id": "druid_bear_form",
+  "name": "Bärengestalt",
+  "description": "Bärengestalt: mehr Rüstung, Leben und Bedrohung. Nutzt Wut.",
+  "permanent": true,
+  "form": "Bear",
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorPercent",
+    "value": 180
+   },
+   {
+    "type": "MaxHealthPercent",
+    "value": 20
+   },
+   {
+    "type": "ThreatPercent",
+    "value": 30
+   }
+  ]
+ },
+ {
+  "id": "druid_cat_form",
+  "name": "Katzengestalt",
+  "description": "Katzengestalt: schneller und tödlicher. Nutzt Energie.",
+  "permanent": true,
+  "form": "Cat",
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "CritChance",
+    "value": 3
+   },
+   {
+    "type": "MoveSpeedPercent",
+    "value": 10
+   },
+   {
+    "type": "ThreatPercent",
+    "value": -30
+   }
+  ]
+ }
+]

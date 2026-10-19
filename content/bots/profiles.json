@@ -1,0 +1,689 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "class": "Warrior",
+  "role": "Tank",
+  "talentTree": "warrior_protection",
+  "form": "DefensiveStance",
+  "buffs": [
+   "warrior_battle_shout"
+  ],
+  "rotation": [
+   {
+    "ability": "warrior_shield_block",
+    "if": "SelfHealthBelow",
+    "value": 0.7
+   },
+   {
+    "ability": "warrior_bloodrage",
+    "if": "SelfPowerBelow",
+    "value": 0.2
+   },
+   {
+    "ability": "warrior_thunder_clap",
+    "if": "MultipleEnemies",
+    "value": 2
+   },
+   {
+    "ability": "warrior_demoralizing_shout",
+    "if": "MultipleEnemies",
+    "value": 2
+   },
+   {
+    "ability": "warrior_shield_slam",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "warrior_sunder_armor",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "warrior_heroic_strike",
+    "if": "SelfPowerAbove",
+    "value": 40
+   }
+  ],
+  "heals": [],
+  "taunt": "warrior_taunt",
+  "ranged": false
+ },
+ {
+  "class": "Warrior",
+  "role": "MeleeDps",
+  "talentTree": "warrior_arms",
+  "form": "BattleStance",
+  "buffs": [
+   "warrior_battle_shout"
+  ],
+  "rotation": [
+   {
+    "ability": "warrior_execute",
+    "if": "TargetHealthBelow",
+    "value": 0.2
+   },
+   {
+    "ability": "warrior_mortal_strike",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "warrior_rend",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "warrior_rend"
+   },
+   {
+    "ability": "warrior_thunder_clap",
+    "if": "MultipleEnemies",
+    "value": 3
+   },
+   {
+    "ability": "warrior_heroic_strike",
+    "if": "SelfPowerAbove",
+    "value": 30
+   }
+  ],
+  "heals": [],
+  "ranged": false
+ },
+ {
+  "class": "Paladin",
+  "role": "Tank",
+  "talentTree": "paladin_protection",
+  "form": "None",
+  "buffs": [
+   "paladin_devotion_aura",
+   "paladin_righteous_fury",
+   "paladin_blessing_of_might"
+  ],
+  "rotation": [
+   {
+    "ability": "paladin_consecration",
+    "if": "MultipleEnemies",
+    "value": 2
+   },
+   {
+    "ability": "paladin_judgement",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "paladin_seal_of_righteousness",
+    "if": "SelfMissingAura",
+    "value": 0,
+    "aura": "paladin_seal"
+   },
+   {
+    "ability": "paladin_hammer_of_justice",
+    "if": "TargetCasting",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "paladin_flash_of_light",
+   "paladin_holy_light"
+  ],
+  "resurrect": "paladin_redemption",
+  "ranged": false
+ },
+ {
+  "class": "Paladin",
+  "role": "Healer",
+  "talentTree": "paladin_holy",
+  "form": "None",
+  "buffs": [
+   "paladin_devotion_aura",
+   "paladin_blessing_of_might"
+  ],
+  "rotation": [
+   {
+    "ability": "paladin_judgement",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "paladin_seal_of_righteousness",
+    "if": "SelfMissingAura",
+    "value": 0,
+    "aura": "paladin_seal"
+   }
+  ],
+  "heals": [
+   "paladin_holy_shock",
+   "paladin_flash_of_light",
+   "paladin_holy_light"
+  ],
+  "resurrect": "paladin_redemption",
+  "ranged": false
+ },
+ {
+  "class": "Paladin",
+  "role": "MeleeDps",
+  "talentTree": "paladin_retribution",
+  "form": "None",
+  "buffs": [
+   "paladin_devotion_aura",
+   "paladin_blessing_of_might"
+  ],
+  "rotation": [
+   {
+    "ability": "paladin_seal_of_righteousness",
+    "if": "SelfMissingAura",
+    "value": 0,
+    "aura": "paladin_seal"
+   },
+   {
+    "ability": "paladin_crusader_strike",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "paladin_judgement",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "paladin_consecration",
+    "if": "MultipleEnemies",
+    "value": 3
+   },
+   {
+    "ability": "paladin_hammer_of_justice",
+    "if": "TargetCasting",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "paladin_flash_of_light",
+   "paladin_holy_light"
+  ],
+  "resurrect": "paladin_redemption",
+  "ranged": false
+ },
+ {
+  "class": "Hunter",
+  "role": "RangedDps",
+  "talentTree": "hunter_marksmanship",
+  "form": "None",
+  "buffs": [],
+  "rotation": [
+   {
+    "ability": "hunter_aspect_of_the_hawk",
+    "if": "SelfMissingAura",
+    "value": 0,
+    "aura": "hunter_hawk"
+   },
+   {
+    "ability": "hunter_raptor_strike",
+    "if": "InMeleeRange",
+    "value": 0
+   },
+   {
+    "ability": "hunter_serpent_sting",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "hunter_serpent_sting"
+   },
+   {
+    "ability": "hunter_aimed_shot",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "hunter_multi_shot",
+    "if": "MultipleEnemies",
+    "value": 2
+   },
+   {
+    "ability": "hunter_arcane_shot",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [],
+  "pet": "hunter_call_pet",
+  "ranged": true
+ },
+ {
+  "class": "Rogue",
+  "role": "MeleeDps",
+  "talentTree": "rogue_combat",
+  "form": "None",
+  "buffs": [],
+  "rotation": [
+   {
+    "ability": "rogue_kick",
+    "if": "TargetCasting",
+    "value": 0
+   },
+   {
+    "ability": "rogue_slice_and_dice",
+    "if": "ComboPointsAtLeast",
+    "value": 2
+   },
+   {
+    "ability": "rogue_eviscerate",
+    "if": "ComboPointsAtLeast",
+    "value": 5
+   },
+   {
+    "ability": "rogue_evasion",
+    "if": "SelfHealthBelow",
+    "value": 0.35
+   },
+   {
+    "ability": "rogue_sinister_strike",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [],
+  "interrupt": "rogue_kick",
+  "ranged": false
+ },
+ {
+  "class": "Priest",
+  "role": "Healer",
+  "talentTree": "priest_holy",
+  "form": "None",
+  "buffs": [
+   "priest_power_word_fortitude"
+  ],
+  "rotation": [
+   {
+    "ability": "priest_shadow_word_pain",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "priest_swp"
+   },
+   {
+    "ability": "priest_smite",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "priest_power_word_shield",
+   "priest_renew",
+   "priest_greater_heal",
+   "priest_heal",
+   "priest_lesser_heal"
+  ],
+  "resurrect": "priest_resurrection",
+  "ranged": false
+ },
+ {
+  "class": "Priest",
+  "role": "RangedDps",
+  "talentTree": "priest_shadow",
+  "form": "None",
+  "buffs": [
+   "priest_power_word_fortitude"
+  ],
+  "rotation": [
+   {
+    "ability": "priest_power_word_shield",
+    "if": "SelfHealthBelow",
+    "value": 0.5
+   },
+   {
+    "ability": "priest_shadow_word_pain",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "priest_swp"
+   },
+   {
+    "ability": "priest_mind_blast",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "priest_mind_flay",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "priest_smite",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "priest_renew",
+   "priest_heal",
+   "priest_lesser_heal"
+  ],
+  "resurrect": "priest_resurrection",
+  "ranged": true
+ },
+ {
+  "class": "Shaman",
+  "role": "Healer",
+  "talentTree": "shaman_restoration",
+  "form": "None",
+  "buffs": [
+   "shaman_strength_of_earth"
+  ],
+  "rotation": [
+   {
+    "ability": "shaman_flame_shock",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "shaman_flame_shock"
+   },
+   {
+    "ability": "shaman_lightning_bolt",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "shaman_chain_heal",
+   "shaman_lesser_healing_wave",
+   "shaman_healing_wave"
+  ],
+  "resurrect": "shaman_ancestral_spirit",
+  "interrupt": "shaman_earth_shock",
+  "ranged": false
+ },
+ {
+  "class": "Shaman",
+  "role": "MeleeDps",
+  "talentTree": "shaman_enhancement",
+  "form": "None",
+  "buffs": [
+   "shaman_strength_of_earth"
+  ],
+  "rotation": [
+   {
+    "ability": "shaman_rockbiter_weapon",
+    "if": "SelfMissingAura",
+    "value": 0,
+    "aura": "shaman_rockbiter"
+   },
+   {
+    "ability": "shaman_earth_shock",
+    "if": "TargetCasting",
+    "value": 0
+   },
+   {
+    "ability": "shaman_stormstrike",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "shaman_flame_shock",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "shaman_flame_shock"
+   },
+   {
+    "ability": "shaman_earth_shock",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "shaman_lesser_healing_wave",
+   "shaman_healing_wave"
+  ],
+  "resurrect": "shaman_ancestral_spirit",
+  "interrupt": "shaman_earth_shock",
+  "ranged": false
+ },
+ {
+  "class": "Shaman",
+  "role": "RangedDps",
+  "talentTree": "shaman_elemental",
+  "form": "None",
+  "buffs": [
+   "shaman_strength_of_earth"
+  ],
+  "rotation": [
+   {
+    "ability": "shaman_earth_shock",
+    "if": "TargetCasting",
+    "value": 0
+   },
+   {
+    "ability": "shaman_flame_shock",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "shaman_flame_shock"
+   },
+   {
+    "ability": "shaman_lightning_bolt",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "shaman_lesser_healing_wave",
+   "shaman_healing_wave"
+  ],
+  "resurrect": "shaman_ancestral_spirit",
+  "interrupt": "shaman_earth_shock",
+  "ranged": true
+ },
+ {
+  "class": "Mage",
+  "role": "RangedDps",
+  "talentTree": "mage_frost",
+  "form": "None",
+  "buffs": [
+   "mage_arcane_intellect"
+  ],
+  "rotation": [
+   {
+    "ability": "mage_frost_armor",
+    "if": "SelfMissingAura",
+    "value": 0,
+    "aura": "mage_frost_armor"
+   },
+   {
+    "ability": "mage_counterspell",
+    "if": "TargetCasting",
+    "value": 0
+   },
+   {
+    "ability": "mage_frost_nova",
+    "if": "InMeleeRange",
+    "value": 0
+   },
+   {
+    "ability": "mage_arcane_explosion",
+    "if": "MultipleEnemies",
+    "value": 3
+   },
+   {
+    "ability": "mage_fire_blast",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "mage_frostbolt",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "mage_fireball",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [],
+  "interrupt": "mage_counterspell",
+  "ranged": true
+ },
+ {
+  "class": "Warlock",
+  "role": "RangedDps",
+  "talentTree": "warlock_affliction",
+  "form": "None",
+  "buffs": [],
+  "rotation": [
+   {
+    "ability": "warlock_demon_skin",
+    "if": "SelfMissingAura",
+    "value": 0,
+    "aura": "warlock_demon_skin"
+   },
+   {
+    "ability": "warlock_life_tap",
+    "if": "SelfPowerBelow",
+    "value": 0.3
+   },
+   {
+    "ability": "warlock_corruption",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "warlock_corruption"
+   },
+   {
+    "ability": "warlock_curse_of_agony",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "warlock_coa"
+   },
+   {
+    "ability": "warlock_immolate",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "warlock_immolate"
+   },
+   {
+    "ability": "warlock_siphon_life",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "warlock_siphon"
+   },
+   {
+    "ability": "warlock_shadow_bolt",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [],
+  "pet": "warlock_summon_imp",
+  "ranged": true
+ },
+ {
+  "class": "Druid",
+  "role": "Tank",
+  "talentTree": "druid_feral",
+  "form": "Bear",
+  "buffs": [
+   "druid_mark_of_the_wild"
+  ],
+  "rotation": [
+   {
+    "ability": "druid_swipe",
+    "if": "MultipleEnemies",
+    "value": 2
+   },
+   {
+    "ability": "druid_maul",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "druid_rejuvenation",
+   "druid_healing_touch"
+  ],
+  "resurrect": "druid_rebirth",
+  "taunt": "druid_growl",
+  "ranged": false
+ },
+ {
+  "class": "Druid",
+  "role": "Healer",
+  "talentTree": "druid_restoration",
+  "form": "None",
+  "buffs": [
+   "druid_mark_of_the_wild"
+  ],
+  "rotation": [
+   {
+    "ability": "druid_moonfire",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "druid_moonfire"
+   },
+   {
+    "ability": "druid_wrath",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "druid_swiftmend",
+   "druid_rejuvenation",
+   "druid_healing_touch"
+  ],
+  "resurrect": "druid_rebirth",
+  "ranged": false
+ },
+ {
+  "class": "Druid",
+  "role": "RangedDps",
+  "talentTree": "druid_balance",
+  "form": "None",
+  "buffs": [
+   "druid_mark_of_the_wild"
+  ],
+  "rotation": [
+   {
+    "ability": "druid_moonfire",
+    "if": "TargetMissingAura",
+    "value": 0,
+    "aura": "druid_moonfire"
+   },
+   {
+    "ability": "druid_starfire",
+    "if": "Always",
+    "value": 0
+   },
+   {
+    "ability": "druid_wrath",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "druid_rejuvenation",
+   "druid_healing_touch"
+  ],
+  "resurrect": "druid_rebirth",
+  "ranged": true
+ },
+ {
+  "class": "Druid",
+  "role": "MeleeDps",
+  "talentTree": "druid_feral",
+  "form": "Cat",
+  "buffs": [
+   "druid_mark_of_the_wild"
+  ],
+  "rotation": [
+   {
+    "ability": "druid_rip",
+    "if": "ComboPointsAtLeast",
+    "value": 4
+   },
+   {
+    "ability": "druid_claw",
+    "if": "Always",
+    "value": 0
+   }
+  ],
+  "heals": [
+   "druid_rejuvenation",
+   "druid_healing_touch"
+  ],
+  "resurrect": "druid_rebirth",
+  "ranged": false
+ }
+]

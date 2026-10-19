@@ -1,0 +1,293 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "paladin_seal_r1",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 1,
+  "procMax": 2,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_seal_r10",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 6,
+  "procMax": 7,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_seal_r18",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 10,
+  "procMax": 13,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_seal_r26",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 16,
+  "procMax": 20,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_seal_r34",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 23,
+  "procMax": 28,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_seal_r42",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 30,
+  "procMax": 37,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_seal_r50",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 39,
+  "procMax": 47,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_seal_r58",
+  "name": "Siegel der Rechtschaffenheit",
+  "description": "Zusätzlicher Heiligschaden pro Treffer.",
+  "duration": 30,
+  "procMin": 48,
+  "procMax": 59,
+  "procSchool": "Holy",
+  "procCoefficient": 0.1
+ },
+ {
+  "id": "paladin_devotion_r1",
+  "name": "Aura der Hingabe",
+  "description": "Rüstung erhöht.",
+  "permanent": true,
+  "partyAura": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 37
+   }
+  ]
+ },
+ {
+  "id": "paladin_devotion_r10",
+  "name": "Aura der Hingabe",
+  "description": "Rüstung erhöht.",
+  "permanent": true,
+  "partyAura": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 145
+   }
+  ]
+ },
+ {
+  "id": "paladin_devotion_r20",
+  "name": "Aura der Hingabe",
+  "description": "Rüstung erhöht.",
+  "permanent": true,
+  "partyAura": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 265
+   }
+  ]
+ },
+ {
+  "id": "paladin_devotion_r30",
+  "name": "Aura der Hingabe",
+  "description": "Rüstung erhöht.",
+  "permanent": true,
+  "partyAura": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 385
+   }
+  ]
+ },
+ {
+  "id": "paladin_devotion_r40",
+  "name": "Aura der Hingabe",
+  "description": "Rüstung erhöht.",
+  "permanent": true,
+  "partyAura": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 505
+   }
+  ]
+ },
+ {
+  "id": "paladin_devotion_r50",
+  "name": "Aura der Hingabe",
+  "description": "Rüstung erhöht.",
+  "permanent": true,
+  "partyAura": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 625
+   }
+  ]
+ },
+ {
+  "id": "paladin_devotion_r60",
+  "name": "Aura der Hingabe",
+  "description": "Rüstung erhöht.",
+  "permanent": true,
+  "partyAura": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": 745
+   }
+  ]
+ },
+ {
+  "id": "paladin_bom_r4",
+  "name": "Segen der Macht",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 300,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 32
+   }
+  ]
+ },
+ {
+  "id": "paladin_bom_r12",
+  "name": "Segen der Macht",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 300,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 56
+   }
+  ]
+ },
+ {
+  "id": "paladin_bom_r22",
+  "name": "Segen der Macht",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 300,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 86
+   }
+  ]
+ },
+ {
+  "id": "paladin_bom_r32",
+  "name": "Segen der Macht",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 300,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 116
+   }
+  ]
+ },
+ {
+  "id": "paladin_bom_r42",
+  "name": "Segen der Macht",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 300,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 146
+   }
+  ]
+ },
+ {
+  "id": "paladin_bom_r52",
+  "name": "Segen der Macht",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 300,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 176
+   }
+  ]
+ },
+ {
+  "id": "paladin_divine_protection",
+  "name": "Göttlicher Schutz",
+  "description": "Erlittener Schaden um 50 % verringert.",
+  "duration": 8,
+  "modifiers": [
+   {
+    "type": "DamageTakenPercent",
+    "value": -50
+   }
+  ]
+ },
+ {
+  "id": "paladin_hammer_stun",
+  "name": "Hammer der Gerechtigkeit",
+  "description": "Betäubt.",
+  "isDebuff": true,
+  "duration": 4,
+  "stun": true
+ },
+ {
+  "id": "paladin_righteous_fury",
+  "name": "Zorn der Gerechtigkeit",
+  "description": "Bedrohung durch Heiligzauber um 60 % erhöht.",
+  "duration": 1800,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ThreatPercent",
+    "value": 60,
+    "school": "Holy"
+   }
+  ]
+ }
+]

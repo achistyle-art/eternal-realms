@@ -1,0 +1,720 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "rogue_sinister_strike",
+  "name": "Finsterer Stoß",
+  "description": "Ein heimtückischer Stoß. Erzeugt einen Kombopunkt.",
+  "class": "Rogue",
+  "powerType": "Energy",
+  "cost": 45,
+  "target": "Enemy",
+  "maxRange": 5,
+  "icon": "sinister_strike",
+  "animation": "attack",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.0,
+    "min": 3,
+    "max": 4
+   },
+   {
+    "type": "ComboPoints",
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 45,
+    "values": [
+     [
+      3,
+      4
+     ],
+     null
+    ]
+   },
+   {
+    "level": 6,
+    "trainingCost": 360,
+    "cost": 45,
+    "values": [
+     [
+      6,
+      8
+     ],
+     null
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 45,
+    "values": [
+     [
+      10,
+      14
+     ],
+     null
+    ]
+   },
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 45,
+    "values": [
+     [
+      15,
+      21
+     ],
+     null
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 45,
+    "values": [
+     [
+      21,
+      29
+     ],
+     null
+    ]
+   },
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 45,
+    "values": [
+     [
+      28,
+      38
+     ],
+     null
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 45,
+    "values": [
+     [
+      35,
+      48
+     ],
+     null
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 45,
+    "values": [
+     [
+      44,
+      59
+     ],
+     null
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 45,
+    "values": [
+     [
+      52,
+      71
+     ],
+     null
+    ]
+   },
+   {
+    "level": 54,
+    "trainingCost": 29160,
+    "cost": 45,
+    "values": [
+     [
+      62,
+      84
+     ],
+     null
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 45,
+    "values": [
+     [
+      72,
+      98
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "rogue_eviscerate",
+  "name": "Ausweiden",
+  "description": "Finishing-Move: Schaden pro Kombopunkt.",
+  "class": "Rogue",
+  "powerType": "Energy",
+  "cost": 35,
+  "target": "Enemy",
+  "maxRange": 5,
+  "requiresComboPoints": true,
+  "icon": "eviscerate",
+  "animation": "attack_heavy",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "perComboPoint": 1,
+    "min": 3,
+    "max": 4
+   }
+  ],
+  "ranks": [
+   {
+    "level": 1,
+    "trainingCost": 0,
+    "cost": 35,
+    "values": [
+     [
+      3,
+      4
+     ]
+    ]
+   },
+   {
+    "level": 8,
+    "trainingCost": 640,
+    "cost": 35,
+    "values": [
+     [
+      8,
+      11
+     ]
+    ]
+   },
+   {
+    "level": 16,
+    "trainingCost": 2560,
+    "cost": 35,
+    "values": [
+     [
+      16,
+      22
+     ]
+    ]
+   },
+   {
+    "level": 24,
+    "trainingCost": 5760,
+    "cost": 35,
+    "values": [
+     [
+      25,
+      34
+     ]
+    ]
+   },
+   {
+    "level": 32,
+    "trainingCost": 10240,
+    "cost": 35,
+    "values": [
+     [
+      36,
+      48
+     ]
+    ]
+   },
+   {
+    "level": 40,
+    "trainingCost": 16000,
+    "cost": 35,
+    "values": [
+     [
+      48,
+      64
+     ]
+    ]
+   },
+   {
+    "level": 48,
+    "trainingCost": 23040,
+    "cost": 35,
+    "values": [
+     [
+      61,
+      83
+     ]
+    ]
+   },
+   {
+    "level": 56,
+    "trainingCost": 31360,
+    "cost": 35,
+    "values": [
+     [
+      76,
+      103
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "id": "rogue_stealth",
+  "name": "Verstohlenheit",
+  "description": "Verschwindet in den Schatten. Bricht bei Angriffen ab.",
+  "class": "Rogue",
+  "level": 1,
+  "powerType": "Energy",
+  "cost": 0,
+  "cooldown": 10,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "stealth",
+  "animation": "crouch",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "rogue_stealth"
+   }
+  ]
+ },
+ {
+  "id": "rogue_backstab",
+  "name": "Meucheln",
+  "description": "Ein verheerender Stich mit 150 % Waffenschaden.",
+  "class": "Rogue",
+  "level": 4,
+  "powerType": "Energy",
+  "cost": 60,
+  "target": "Enemy",
+  "maxRange": 5,
+  "icon": "backstab",
+  "animation": "attack_stab",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.5,
+    "min": 5,
+    "max": 7
+   },
+   {
+    "type": "ComboPoints",
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "ranks": [
+   {
+    "level": 4,
+    "trainingCost": 160,
+    "cost": 60,
+    "values": [
+     [
+      5,
+      7
+     ],
+     null
+    ]
+   },
+   {
+    "level": 12,
+    "trainingCost": 1440,
+    "cost": 60,
+    "values": [
+     [
+      12,
+      16
+     ],
+     null
+    ]
+   },
+   {
+    "level": 20,
+    "trainingCost": 4000,
+    "cost": 60,
+    "values": [
+     [
+      20,
+      27
+     ],
+     null
+    ]
+   },
+   {
+    "level": 28,
+    "trainingCost": 7840,
+    "cost": 60,
+    "values": [
+     [
+      30,
+      41
+     ],
+     null
+    ]
+   },
+   {
+    "level": 36,
+    "trainingCost": 12960,
+    "cost": 60,
+    "values": [
+     [
+      41,
+      56
+     ],
+     null
+    ]
+   },
+   {
+    "level": 44,
+    "trainingCost": 19360,
+    "cost": 60,
+    "values": [
+     [
+      54,
+      73
+     ],
+     null
+    ]
+   },
+   {
+    "level": 52,
+    "trainingCost": 27040,
+    "cost": 60,
+    "values": [
+     [
+      69,
+      93
+     ],
+     null
+    ]
+   },
+   {
+    "level": 60,
+    "trainingCost": 36000,
+    "cost": 60,
+    "values": [
+     [
+      84,
+      114
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "rogue_gouge",
+  "name": "Solarplexus",
+  "description": "Setzt das Ziel 4 Sekunden außer Gefecht.",
+  "class": "Rogue",
+  "level": 6,
+  "trainingCost": 360,
+  "powerType": "Energy",
+  "cost": 45,
+  "cooldown": 10,
+  "maxRange": 5,
+  "target": "Enemy",
+  "icon": "gouge",
+  "animation": "attack",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "rogue_gouge"
+   },
+   {
+    "type": "ComboPoints",
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "rogue_evasion",
+  "name": "Entrinnen",
+  "description": "Erhöht die Ausweichchance 15 Sekunden lang um 50 %.",
+  "class": "Rogue",
+  "level": 8,
+  "trainingCost": 640,
+  "powerType": "Energy",
+  "cost": 0,
+  "cooldown": 300,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "evasion",
+  "animation": "dodge",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "rogue_evasion"
+   }
+  ]
+ },
+ {
+  "id": "rogue_slice_and_dice",
+  "name": "Zerhäckseln",
+  "description": "Finishing-Move: Erhöht das Angriffstempo um 20 %.",
+  "class": "Rogue",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Energy",
+  "cost": 25,
+  "target": "Self",
+  "requiresComboPoints": true,
+  "icon": "slice_dice",
+  "animation": "flourish",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "rogue_snd"
+   }
+  ]
+ },
+ {
+  "id": "rogue_sprint",
+  "name": "Sprinten",
+  "description": "Erhöht das Bewegungstempo 8 Sekunden lang um 70 %.",
+  "class": "Rogue",
+  "level": 10,
+  "trainingCost": 1000,
+  "powerType": "Energy",
+  "cost": 0,
+  "cooldown": 300,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "sprint",
+  "animation": "run",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "rogue_sprint"
+   }
+  ]
+ },
+ {
+  "id": "rogue_kick",
+  "name": "Tritt",
+  "description": "Unterbricht einen Zauber und sperrt die Schule 5 Sekunden.",
+  "class": "Rogue",
+  "level": 12,
+  "trainingCost": 1440,
+  "powerType": "Energy",
+  "cost": 25,
+  "cooldown": 10,
+  "maxRange": 5,
+  "target": "Enemy",
+  "triggersGcd": false,
+  "icon": "kick",
+  "animation": "kick",
+  "effects": [
+   {
+    "type": "Interrupt",
+    "duration": 5
+   },
+   {
+    "type": "SchoolDamage",
+    "school": "Physical",
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "rogue_ambush",
+  "name": "Hinterhalt",
+  "description": "Aus der Verstohlenheit: 250 % Waffenschaden.",
+  "class": "Rogue",
+  "powerType": "Energy",
+  "cost": 60,
+  "maxRange": 5,
+  "target": "Enemy",
+  "requiresStealth": true,
+  "icon": "ambush",
+  "animation": "attack_stab",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 2.5,
+    "min": 26,
+    "max": 35
+   },
+   {
+    "type": "ComboPoints",
+    "min": 2,
+    "max": 2
+   }
+  ],
+  "ranks": [
+   {
+    "level": 18,
+    "trainingCost": 3240,
+    "cost": 60,
+    "values": [
+     [
+      26,
+      35
+     ],
+     null
+    ]
+   },
+   {
+    "level": 26,
+    "trainingCost": 6760,
+    "cost": 60,
+    "values": [
+     [
+      39,
+      53
+     ],
+     null
+    ]
+   },
+   {
+    "level": 34,
+    "trainingCost": 11560,
+    "cost": 60,
+    "values": [
+     [
+      55,
+      74
+     ],
+     null
+    ]
+   },
+   {
+    "level": 42,
+    "trainingCost": 17640,
+    "cost": 60,
+    "values": [
+     [
+      73,
+      98
+     ],
+     null
+    ]
+   },
+   {
+    "level": 50,
+    "trainingCost": 25000,
+    "cost": 60,
+    "values": [
+     [
+      93,
+      125
+     ],
+     null
+    ]
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 60,
+    "values": [
+     [
+      115,
+      155
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "rogue_hemorrhage",
+  "name": "Blutsturz",
+  "description": "Ein Hieb, der starke Blutungen auslöst. (Talent)",
+  "class": "Rogue",
+  "powerType": "Energy",
+  "cost": 35,
+  "maxRange": 5,
+  "target": "Enemy",
+  "notTrainable": true,
+  "icon": "hemorrhage",
+  "animation": "attack",
+  "effects": [
+   {
+    "type": "WeaponDamage",
+    "weaponPercent": 1.1,
+    "min": 19,
+    "max": 25
+   },
+   {
+    "type": "ComboPoints",
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "ranks": [
+   {
+    "level": 30,
+    "trainingCost": 9000,
+    "cost": 35,
+    "values": [
+     [
+      19,
+      25
+     ],
+     null
+    ]
+   },
+   {
+    "level": 46,
+    "trainingCost": 21160,
+    "cost": 35,
+    "values": [
+     [
+      33,
+      45
+     ],
+     null
+    ]
+   },
+   {
+    "level": 58,
+    "trainingCost": 33640,
+    "cost": 35,
+    "values": [
+     [
+      46,
+      62
+     ],
+     null
+    ]
+   }
+  ]
+ },
+ {
+  "id": "rogue_adrenaline_rush",
+  "name": "Adrenalinrausch",
+  "description": "Verdoppelt die Energieregeneration 15 Sekunden lang. (Talent)",
+  "class": "Rogue",
+  "level": 40,
+  "powerType": "Energy",
+  "cost": 0,
+  "cooldown": 300,
+  "target": "Self",
+  "triggersGcd": false,
+  "notTrainable": true,
+  "icon": "adrenaline",
+  "animation": "roar",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "rogue_adrenaline"
+   }
+  ]
+ }
+]

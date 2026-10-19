@@ -1,0 +1,46 @@
+[
+ {
+  "id": "tn_mt_dorf",
+  "name": "Dorf Morgentau",
+  "zone": "zone_morgentauwald",
+  "position": [
+   440,
+   0,
+   378
+  ],
+  "faction": "Sonnenbuendnis"
+ },
+ {
+  "id": "tn_mt_turm",
+  "name": "Alter Wachturm",
+  "zone": "zone_morgentauwald",
+  "position": [
+   712,
+   0,
+   690
+  ],
+  "faction": "Sonnenbuendnis"
+ },
+ {
+  "id": "tn_as_lager",
+  "name": "Lager Kargrak",
+  "zone": "zone_aschensteppe",
+  "position": [
+   460,
+   0,
+   398
+  ],
+  "faction": "Schattenpakt"
+ },
+ {
+  "id": "tn_as_oase",
+  "name": "Oase Zharim",
+  "zone": "zone_aschensteppe",
+  "position": [
+   732,
+   0,
+   680
+  ],
+  "faction": "Schattenpakt"
+ }
+]

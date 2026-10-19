@@ -1,0 +1,783 @@
+[
+ {
+  "id": "zone_morgentauwald",
+  "name": "Morgentauwald",
+  "continent": "Aurelion",
+  "minLevel": 1,
+  "maxLevel": 12,
+  "faction": "Sonnenbuendnis",
+  "biome": "Laubwald",
+  "description": "Ein sonniger Laubwald mit Bauernhöfen, Bächen und einem gemütlichen Dorf. Doch im Osten machen Räuber die Wege unsicher, und unter dem Waldboden regt sich etwas Altes.",
+  "music": "music_morgentau_day",
+  "ambience": "amb_forest_birds",
+  "weather": [
+   "Clear",
+   "Clear",
+   "Rain",
+   "Fog"
+  ],
+  "size": 1024,
+  "playable": true,
+  "ambientBots": 6,
+  "areas": [
+   {
+    "id": "area_mt_lindenruh",
+    "name": "Hof Lindenruh",
+    "center": [
+     205,
+     0,
+     200
+    ],
+    "radius": 40,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_mt_grauklippe",
+    "name": "Grauklippe",
+    "center": [
+     120,
+     0,
+     320
+    ],
+    "radius": 35,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_mt_silberquell",
+    "name": "Silberquell",
+    "center": [
+     300,
+     0,
+     120
+    ],
+    "radius": 35,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_mt_tueftlerschuppen",
+    "name": "Tüftlerschuppen",
+    "center": [
+     260,
+     0,
+     300
+    ],
+    "radius": 25,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_mt_dorf",
+    "name": "Dorf Morgentau",
+    "center": [
+     400,
+     0,
+     400
+    ],
+    "radius": 60,
+    "isInn": true,
+    "isCity": true,
+    "discoveryXp": 30,
+    "music": "music_village"
+   },
+   {
+    "id": "area_mt_wolfshain",
+    "name": "Wolfshain",
+    "center": [
+     550,
+     0,
+     300
+    ],
+    "radius": 70,
+    "discoveryXp": 40
+   },
+   {
+    "id": "area_mt_spinnenmulde",
+    "name": "Spinnenmulde",
+    "center": [
+     610,
+     0,
+     520
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_mt_funkenloch",
+    "name": "Funkenloch-Mine",
+    "center": [
+     340,
+     0,
+     660
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_mt_wachturm",
+    "name": "Alter Wachturm",
+    "center": [
+     700,
+     0,
+     700
+    ],
+    "radius": 35,
+    "isViewpoint": true,
+    "discoveryXp": 80
+   },
+   {
+    "id": "area_mt_rotbach",
+    "name": "Banditenlager am Rotbach",
+    "center": [
+     780,
+     0,
+     480
+    ],
+    "radius": 70,
+    "discoveryXp": 90
+   },
+   {
+    "id": "area_mt_hain",
+    "name": "Der Verborgene Hain",
+    "center": [
+     840,
+     0,
+     230
+    ],
+    "radius": 30,
+    "isSecret": true,
+    "discoveryXp": 150
+   },
+   {
+    "id": "area_mt_krypta",
+    "name": "Wurzelkrypta-Eingang",
+    "center": [
+     880,
+     0,
+     820
+    ],
+    "radius": 30,
+    "discoveryXp": 120
+   },
+   {
+    "id": "area_mt_dornenhoehe",
+    "name": "Dornenhöhe",
+    "center": [
+     900,
+     0,
+     640
+    ],
+    "radius": 50,
+    "discoveryXp": 120
+   }
+  ],
+  "graveyards": [
+   [
+    425,
+    0,
+    360
+   ],
+   [
+    700,
+    0,
+    560
+   ]
+  ],
+  "spawns": [
+   {
+    "creature": "mob_young_wolf",
+    "position": [
+     235,
+     0,
+     245
+    ],
+    "count": 10,
+    "radius": 45,
+    "respawnSeconds": 30,
+    "wanderRadius": 8
+   },
+   {
+    "creature": "mob_young_wolf",
+    "position": [
+     150,
+     0,
+     280
+    ],
+    "count": 6,
+    "radius": 30,
+    "respawnSeconds": 30,
+    "wanderRadius": 8
+   },
+   {
+    "creature": "mob_young_wolf",
+    "position": [
+     290,
+     0,
+     165
+    ],
+    "count": 6,
+    "radius": 30,
+    "respawnSeconds": 30,
+    "wanderRadius": 8
+   },
+   {
+    "creature": "mob_boar",
+    "position": [
+     260,
+     0,
+     250
+    ],
+    "count": 8,
+    "radius": 50,
+    "respawnSeconds": 40,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_forest_wolf",
+    "position": [
+     550,
+     0,
+     300
+    ],
+    "count": 14,
+    "radius": 60,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_graumaehne",
+    "position": [
+     600,
+     0,
+     260
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1800,
+    "wanderRadius": 0,
+    "patrol": [
+     [
+      600,
+      0,
+      260
+     ],
+     [
+      640,
+      0,
+      330
+     ],
+     [
+      560,
+      0,
+      360
+     ],
+     [
+      520,
+      0,
+      280
+     ]
+    ]
+   },
+   {
+    "creature": "mob_moss_spider",
+    "position": [
+     610,
+     0,
+     520
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 6
+   },
+   {
+    "creature": "mob_grubenwicht",
+    "position": [
+     340,
+     0,
+     660
+    ],
+    "count": 12,
+    "radius": 50,
+    "respawnSeconds": 50,
+    "wanderRadius": 5
+   },
+   {
+    "creature": "mob_grubenwicht_geomant",
+    "position": [
+     330,
+     0,
+     690
+    ],
+    "count": 6,
+    "radius": 30,
+    "respawnSeconds": 60,
+    "wanderRadius": 3
+   },
+   {
+    "creature": "mob_rotbach_bandit",
+    "position": [
+     780,
+     0,
+     480
+    ],
+    "count": 12,
+    "radius": 55,
+    "respawnSeconds": 60,
+    "wanderRadius": 6
+   },
+   {
+    "creature": "mob_rotbach_lookout",
+    "position": [
+     760,
+     0,
+     440
+    ],
+    "count": 5,
+    "radius": 40,
+    "respawnSeconds": 60,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "mob_rotbach_bandit",
+    "position": [
+     740,
+     0,
+     530
+    ],
+    "count": 2,
+    "radius": 5,
+    "respawnSeconds": 60,
+    "wanderRadius": 0,
+    "patrol": [
+     [
+      740,
+      0,
+      530
+     ],
+     [
+      700,
+      0,
+      600
+     ],
+     [
+      740,
+      0,
+      530
+     ],
+     [
+      800,
+      0,
+      520
+     ]
+    ]
+   },
+   {
+    "creature": "mob_grell",
+    "position": [
+     810,
+     0,
+     470
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 300,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "mob_thornmaw",
+    "position": [
+     900,
+     0,
+     640
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 7200,
+    "wanderRadius": 0
+   }
+  ],
+  "npcs": [
+   {
+    "npc": "npc_mt_jorin",
+    "position": [
+     205,
+     0,
+     205
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_mt_martha",
+    "position": [
+     215,
+     0,
+     195
+    ],
+    "facing": 4.5
+   },
+   {
+    "npc": "npc_mt_dagra",
+    "position": [
+     125,
+     0,
+     325
+    ],
+    "facing": 4.4
+   },
+   {
+    "npc": "npc_mt_ilythra",
+    "position": [
+     305,
+     0,
+     125
+    ],
+    "facing": 5.5
+   },
+   {
+    "npc": "npc_mt_pimwick",
+    "position": [
+     262,
+     0,
+     305
+    ],
+    "facing": 3.3
+   },
+   {
+    "npc": "npc_mt_vogt",
+    "position": [
+     400,
+     0,
+     400
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_mt_innkeeper",
+    "position": [
+     410,
+     0,
+     388
+    ],
+    "facing": 0.2
+   },
+   {
+    "npc": "npc_mt_tanner",
+    "position": [
+     388,
+     0,
+     414
+    ],
+    "facing": 2.3
+   },
+   {
+    "npc": "npc_mt_smith",
+    "position": [
+     420,
+     0,
+     412
+    ],
+    "facing": 4.0
+   },
+   {
+    "npc": "npc_mt_dagna",
+    "position": [
+     384,
+     0,
+     394
+    ],
+    "facing": 0.9
+   },
+   {
+    "npc": "npc_mt_flightmaster",
+    "position": [
+     440,
+     0,
+     378
+    ],
+    "facing": 5.0
+   },
+   {
+    "npc": "npc_mt_lenz",
+    "position": [
+     430,
+     0,
+     422
+    ],
+    "facing": 4.0
+   },
+   {
+    "npc": "npc_mt_lamplighter",
+    "position": [
+     395,
+     0,
+     405
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_mt_rhea",
+    "position": [
+     700,
+     0,
+     700
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_mt_flightmaster_tower",
+    "position": [
+     712,
+     0,
+     690
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_mt_bram",
+    "position": [
+     612,
+     0,
+     498
+    ],
+    "facing": 1.0
+   },
+   {
+    "npc": "npc_mt_hermit",
+    "position": [
+     640,
+     0,
+     760
+    ],
+    "facing": 3.5
+   },
+   {
+    "npc": "npc_mt_guard",
+    "position": [
+     360,
+     0,
+     400
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      360,
+      0,
+      400
+     ],
+     [
+      400,
+      0,
+      445
+     ],
+     [
+      445,
+      0,
+      400
+     ],
+     [
+      400,
+      0,
+      355
+     ]
+    ]
+   },
+   {
+    "npc": "npc_mt_guard",
+    "position": [
+     445,
+     0,
+     400
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      445,
+      0,
+      400
+     ],
+     [
+      400,
+      0,
+      355
+     ],
+     [
+      360,
+      0,
+      400
+     ],
+     [
+      400,
+      0,
+      445
+     ]
+    ]
+   },
+   {
+    "npc": "npc_mt_guard",
+    "position": [
+     700,
+     0,
+     690
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_mt_spirit_healer",
+    "position": [
+     425,
+     0,
+     360
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_mt_spirit_healer",
+    "position": [
+     700,
+     0,
+     560
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_mt_trainer_warrior",
+    "position": [
+     422.0,
+     0,
+     400.0
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_mt_trainer_paladin",
+    "position": [
+     415.6,
+     0,
+     415.6
+    ],
+    "facing": 3.93
+   },
+   {
+    "npc": "npc_mt_trainer_hunter",
+    "position": [
+     400.0,
+     0,
+     422.0
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_mt_trainer_rogue",
+    "position": [
+     384.4,
+     0,
+     415.6
+    ],
+    "facing": 5.5
+   },
+   {
+    "npc": "npc_mt_trainer_priest",
+    "position": [
+     378.0,
+     0,
+     400.0
+    ],
+    "facing": 6.28
+   },
+   {
+    "npc": "npc_mt_trainer_mage",
+    "position": [
+     384.4,
+     0,
+     384.4
+    ],
+    "facing": 7.07
+   },
+   {
+    "npc": "npc_mt_trainer_warlock",
+    "position": [
+     400.0,
+     0,
+     378.0
+    ],
+    "facing": 7.85
+   },
+   {
+    "npc": "npc_mt_trainer_druid",
+    "position": [
+     415.6,
+     0,
+     384.4
+    ],
+    "facing": 8.64
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_iron_ore",
+    "position": [
+     110,
+     0,
+     345
+    ],
+    "count": 8,
+    "radius": 30,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_fennling_crate",
+    "position": [
+     270,
+     0,
+     320
+    ],
+    "count": 6,
+    "radius": 30,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_tainted_wellstone",
+    "position": [
+     315,
+     0,
+     105
+    ],
+    "count": 5,
+    "radius": 25,
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_sparkstone_chest",
+    "position": [
+     325,
+     0,
+     705
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_moonpetal",
+    "position": [
+     845,
+     0,
+     225
+    ],
+    "count": 4,
+    "radius": 15,
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_crypt_entrance_mt",
+    "position": [
+     880,
+     0,
+     820
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
+   }
+  ]
+ }
+]

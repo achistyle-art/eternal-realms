@@ -1,0 +1,343 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "rogue_assassination",
+  "class": "Rogue",
+  "name": "Meucheln",
+  "description": "Gifte und tödliche Finishing-Moves.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "ra_improved_eviscerate",
+    "name": "Verbessertes Ausweiden",
+    "description": "Ausweiden +5 % Schaden.",
+    "tier": 0,
+    "column": 0,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "ability": "rogue_eviscerate"
+     }
+    ]
+   },
+   {
+    "id": "ra_malice",
+    "name": "Bosheit",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "ra_ruthlessness",
+    "name": "Rücksichtslosigkeit",
+    "description": "Finishing-Moves kosten 5 % weniger.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -5,
+      "ability": "rogue_eviscerate"
+     },
+     {
+      "type": "CostPercent",
+      "value": -5,
+      "ability": "rogue_slice_and_dice"
+     }
+    ]
+   },
+   {
+    "id": "ra_lethality",
+    "name": "Tödlichkeit",
+    "description": "Kritischer Schaden +6 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 6
+     }
+    ]
+   },
+   {
+    "id": "ra_vile_poisons",
+    "name": "Üble Gifte",
+    "description": "Naturschaden +4 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 4,
+      "school": "Nature"
+     }
+    ]
+   },
+   {
+    "id": "ra_murder",
+    "name": "Mord",
+    "description": "Verursachter Schaden +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "ra_cold_blood",
+    "name": "Kaltblütigkeit",
+    "description": "Kritische Trefferchance +5 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 5
+     }
+    ],
+    "requires": "ra_lethality"
+   }
+  ]
+ },
+ {
+  "id": "rogue_combat",
+  "class": "Rogue",
+  "name": "Kampf",
+  "description": "Fechtkunst und unermüdliche Angriffe.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "rc_improved_ss",
+    "name": "Verbesserter Finsterer Stoß",
+    "description": "Finsterer Stoß kostet 3 Energie weniger (≈7 %).",
+    "tier": 0,
+    "column": 0,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -7,
+      "ability": "rogue_sinister_strike"
+     }
+    ]
+   },
+   {
+    "id": "rc_lightning_reflexes",
+    "name": "Blitzartige Reflexe",
+    "description": "Ausweichchance +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DodgeChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "rc_precision",
+    "name": "Präzision",
+    "description": "Trefferchance +1 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "HitChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "rc_dual_wield",
+    "name": "Beidhändigkeitsspezialisierung",
+    "description": "Körperlicher Schaden +2 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Physical"
+     }
+    ]
+   },
+   {
+    "id": "rc_blade_flurry",
+    "name": "Klingenwirbel",
+    "description": "Angriffstempo +4 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "AttackSpeedPercent",
+      "value": 4
+     }
+    ]
+   },
+   {
+    "id": "rc_aggression",
+    "name": "Aggression",
+    "description": "Finsterer Stoß und Ausweiden +2 % Schaden.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "ability": "rogue_sinister_strike"
+     },
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "ability": "rogue_eviscerate"
+     }
+    ]
+   },
+   {
+    "id": "rc_adrenaline_rush",
+    "name": "Adrenalinrausch",
+    "description": "Schaltet Adrenalinrausch frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "requires": "rc_blade_flurry",
+    "grantsAbility": "rogue_adrenaline_rush"
+   }
+  ]
+ },
+ {
+  "id": "rogue_subtlety",
+  "class": "Rogue",
+  "name": "Täuschung",
+  "description": "Aus den Schatten zuschlagen.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "rsu_master_of_deception",
+    "name": "Meister der Täuschung",
+    "description": "Bewegungstempo +2 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MoveSpeedPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "rsu_opportunity",
+    "name": "Günstige Gelegenheit",
+    "description": "Meucheln und Hinterhalt +4 % Schaden.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 4,
+      "ability": "rogue_backstab"
+     },
+     {
+      "type": "DamageDonePercent",
+      "value": 4,
+      "ability": "rogue_ambush"
+     }
+    ]
+   },
+   {
+    "id": "rsu_camouflage",
+    "name": "Tarnung",
+    "description": "Verstohlenheit: Abklingzeit -1 Sekunde.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CooldownFlat",
+      "value": -1,
+      "ability": "rogue_stealth"
+     }
+    ]
+   },
+   {
+    "id": "rsu_elusiveness",
+    "name": "Flüchtigkeit",
+    "description": "Entrinnen: Abklingzeit -45 Sekunden.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "CooldownFlat",
+      "value": -45,
+      "ability": "rogue_evasion"
+     }
+    ]
+   },
+   {
+    "id": "rsu_serrated",
+    "name": "Gezackte Klingen",
+    "description": "Körperlicher Schaden +2 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Physical"
+     }
+    ]
+   },
+   {
+    "id": "rsu_dirty_deeds",
+    "name": "Schmutzige Tricks",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "rsu_hemorrhage",
+    "name": "Blutsturz",
+    "description": "Schaltet Blutsturz frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "rogue_hemorrhage"
+   }
+  ]
+ }
+]

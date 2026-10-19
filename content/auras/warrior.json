@@ -1,0 +1,337 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "warrior_battle_stance",
+  "name": "Kampfhaltung",
+  "description": "Ausgewogene Haltung für den Angriff.",
+  "permanent": true,
+  "form": "BattleStance",
+  "dispellable": false,
+  "modifiers": []
+ },
+ {
+  "id": "warrior_defensive_stance",
+  "name": "Verteidigungshaltung",
+  "description": "10 % weniger erlittener Schaden, 10 % weniger verursachter Schaden, 30 % mehr Bedrohung.",
+  "permanent": true,
+  "form": "DefensiveStance",
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "DamageTakenPercent",
+    "value": -10
+   },
+   {
+    "type": "DamageDonePercent",
+    "value": -10
+   },
+   {
+    "type": "ThreatPercent",
+    "value": 30
+   }
+  ]
+ },
+ {
+  "id": "warrior_berserker_stance",
+  "name": "Berserkerhaltung",
+  "description": "3 % mehr kritische Treffer, aber 10 % mehr erlittener Schaden.",
+  "permanent": true,
+  "form": "BerserkerStance",
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "CritChance",
+    "value": 3
+   },
+   {
+    "type": "DamageTakenPercent",
+    "value": 10
+   },
+   {
+    "type": "ThreatPercent",
+    "value": -20
+   }
+  ]
+ },
+ {
+  "id": "warrior_charge_stun",
+  "name": "Sturmangriffsbetäubung",
+  "description": "Betäubt.",
+  "isDebuff": true,
+  "duration": 1.0,
+  "stun": true,
+  "dispellable": false
+ },
+ {
+  "id": "warrior_thunderclap_slow",
+  "name": "Donnerknall",
+  "description": "Angriffstempo um 10 % verringert.",
+  "isDebuff": true,
+  "duration": 10,
+  "modifiers": [
+   {
+    "type": "AttackSpeedPercent",
+    "value": -10
+   }
+  ]
+ },
+ {
+  "id": "warrior_sunder",
+  "name": "Rüstung zerreißen",
+  "description": "Rüstung pro Stapel verringert.",
+  "isDebuff": true,
+  "duration": 30,
+  "maxStacks": 5,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "ArmorFlat",
+    "value": -90
+   }
+  ]
+ },
+ {
+  "id": "warrior_shield_block",
+  "name": "Schildblock",
+  "description": "Blockchance um 75 % erhöht.",
+  "duration": 5,
+  "modifiers": [
+   {
+    "type": "BlockChance",
+    "value": 75
+   }
+  ]
+ },
+ {
+  "id": "warrior_demo_shout",
+  "name": "Demoralisierender Ruf",
+  "description": "Angriffskraft verringert.",
+  "isDebuff": true,
+  "duration": 30,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": -40
+   }
+  ]
+ },
+ {
+  "id": "warrior_last_stand",
+  "name": "Letztes Gefecht",
+  "description": "Maximales Leben um 30 % erhöht.",
+  "duration": 20,
+  "modifiers": [
+   {
+    "type": "MaxHealthPercent",
+    "value": 30
+   }
+  ]
+ },
+ {
+  "id": "warrior_mortal_wound",
+  "name": "Tödliche Wunde",
+  "description": "Erhaltene Heilung um 50 % verringert.",
+  "isDebuff": true,
+  "duration": 10,
+  "modifiers": [
+   {
+    "type": "HealingTakenPercent",
+    "value": -50
+   }
+  ]
+ },
+ {
+  "id": "warrior_enrage",
+  "name": "Raserei",
+  "description": "Verursachter Schaden um 15 % erhöht.",
+  "duration": 12,
+  "modifiers": [
+   {
+    "type": "DamageDonePercent",
+    "value": 15
+   }
+  ]
+ },
+ {
+  "id": "warrior_battle_shout_r1",
+  "name": "Schlachtruf",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 18
+   }
+  ]
+ },
+ {
+  "id": "warrior_battle_shout_r12",
+  "name": "Schlachtruf",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 51
+   }
+  ]
+ },
+ {
+  "id": "warrior_battle_shout_r22",
+  "name": "Schlachtruf",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 81
+   }
+  ]
+ },
+ {
+  "id": "warrior_battle_shout_r32",
+  "name": "Schlachtruf",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 111
+   }
+  ]
+ },
+ {
+  "id": "warrior_battle_shout_r42",
+  "name": "Schlachtruf",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 141
+   }
+  ]
+ },
+ {
+  "id": "warrior_battle_shout_r52",
+  "name": "Schlachtruf",
+  "description": "Angriffskraft erhöht.",
+  "isDebuff": false,
+  "duration": 120,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 171
+   }
+  ]
+ },
+ {
+  "id": "warrior_rend_r4",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 3,
+  "tickMax": 3,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warrior_rend_r10",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 6,
+  "tickMax": 7,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warrior_rend_r18",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 11,
+  "tickMax": 12,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warrior_rend_r26",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 17,
+  "tickMax": 19,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warrior_rend_r34",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 24,
+  "tickMax": 27,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warrior_rend_r42",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 32,
+  "tickMax": 35,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warrior_rend_r50",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 41,
+  "tickMax": 45,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "warrior_rend_r58",
+  "name": "Verwunden",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Physical",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 51,
+  "tickMax": 56,
+  "tickCoefficient": 0.10000000000000002
+ }
+]

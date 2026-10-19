@@ -1,0 +1,1310 @@
+[
+ {
+  "id": "q_as_grakar",
+  "title": "Blut der Steppe",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_durgash",
+  "turnIn": "npc_as_chief",
+  "requires": [],
+  "text": "Ein Grakar ohne erste Beute ist kein Grakar. Die Staubhyänen schleichen um unser Lager wie Aasfresser um einen Sterbenden. Töte sechs. Dann geh zu Lagerhauptmann Krothar in Kargrak und sag ihm, dass ein neuer Krieger angekommen ist.",
+  "objectivesText": "Tötet 6 Staubhyänen beim Grakar-Lager und meldet Euch bei Lagerhauptmann Krothar im Lager Kargrak.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Durgash schickt dich? Dann hast du Blut an der Klinge. Gut. Kargrak braucht jeden Arm.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_dust_hyena",
+    "count": 6,
+    "description": "Staubhyänen getötet"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Grakar"
+ },
+ {
+  "id": "q_as_nachtgeborene",
+  "title": "Unruhige Gräber",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_sylva",
+  "turnIn": "npc_as_chief",
+  "requires": [],
+  "text": "Du bist erwacht, wie wir alle. Aber nicht jeder Tote hier ist so... ruhig. Fünf Gräber der Grabwacht beben. Leg deine Hand darauf und sprich die Worte der Ruhe. Dann geh nach Kargrak. Krothar mag uns nicht, aber er braucht uns.",
+  "objectivesText": "Beruhigt 4 Unruhige Gräber bei der Grabwacht und meldet Euch bei Lagerhauptmann Krothar.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Eine Nachtgeborene, die Gräber beruhigt statt sie zu öffnen. Das ist neu. Willkommen in Kargrak.",
+  "objectives": [
+   {
+    "type": "Interact",
+    "target": "obj_grave_marker",
+    "count": 4,
+    "description": "Gräber beruhigt"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Nachtgeborene"
+ },
+ {
+  "id": "q_as_hornvolk",
+  "title": "Der Weg der Herde",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_haweno",
+  "turnIn": "npc_as_chief",
+  "requires": [],
+  "text": "Die Aschenkäfer fressen die letzten Gräser, die unsere Herden brauchen. Sie sind keine bösen Tiere – nur zu viele. Verringere ihre Zahl um fünf, damit die Weide atmen kann. Dann wandere nach Kargrak und biete Krothar deine Stärke an.",
+  "objectivesText": "Erlegt 5 Aschenkäfer beim Hornweide-Lager und meldet Euch bei Lagerhauptmann Krothar.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das Hornvolk schickt seine Jugend? Gut. Eure Kraft wird gebraucht – und eure Ruhe noch mehr.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_ash_beetle",
+    "count": 5,
+    "description": "Aschenkäfer erlegt"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Hornvolk"
+ },
+ {
+  "id": "q_as_skarr",
+  "title": "Knochen der Ahnen",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_zissa",
+  "turnIn": "npc_as_chief",
+  "requires": [],
+  "text": "Die Ahnen ssprechen durch Knochen, Kleines. Um unser Nest stehen Totems, und an jedem hängt ein Amulett. Nimm vier davon an dich – die Ahnen sollen dich auf deinem Weg begleiten. Dann geh zu Krothar. Er hört nicht gern auf Ssskarr, aber er hört.",
+  "objectivesText": "Sammelt 4 Knochenamulette von den Knochentotems beim Schuppennest und meldet Euch bei Lagerhauptmann Krothar.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Knochen und Geister. Ihr Skarr seid seltsam – aber ihr seid treu. Willkommen.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_bone_charm",
+    "count": 4,
+    "description": "Knochenamulette"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Skarr"
+ },
+ {
+  "id": "q_as_hyaenen",
+  "title": "Ohren als Beweis",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 2,
+  "minLevel": 1,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_beastmaster",
+  "turnIn": "npc_as_beastmaster",
+  "requires": [],
+  "text": "Die Staubhyänen werden mutiger, und ich will wissen, warum. Bring mir sechs Ohren – an den Ohren erkenne ich, ob sie krank sind oder nur hungrig.",
+  "objectivesText": "Bringt Bestienmeisterin Rakka 6 Hyänenohren.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Ohren sind grau verfärbt... als hätten sie verdorbenes Wasser getrunken. Merkwürdig. Hier, Tränke für die Jagd.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_hyena_ear",
+    "count": 6,
+    "description": "Hyänenohren"
+   }
+  ],
+  "rewardXp": 170,
+  "rewardMoney": 25,
+  "rewardItems": [
+   {
+    "item": "item_minor_healing_potion",
+    "count": 3
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 150
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_kaefer",
+  "title": "Brennende Drüsen",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 3,
+  "minLevel": 2,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_saltboiler",
+  "turnIn": "npc_as_saltboiler",
+  "requires": [],
+  "text": "Aschenkäfer haben Drüsen, die selbst im Tod noch glühen. Damit heize ich die Siedepfannen, wenn das Holz knapp ist. Fünf Drüsen, bitte – und pass auf, die Käfer haben harte Panzer.",
+  "objectivesText": "Sammelt 5 Aschenkäferdrüsen für Salzsiederin Tesh.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Heiß! Heiß! Gut so. Nimm etwas aus meiner Kiste.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_beetle_gland",
+    "count": 5,
+    "description": "Aschenkäferdrüsen"
+   }
+  ],
+  "rewardXp": 330,
+  "rewardMoney": 50,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_salt_gloves",
+    "count": 1
+   },
+   {
+    "item": "item_salt_wraps",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 150
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_echsen",
+  "title": "Glutechsen-Plage",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 4,
+  "minLevel": 3,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_chief",
+  "turnIn": "npc_as_chief",
+  "requires": [],
+  "text": "Am Hyänenfelsen nisten Glutechsen. Sie setzen das trockene Gras in Brand – letzte Woche brannte fast unser Vorratslager. Töte zehn von ihnen, bevor die Steppe in Flammen aufgeht.",
+  "objectivesText": "Tötet 10 Glutechsen am Hyänenfelsen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das Feuer ist gebannt – für jetzt. Nimm dir etwas aus der Waffenkammer.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_ember_lizard",
+    "count": 10,
+    "description": "Glutechsen getötet"
+   }
+  ],
+  "rewardXp": 380,
+  "rewardMoney": 70,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_ash_hide_leggings",
+    "count": 1
+   },
+   {
+    "item": "item_ash_wrap_pants",
+    "count": 1
+   },
+   {
+    "item": "item_ash_chain_legs",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_glutsalz",
+  "title": "Salz für das Lager",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_saltboiler",
+  "turnIn": "npc_as_saltboiler",
+  "requires": [
+   "q_as_kaefer"
+  ],
+  "text": "In der Glutsenke im Süden liegen Glutsalzadern. Ohne Glutsalz verdirbt unser Fleisch in der Hitze. Bring mir sechs Brocken – die Glutechsen dort sind allerdings nicht erfreut über Besucher.",
+  "objectivesText": "Sammelt 6 Glutsalz an den Glutsalzadern in der Glutsenke.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Damit kommen wir durch den Sommer. Du hast dem Lager einen echten Dienst erwiesen.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_ember_salt",
+    "count": 6,
+    "description": "Glutsalz"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 80,
+  "rewardItems": [
+   {
+    "item": "item_lesser_healing_potion",
+    "count": 2
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 200
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_botschaft",
+  "title": "Botschaft zur Oase",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_chief",
+  "turnIn": "npc_as_scout",
+  "requires": [
+   "q_as_echsen"
+  ],
+  "text": "Kundschafterin Raskha hält die Oase Zharim im Südosten. Ich habe seit drei Tagen nichts von ihr gehört. Bring ihr diese Kriegsbotschaft – und sieh nach, ob sie noch lebt.",
+  "objectivesText": "Bringt die Kriegsbotschaft zu Kundschafterin Raskha in der Oase Zharim.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Krothar lebt noch, gut. Ich dachte schon, die Sandschinder hätten das Lager erreicht.",
+  "objectives": [
+   {
+    "type": "Deliver",
+    "target": "npc_as_scout",
+    "count": 1,
+    "description": "Botschaft überbracht"
+   },
+   {
+    "type": "Explore",
+    "target": "area_as_oase",
+    "count": 1,
+    "description": "Oase Zharim erreicht"
+   }
+  ],
+  "rewardXp": 300,
+  "rewardMoney": 30,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [
+   {
+    "item": "item_q_war_message",
+    "count": 1
+   }
+  ],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 150
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_oase",
+  "title": "Wasser der Oase",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 6,
+  "minLevel": 5,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_scout",
+  "turnIn": "npc_as_scout",
+  "requires": [
+   "q_as_botschaft"
+  ],
+  "text": "Die Sandschinder haben unsere Wasserschläuche gestohlen – und füllen sie an unserer Oase! Töte acht von ihnen im Lager westlich von hier und hol fünf gefüllte Wasserschläuche zurück.",
+  "objectivesText": "Tötet 8 Sandschinder-Plünderer und sammelt 5 Gefüllte Wasserschläuche.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Wasser! Endlich. Die Sandschinder werden es sich zweimal überlegen, bevor sie wiederkommen.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_sandreaver",
+    "count": 8,
+    "description": "Sandschinder getötet"
+   },
+   {
+    "type": "Collect",
+    "target": "item_q_water_skin",
+    "count": 5,
+    "description": "Wasserschläuche"
+   }
+  ],
+  "rewardXp": 560,
+  "rewardMoney": 90,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_scout_boots",
+    "count": 1
+   },
+   {
+    "item": "item_scout_sandals",
+    "count": 1
+   },
+   {
+    "item": "item_scout_treads",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_tukan",
+  "title": "Der verschwundene Späher",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 6,
+  "minLevel": 5,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_scout",
+  "turnIn": "npc_as_tukan",
+  "requires": [
+   "q_as_botschaft"
+  ],
+  "text": "Mein Späher Tukan sollte die Sandschinder beobachten. Er ist nicht zurückgekehrt. Such ihn zwischen hier und dem Hyänenfelsen.",
+  "objectivesText": "Findet Späher Tukan nördlich des Sandschinder-Lagers.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Endlich jemand! Ich dachte, die Hyänen holen mich heute Nacht.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_as_tukan",
+    "count": 1,
+    "description": "Späher Tukan gefunden"
+   }
+  ],
+  "rewardXp": 300,
+  "rewardMoney": 20,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_tukan_eskorte",
+  "title": "Durch die Hyänenrudel",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 7,
+  "minLevel": 5,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_tukan",
+  "turnIn": "npc_as_chief",
+  "requires": [
+   "q_as_tukan"
+  ],
+  "text": "Ich kann humpeln, aber kämpfen? Nein. Bring mich nach Kargrak. Die Hyänen riechen mein Blut – sie werden angreifen. Halte sie mir vom Leib!",
+  "objectivesText": "Begleitet Späher Tukan sicher ins Lager Kargrak.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Tukan lebt! Und er hat gesehen, was die Sandschinder planen. Gut gemacht.",
+  "objectives": [
+   {
+    "type": "Escort",
+    "target": "npc_as_tukan_escort",
+    "count": 1,
+    "description": "Tukan ins Lager begleitet"
+   }
+  ],
+  "rewardXp": 620,
+  "rewardMoney": 80,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_oasis_belt",
+    "count": 1
+   },
+   {
+    "item": "item_oasis_sash",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 2,
+  "exclusiveWith": [],
+  "escort": {
+   "npc": "npc_as_tukan_escort",
+   "startText": "Gut, los. Schau dich um, sie sind schnell.",
+   "endText": "Kargrak... Ich bin zurück.",
+   "waypoints": [
+    [
+     600,
+     0,
+     470
+    ],
+    [
+     570,
+     0,
+     455
+    ],
+    [
+     530,
+     0,
+     445
+    ],
+    [
+     495,
+     0,
+     435
+    ],
+    [
+     460,
+     0,
+     428
+    ],
+    [
+     430,
+     0,
+     425
+    ]
+   ],
+   "ambushes": [
+    {
+     "atWaypoint": 1,
+     "creature": "mob_hyena_ambusher",
+     "count": 2,
+     "text": "Da! Hyänen!"
+    },
+    {
+     "atWaypoint": 3,
+     "creature": "mob_hyena_ambusher",
+     "count": 2,
+     "text": "Das Rudel kommt zurück!"
+    }
+   ]
+  }
+ },
+ {
+  "id": "q_as_kult",
+  "title": "Der Kult der Hohlen Flut",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 8,
+  "minLevel": 7,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_chief",
+  "turnIn": "npc_as_chief",
+  "requires": [
+   "q_as_botschaft"
+  ],
+  "text": "Tukan hat Kultisten in der Schlucht östlich von hier gesehen. Sie predigen vom Ende der Welt und vergiften Brunnen. Töte acht und bring mir drei ihrer Folianten – ich will wissen, wer hinter ihnen steht.",
+  "objectivesText": "Tötet 8 Kultisten der Hohlen Flut und sammelt 3 Kultfolianten.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Diese Seiten... sie nennen einen Namen: Varga. Ein Grakar. Einer von uns. Verrat!",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_hollow_cultist",
+    "count": 8,
+    "description": "Kultisten getötet"
+   },
+   {
+    "type": "Collect",
+    "target": "item_q_cult_tome",
+    "count": 3,
+    "description": "Kultfolianten"
+   }
+  ],
+  "rewardXp": 820,
+  "rewardMoney": 150,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_kargrak_axe",
+    "count": 1
+   },
+   {
+    "item": "item_kargrak_totemstaff",
+    "count": 1
+   },
+   {
+    "item": "item_kargrak_bow",
+    "count": 1
+   },
+   {
+    "item": "item_kargrak_kris",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 350
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_ritual",
+  "title": "Gelöschte Feuer",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 8,
+  "minLevel": 7,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_scout",
+  "turnIn": "npc_as_scout",
+  "requires": [
+   "q_as_oase"
+  ],
+  "text": "Die Kultisten entzünden in der Schlucht Ritualfeuer. Jedes Mal, wenn eines brennt, schmeckt das Oasenwasser bitterer. Lösche vier dieser Kohlebecken.",
+  "objectivesText": "Löscht 4 Ritualkohlebecken in der Schlucht der Hohlen Flut.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das Wasser klärt sich schon. Was auch immer sie da tun – du hast es gestört.",
+  "objectives": [
+   {
+    "type": "Interact",
+    "target": "obj_ritual_brazier",
+    "count": 4,
+    "description": "Kohlebecken gelöscht"
+   }
+  ],
+  "rewardXp": 700,
+  "rewardMoney": 100,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_cult_helm",
+    "count": 1
+   },
+   {
+    "item": "item_cult_hood",
+    "count": 1
+   },
+   {
+    "item": "item_cult_cap",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_varga",
+  "title": "Kriegsfürst Varga",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 10,
+  "minLevel": 8,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_chief",
+  "turnIn": "npc_as_chief",
+  "requires": [
+   "q_as_kult"
+  ],
+  "text": "Varga war mein Waffenbruder. Jetzt führt er den Kult. Ich kann nicht selbst gehen – das Lager braucht mich. Nimm Gefährten mit, er ist kein gewöhnlicher Gegner. Bring mir seine Kriegsmaske. Der Pakt vergisst keinen Verrat.",
+  "objectivesText": "Besiegt Kriegsfürst Varga in der Schlucht der Hohlen Flut und bringt Lagerhauptmann Krothar Vargas Kriegsmaske. (Gruppenquest)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Varga... Er war ein guter Krieger, bevor die Flut ihn holte. Du hast getan, was ich nicht konnte. Der Pakt ehrt dich.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_varga_head",
+    "count": 1,
+    "description": "Vargas Kriegsmaske"
+   }
+  ],
+  "rewardXp": 1400,
+  "rewardMoney": 400,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_varga_mace",
+    "count": 1
+   },
+   {
+    "item": "item_varga_shield",
+    "count": 1
+   },
+   {
+    "item": "item_varga_ring",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 500
+   },
+   {
+    "faction": "rep_kharzul",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 3,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_gnade",
+  "title": "Ein letzter Brief",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 10,
+  "minLevel": 9,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_elron",
+  "turnIn": "npc_as_asha",
+  "requires": [
+   "q_as_varga"
+  ],
+  "text": "Varga ist tot... Dann bin ich frei. Ich habe der Flut gedient, weil sie mir Stimmen meiner toten Brüder versprach. Bitte – bring meiner Mutter Asha diesen Brief. Sie soll es von mir hören, nicht von den Wachen.",
+  "objectivesText": "Überbringt Mutter Asha im Grakar-Lager Elrons Abschiedsbrief. (Entscheidung: schließt 'Das Urteil des Paktes' aus.)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Elron... mein dummer, verlorener Junge. Danke, dass du ihn nicht vergessen hast. Nimm dies – es gehörte seinem Vater.",
+  "objectives": [
+   {
+    "type": "Deliver",
+    "target": "npc_as_asha",
+    "count": 1,
+    "description": "Brief überbracht"
+   }
+  ],
+  "rewardXp": 700,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_cunning_amulet",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [
+   {
+    "item": "item_q_elron_letter",
+    "count": 1
+   }
+  ],
+  "rewardReputation": [
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   },
+   {
+    "faction": "rep_kargrak",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [
+   "q_as_urteil"
+  ]
+ },
+ {
+  "id": "q_as_urteil",
+  "title": "Das Urteil des Paktes",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 10,
+  "minLevel": 9,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_elron",
+  "turnIn": "npc_as_chief",
+  "requires": [
+   "q_as_varga"
+  ],
+  "text": "Du willst, dass ich mich stelle? Dann geh zu Krothar. Sag ihm, ich gestehe alles. Der Pakt soll über mich richten.",
+  "objectivesText": "Überbringt Lagerhauptmann Krothar Elrons Geständnis. (Entscheidung: schließt 'Ein letzter Brief' aus.)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Er gesteht? Dann wird er vor den Paktrat gestellt. Ehre bedeutet, für seine Taten einzustehen. Das hat er wenigstens verstanden.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_as_chief",
+    "count": 1,
+    "description": "Geständnis überbracht"
+   }
+  ],
+  "rewardXp": 700,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_honor_amulet",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 350
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [
+   "q_as_gnade"
+  ]
+ },
+ {
+  "id": "q_as_knochenschlucht",
+  "title": "Flüstern in der Knochenschlucht",
+  "category": "Side",
+  "zone": "zone_aschensteppe",
+  "level": 8,
+  "minLevel": 6,
+  "faction": "None",
+  "class": "None",
+  "giver": "npc_as_seer",
+  "turnIn": "npc_as_seer",
+  "requires": [],
+  "text": "Die Erde erzählt mir von einer Schlucht im Nordosten, wo Knochen singen. Niemand aus dem Lager kennt sie. Finde sie – und lausche. Was du dort hörst, sagt mir, wie krank die Wurzeln unter der Asche sind.",
+  "objectivesText": "Findet die Knochenschlucht im Nordosten der Aschensteppe.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast das Singen gehört? Dann ist es schlimmer, als ich dachte. Die Wurzelkrypta ruft.",
+  "objectives": [
+   {
+    "type": "Explore",
+    "target": "area_as_knochenschlucht",
+    "count": 1,
+    "description": "Knochenschlucht entdeckt"
+   }
+  ],
+  "rewardXp": 760,
+  "rewardMoney": 100,
+  "rewardItems": [
+   {
+    "item": "item_ancestor_cloak",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 350
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wk_morrak_sp",
+  "title": "Das kranke Herz der Erde",
+  "category": "Dungeon",
+  "zone": "zone_aschensteppe",
+  "level": 16,
+  "minLevel": 13,
+  "faction": "None",
+  "class": "None",
+  "giver": "npc_as_seer",
+  "turnIn": "npc_as_seer",
+  "requires": [
+   "q_as_knochenschlucht"
+  ],
+  "text": "Unter dieser Steppe und unter dem Wald der Westler liegt dieselbe Krypta. Wurzelfürst Morrak ist verdorben, und seine Fäulnis kriecht bis in unsere Oase. Sammle vier Gefährten und bring mir sein Herz.",
+  "objectivesText": "Dringt mit einer Gruppe in die Wurzelkrypta ein, besiegt Wurzelfürst Morrak und bringt Seherin Ohanzee das Herz des Wurzelfürsten. (Dungeon, 5 Spieler)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das Herz ist rein. Die Erde atmet auf. Die Hüter der Wurzeln stehen in deiner Schuld.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_morrak_heart",
+    "count": 1,
+    "description": "Herz des Wurzelfürsten"
+   }
+  ],
+  "rewardXp": 3200,
+  "rewardMoney": 1500,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wk_morrak_ring",
+    "count": 1
+   },
+   {
+    "item": "item_wk_heart_trinket",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 1000
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_kharox",
+  "title": "Aschenwurm Kharox",
+  "category": "Main",
+  "zone": "zone_aschensteppe",
+  "level": 15,
+  "minLevel": 12,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_scout",
+  "turnIn": "npc_as_scout",
+  "requires": [
+   "q_as_varga"
+  ],
+  "text": "Aus dem Aschenkrater steigt Rauch auf – Kharox ist erwacht. Ein Wurm aus Glut, älter als der Pakt. Allein bist du Asche. Mit genug Kriegern... vielleicht eine Legende.",
+  "objectivesText": "Besiegt Aschenwurm Kharox im Aschenkrater. (Weltboss, Gruppe empfohlen)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Kharox ist tot! Die Trommeln von Kargrak werden deinen Namen schlagen!",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_kharox",
+    "count": 1,
+    "description": "Aschenwurm Kharox besiegt"
+   }
+  ],
+  "rewardXp": 3000,
+  "rewardMoney": 2000,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_kargrak",
+    "amount": 1000
+   },
+   {
+    "faction": "rep_kharzul",
+    "amount": 500
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_warrior",
+  "title": "Die Narbe des Kriegers",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Warrior",
+  "giver": "npc_as_trainer_warrior",
+  "turnIn": "npc_as_trainer_warrior",
+  "requires": [],
+  "text": "Ein Krieger des Paktes trägt seine Narben mit Stolz. Geh zum Hyänenfelsen und besiege acht Glutechsen – ihre Flammen hinterlassen die besten Narben.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 8× Glutechsen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_ember_lizard",
+    "count": 8,
+    "description": "Glutechsen"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_bracers",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_hunter",
+  "title": "Die Fährte der Hyäne",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Hunter",
+  "giver": "npc_as_trainer_hunter",
+  "turnIn": "npc_as_trainer_hunter",
+  "requires": [],
+  "text": "Ein Jäger kennt seine Beute. Jag zehn Staubhyänen und lerne, wie das Rudel denkt.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 10× Staubhyänen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_dust_hyena",
+    "count": 10,
+    "description": "Staubhyänen"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mail_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_rogue",
+  "title": "Klingen im Sand",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Rogue",
+  "giver": "npc_as_trainer_rogue",
+  "turnIn": "npc_as_trainer_rogue",
+  "requires": [],
+  "text": "Die Sandschinder halten sich für gefährlich. Zeig ihnen, was Gefahr bedeutet. Sechs von ihnen – schnell und leise.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 6× Sandschinder.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_sandreaver",
+    "count": 6,
+    "description": "Sandschinder"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_leather_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_priest",
+  "title": "Die Gabe der Toten",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Priest",
+  "giver": "npc_as_trainer_priest",
+  "turnIn": "npc_as_trainer_priest",
+  "requires": [],
+  "text": "Die Toten geben uns Kraft, die Lebenden nehmen sie uns. Die Kultisten der Hohlen Flut entweihen beides. Besiege vier von ihnen.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 4× Kultisten.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_hollow_cultist",
+    "count": 4,
+    "description": "Kultisten"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mantle",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_shaman",
+  "title": "Ruf der Elemente",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Shaman",
+  "giver": "npc_as_trainer_shaman",
+  "turnIn": "npc_as_trainer_shaman",
+  "requires": [],
+  "text": "Die Elemente sind unruhig. Die Glutechsen tragen Feuer in sich, das nicht ihnen gehört. Befreie es: Besiege acht von ihnen.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 8× Glutechsen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_ember_lizard",
+    "count": 8,
+    "description": "Glutechsen"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mail_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_mage",
+  "title": "Glut und Wille",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Mage",
+  "giver": "npc_as_trainer_mage",
+  "turnIn": "npc_as_trainer_mage",
+  "requires": [],
+  "text": "Die Sturmrufer der Sandschinder missbrauchen arkane Kräfte. Zeig ihnen echte Magie – besiege vier von ihnen.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 4× Sturmrufer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_sandreaver_caller",
+    "count": 4,
+    "description": "Sturmrufer"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mantle",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_warlock",
+  "title": "Seelen für den Pakt",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Warlock",
+  "giver": "npc_as_trainer_warlock",
+  "turnIn": "npc_as_trainer_warlock",
+  "requires": [],
+  "text": "Jede Seele ist eine Münze im Handel mit den Dämonen. Die Staubhyänen haben kleine Seelen. Hol mir zehn.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 10× Staubhyänen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_dust_hyena",
+    "count": 10,
+    "description": "Staubhyänen"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mantle",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_as_class_druid",
+  "title": "Das Gleichgewicht der Asche",
+  "category": "Class",
+  "zone": "zone_aschensteppe",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Schattenpakt",
+  "class": "Druid",
+  "giver": "npc_as_trainer_druid",
+  "turnIn": "npc_as_trainer_druid",
+  "requires": [],
+  "text": "Die Aschenkäfer überwuchern die Weiden. Die Natur verlangt Gleichgewicht – sechs müssen fallen.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 6× Aschenkäfer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Du hast dich bewiesen. Der Pakt wird von dir hören. Nimm dies als Zeichen deines Weges.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_ash_beetle",
+    "count": 6,
+    "description": "Aschenkäfer"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_leather_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ }
+]

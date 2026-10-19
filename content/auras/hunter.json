@@ -1,0 +1,198 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "hunter_serpent_sting_r4",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 2,
+  "tickMax": 3,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_serpent_sting_r10",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 5,
+  "tickMax": 6,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_serpent_sting_r18",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 10,
+  "tickMax": 11,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_serpent_sting_r26",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 15,
+  "tickMax": 17,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_serpent_sting_r34",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 22,
+  "tickMax": 24,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_serpent_sting_r42",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 29,
+  "tickMax": 32,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_serpent_sting_r50",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 37,
+  "tickMax": 41,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_serpent_sting_r58",
+  "name": "Schlangenbiss",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 15,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 46,
+  "tickMax": 51,
+  "tickCoefficient": 0.10000000000000002
+ },
+ {
+  "id": "hunter_hawk_r10",
+  "name": "Aspekt des Falken",
+  "description": "Angriffskraft erhöht.",
+  "permanent": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 20
+   }
+  ]
+ },
+ {
+  "id": "hunter_hawk_r20",
+  "name": "Aspekt des Falken",
+  "description": "Angriffskraft erhöht.",
+  "permanent": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 40
+   }
+  ]
+ },
+ {
+  "id": "hunter_hawk_r30",
+  "name": "Aspekt des Falken",
+  "description": "Angriffskraft erhöht.",
+  "permanent": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 60
+   }
+  ]
+ },
+ {
+  "id": "hunter_hawk_r40",
+  "name": "Aspekt des Falken",
+  "description": "Angriffskraft erhöht.",
+  "permanent": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 80
+   }
+  ]
+ },
+ {
+  "id": "hunter_hawk_r50",
+  "name": "Aspekt des Falken",
+  "description": "Angriffskraft erhöht.",
+  "permanent": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 100
+   }
+  ]
+ },
+ {
+  "id": "hunter_hawk_r60",
+  "name": "Aspekt des Falken",
+  "description": "Angriffskraft erhöht.",
+  "permanent": true,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "AttackPowerFlat",
+    "value": 120
+   }
+  ]
+ },
+ {
+  "id": "hunter_concussive",
+  "name": "Erschütternder Schuss",
+  "description": "Bewegungstempo um 50 % verringert.",
+  "isDebuff": true,
+  "duration": 4,
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": -50
+   }
+  ]
+ }
+]

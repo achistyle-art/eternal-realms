@@ -1,0 +1,132 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "mob_poison",
+  "name": "Gift",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 12,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 3,
+  "tickMax": 5
+ },
+ {
+  "id": "mob_strong_poison",
+  "name": "Starkes Gift",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 12,
+  "maxStacks": 3,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 9,
+  "tickMax": 12
+ },
+ {
+  "id": "mob_web",
+  "name": "Netz",
+  "description": "Festgehalten.",
+  "isDebuff": true,
+  "duration": 5,
+  "root": true
+ },
+ {
+  "id": "mob_bleed",
+  "name": "Blutung",
+  "description": "Blutet.",
+  "isDebuff": true,
+  "duration": 9,
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 4,
+  "tickMax": 6
+ },
+ {
+  "id": "mob_enrage",
+  "name": "Raserei",
+  "description": "Schaden und Angriffstempo stark erhöht.",
+  "duration": 600,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "DamageDonePercent",
+    "value": 50
+   },
+   {
+    "type": "AttackSpeedPercent",
+    "value": 30
+   }
+  ]
+ },
+ {
+  "id": "mob_stun",
+  "name": "Betäubt",
+  "description": "Betäubt.",
+  "isDebuff": true,
+  "duration": 2,
+  "stun": true
+ },
+ {
+  "id": "mob_fear",
+  "name": "Entsetzen",
+  "description": "Flieht voller Furcht.",
+  "isDebuff": true,
+  "duration": 4,
+  "fear": true,
+  "school": "Shadow"
+ },
+ {
+  "id": "mob_rootgrip",
+  "name": "Wurzelgriff",
+  "description": "Von Wurzeln festgehalten, erleidet Schaden.",
+  "isDebuff": true,
+  "duration": 6,
+  "root": true,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 2,
+  "tickMin": 12,
+  "tickMax": 16
+ },
+ {
+  "id": "mob_armor_crush",
+  "name": "Rüstungsbruch",
+  "description": "Rüstung verringert.",
+  "isDebuff": true,
+  "duration": 20,
+  "maxStacks": 5,
+  "modifiers": [
+   {
+    "type": "ArmorPercent",
+    "value": -8
+   }
+  ]
+ },
+ {
+  "id": "mob_spore_cloud",
+  "name": "Sporenwolke",
+  "description": "Erleidet Naturschaden.",
+  "isDebuff": true,
+  "duration": 10,
+  "school": "Nature",
+  "periodic": "Damage",
+  "tickInterval": 2,
+  "tickMin": 6,
+  "tickMax": 8
+ },
+ {
+  "id": "mob_scorch",
+  "name": "Glutbrand",
+  "description": "Brennt.",
+  "isDebuff": true,
+  "duration": 9,
+  "school": "Fire",
+  "periodic": "Damage",
+  "tickInterval": 3,
+  "tickMin": 5,
+  "tickMax": 7
+ }
+]

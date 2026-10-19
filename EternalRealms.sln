@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{020F7B9E-7A76-4A99-A312-E69345414E08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EternalRealms.ConsoleClient", "src\EternalRealms.ConsoleClient\EternalRealms.ConsoleClient.csproj", "{4E96EBA2-94CC-4A8F-B898-AAD69DCC55C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EternalRealms.Server", "src\EternalRealms.Server\EternalRealms.Server.csproj", "{14F890A7-5E3E-447C-AC8F-743222D64E64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EternalRealms.ServerHost", "src\EternalRealms.ServerHost\EternalRealms.ServerHost.csproj", "{8856268E-CC45-46D9-87FD-F147422170BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EternalRealms.Shared", "src\EternalRealms.Shared\EternalRealms.Shared.csproj", "{A3CF2D88-2A7D-46E2-A010-900819DB33E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3AAC4E05-AFD4-4F28-9474-EE7A1BCC33DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EternalRealms.Tests", "tests\EternalRealms.Tests\EternalRealms.Tests.csproj", "{0117ADD1-11F6-4CBF-B4CE-D5E7083CE8F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E96EBA2-94CC-4A8F-B898-AAD69DCC55C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E96EBA2-94CC-4A8F-B898-AAD69DCC55C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E96EBA2-94CC-4A8F-B898-AAD69DCC55C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E96EBA2-94CC-4A8F-B898-AAD69DCC55C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14F890A7-5E3E-447C-AC8F-743222D64E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14F890A7-5E3E-447C-AC8F-743222D64E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14F890A7-5E3E-447C-AC8F-743222D64E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14F890A7-5E3E-447C-AC8F-743222D64E64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8856268E-CC45-46D9-87FD-F147422170BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8856268E-CC45-46D9-87FD-F147422170BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8856268E-CC45-46D9-87FD-F147422170BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8856268E-CC45-46D9-87FD-F147422170BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3CF2D88-2A7D-46E2-A010-900819DB33E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3CF2D88-2A7D-46E2-A010-900819DB33E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3CF2D88-2A7D-46E2-A010-900819DB33E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3CF2D88-2A7D-46E2-A010-900819DB33E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0117ADD1-11F6-4CBF-B4CE-D5E7083CE8F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0117ADD1-11F6-4CBF-B4CE-D5E7083CE8F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0117ADD1-11F6-4CBF-B4CE-D5E7083CE8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0117ADD1-11F6-4CBF-B4CE-D5E7083CE8F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E96EBA2-94CC-4A8F-B898-AAD69DCC55C2} = {020F7B9E-7A76-4A99-A312-E69345414E08}
+		{14F890A7-5E3E-447C-AC8F-743222D64E64} = {020F7B9E-7A76-4A99-A312-E69345414E08}
+		{8856268E-CC45-46D9-87FD-F147422170BD} = {020F7B9E-7A76-4A99-A312-E69345414E08}
+		{A3CF2D88-2A7D-46E2-A010-900819DB33E3} = {020F7B9E-7A76-4A99-A312-E69345414E08}
+		{0117ADD1-11F6-4CBF-B4CE-D5E7083CE8F6} = {3AAC4E05-AFD4-4F28-9474-EE7A1BCC33DD}
+	EndGlobalSection
+EndGlobal

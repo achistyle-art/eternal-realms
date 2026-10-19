@@ -1,0 +1,110 @@
+[
+  {
+    "id": "Warrior", "name": "Krieger", "description": "Meister jeder Waffe. Krieger erzeugen Wut im Kampf, tragen Platte und stehen in der ersten Reihe – als Tank mit Schild oder als verheerender Nahkämpfer.",
+    "powerType": "Rage", "maxArmor": "Plate", "roles": ["Tank", "MeleeDps"],
+    "weapons": ["Sword1H", "Sword2H", "Axe1H", "Axe2H", "Mace1H", "Mace2H", "Dagger", "Polearm", "Staff", "FistWeapon", "Shield", "Bow", "Gun", "Crossbow", "Thrown"],
+    "baseStats": { "strength": 23, "agility": 20, "stamina": 22, "intellect": 17, "spirit": 18 },
+    "statsPerLevel": { "strength": 1.6, "agility": 0.9, "stamina": 1.5, "intellect": 0.2, "spirit": 0.4 },
+    "healthFactor": 1.1, "manaFactor": 0, "apPerStrength": 2, "apPerAgility": 0, "rangedApPerAgility": 1,
+    "startingAbilities": ["warrior_battle_stance", "warrior_heroic_strike", "warrior_battle_shout"],
+    "startingItems": ["item_worn_shortsword", "item_recruit_tunic", "item_recruit_pants", "item_hearthstone", "item_tough_jerky"],
+    "talentTrees": ["warrior_arms", "warrior_fury", "warrior_protection"],
+    "previewAbilities": ["warrior_heroic_strike", "warrior_charge", "warrior_taunt", "warrior_execute"]
+  },
+  {
+    "id": "Paladin", "name": "Paladin", "description": "Heilige Streiter des Sonnenbündnisses. Paladine verbinden schwere Rüstung mit Heiligem Licht: Sie schützen, heilen und richten.",
+    "powerType": "Mana", "maxArmor": "Plate", "roles": ["Tank", "Healer", "MeleeDps"],
+    "weapons": ["Sword1H", "Sword2H", "Axe1H", "Axe2H", "Mace1H", "Mace2H", "Polearm", "Shield"],
+    "baseStats": { "strength": 22, "agility": 20, "stamina": 22, "intellect": 20, "spirit": 21 },
+    "statsPerLevel": { "strength": 1.3, "agility": 0.6, "stamina": 1.3, "intellect": 0.8, "spirit": 0.8 },
+    "healthFactor": 1.0, "manaFactor": 0.9, "apPerStrength": 2, "apPerAgility": 0, "rangedApPerAgility": 1,
+    "startingAbilities": ["paladin_seal_of_righteousness", "paladin_holy_light", "paladin_devotion_aura"],
+    "startingItems": ["item_worn_mace", "item_recruit_tunic", "item_recruit_pants", "item_hearthstone", "item_tough_jerky", "item_refreshing_water"],
+    "talentTrees": ["paladin_holy", "paladin_protection", "paladin_retribution"],
+    "previewAbilities": ["paladin_holy_light", "paladin_judgement", "paladin_hammer_of_justice", "paladin_consecration"]
+  },
+  {
+    "id": "Hunter", "name": "Jäger", "description": "Fährtenleser und Schützen, die mit einem tierischen Gefährten jagen. Jäger kämpfen aus der Distanz und halten Gegner mit Schüssen und Fallen auf Abstand.",
+    "powerType": "Mana", "maxArmor": "Mail", "roles": ["RangedDps"],
+    "weapons": ["Sword1H", "Sword2H", "Axe1H", "Axe2H", "Dagger", "Polearm", "Staff", "FistWeapon", "Bow", "Gun", "Crossbow"],
+    "baseStats": { "strength": 18, "agility": 24, "stamina": 21, "intellect": 20, "spirit": 21 },
+    "statsPerLevel": { "strength": 0.5, "agility": 1.7, "stamina": 1.2, "intellect": 0.6, "spirit": 0.7 },
+    "healthFactor": 0.95, "manaFactor": 0.8, "apPerStrength": 1, "apPerAgility": 1, "rangedApPerAgility": 2,
+    "startingAbilities": ["hunter_raptor_strike", "hunter_call_pet"],
+    "startingItems": ["item_worn_axe", "item_crude_bow", "item_recruit_tunic", "item_recruit_pants", "item_hearthstone", "item_tough_jerky", "item_refreshing_water"],
+    "talentTrees": ["hunter_beast_mastery", "hunter_marksmanship", "hunter_survival"],
+    "previewAbilities": ["hunter_arcane_shot", "hunter_serpent_sting", "hunter_call_pet", "hunter_multi_shot"]
+  },
+  {
+    "id": "Rogue", "name": "Schurke", "description": "Schattenhafte Klingen, die aus der Verstohlenheit zuschlagen. Schurken sammeln Kombopunkte und entfesseln damit verheerende Finishing-Moves.",
+    "powerType": "Energy", "maxArmor": "Leather", "roles": ["MeleeDps"],
+    "weapons": ["Sword1H", "Mace1H", "Dagger", "FistWeapon", "Bow", "Gun", "Crossbow", "Thrown"],
+    "baseStats": { "strength": 19, "agility": 25, "stamina": 20, "intellect": 18, "spirit": 18 },
+    "statsPerLevel": { "strength": 0.8, "agility": 1.8, "stamina": 1.1, "intellect": 0.2, "spirit": 0.4 },
+    "healthFactor": 0.95, "manaFactor": 0, "apPerStrength": 1, "apPerAgility": 1, "rangedApPerAgility": 1,
+    "startingAbilities": ["rogue_sinister_strike", "rogue_eviscerate", "rogue_stealth"],
+    "startingItems": ["item_worn_dagger", "item_recruit_tunic", "item_recruit_pants", "item_hearthstone", "item_tough_jerky"],
+    "talentTrees": ["rogue_assassination", "rogue_combat", "rogue_subtlety"],
+    "previewAbilities": ["rogue_stealth", "rogue_sinister_strike", "rogue_eviscerate", "rogue_kick"]
+  },
+  {
+    "id": "Priest", "name": "Priester", "description": "Diener des Glaubens, die mit Licht heilen oder mit Schatten zerstören. Priester sind die vielseitigsten Heiler – und Schattenpriester gefürchtete Zauberer.",
+    "powerType": "Mana", "maxArmor": "Cloth", "roles": ["Healer", "RangedDps"],
+    "weapons": ["Mace1H", "Dagger", "Staff", "Wand"],
+    "baseStats": { "strength": 17, "agility": 18, "stamina": 19, "intellect": 24, "spirit": 25 },
+    "statsPerLevel": { "strength": 0.2, "agility": 0.3, "stamina": 0.8, "intellect": 1.6, "spirit": 1.6 },
+    "healthFactor": 0.8, "manaFactor": 1.15, "apPerStrength": 1, "apPerAgility": 0, "rangedApPerAgility": 1,
+    "startingAbilities": ["priest_smite", "priest_lesser_heal", "priest_power_word_fortitude"],
+    "startingItems": ["item_worn_staff", "item_novice_robe", "item_recruit_pants", "item_hearthstone", "item_refreshing_water"],
+    "talentTrees": ["priest_discipline", "priest_holy", "priest_shadow"],
+    "previewAbilities": ["priest_lesser_heal", "priest_power_word_shield", "priest_shadow_word_pain", "priest_resurrection"]
+  },
+  {
+    "id": "Shaman", "name": "Schamane", "description": "Sprachrohre der Elemente des Schattenpakts. Schamanen schleudern Blitze, verstärken Waffen mit Erdkraft und heilen mit den Wassern der Ahnen.",
+    "powerType": "Mana", "maxArmor": "Mail", "roles": ["Healer", "MeleeDps", "RangedDps"],
+    "weapons": ["Axe1H", "Axe2H", "Mace1H", "Mace2H", "Dagger", "Staff", "FistWeapon", "Shield"],
+    "baseStats": { "strength": 21, "agility": 19, "stamina": 21, "intellect": 21, "spirit": 22 },
+    "statsPerLevel": { "strength": 1.0, "agility": 0.5, "stamina": 1.2, "intellect": 1.1, "spirit": 1.1 },
+    "healthFactor": 0.95, "manaFactor": 1.0, "apPerStrength": 2, "apPerAgility": 0, "rangedApPerAgility": 1,
+    "startingAbilities": ["shaman_lightning_bolt", "shaman_rockbiter_weapon", "shaman_healing_wave"],
+    "startingItems": ["item_worn_mace", "item_recruit_tunic", "item_recruit_pants", "item_hearthstone", "item_refreshing_water"],
+    "talentTrees": ["shaman_elemental", "shaman_enhancement", "shaman_restoration"],
+    "previewAbilities": ["shaman_lightning_bolt", "shaman_earth_shock", "shaman_healing_wave", "shaman_ghost_wolf"]
+  },
+  {
+    "id": "Mage", "name": "Magier", "description": "Gelehrte der arkanen Künste. Magier verbrennen, erfrieren und kontrollieren ihre Feinde – zerbrechlich, aber mit gewaltiger Zerstörungskraft.",
+    "powerType": "Mana", "maxArmor": "Cloth", "roles": ["RangedDps"],
+    "weapons": ["Sword1H", "Dagger", "Staff", "Wand"],
+    "baseStats": { "strength": 17, "agility": 18, "stamina": 18, "intellect": 26, "spirit": 23 },
+    "statsPerLevel": { "strength": 0.1, "agility": 0.2, "stamina": 0.7, "intellect": 1.9, "spirit": 1.3 },
+    "healthFactor": 0.75, "manaFactor": 1.2, "apPerStrength": 1, "apPerAgility": 0, "rangedApPerAgility": 1,
+    "startingAbilities": ["mage_fireball", "mage_arcane_intellect", "mage_frost_armor"],
+    "startingItems": ["item_worn_staff", "item_novice_robe", "item_recruit_pants", "item_hearthstone", "item_refreshing_water"],
+    "talentTrees": ["mage_arcane", "mage_fire", "mage_frost"],
+    "previewAbilities": ["mage_fireball", "mage_frostbolt", "mage_polymorph", "mage_frost_nova"]
+  },
+  {
+    "id": "Warlock", "name": "Hexenmeister", "description": "Paktierer mit dunklen Mächten. Hexenmeister verfluchen, verbrennen und beschwören Dämonen, die für sie kämpfen.",
+    "powerType": "Mana", "maxArmor": "Cloth", "roles": ["RangedDps"],
+    "weapons": ["Sword1H", "Dagger", "Staff", "Wand"],
+    "baseStats": { "strength": 18, "agility": 18, "stamina": 20, "intellect": 24, "spirit": 22 },
+    "statsPerLevel": { "strength": 0.3, "agility": 0.3, "stamina": 1.0, "intellect": 1.6, "spirit": 1.2 },
+    "healthFactor": 0.85, "manaFactor": 1.1, "apPerStrength": 1, "apPerAgility": 0, "rangedApPerAgility": 1,
+    "startingAbilities": ["warlock_shadow_bolt", "warlock_immolate", "warlock_demon_skin", "warlock_summon_imp"],
+    "startingItems": ["item_worn_dagger", "item_novice_robe", "item_recruit_pants", "item_hearthstone", "item_refreshing_water"],
+    "talentTrees": ["warlock_affliction", "warlock_demonology", "warlock_destruction"],
+    "previewAbilities": ["warlock_shadow_bolt", "warlock_corruption", "warlock_fear", "warlock_summon_voidwalker"]
+  },
+  {
+    "id": "Druid", "name": "Druide", "description": "Wandler zwischen Gestalten. Druiden tanken als Bär, kämpfen als Katze, heilen mit Naturmagie oder rufen Sternenfeuer herab.",
+    "powerType": "Mana", "maxArmor": "Leather", "roles": ["Tank", "Healer", "MeleeDps", "RangedDps"],
+    "weapons": ["Mace1H", "Mace2H", "Dagger", "Staff", "FistWeapon", "Polearm"],
+    "baseStats": { "strength": 20, "agility": 20, "stamina": 20, "intellect": 22, "spirit": 23 },
+    "statsPerLevel": { "strength": 0.9, "agility": 0.9, "stamina": 1.1, "intellect": 1.2, "spirit": 1.2 },
+    "healthFactor": 0.9, "manaFactor": 1.0, "apPerStrength": 2, "apPerAgility": 0, "rangedApPerAgility": 1,
+    "startingAbilities": ["druid_wrath", "druid_healing_touch", "druid_mark_of_the_wild"],
+    "startingItems": ["item_worn_staff", "item_recruit_tunic", "item_recruit_pants", "item_hearthstone", "item_refreshing_water"],
+    "talentTrees": ["druid_balance", "druid_feral", "druid_restoration"],
+    "previewAbilities": ["druid_bear_form", "druid_cat_form", "druid_rejuvenation", "druid_moonfire"]
+  }
+]

@@ -1,0 +1,328 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "shaman_elemental",
+  "class": "Shaman",
+  "name": "Elementar",
+  "description": "Herr über Blitz, Feuer und Erde.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "se_convection",
+    "name": "Konvektion",
+    "description": "Schockzauber und Blitzschlag kosten 2 % weniger.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -2
+     }
+    ]
+   },
+   {
+    "id": "se_concussion",
+    "name": "Erschütterung",
+    "description": "Naturschaden +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 1,
+      "school": "Nature"
+     }
+    ]
+   },
+   {
+    "id": "se_call_of_flame",
+    "name": "Ruf der Flamme",
+    "description": "Feuerschaden +5 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "school": "Fire"
+     }
+    ]
+   },
+   {
+    "id": "se_call_of_thunder",
+    "name": "Ruf des Donners",
+    "description": "Kritische Zaubertrefferchance +1 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Spell"
+     }
+    ]
+   },
+   {
+    "id": "se_lightning_mastery",
+    "name": "Blitzmeisterschaft",
+    "description": "Blitzschlag: Zauberzeit -0,2 s.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.2,
+      "ability": "shaman_lightning_bolt"
+     }
+    ]
+   },
+   {
+    "id": "se_elemental_fury",
+    "name": "Elementarfuror",
+    "description": "Kritischer Schaden +20 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 20
+     }
+    ],
+    "requires": "se_call_of_thunder"
+   },
+   {
+    "id": "se_elemental_mastery",
+    "name": "Elementarbeherrschung",
+    "description": "Kritische Zaubertrefferchance +4 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 4,
+      "crit": "Spell"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "shaman_enhancement",
+  "class": "Shaman",
+  "name": "Verstärkung",
+  "description": "Die Elemente in der eigenen Klinge.",
+  "primaryRole": "MeleeDps",
+  "talents": [
+   {
+    "id": "sen_ancestral_knowledge",
+    "name": "Wissen der Ahnen",
+    "description": "Maximales Mana +1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxPowerPercent",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "sen_shield_spec",
+    "name": "Schildspezialisierung",
+    "description": "Blockchance +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "BlockChance",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "sen_thundering",
+    "name": "Donnernde Stöße",
+    "description": "Kritische Trefferchance +1 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Melee"
+     }
+    ]
+   },
+   {
+    "id": "sen_toughness",
+    "name": "Zähigkeit",
+    "description": "Rüstung +2 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ArmorPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "sen_flurry",
+    "name": "Schlaghagel",
+    "description": "Angriffstempo +3 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "AttackSpeedPercent",
+      "value": 3
+     }
+    ],
+    "requires": "sen_thundering"
+   },
+   {
+    "id": "sen_weapon_mastery",
+    "name": "Waffenmeisterschaft",
+    "description": "Verursachter körperlicher Schaden +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Physical"
+     }
+    ]
+   },
+   {
+    "id": "sen_stormstrike",
+    "name": "Sturmschlag",
+    "description": "Schaltet Sturmschlag frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "shaman_stormstrike"
+   }
+  ]
+ },
+ {
+  "id": "shaman_restoration",
+  "class": "Shaman",
+  "name": "Wiederherstellung",
+  "description": "Heilende Wasser und Ahnenkraft.",
+  "primaryRole": "Healer",
+  "talents": [
+   {
+    "id": "sr_improved_hw",
+    "name": "Verbesserte Welle der Heilung",
+    "description": "Welle der Heilung: Zauberzeit -0,1 s.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "shaman_healing_wave"
+     }
+    ]
+   },
+   {
+    "id": "sr_tidal_focus",
+    "name": "Gezeitenfokus",
+    "description": "Heilzauber kosten 1 % weniger.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -1
+     }
+    ]
+   },
+   {
+    "id": "sr_ancestral_healing",
+    "name": "Heilung der Ahnen",
+    "description": "Erlittener Schaden -1 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageTakenPercent",
+      "value": -1
+     }
+    ]
+   },
+   {
+    "id": "sr_tidal_mastery",
+    "name": "Gezeitenmeisterschaft",
+    "description": "Kritische Zaubertrefferchance +1 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Spell"
+     }
+    ]
+   },
+   {
+    "id": "sr_healing_way",
+    "name": "Weg der Heilung",
+    "description": "Heilung +2 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "sr_purification",
+    "name": "Läuterung",
+    "description": "Heilung +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 2
+     }
+    ],
+    "requires": "sr_healing_way"
+   },
+   {
+    "id": "sr_chain_heal",
+    "name": "Kettenheilung",
+    "description": "Schaltet Kettenheilung frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "shaman_chain_heal"
+   }
+  ]
+ }
+]

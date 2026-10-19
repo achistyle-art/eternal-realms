@@ -1,0 +1,7 @@
+[
+  { "id": "rep_morgentau", "name": "Wacht von Morgentau", "faction": "Sonnenbuendnis", "description": "Die Bauern, Jäger und Wachen des Morgentauwaldes." },
+  { "id": "rep_sonnenfeste", "name": "Sonnenfeste", "faction": "Sonnenbuendnis", "description": "Die Krone und der Rat der Sonnenfeste." },
+  { "id": "rep_kargrak", "name": "Lager Kargrak", "faction": "Schattenpakt", "description": "Die Krieger und Kundschafter der Aschensteppe." },
+  { "id": "rep_kharzul", "name": "Kharzul", "faction": "Schattenpakt", "description": "Der Paktrat der Hauptstadt Kharzul." },
+  { "id": "rep_hueter_der_wurzeln", "name": "Hüter der Wurzeln", "faction": "None", "description": "Ein uralter Druidenzirkel, der beiden Fraktionen hilft, solange sie den Wald achten." }
+]

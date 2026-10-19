@@ -1,0 +1,1320 @@
+[
+ {
+  "id": "q_mt_aldorer",
+  "title": "Wölfe am Hof",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_jorin",
+  "turnIn": "npc_mt_vogt",
+  "requires": [],
+  "text": "Da bist du ja endlich! Die jungen Wölfe aus dem Wald schleichen jede Nacht um meinen Hof. Gestern haben sie Martha fast die Hühner geholt. Treib sie zurück – sechs von ihnen sollten reichen, damit der Rest Respekt lernt. Danach melde dich beim Vogt in Morgentau, er sucht kräftige Hände.",
+  "objectivesText": "Tötet 6 Junge Waldwölfe rund um Hof Lindenruh und meldet Euch dann bei Vogt Aldric Brenner im Dorf Morgentau.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Jorin schickt Euch? Gut. Wer Wölfe vertreiben kann, kann auch mehr. Willkommen in Morgentau.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_young_wolf",
+    "count": 6,
+    "description": "Junge Waldwölfe getötet"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Aldorer"
+ },
+ {
+  "id": "q_mt_felsgeborene",
+  "title": "Erz für die Ahnen",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_dagra",
+  "turnIn": "npc_mt_vogt",
+  "requires": [],
+  "text": "Du bist weit weg vom Eisenhang, Kind, aber der Fels ist überall derselbe. Die Ahnen verlangen ein Opfer, bevor du deinen Weg beginnst: Bring mir Eisenerz aus den Adern hier an der Grauklippe. Sechs Brocken. Dann zeig dem Vogt im Dorf, dass Felsgeborene arbeiten können.",
+  "objectivesText": "Sammelt 6 Eisenerzbrocken an den Erzadern der Grauklippe und bringt sie zu Vogt Aldric Brenner im Dorf Morgentau.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Erz von der Grauklippe? Dagra hat Euch geschickt, nehme ich an. Die Schmiede wird sich freuen – und ich mich auch.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_iron_ore_chunk",
+    "count": 6,
+    "description": "Eisenerzbrocken"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Felsgeborene"
+ },
+ {
+  "id": "q_mt_elarii",
+  "title": "Getrübte Quelle",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_ilythra",
+  "turnIn": "npc_mt_vogt",
+  "requires": [],
+  "text": "Spürst du es? Das Wasser von Silberquell schmeckt nach Asche. Vier Quellsteine leiten das Mondlicht ins Becken – und alle sind getrübt. Reinige sie mit deinen Händen und deinem Willen. Dann geh zum Vogt der Menschen. Wenn das Gift aus dem Wald kommt, müssen sie es erfahren.",
+  "objectivesText": "Reinigt 4 Getrübte Quellsteine bei Silberquell und berichtet Vogt Aldric Brenner im Dorf Morgentau.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Vergiftetes Quellwasser? Das ist schlimmer, als ich dachte. Danke, dass Ihr sofort gekommen seid.",
+  "objectives": [
+   {
+    "type": "Interact",
+    "target": "obj_tainted_wellstone",
+    "count": 4,
+    "description": "Quellsteine gereinigt"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Elarii"
+ },
+ {
+  "id": "q_mt_fennlinge",
+  "title": "Verlorene Zahnräder",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 1,
+  "minLevel": 1,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_pimwick",
+  "turnIn": "npc_mt_vogt",
+  "requires": [],
+  "text": "Katastrophe! Kalamität! Mein Dampfpflug ist explodiert – nur ein bisschen – und jetzt liegen meine Zahnräder überall im Gras verteilt. Fünf Stück brauche ich, sonst funktioniert nichts mehr. Bring sie bitte direkt zum Vogt, er hat mir die Werkstatt geliehen und will sehen, dass ich Fortschritte mache.",
+  "objectivesText": "Sammelt 5 Fennlings-Zahnradteile aus den verstreuten Werkzeugkisten beim Tüftlerschuppen und bringt sie zu Vogt Aldric Brenner.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Pimwicks Zahnräder... Ich frage lieber nicht, was explodiert ist. Danke für Eure Hilfe.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_gear_part",
+    "count": 5,
+    "description": "Zahnradteile"
+   }
+  ],
+  "rewardXp": 90,
+  "rewardMoney": 10,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [],
+  "race": "Fennlinge"
+ },
+ {
+  "id": "q_mt_eberplage",
+  "title": "Rübenräuber",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 2,
+  "minLevel": 1,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_jorin",
+  "turnIn": "npc_mt_jorin",
+  "requires": [],
+  "text": "Die Wölfe sind das eine, aber diese Borstenhauer! Sie wühlen meine Rüben aus und trampeln den Zaun nieder. Bring mir fünf ihrer Hauer, dann weiß ich, dass sie nicht wiederkommen. Vorsicht – sie greifen nur an, wenn man sie reizt, aber dann richtig.",
+  "objectivesText": "Bringt Bauer Jorin 5 Eberhauer von den Borstenhauer-Ebern.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Fünf Hauer! Endlich Ruhe auf dem Feld. Hier, nehmt die Tränke – Martha braut sie selbst.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_boar_tusk",
+    "count": 5,
+    "description": "Eberhauer"
+   }
+  ],
+  "rewardXp": 170,
+  "rewardMoney": 25,
+  "rewardItems": [
+   {
+    "item": "item_minor_healing_potion",
+    "count": 3
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 150
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_wolfshain",
+  "title": "Die Plage im Wolfshain",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 3,
+  "minLevel": 2,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_vogt",
+  "turnIn": "npc_mt_vogt",
+  "requires": [],
+  "text": "Die Jungtiere am Hof sind nur der Anfang. Im Wolfshain östlich des Dorfes jagen ausgewachsene Waldwölfe in Rudeln, wie ich es noch nie gesehen habe. Sie sind hungrig – oder etwas treibt sie aus dem tiefen Wald. Dünnt die Rudel aus, bevor sie einen Wanderer reißen.",
+  "objectivesText": "Tötet 10 Waldwölfe im Wolfshain östlich von Morgentau.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut gemacht. Die Wege sind wieder sicherer. Nehmt etwas aus der Kammer der Wache – Ihr habt es Euch verdient.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_forest_wolf",
+    "count": 10,
+    "description": "Waldwölfe getötet"
+   }
+  ],
+  "rewardXp": 320,
+  "rewardMoney": 60,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wolfshain_leggings",
+    "count": 1
+   },
+   {
+    "item": "item_wolfshain_robe_pants",
+    "count": 1
+   },
+   {
+    "item": "item_wolfshain_chain_legs",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_pelze",
+  "title": "Pelze für den Winter",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 4,
+  "minLevel": 3,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_tanner",
+  "turnIn": "npc_mt_tanner",
+  "requires": [],
+  "text": "Wenn Ihr schon im Wolfshain seid, bringt mir ihre Pelze! Der Winter kommt, und das Dorf braucht warme Mäntel. Sechs gute Pelze – keine zerfetzten, bitte.",
+  "objectivesText": "Sammelt 6 Waldwolfpelze für Gerberin Ilsa.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Wunderbar dicht. Damit kommt Morgentau durch den Winter. Wählt Euch etwas aus meiner Werkstatt.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wolf_pelt",
+    "count": 6,
+    "description": "Waldwolfpelze"
+   }
+  ],
+  "rewardXp": 380,
+  "rewardMoney": 70,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_tanner_gloves",
+    "count": 1
+   },
+   {
+    "item": "item_tanner_wraps",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 150
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_brief",
+  "title": "Ein Brief für den Wachturm",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_vogt",
+  "turnIn": "npc_mt_rhea",
+  "requires": [
+   "q_mt_wolfshain"
+  ],
+  "text": "Hauptfrau Rhea Falkenau hält am Alten Wachturm im Südosten Ausschau. Sie muss erfahren, was im Wolfshain vorgeht – und ich will wissen, was sie gesehen hat. Bringt ihr diesen versiegelten Brief. Folgt der Straße nach Südosten, an der Spinnenmulde vorbei.",
+  "objectivesText": "Bringt den Versiegelten Brief zu Hauptfrau Rhea Falkenau am Alten Wachturm.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ein Brief vom Vogt? Dann ist es ernster, als ich dachte. Lasst mich lesen...",
+  "objectives": [
+   {
+    "type": "Deliver",
+    "target": "npc_mt_rhea",
+    "count": 1,
+    "description": "Brief überbracht"
+   },
+   {
+    "type": "Explore",
+    "target": "area_mt_wachturm",
+    "count": 1,
+    "description": "Alten Wachturm erreicht"
+   }
+  ],
+  "rewardXp": 300,
+  "rewardMoney": 30,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [
+   {
+    "item": "item_q_sealed_letter",
+    "count": 1
+   }
+  ],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 150
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_spinnen",
+  "title": "Die Spinnenmulde",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 6,
+  "minLevel": 5,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_rhea",
+  "turnIn": "npc_mt_rhea",
+  "requires": [
+   "q_mt_brief"
+  ],
+  "text": "Vom Turm aus sehe ich die Mulde: Netze über den halben Wald. Die Moosspinnen vermehren sich, als hätte jemand sie gefüttert. Tötet acht von ihnen und bringt mir vier Drüsen – der Alchemist im Sonnenfeste will wissen, ob ihr Gift sich verändert hat.",
+  "objectivesText": "Tötet 8 Moosspinnen und sammelt 4 Moosspinnendrüsen für Hauptfrau Rhea Falkenau.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Drüsen riechen... falsch. Verdorben. Wie das Wasser in Silberquell. Das gefällt mir nicht.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_moss_spider",
+    "count": 8,
+    "description": "Moosspinnen getötet"
+   },
+   {
+    "type": "Collect",
+    "target": "item_q_spider_gland",
+    "count": 4,
+    "description": "Moosspinnendrüsen"
+   }
+  ],
+  "rewardXp": 560,
+  "rewardMoney": 90,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_watchtower_boots",
+    "count": 1
+   },
+   {
+    "item": "item_watchtower_sandals",
+    "count": 1
+   },
+   {
+    "item": "item_watchtower_treads",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_vermisst",
+  "title": "Der vermisste Holzfäller",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 6,
+  "minLevel": 5,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_rhea",
+  "turnIn": "npc_mt_bram",
+  "requires": [
+   "q_mt_brief"
+  ],
+  "text": "Holzfäller Bram ist vor zwei Tagen in Richtung Mulde aufgebrochen und nicht zurückgekehrt. Seine Frau war heute Morgen hier, in Tränen. Sucht ihn am Rand der Spinnenmulde – vielleicht lebt er noch.",
+  "objectivesText": "Findet Holzfäller Bram am Rand der Spinnenmulde.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ihr... Ihr seid echt? Keine Spinne? Den Göttern sei Dank!",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_mt_bram",
+    "count": 1,
+    "description": "Holzfäller Bram gefunden"
+   }
+  ],
+  "rewardXp": 300,
+  "rewardMoney": 20,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_bram_eskorte",
+  "title": "Heimweg durch die Mulde",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 7,
+  "minLevel": 5,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_bram",
+  "turnIn": "npc_mt_vogt",
+  "requires": [
+   "q_mt_vermisst"
+  ],
+  "text": "Mein Bein ist verletzt, aber ich kann laufen – langsam. Bringt mich nach Morgentau, bitte. Die Spinnen lauern im Gebüsch und springen jeden an, der sich bewegt. Bleibt dicht bei mir!",
+  "objectivesText": "Begleitet Holzfäller Bram sicher ins Dorf Morgentau.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Bram ist zurück! Seine Familie wird Euch das nie vergessen. Ich auch nicht.",
+  "objectives": [
+   {
+    "type": "Escort",
+    "target": "npc_mt_bram_escort",
+    "count": 1,
+    "description": "Bram ins Dorf begleitet"
+   }
+  ],
+  "rewardXp": 620,
+  "rewardMoney": 80,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_bram_belt",
+    "count": 1
+   },
+   {
+    "item": "item_bram_sash",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 2,
+  "exclusiveWith": [],
+  "escort": {
+   "npc": "npc_mt_bram_escort",
+   "startText": "Also gut... los geht's. Langsam.",
+   "endText": "Morgentau! Ich bin zu Hause!",
+   "waypoints": [
+    [
+     612,
+     0,
+     498
+    ],
+    [
+     580,
+     0,
+     480
+    ],
+    [
+     540,
+     0,
+     460
+    ],
+    [
+     500,
+     0,
+     440
+    ],
+    [
+     460,
+     0,
+     425
+    ],
+    [
+     425,
+     0,
+     415
+    ]
+   ],
+   "ambushes": [
+    {
+     "atWaypoint": 1,
+     "creature": "mob_spider_ambusher",
+     "count": 2,
+     "text": "Spinnen! Da, im Gebüsch!"
+    },
+    {
+     "atWaypoint": 3,
+     "creature": "mob_spider_ambusher",
+     "count": 2,
+     "text": "Noch mehr! Hört das denn nie auf?"
+    }
+   ]
+  }
+ },
+ {
+  "id": "q_mt_grubenwichte",
+  "title": "Grubenwichte im Funkenloch",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 6,
+  "minLevel": 5,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_dagna",
+  "turnIn": "npc_mt_dagna",
+  "requires": [],
+  "text": "Die Funkenloch-Mine war die beste Eisenmine diesseits des Eisenhangs! Bis diese stinkenden, kerzenköpfigen Grubenwichte sie besetzt haben. Sie greifen in Rudeln an und rufen Hilfe, wenn's eng wird. Werft acht von ihnen raus – und vier ihrer Geomanten, die mit Feuer spielen.",
+  "objectivesText": "Tötet 8 Grubenwichte und 4 Grubenwicht-Geomanten in der Funkenloch-Mine.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "HA! Das wird ihnen eine Lehre sein. Nehmt, was Euch passt – Bergmannsware, solide gearbeitet.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_grubenwicht",
+    "count": 8,
+    "description": "Grubenwichte getötet"
+   },
+   {
+    "type": "Kill",
+    "target": "mob_grubenwicht_geomant",
+    "count": 4,
+    "description": "Geomanten getötet"
+   }
+  ],
+  "rewardXp": 620,
+  "rewardMoney": 90,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_miner_helm",
+    "count": 1
+   },
+   {
+    "item": "item_miner_hood",
+    "count": 1
+   },
+   {
+    "item": "item_miner_cap",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 2,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_funkenstein",
+  "title": "Der Funkenstein",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 7,
+  "minLevel": 6,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_dagna",
+  "turnIn": "npc_mt_dagna",
+  "requires": [
+   "q_mt_grubenwichte"
+  ],
+  "text": "Die Geomanten haben etwas aus der Tiefe geholt – einen Funkenstein. Sie verehren ihn wie einen Gott. Er liegt in einer Truhe am Ende des Hauptstollens. Holt ihn, bevor sie damit die ganze Mine in die Luft jagen.",
+  "objectivesText": "Holt den Funkenstein aus der Truhe am Ende der Funkenloch-Mine.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Er glüht... und er summt. So etwas habe ich in vierzig Jahren Bergbau nicht gesehen. Das muss nach Sonnenfeste.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_sparkstone",
+    "count": 1,
+    "description": "Funkenstein"
+   }
+  ],
+  "rewardXp": 520,
+  "rewardMoney": 120,
+  "rewardItems": [
+   {
+    "item": "item_lesser_healing_potion",
+    "count": 2
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 200
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_rotbach",
+  "title": "Räuber am Rotbach",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 8,
+  "minLevel": 7,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_vogt",
+  "turnIn": "npc_mt_vogt",
+  "requires": [
+   "q_mt_brief"
+  ],
+  "text": "Rheas Bericht bestätigt es: Am Rotbach hat sich eine Räuberbande eingenistet. Sie überfallen Händler und nehmen junge Leute aus den Dörfern mit. Schlagt zehn von ihnen zurück und bringt mir ihre Befehle – ich will wissen, wer sie anführt.",
+  "objectivesText": "Tötet 10 Rotbach-Räuber und sammelt 3 Befehle der Rotbach-Räuber.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Diese Befehle sind mit einem G gesiegelt... Grell. Ein ehemaliger Söldner der Krone. Das wird gefährlich.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rotbach_bandit",
+    "count": 10,
+    "description": "Rotbach-Räuber getötet"
+   },
+   {
+    "type": "Collect",
+    "target": "item_q_bandit_orders",
+    "count": 3,
+    "description": "Befehle"
+   }
+  ],
+  "rewardXp": 820,
+  "rewardMoney": 150,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rotbach_cleaver",
+    "count": 1
+   },
+   {
+    "item": "item_rotbach_staff",
+    "count": 1
+   },
+   {
+    "item": "item_rotbach_bow",
+    "count": 1
+   },
+   {
+    "item": "item_rotbach_dagger",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 350
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_grell",
+  "title": "Hauptmann Grell",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 10,
+  "minLevel": 8,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_vogt",
+  "turnIn": "npc_mt_vogt",
+  "requires": [
+   "q_mt_rotbach"
+  ],
+  "text": "Grell war einst Hauptmann der Königsgarde, bis er für Gold die Seiten wechselte. Er ist zäh, erfahren und nie allein. Geht nicht allein zu ihm – nehmt Gefährten mit. Bringt mir sein Hauptmannsabzeichen, damit Morgentau weiß, dass es vorbei ist.",
+  "objectivesText": "Besiegt Räuberhauptmann Grell im Banditenlager am Rotbach und bringt Vogt Aldric Brenner Grells Hauptmannsabzeichen. (Gruppenquest)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Grells Abzeichen... Es ist vorbei. Ihr habt Morgentau gerettet. Ich werde dem Rat in Sonnenfeste von Euch berichten.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_grell_insignia",
+    "count": 1,
+    "description": "Grells Hauptmannsabzeichen"
+   }
+  ],
+  "rewardXp": 1400,
+  "rewardMoney": 400,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_grell_greatsword",
+    "count": 1
+   },
+   {
+    "item": "item_grell_shield",
+    "count": 1
+   },
+   {
+    "item": "item_grell_signet",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 500
+   },
+   {
+    "faction": "rep_sonnenfeste",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 3,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_gnade",
+  "title": "Gnade für Lenz",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 10,
+  "minLevel": 9,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_lenz",
+  "turnIn": "npc_mt_martha",
+  "requires": [
+   "q_mt_grell"
+  ],
+  "text": "Grell ist tot? Dann... ist es vorbei. Ich bin kein Räuber. Grell versprach Arbeit, Geld für meine Mutter. Bitte – bringt ihr diesen Brief. Sie soll wissen, dass ich lebe und dass es mir leidtut. Der Vogt wird mich vielleicht hängen, aber sie soll es von mir hören.",
+  "objectivesText": "Überbringt Martha Lenz auf Hof Lindenruh den Brief ihres Sohnes. (Entscheidung: schließt 'Gerechtigkeit für Morgentau' aus.)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Er lebt? Mein Lenz lebt... Danke. Danke! Nehmt dieses Amulett – es gehörte seinem Vater.",
+  "objectives": [
+   {
+    "type": "Deliver",
+    "target": "npc_mt_martha",
+    "count": 1,
+    "description": "Brief überbracht"
+   }
+  ],
+  "rewardXp": 700,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_mercy_amulet",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [
+   {
+    "item": "item_q_lenz_letter",
+    "count": 1
+   }
+  ],
+  "rewardReputation": [
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   },
+   {
+    "faction": "rep_morgentau",
+    "amount": 100
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [
+   "q_mt_gerechtigkeit"
+  ]
+ },
+ {
+  "id": "q_mt_gerechtigkeit",
+  "title": "Gerechtigkeit für Morgentau",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 10,
+  "minLevel": 9,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_lenz",
+  "turnIn": "npc_mt_vogt",
+  "requires": [
+   "q_mt_grell"
+  ],
+  "text": "Ihr wollt, dass ich gestehe? Gut. Ich war dabei, als sie die Händler überfielen. Ich habe nicht getötet, aber ich habe zugesehen. Bringt mein Geständnis zum Vogt. Ich nehme jede Strafe an.",
+  "objectivesText": "Überbringt Vogt Aldric Brenner das Geständnis von Lenz. (Entscheidung: schließt 'Gnade für Lenz' aus.)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ein Geständnis... Er wird gerecht behandelt werden. Morgentau braucht Gesetze, nicht Rache. Nehmt dies als Dank der Wache.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_mt_vogt",
+    "count": 1,
+    "description": "Geständnis überbracht"
+   }
+  ],
+  "rewardXp": 700,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_justice_amulet",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 350
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": [
+   "q_mt_gnade"
+  ]
+ },
+ {
+  "id": "q_mt_hain",
+  "title": "Das Geheimnis des Hains",
+  "category": "Side",
+  "zone": "zone_morgentauwald",
+  "level": 8,
+  "minLevel": 6,
+  "faction": "None",
+  "class": "None",
+  "giver": "npc_mt_hermit",
+  "turnIn": "npc_mt_hermit",
+  "requires": [],
+  "text": "Ihr seht aus, als würdet Ihr zuhören. Selten heutzutage. Im Nordosten, hinter dem Wolfshain, verbirgt sich ein Hain, den nur wenige finden. Dort wachsen Mondblüten – die letzten in diesem Wald. Findet den Hain und bringt mir drei Blüten. Mit ihnen kann ich lesen, was unter den Wurzeln schläft.",
+  "objectivesText": "Findet den Verborgenen Hain im Nordosten des Morgentauwaldes und sammelt 3 Mondblüten für Eremit Thalwin.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ihr habt ihn gefunden. Die Blüten flüstern von einem Fürsten aus Borke und Fäulnis... Ich fürchte, die Wurzelkrypta erwacht.",
+  "objectives": [
+   {
+    "type": "Explore",
+    "target": "area_mt_hain",
+    "count": 1,
+    "description": "Verborgenen Hain entdeckt"
+   },
+   {
+    "type": "Collect",
+    "target": "item_q_moonpetal",
+    "count": 3,
+    "description": "Mondblüten"
+   }
+  ],
+  "rewardXp": 760,
+  "rewardMoney": 100,
+  "rewardItems": [
+   {
+    "item": "item_hermit_cloak",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 350
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wk_morrak_sb",
+  "title": "Das Herz der Wurzeln",
+  "category": "Dungeon",
+  "zone": "zone_morgentauwald",
+  "level": 16,
+  "minLevel": 13,
+  "faction": "None",
+  "class": "None",
+  "giver": "npc_mt_hermit",
+  "turnIn": "npc_mt_hermit",
+  "requires": [
+   "q_mt_hain"
+  ],
+  "text": "Die Mondblüten haben nicht gelogen: Wurzelfürst Morrak, einst Wächter dieses Waldes, ist von der Hohlen Flut verdorben. Seine Krypta liegt im Südosten, hinter der Dornenhöhe. Sammelt Gefährten – fünf Seelen, nicht weniger – und bringt mir sein Herz. Nur so kann der Wald heilen.",
+  "objectivesText": "Dringt mit einer Gruppe in die Wurzelkrypta ein, besiegt Wurzelfürst Morrak und bringt Eremit Thalwin das Herz des Wurzelfürsten. (Dungeon, 5 Spieler)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das Herz... es schlägt noch. Aber die Fäulnis ist fort. Ihr habt dem Wald einen Dienst erwiesen, den er nie vergessen wird.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_morrak_heart",
+    "count": 1,
+    "description": "Herz des Wurzelfürsten"
+   }
+  ],
+  "rewardXp": 3200,
+  "rewardMoney": 1500,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wk_morrak_ring",
+    "count": 1
+   },
+   {
+    "item": "item_wk_heart_trinket",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 1000
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_dornenschlund",
+  "title": "Der Uralte Dornenschlund",
+  "category": "Main",
+  "zone": "zone_morgentauwald",
+  "level": 15,
+  "minLevel": 12,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_rhea",
+  "turnIn": "npc_mt_rhea",
+  "requires": [
+   "q_mt_grell"
+  ],
+  "text": "Auf der Dornenhöhe hat sich etwas erhoben. Meine Späher nennen es den Uralten Dornenschlund – ein Baum, so alt wie der Wald, und rasend vor Zorn. Kein einzelner Held kann ihn fällen. Ruft jeden zusammen, der eine Waffe halten kann.",
+  "objectivesText": "Besiegt den Uralten Dornenschlund auf der Dornenhöhe. (Weltboss, Gruppe empfohlen)",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Der Dornenschlund ist gefallen? Die Lieder darüber werden in ganz Aurelion gesungen werden!",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_thornmaw",
+    "count": 1,
+    "description": "Uralter Dornenschlund besiegt"
+   }
+  ],
+  "rewardXp": 3000,
+  "rewardMoney": 2000,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_morgentau",
+    "amount": 1000
+   },
+   {
+    "faction": "rep_sonnenfeste",
+    "amount": 500
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_warrior",
+  "title": "Prüfung des Stahls",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Warrior",
+  "giver": "npc_mt_trainer_warrior",
+  "turnIn": "npc_mt_trainer_warrior",
+  "requires": [],
+  "text": "Ein Krieger beweist sich im Kampf, nicht im Gerede. Geht in den Wolfshain und erlegt acht Waldwölfe – nur mit Eurer Waffe und Eurer Wut.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 8× Waldwölfe.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_forest_wolf",
+    "count": 8,
+    "description": "Waldwölfe"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_bracers",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_paladin",
+  "title": "Licht für die Verlorenen",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Paladin",
+  "giver": "npc_mt_trainer_paladin",
+  "turnIn": "npc_mt_trainer_paladin",
+  "requires": [],
+  "text": "Die Grubenwichte in der Funkenloch-Mine leben in Dunkelheit. Zeigt ihnen das Licht – mit dem Hammer. Sechs genügen als Beweis Eurer Hingabe.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 6× Grubenwichte.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_grubenwicht",
+    "count": 6,
+    "description": "Grubenwichte"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mail_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_hunter",
+  "title": "Spuren im Wolfshain",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Hunter",
+  "giver": "npc_mt_trainer_hunter",
+  "turnIn": "npc_mt_trainer_hunter",
+  "requires": [],
+  "text": "Ein Jäger liest die Fährte, bevor er schießt. Die Waldwölfe verhalten sich seltsam. Jagt acht von ihnen und lernt, wie sie sich bewegen.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 8× Waldwölfe.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_forest_wolf",
+    "count": 8,
+    "description": "Waldwölfe"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mail_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_rogue",
+  "title": "Lautlos wie die Nacht",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Rogue",
+  "giver": "npc_mt_trainer_rogue",
+  "turnIn": "npc_mt_trainer_rogue",
+  "requires": [],
+  "text": "Ein Schurke tötet, bevor das Opfer ihn bemerkt. Die Borstenhauer sind wachsam – wenn Ihr sechs erlegt, ohne dass die anderen fliehen, seid Ihr bereit.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 6× Borstenhauer-Eber.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_boar",
+    "count": 6,
+    "description": "Borstenhauer-Eber"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_leather_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_priest",
+  "title": "Die Prüfung der Seele",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Priest",
+  "giver": "npc_mt_trainer_priest",
+  "turnIn": "npc_mt_trainer_priest",
+  "requires": [],
+  "text": "Glaube ist kein Gebet allein. Die Moosspinnen verbreiten Gift und Furcht – reinigt die Mulde von sechs von ihnen und kehrt zurück, gestärkt im Licht.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 6× Moosspinnen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_moss_spider",
+    "count": 6,
+    "description": "Moosspinnen"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mantle",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_mage",
+  "title": "Feuer gegen Feuer",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Mage",
+  "giver": "npc_mt_trainer_mage",
+  "turnIn": "npc_mt_trainer_mage",
+  "requires": [],
+  "text": "Die Geomanten der Grubenwichte spielen mit Feuer, das sie nicht verstehen. Zeigt ihnen, wie man es richtig macht: Besiegt vier von ihnen.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 4× Geomanten.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_grubenwicht_geomant",
+    "count": 4,
+    "description": "Geomanten"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mantle",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_warlock",
+  "title": "Splitter der Seelen",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Warlock",
+  "giver": "npc_mt_trainer_warlock",
+  "turnIn": "npc_mt_trainer_warlock",
+  "requires": [],
+  "text": "Jede Seele hinterlässt einen Splitter. Die jungen Wölfe haben kleine Seelen – genug für den Anfang. Bringt mir zehn, indem Ihr sie erlegt.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 10× Junge Waldwölfe.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_young_wolf",
+    "count": 10,
+    "description": "Junge Waldwölfe"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_mantle",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_mt_class_druid",
+  "title": "Das Gleichgewicht",
+  "category": "Class",
+  "zone": "zone_morgentauwald",
+  "level": 5,
+  "minLevel": 4,
+  "faction": "Sonnenbuendnis",
+  "class": "Druid",
+  "giver": "npc_mt_trainer_druid",
+  "turnIn": "npc_mt_trainer_druid",
+  "requires": [],
+  "text": "Die Eber vermehren sich zu stark und zerstören die Felder. Das Gleichgewicht verlangt, dass sechs von ihnen fallen. Nicht aus Hass – aus Notwendigkeit.",
+  "objectivesText": "Erfüllt die Prüfung Eures Lehrers: 6× Borstenhauer-Eber.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gut. Ihr habt bewiesen, dass Ihr die Grundlagen beherrscht. Nehmt dies als Zeichen Eurer Ausbildung.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_boar",
+    "count": 6,
+    "description": "Borstenhauer-Eber"
+   }
+  ],
+  "rewardXp": 450,
+  "rewardMoney": 50,
+  "rewardItems": [
+   {
+    "item": "item_trainee_leather_shoulders",
+    "count": 1
+   }
+  ],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ }
+]

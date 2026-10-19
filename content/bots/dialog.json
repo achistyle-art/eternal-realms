@@ -1,0 +1,58 @@
+[
+  { "event": "join", "lines": ["Hallo {leader}! Gerne, ich bin dabei.", "Hey zusammen. {me} meldet sich zum Dienst.", "Danke für die Einladung!"] },
+  { "event": "join", "personality": "ehrgeizig", "lines": ["Endlich eine Gruppe mit Ambitionen. Was steht an?", "Ich hoffe, ihr seid schnell. Ich will heute noch zwei Stufen."] },
+  { "event": "join", "personality": "witzig", "lines": ["Wer hat Kekse mitgebracht? Nein? Na gut, dann eben Monster.", "Keine Sorge, ich sterbe nur selten. Meistens."] },
+  { "event": "join", "personality": "wortkarg", "lines": ["Moin.", "Bin da."] },
+  { "event": "join", "personality": "vorsichtig", "lines": ["Hallo. Bevor wir losziehen: Wer heilt?", "Freut mich. Lasst uns nichts überstürzen, ja?"] },
+  { "event": "join", "role": "Healer", "lines": ["Heiler ist da. Bleibt in meiner Reichweite!", "Ich halte euch am Leben – solange ihr nicht in alles reinrennt."] },
+  { "event": "join", "role": "Tank", "lines": ["Tank hier. Ich ziehe, ihr wartet kurz, dann Feuer frei.", "Ich halte die Aufmerksamkeit. Greift mein Ziel an."] },
+
+  { "event": "dungeon", "role": "Tank", "lines": ["Dungeon? Gut. Ich gehe vor. Wartet, bis ich die Gruppe gezogen habe.", "Alles klar, {leader}. Keiner greift an, bevor ich Bedrohung aufgebaut habe."] },
+  { "event": "dungeon", "role": "Healer", "lines": ["Bin bereit. {tank}, ich behalte dich im Auge. Alle anderen: Bleibt aus den Flächen raus.", "Ich trinke noch kurz voll. Dann kann's losgehen."] },
+  { "event": "dungeon", "role": "MeleeDps", "lines": ["Endlich Beute! Ich warte auf {tank}.", "Ich gehe hinter die Gegner. {healer}, vergiss mich nicht."] },
+  { "event": "dungeon", "role": "RangedDps", "lines": ["Ich halte Abstand und greife {tank}s Ziel an.", "Ich verteile noch die Buffs. Dann los!"] },
+  { "event": "dungeon_reply", "lines": ["Verstanden, {tank}.", "Klingt gut.", "Alles klar, ich warte auf dein Zeichen."] },
+
+  { "event": "follow", "lines": ["Ich folge dir.", "Bin direkt hinter dir, {leader}.", "Unterwegs."] },
+  { "event": "stay", "lines": ["Ich warte hier.", "Okay, ich bleibe stehen.", "Rühre mich nicht vom Fleck."] },
+  { "event": "attack", "lines": ["Angriff!", "Auf {target}!", "Ich bin dran."] },
+  { "event": "attack", "role": "Tank", "lines": ["Ich ziehe {target}!", "{target} gehört mir!"] },
+  { "event": "rest", "lines": ["Kurze Pause, gute Idee.", "Ich setze mich kurz hin."] },
+  { "event": "passive", "lines": ["Ich greife nur noch an, wenn wir angegriffen werden.", "Verstanden, ich halte mich zurück."] },
+  { "event": "aggressive", "lines": ["Alles klar, ich greife an, was uns zu nahe kommt.", "Dann mal los!"] },
+
+  { "event": "low_mana", "role": "Healer", "lines": ["Mana bei 20 %! Kurze Pause nach diesem Kampf.", "Ich bin fast leer, {leader}!", "Wenig Mana – vorsichtig jetzt!"] },
+  { "event": "low_mana", "lines": ["Wenig Mana.", "Ich muss gleich trinken."] },
+  { "event": "low_mana_reply", "role": "Tank", "lines": ["Okay, {healer}, ich warte mit dem nächsten Zug.", "Verstanden. Pause nach dem Kampf."] },
+  { "event": "drink", "lines": ["Ich trinke kurz.", "Kurz Mana auffüllen, bin gleich so weit.", "*trinkt*"] },
+  { "event": "eat", "lines": ["Ich esse kurz was.", "*kaut auf Dörrfleisch*"] },
+  { "event": "ready", "lines": ["Bereit.", "Voll. Kann losgehen.", "Bin bereit, {leader}."] },
+
+  { "event": "low_health", "lines": ["Hilfe! Ich verliere viel Leben!", "Ich brauche Heilung!", "{healer}, heil mich bitte!"] },
+  { "event": "low_health", "personality": "witzig", "lines": ["Ich hab den Gegner genau da, wo er mich haben will!", "Das ist nur ein Kratzer. Ein großer Kratzer."] },
+  { "event": "heal_incoming", "role": "Healer", "lines": ["Halte durch, {target}!", "Heilung kommt!", "Ich hab dich!"] },
+  { "event": "taunt", "role": "Tank", "lines": ["Hey, hier spielt die Musik!", "Komm her, {target}!"] },
+  { "event": "interrupt", "lines": ["Zauber unterbrochen!", "Nichts da, {target}!"] },
+
+  { "event": "died", "lines": ["Ich bin tot...", "Argh. Kann mich jemand wiederbeleben?", "Das war wohl zu viel."] },
+  { "event": "died", "personality": "witzig", "lines": ["Ich wollte mir nur den Boden genauer ansehen.", "Geplant. Alles geplant."] },
+  { "event": "resurrect", "role": "Healer", "lines": ["Ich belebe {target} wieder.", "Steh auf, {target}, wir sind noch nicht fertig."] },
+  { "event": "resurrected", "lines": ["Danke!", "Puh, das war knapp. Danke!", "Zurück im Spiel."] },
+  { "event": "wipe", "lines": ["Das war nichts. Nächstes Mal ruhiger ziehen.", "Okay, alle zum Körper zurück.", "Neuer Versuch, neues Glück."] },
+
+  { "event": "kill", "lines": ["Erledigt.", "Der war einfach.", "Weiter!"] },
+  { "event": "boss_kill", "lines": ["JA! Der Boss liegt!", "Großartig gespielt, alle!", "Was hat er fallen lassen?"] },
+  { "event": "boss_kill", "role": "Tank", "lines": ["Gut gemacht, Team. {healer}, du warst super.", "Saubere Arbeit. Weiter zum nächsten."] },
+  { "event": "loot_upgrade", "lines": ["Oh, {item}! Das ist eine Verbesserung für mich.", "Ich nehme {item}, falls es niemand braucht."] },
+  { "event": "level_up", "lines": ["Stufe {level}! Endlich!", "Ding! Stufe {level}.", "Neue Stufe, neue Fähigkeiten!"] },
+  { "event": "level_up_reply", "lines": ["Glückwunsch, {target}!", "Gz!", "Weiter so, {target}!"] },
+  { "event": "quest_done", "lines": ["Quest erledigt!", "Das hätten wir.", "Zurück zum Questgeber?"] },
+  { "event": "status", "lines": ["{me}: Stufe {level}, {health} % Leben, {power} % {powername}."] },
+
+  { "event": "idle", "lines": ["Schönes Wetter heute.", "Weiß jemand, wo es gute Pelze gibt?", "Ich brauche dringend neue Stiefel.", "Hat jemand schon die Wurzelkrypta gesehen?"] },
+  { "event": "idle", "personality": "witzig", "lines": ["Warum kämpfen Wölfe nie allein? Weil sie Rudel-Profis sind.", "Ich habe einmal einen Eber gezähmt. Er hat mich gefressen."] },
+  { "event": "idle", "personality": "ehrgeizig", "lines": ["Wir sollten effizienter leveln.", "Noch drei Quests bis zur nächsten Stufe."] },
+  { "event": "general", "lines": ["Suche Gruppe für die Wurzelkrypta!", "Verkaufe Wolfspelze, günstig!", "Weiß jemand, wo Bram ist?", "Grell ist wieder da, wer kommt mit?", "Hat jemand den Weltboss gesehen?"] },
+
+  { "event": "dismiss", "lines": ["War mir eine Ehre. Bis bald!", "Danke für die Gruppe!", "Ruf mich, wenn du wieder Hilfe brauchst."] }
+]

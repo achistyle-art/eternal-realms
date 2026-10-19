@@ -1,0 +1,2231 @@
+[
+ {
+  "id": "mob_young_wolf",
+  "name": "Junger Waldwolf",
+  "minLevel": 1,
+  "maxLevel": 2,
+  "family": "Wolf",
+  "faction": "Hostile",
+  "model": "wolf",
+  "moneyMin": 0,
+  "moneyMax": 0,
+  "aggroRadius": 10,
+  "loot": [
+   {
+    "item": "item_wolf_fang",
+    "chance": 0.35,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_forest_wolf",
+  "name": "Waldwolf",
+  "minLevel": 3,
+  "maxLevel": 4,
+  "family": "Wolf",
+  "faction": "Hostile",
+  "model": "wolf",
+  "abilities": [
+   {
+    "ability": "mob_bite",
+    "interval": 7,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_q_wolf_pelt",
+    "chance": 0.65,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_pelze"
+   },
+   {
+    "item": "item_wolf_fang",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_boar",
+  "name": "Borstenhauer-Eber",
+  "minLevel": 2,
+  "maxLevel": 3,
+  "family": "Boar",
+  "faction": "Neutral",
+  "model": "boar",
+  "fleeAtHealth": 0,
+  "loot": [
+   {
+    "item": "item_q_boar_tusk",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_eberplage"
+   },
+   {
+    "item": "item_broken_tooth",
+    "chance": 0.3,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_graumaehne",
+  "name": "Alte Graumähne",
+  "minLevel": 7,
+  "maxLevel": 7,
+  "family": "Wolf",
+  "faction": "Hostile",
+  "model": "wolf",
+  "rare": true,
+  "healthMultiplier": 1.8,
+  "damageMultiplier": 1.3,
+  "abilities": [
+   {
+    "ability": "mob_rend",
+    "interval": 10,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_bite",
+    "interval": 6,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rare_graumaehne_fang",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wolf_fang",
+    "chance": 1.0,
+    "min": 2,
+    "max": 3
+   }
+  ],
+  "moneyMin": 200,
+  "moneyMax": 400,
+  "scale": 1.3
+ },
+ {
+  "id": "mob_moss_spider",
+  "name": "Moosspinne",
+  "minLevel": 4,
+  "maxLevel": 6,
+  "family": "Spider",
+  "faction": "Hostile",
+  "model": "spider",
+  "abilities": [
+   {
+    "ability": "mob_poison_bite",
+    "interval": 10,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_web_spit",
+    "interval": 15,
+    "initialDelay": 1,
+    "chance": 0.5,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_q_spider_gland",
+    "chance": 0.55,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_spinnen"
+   },
+   {
+    "item": "item_spider_leg",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_spider_ambusher",
+  "name": "Lauernde Moosspinne",
+  "minLevel": 5,
+  "maxLevel": 5,
+  "family": "Spider",
+  "faction": "Hostile",
+  "model": "spider",
+  "abilities": [
+   {
+    "ability": "mob_poison_bite",
+    "interval": 10,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_spider_leg",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_grubenwicht",
+  "name": "Grubenwicht",
+  "minLevel": 5,
+  "maxLevel": 7,
+  "family": "Grubenwicht",
+  "faction": "Hostile",
+  "model": "grubenwicht",
+  "callsForHelp": true,
+  "fleeAtHealth": 0.15,
+  "moneyMin": 8,
+  "moneyMax": 25,
+  "loot": [
+   {
+    "item": "item_rusty_gear",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_minor_healing_potion",
+    "chance": 0.05,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_grubenwicht_geomant",
+  "name": "Grubenwicht-Geomant",
+  "minLevel": 6,
+  "maxLevel": 7,
+  "family": "Grubenwicht",
+  "faction": "Hostile",
+  "model": "grubenwicht",
+  "callsForHelp": true,
+  "ranged": true,
+  "preferredRange": 25,
+  "powerType": "Mana",
+  "manaFactor": 1,
+  "abilities": [
+   {
+    "ability": "mob_firebolt",
+    "interval": 3.5,
+    "initialDelay": 0.5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "moneyMin": 12,
+  "moneyMax": 30,
+  "loot": [
+   {
+    "item": "item_rusty_gear",
+    "chance": 0.3,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_refreshing_water",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rotbach_bandit",
+  "name": "Rotbach-Räuber",
+  "minLevel": 6,
+  "maxLevel": 8,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "callsForHelp": true,
+  "moneyMin": 15,
+  "moneyMax": 40,
+  "abilities": [
+   {
+    "ability": "mob_throw",
+    "interval": 9,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_tattered_cloth",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_bandit_orders",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_rotbach"
+   },
+   {
+    "item": "item_tough_jerky",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rotbach_lookout",
+  "name": "Rotbach-Späher",
+  "minLevel": 7,
+  "maxLevel": 8,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "callsForHelp": true,
+  "ranged": true,
+  "preferredRange": 20,
+  "moneyMin": 15,
+  "moneyMax": 40,
+  "abilities": [
+   {
+    "ability": "mob_throw",
+    "interval": 4,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_net",
+    "interval": 20,
+    "initialDelay": 6,
+    "chance": 0.5,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_tattered_cloth",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_grell",
+  "name": "Räuberhauptmann Grell",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "elite": true,
+  "healthMultiplier": 1.2,
+  "damageMultiplier": 1.0,
+  "callsForHelp": true,
+  "abilities": [
+   {
+    "ability": "mob_cleave",
+    "interval": 8,
+    "initialDelay": 5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_shield_bash",
+    "interval": 12,
+    "initialDelay": 6,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_enrage",
+    "interval": 600,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.3
+   }
+  ],
+  "moneyMin": 200,
+  "moneyMax": 500,
+  "loot": [
+   {
+    "item": "item_q_grell_insignia",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_mt_grell"
+   },
+   {
+    "item": "item_tattered_cloth",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "scale": 1.2
+ },
+ {
+  "id": "mob_thornmaw",
+  "name": "Uralter Dornenschlund",
+  "minLevel": 15,
+  "maxLevel": 15,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "elite": true,
+  "worldBoss": true,
+  "boss": true,
+  "healthMultiplier": 5,
+  "damageMultiplier": 1.3,
+  "armorMultiplier": 1.5,
+  "aggroRadius": 20,
+  "scale": 2.5,
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Erwachen",
+    "yell": "Wer stört den Schlaf der Wurzeln?",
+    "abilities": [
+     {
+      "ability": "mob_ground_slam",
+      "interval": 18,
+      "initialDelay": 8,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_root_grip",
+      "interval": 14,
+      "initialDelay": 4,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.5,
+    "name": "Wucherung",
+    "yell": "Der Wald selbst erhebt sich gegen euch!",
+    "abilities": [
+     {
+      "ability": "mob_ground_slam",
+      "interval": 15,
+      "initialDelay": 3,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_root_grip",
+      "interval": 10,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_spore_burst",
+      "interval": 12,
+      "initialDelay": 5,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "dmob_root_crawler",
+      "count": 3
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.2,
+    "name": "Letzter Zorn",
+    "yell": "Ich... werde... nicht... fallen!",
+    "abilities": [
+     {
+      "ability": "mob_enrage",
+      "interval": 600,
+      "initialDelay": 0,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_ground_slam",
+      "interval": 12,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ],
+    "damageMultiplier": 1.2
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wk_heart_trinket",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_morrak_ring",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_moldy_root",
+    "chance": 1.0,
+    "min": 3,
+    "max": 6
+   }
+  ],
+  "moneyMin": 2000,
+  "moneyMax": 4000
+ },
+ {
+  "id": "mob_dust_hyena",
+  "name": "Staubhyäne",
+  "minLevel": 1,
+  "maxLevel": 2,
+  "family": "Hyena",
+  "faction": "Hostile",
+  "model": "hyena",
+  "aggroRadius": 10,
+  "loot": [
+   {
+    "item": "item_q_hyena_ear",
+    "chance": 0.7,
+    "min": 1,
+    "max": 1,
+    "quest": "q_as_hyaenen"
+   },
+   {
+    "item": "item_hyena_hide",
+    "chance": 0.35,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_ash_beetle",
+  "name": "Aschenkäfer",
+  "minLevel": 2,
+  "maxLevel": 3,
+  "family": "Beetle",
+  "faction": "Neutral",
+  "model": "beetle",
+  "armorMultiplier": 2.0,
+  "loot": [
+   {
+    "item": "item_q_beetle_gland",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_as_kaefer"
+   },
+   {
+    "item": "item_beetle_shell",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_ember_lizard",
+  "name": "Glutechse",
+  "minLevel": 3,
+  "maxLevel": 5,
+  "family": "Lizard",
+  "faction": "Hostile",
+  "model": "lizard",
+  "abilities": [
+   {
+    "ability": "mob_scorch",
+    "interval": 9,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_cracked_scale",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_dunestalker",
+  "name": "Dünenpirscher",
+  "minLevel": 7,
+  "maxLevel": 7,
+  "family": "Hyena",
+  "faction": "Hostile",
+  "model": "hyena",
+  "rare": true,
+  "healthMultiplier": 1.8,
+  "damageMultiplier": 1.3,
+  "abilities": [
+   {
+    "ability": "mob_rend",
+    "interval": 9,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_bite",
+    "interval": 6,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rare_dunestalker_cloak",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_hyena_hide",
+    "chance": 1.0,
+    "min": 2,
+    "max": 3
+   }
+  ],
+  "moneyMin": 200,
+  "moneyMax": 400,
+  "scale": 1.3
+ },
+ {
+  "id": "mob_sandreaver",
+  "name": "Sandschinder-Plünderer",
+  "minLevel": 5,
+  "maxLevel": 7,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "callsForHelp": true,
+  "moneyMin": 8,
+  "moneyMax": 25,
+  "abilities": [
+   {
+    "ability": "mob_throw",
+    "interval": 9,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_tattered_cloth",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_water_skin",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1,
+    "quest": "q_as_oase"
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_sandreaver_caller",
+  "name": "Sandschinder-Sturmrufer",
+  "minLevel": 6,
+  "maxLevel": 7,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "callsForHelp": true,
+  "ranged": true,
+  "preferredRange": 25,
+  "powerType": "Mana",
+  "manaFactor": 1,
+  "abilities": [
+   {
+    "ability": "mob_firebolt",
+    "interval": 3.5,
+    "initialDelay": 0.5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_heal_ally",
+    "interval": 12,
+    "initialDelay": 6,
+    "chance": 1.0,
+    "targetRule": "LowestHealthAlly",
+    "healthBelow": 1.01
+   }
+  ],
+  "moneyMin": 12,
+  "moneyMax": 30,
+  "loot": [
+   {
+    "item": "item_refreshing_water",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.004,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_hollow_cultist",
+  "name": "Kultist der Hohlen Flut",
+  "minLevel": 7,
+  "maxLevel": 9,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "callsForHelp": true,
+  "ranged": true,
+  "preferredRange": 25,
+  "powerType": "Mana",
+  "manaFactor": 1,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 4,
+    "initialDelay": 1,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_heal_self",
+    "interval": 15,
+    "initialDelay": 8,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.5
+   }
+  ],
+  "moneyMin": 15,
+  "moneyMax": 40,
+  "loot": [
+   {
+    "item": "item_q_cult_tome",
+    "chance": 0.3,
+    "min": 1,
+    "max": 1,
+    "quest": "q_as_kult"
+   },
+   {
+    "item": "item_ash_crystal",
+    "chance": 0.3,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.006,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_varga",
+  "name": "Kriegsfürst Varga",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "elite": true,
+  "healthMultiplier": 1.2,
+  "callsForHelp": true,
+  "abilities": [
+   {
+    "ability": "mob_cleave",
+    "interval": 8,
+    "initialDelay": 5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_terrify",
+    "interval": 25,
+    "initialDelay": 10,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_enrage",
+    "interval": 600,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.3
+   }
+  ],
+  "moneyMin": 200,
+  "moneyMax": 500,
+  "loot": [
+   {
+    "item": "item_q_varga_head",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_as_varga"
+   },
+   {
+    "item": "item_ash_crystal",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "scale": 1.25
+ },
+ {
+  "id": "mob_hyena_ambusher",
+  "name": "Hungrige Staubhyäne",
+  "minLevel": 5,
+  "maxLevel": 5,
+  "family": "Hyena",
+  "faction": "Hostile",
+  "model": "hyena",
+  "abilities": [
+   {
+    "ability": "mob_bite",
+    "interval": 6,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_hyena_hide",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_kharox",
+  "name": "Aschenwurm Kharox",
+  "minLevel": 15,
+  "maxLevel": 15,
+  "family": "Wyrm",
+  "faction": "Hostile",
+  "model": "wyrm",
+  "elite": true,
+  "worldBoss": true,
+  "boss": true,
+  "healthMultiplier": 5,
+  "damageMultiplier": 1.3,
+  "armorMultiplier": 1.5,
+  "aggroRadius": 20,
+  "scale": 2.5,
+  "meleeSchool": "Fire",
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Glut",
+    "yell": "Die Asche gehört MIR!",
+    "abilities": [
+     {
+      "ability": "mob_firebolt_strong",
+      "interval": 10,
+      "initialDelay": 4,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_cleave",
+      "interval": 8,
+      "initialDelay": 3,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.5,
+    "name": "Flammensturm",
+    "yell": "Brennt! Brennt alle!",
+    "abilities": [
+     {
+      "ability": "mob_firebolt_strong",
+      "interval": 7,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_cleave",
+      "interval": 7,
+      "initialDelay": 3,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_scorch",
+      "interval": 6,
+      "initialDelay": 1,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "mob_ember_lizard",
+      "count": 3
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.2,
+    "name": "Raserei",
+    "yell": "Kharox stirbt nicht!",
+    "abilities": [
+     {
+      "ability": "mob_enrage",
+      "interval": 600,
+      "initialDelay": 0,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_cleave",
+      "interval": 6,
+      "initialDelay": 1,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ],
+    "damageMultiplier": 1.2
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wk_heart_trinket",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_morrak_ring",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_ash_crystal",
+    "chance": 1.0,
+    "min": 3,
+    "max": 6
+   }
+  ],
+  "moneyMin": 2000,
+  "moneyMax": 4000
+ },
+ {
+  "id": "dmob_root_crawler",
+  "name": "Wurzelkriecher",
+  "minLevel": 13,
+  "maxLevel": 14,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "elite": true,
+  "healthMultiplier": 0.7,
+  "damageMultiplier": 0.8,
+  "abilities": [
+   {
+    "ability": "mob_root_grip",
+    "interval": 14,
+    "initialDelay": 6,
+    "chance": 0.6,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_moldy_root",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 20,
+  "moneyMax": 50
+ },
+ {
+  "id": "dmob_crypt_shambler",
+  "name": "Gruftschlurfer",
+  "minLevel": 14,
+  "maxLevel": 15,
+  "family": "Undead",
+  "faction": "Hostile",
+  "model": "undead",
+  "elite": true,
+  "healthMultiplier": 0.8,
+  "damageMultiplier": 0.8,
+  "callsForHelp": true,
+  "abilities": [
+   {
+    "ability": "mob_armor_crush",
+    "interval": 7,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wk_crypt_boots",
+    "chance": 0.04,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_crypt_leggings",
+    "chance": 0.04,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_tattered_cloth",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 25,
+  "moneyMax": 60
+ },
+ {
+  "id": "dmob_blighted_dryad",
+  "name": "Verdorbene Dryade",
+  "minLevel": 14,
+  "maxLevel": 15,
+  "family": "Dryad",
+  "faction": "Hostile",
+  "model": "dryad",
+  "elite": true,
+  "healthMultiplier": 0.6,
+  "damageMultiplier": 0.7,
+  "ranged": true,
+  "preferredRange": 25,
+  "powerType": "Mana",
+  "manaFactor": 2,
+  "callsForHelp": true,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 4,
+    "initialDelay": 1,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_heal_ally",
+    "interval": 10,
+    "initialDelay": 5,
+    "chance": 1.0,
+    "targetRule": "LowestHealthAlly",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_moldy_root",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 25,
+  "moneyMax": 60
+ },
+ {
+  "id": "dmob_sporeling",
+  "name": "Sporenling",
+  "minLevel": 13,
+  "maxLevel": 13,
+  "family": "Fungus",
+  "faction": "Hostile",
+  "model": "fungus",
+  "healthMultiplier": 0.6,
+  "damageMultiplier": 0.6,
+  "aggroRadius": 40,
+  "loot": []
+ },
+ {
+  "id": "boss_moderkeim",
+  "name": "Moderkeim",
+  "minLevel": 15,
+  "maxLevel": 15,
+  "family": "Fungus",
+  "faction": "Hostile",
+  "model": "fungus",
+  "elite": true,
+  "boss": true,
+  "healthMultiplier": 2.4,
+  "damageMultiplier": 0.8,
+  "scale": 1.8,
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Sporen",
+    "yell": "Ihr... riecht... nach Leben. Köstlich.",
+    "abilities": [
+     {
+      "ability": "mob_spore_burst",
+      "interval": 14,
+      "initialDelay": 6,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.5,
+    "name": "Brut",
+    "yell": "Wachst, meine Kinder!",
+    "abilities": [
+     {
+      "ability": "mob_spore_burst",
+      "interval": 12,
+      "initialDelay": 3,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "dmob_sporeling",
+      "count": 3
+     }
+    ]
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wk_moldspore_hood",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_rootbark_chest",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_rootbark_tunic",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 300,
+  "moneyMax": 600
+ },
+ {
+  "id": "boss_elvaine",
+  "name": "Schwester Elvaine die Verdorbene",
+  "minLevel": 16,
+  "maxLevel": 16,
+  "family": "Dryad",
+  "faction": "Hostile",
+  "model": "dryad",
+  "elite": true,
+  "boss": true,
+  "healthMultiplier": 2.1,
+  "damageMultiplier": 0.75,
+  "ranged": true,
+  "preferredRange": 20,
+  "powerType": "Mana",
+  "manaFactor": 5,
+  "scale": 1.3,
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Verderbnis",
+    "yell": "Der Wald hat euch nicht gerufen!",
+    "abilities": [
+     {
+      "ability": "mob_shadowbolt",
+      "interval": 3.5,
+      "initialDelay": 1,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_heal_self",
+      "interval": 18,
+      "initialDelay": 12,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 0.7
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.4,
+    "name": "Schrecken",
+    "yell": "Flieht, solange ihr noch könnt!",
+    "abilities": [
+     {
+      "ability": "mob_terrify",
+      "interval": 20,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_shadowbolt",
+      "interval": 3.5,
+      "initialDelay": 1,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "dmob_blighted_dryad",
+      "count": 1
+     }
+    ]
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wk_elvaine_gloves",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_elvaine_staff",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 400,
+  "moneyMax": 700
+ },
+ {
+  "id": "boss_morrak",
+  "name": "Wurzelfürst Morrak",
+  "minLevel": 17,
+  "maxLevel": 17,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "elite": true,
+  "boss": true,
+  "healthMultiplier": 2.6,
+  "damageMultiplier": 0.8,
+  "armorMultiplier": 1.3,
+  "scale": 2.2,
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Borke",
+    "yell": "Ihr wagt es, in mein Herz vorzudringen?",
+    "abilities": [
+     {
+      "ability": "mob_armor_crush",
+      "interval": 6,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_ground_slam",
+      "interval": 20,
+      "initialDelay": 10,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.6,
+    "name": "Würgende Wurzeln",
+    "yell": "Die Wurzeln halten euch fest – für immer!",
+    "abilities": [
+     {
+      "ability": "mob_armor_crush",
+      "interval": 6,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_root_grip",
+      "interval": 12,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "dmob_root_crawler",
+      "count": 2
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.25,
+    "name": "Kernwut",
+    "yell": "WENN ICH FALLE, FALLT DER WALD MIT MIR!",
+    "abilities": [
+     {
+      "ability": "mob_enrage",
+      "interval": 600,
+      "initialDelay": 0,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_ground_slam",
+      "interval": 15,
+      "initialDelay": 3,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ]
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_q_morrak_heart",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wk_morrak_sb"
+   },
+   {
+    "item": "item_q_morrak_heart",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wk_morrak_sp"
+   },
+   {
+    "item": "item_wk_morrak_maul",
+    "chance": 0.3,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_morrak_blade",
+    "chance": 0.3,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_morrak_shield",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wk_morrak_ring",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 600,
+  "moneyMax": 1000
+ }
+]

@@ -1,0 +1,346 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "warlock_affliction",
+  "class": "Warlock",
+  "name": "Gebrechen",
+  "description": "Flüche und langsamer Verfall.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "waf_suppression",
+    "name": "Unterdrückung",
+    "description": "Trefferchance mit Schatten +2 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "HitChance",
+      "value": 2,
+      "school": "Shadow"
+     }
+    ]
+   },
+   {
+    "id": "waf_improved_corruption",
+    "name": "Verbesserte Verderbnis",
+    "description": "Verderbnis: Zauberzeit -0,4 s.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.4,
+      "ability": "warlock_corruption"
+     }
+    ]
+   },
+   {
+    "id": "waf_improved_coa",
+    "name": "Verbesserter Fluch der Pein",
+    "description": "Fluch der Pein +2 % Schaden.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "ability": "warlock_curse_of_agony"
+     }
+    ]
+   },
+   {
+    "id": "waf_improved_life_tap",
+    "name": "Verbesserter Aderlass",
+    "description": "Aderlass +10 % Wirkung.",
+    "tier": 1,
+    "column": 2,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 10,
+      "ability": "warlock_life_tap"
+     }
+    ]
+   },
+   {
+    "id": "waf_shadow_mastery",
+    "name": "Schattenbeherrschung",
+    "description": "Schattenschaden +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Shadow"
+     }
+    ]
+   },
+   {
+    "id": "waf_siphon_life",
+    "name": "Lebensentzug",
+    "description": "Schaltet Lebensentzug frei.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "warlock_siphon_life"
+   },
+   {
+    "id": "waf_dark_pact",
+    "name": "Dunkler Pakt",
+    "description": "Manaregeneration +10 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "PowerRegenPercent",
+      "value": 10
+     }
+    ],
+    "requires": "waf_shadow_mastery"
+   }
+  ]
+ },
+ {
+  "id": "warlock_demonology",
+  "class": "Warlock",
+  "name": "Dämonologie",
+  "description": "Herr über Dämonen und Paktmagie.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "wd_improved_imp",
+    "name": "Verbesserter Wichtel",
+    "description": "Feuerschaden +2 %.",
+    "tier": 0,
+    "column": 0,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Fire"
+     }
+    ]
+   },
+   {
+    "id": "wd_demonic_embrace",
+    "name": "Dämonische Umarmung",
+    "description": "Ausdauer +3 %, Willenskraft -1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 3,
+      "stat": "Stamina"
+     },
+     {
+      "type": "StatPercent",
+      "value": -1,
+      "stat": "Spirit"
+     }
+    ]
+   },
+   {
+    "id": "wd_improved_demon_skin",
+    "name": "Verbesserte Dämonenhaut",
+    "description": "Rüstung +3 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "ArmorPercent",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "id": "wd_fel_intellect",
+    "name": "Teufelsintelligenz",
+    "description": "Maximales Mana +2 %.",
+    "tier": 1,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxPowerPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "wd_fel_stamina",
+    "name": "Teufelsausdauer",
+    "description": "Maximales Leben +2 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxHealthPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "wd_master_demonologist",
+    "name": "Meister der Dämonologie",
+    "description": "Erlittener Schaden -2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageTakenPercent",
+      "value": -2
+     }
+    ]
+   },
+   {
+    "id": "wd_soul_link",
+    "name": "Seelenverbindung",
+    "description": "Erlittener Schaden -5 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "DamageTakenPercent",
+      "value": -5
+     }
+    ],
+    "requires": "wd_master_demonologist"
+   }
+  ]
+ },
+ {
+  "id": "warlock_destruction",
+  "class": "Warlock",
+  "name": "Zerstörung",
+  "description": "Feuer und Chaos.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "wds_improved_sb",
+    "name": "Verbesserter Schattenblitz",
+    "description": "Kritische Zaubertrefferchance +1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "crit": "Spell"
+     }
+    ]
+   },
+   {
+    "id": "wds_bane",
+    "name": "Verderben",
+    "description": "Schattenblitz und Feuerbrand: Zauberzeit -0,1 s.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "warlock_shadow_bolt"
+     },
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "warlock_immolate"
+     }
+    ]
+   },
+   {
+    "id": "wds_devastation",
+    "name": "Verwüstung",
+    "description": "Kritische Trefferchance mit Zerstörung +1 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 1,
+      "school": "Fire"
+     },
+     {
+      "type": "CritChance",
+      "value": 1,
+      "school": "Shadow"
+     }
+    ]
+   },
+   {
+    "id": "wds_shadowburn",
+    "name": "Schattenbrand",
+    "description": "Schaltet Schattenbrand frei.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "warlock_shadowburn"
+   },
+   {
+    "id": "wds_improved_immolate",
+    "name": "Verbesserter Feuerbrand",
+    "description": "Feuerbrand +5 % Schaden.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "ability": "warlock_immolate"
+     }
+    ]
+   },
+   {
+    "id": "wds_emberstorm",
+    "name": "Glutsturm",
+    "description": "Feuerschaden +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 2,
+      "school": "Fire"
+     }
+    ]
+   },
+   {
+    "id": "wds_ruin",
+    "name": "Ruin",
+    "description": "Kritischer Schaden +50 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 50
+     }
+    ],
+    "requires": "wds_emberstorm"
+   }
+  ]
+ }
+]

@@ -1,0 +1,363 @@
+// ERZEUGT von tools/gen_class_content.py – nicht von Hand bearbeiten.
+[
+ {
+  "id": "druid_balance",
+  "class": "Druid",
+  "name": "Gleichgewicht",
+  "description": "Die Macht von Sonne und Mond.",
+  "primaryRole": "RangedDps",
+  "talents": [
+   {
+    "id": "db_improved_wrath",
+    "name": "Verbesserter Zorn",
+    "description": "Zorn: Zauberzeit -0,1 s.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "druid_wrath"
+     }
+    ]
+   },
+   {
+    "id": "db_natures_grasp",
+    "name": "Griff der Natur",
+    "description": "Naturschaden +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 4,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 1,
+      "school": "Nature"
+     }
+    ]
+   },
+   {
+    "id": "db_improved_moonfire",
+    "name": "Verbessertes Mondfeuer",
+    "description": "Mondfeuer +5 % Schaden.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "ability": "druid_moonfire"
+     }
+    ]
+   },
+   {
+    "id": "db_starfire",
+    "name": "Sternenfeuer",
+    "description": "Schaltet Sternenfeuer frei.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "druid_starfire"
+   },
+   {
+    "id": "db_vengeance",
+    "name": "Rache",
+    "description": "Kritischer Zauberschaden +20 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CritDamagePercent",
+      "value": 20
+     }
+    ]
+   },
+   {
+    "id": "db_moonglow",
+    "name": "Mondschein",
+    "description": "Zauber kosten 3 % weniger.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -3
+     }
+    ]
+   },
+   {
+    "id": "db_moonkin",
+    "name": "Mondkingestalt",
+    "description": "Kritische Zaubertrefferchance +3 %, Rüstung +30 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 3,
+      "crit": "Spell"
+     },
+     {
+      "type": "ArmorPercent",
+      "value": 30
+     }
+    ],
+    "requires": "db_vengeance"
+   }
+  ]
+ },
+ {
+  "id": "druid_feral",
+  "class": "Druid",
+  "name": "Wilder Kampf",
+  "description": "Bär und Katze – Tank und Nahkämpfer.",
+  "primaryRole": "Tank",
+  "talents": [
+   {
+    "id": "dfe_ferocity",
+    "name": "Wildheit",
+    "description": "Zermalmen, Prankenhieb und Klaue kosten 5 % weniger.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CostPercent",
+      "value": -5,
+      "ability": "druid_maul"
+     },
+     {
+      "type": "CostPercent",
+      "value": -5,
+      "ability": "druid_swipe"
+     },
+     {
+      "type": "CostPercent",
+      "value": -5,
+      "ability": "druid_claw"
+     }
+    ]
+   },
+   {
+    "id": "dfe_feral_instinct",
+    "name": "Instinkt der Wildnis",
+    "description": "Bedrohung +3 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ThreatPercent",
+      "value": 3
+     }
+    ]
+   },
+   {
+    "id": "dfe_thick_hide",
+    "name": "Dickes Fell",
+    "description": "Rüstung +2 %.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "ArmorPercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "dfe_sharpened_claws",
+    "name": "Geschärfte Klauen",
+    "description": "Kritische Trefferchance +2 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 2,
+      "crit": "Melee"
+     }
+    ]
+   },
+   {
+    "id": "dfe_savage_fury",
+    "name": "Wilde Wut",
+    "description": "Körperlicher Schaden +5 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 2,
+    "modifiers": [
+     {
+      "type": "DamageDonePercent",
+      "value": 5,
+      "school": "Physical"
+     }
+    ]
+   },
+   {
+    "id": "dfe_heart_of_the_wild",
+    "name": "Herz der Wildnis",
+    "description": "Stärke und Ausdauer +4 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 4,
+      "stat": "Strength"
+     },
+     {
+      "type": "StatPercent",
+      "value": 4,
+      "stat": "Stamina"
+     }
+    ]
+   },
+   {
+    "id": "dfe_leader_of_the_pack",
+    "name": "Rudelführer",
+    "description": "Kritische Trefferchance +3 %, erlittener Schaden -4 %.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [
+     {
+      "type": "CritChance",
+      "value": 3,
+      "crit": "Melee"
+     },
+     {
+      "type": "DamageTakenPercent",
+      "value": -4
+     }
+    ],
+    "requires": "dfe_heart_of_the_wild"
+   }
+  ]
+ },
+ {
+  "id": "druid_restoration",
+  "class": "Druid",
+  "name": "Wiederherstellung",
+  "description": "Lebenskraft des Waldes.",
+  "primaryRole": "Healer",
+  "talents": [
+   {
+    "id": "drs_improved_mark",
+    "name": "Verbessertes Mal der Wildnis",
+    "description": "Alle Werte +1 %.",
+    "tier": 0,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "StatPercent",
+      "value": 1,
+      "stat": "Stamina"
+     },
+     {
+      "type": "StatPercent",
+      "value": 1,
+      "stat": "Intellect"
+     },
+     {
+      "type": "StatPercent",
+      "value": 1,
+      "stat": "Spirit"
+     }
+    ]
+   },
+   {
+    "id": "drs_furor",
+    "name": "Furor",
+    "description": "Maximales Mana +1 %.",
+    "tier": 0,
+    "column": 2,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "MaxPowerPercent",
+      "value": 1
+     }
+    ]
+   },
+   {
+    "id": "drs_improved_ht",
+    "name": "Verbesserte Heilende Berührung",
+    "description": "Heilende Berührung: Zauberzeit -0,1 s.",
+    "tier": 1,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "CastTimeFlat",
+      "value": -0.1,
+      "ability": "druid_healing_touch"
+     }
+    ]
+   },
+   {
+    "id": "drs_reflection",
+    "name": "Reflexion",
+    "description": "Manaregeneration +5 %.",
+    "tier": 2,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "PowerRegenPercent",
+      "value": 5
+     }
+    ]
+   },
+   {
+    "id": "drs_improved_rejuv",
+    "name": "Verbesserte Verjüngung",
+    "description": "Heilung +2 %.",
+    "tier": 3,
+    "column": 1,
+    "maxRank": 3,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 2
+     }
+    ]
+   },
+   {
+    "id": "drs_gift_of_nature",
+    "name": "Gabe der Natur",
+    "description": "Heilung +2 %.",
+    "tier": 4,
+    "column": 1,
+    "maxRank": 5,
+    "modifiers": [
+     {
+      "type": "HealingDonePercent",
+      "value": 2
+     }
+    ],
+    "requires": "drs_improved_rejuv"
+   },
+   {
+    "id": "drs_swiftmend",
+    "name": "Rasche Heilung",
+    "description": "Schaltet Rasche Heilung frei.",
+    "tier": 6,
+    "column": 1,
+    "maxRank": 1,
+    "modifiers": [],
+    "grantsAbility": "druid_swiftmend"
+   }
+  ]
+ }
+]

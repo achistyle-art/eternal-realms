@@ -1,0 +1,349 @@
+[
+ {
+  "id": "zone_eisenhang",
+  "name": "Eisenhang",
+  "continent": "Aurelion",
+  "minLevel": 1,
+  "maxLevel": 10,
+  "faction": "Sonnenbuendnis",
+  "biome": "Gebirge",
+  "description": "Heimat der Felsgeborenen: verschneite Hänge, Erzminen und Runenhallen.",
+  "weather": [
+   "Snow",
+   "Clear"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_silbertau",
+  "name": "Silbertau-Lichtungen",
+  "continent": "Aurelion",
+  "minLevel": 1,
+  "maxLevel": 10,
+  "faction": "Sonnenbuendnis",
+  "biome": "Mondwald",
+  "description": "Uralte Mondbäume der Elarii – teils verdorrt von der Hohlen Flut.",
+  "weather": [
+   "Fog",
+   "Clear"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_sonnenfeste",
+  "name": "Sonnenfeste",
+  "continent": "Aurelion",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Sonnenbuendnis",
+  "biome": "Hauptstadt",
+  "description": "Weiße Mauern, goldene Dächer: die Hauptstadt des Sonnenbündnisses mit Auktionshaus, Bank und allen Lehrern.",
+  "weather": [
+   "Clear",
+   "Rain"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_westmark",
+  "name": "Westmark",
+  "continent": "Aurelion",
+  "minLevel": 10,
+  "maxLevel": 20,
+  "faction": "Sonnenbuendnis",
+  "biome": "Ackerland",
+  "description": "Weite Felder, Windmühlen und Grenzburgen gegen Banditen und Gnolle.",
+  "weather": [
+   "Clear",
+   "Rain"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_nebelmoor",
+  "name": "Nebelmoor",
+  "continent": "Aurelion",
+  "minLevel": 15,
+  "maxLevel": 25,
+  "faction": "None",
+  "biome": "Sumpf",
+  "description": "Ein Sumpf voller Irrlichter, Sumpfhexen und vergessener Fennlingsdörfer.",
+  "weather": [
+   "Fog",
+   "Rain"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_goldene_ebene",
+  "name": "Goldene Ebene",
+  "continent": "Aurelion",
+  "minLevel": 20,
+  "maxLevel": 30,
+  "faction": "None",
+  "biome": "Savanne",
+  "description": "Umkämpftes Grasland zwischen den Fraktionen – PvP-Brennpunkt.",
+  "weather": [
+   "Clear",
+   "Storm"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_rabenforst",
+  "name": "Rabenforst",
+  "continent": "Aurelion",
+  "minLevel": 20,
+  "maxLevel": 30,
+  "faction": "None",
+  "biome": "Verfluchter Wald",
+  "description": "Schwarze Bäume, Werwölfe und ein Fluch, der jede Nacht stärker wird.",
+  "weather": [
+   "Fog",
+   "Rain"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_frostzinnen",
+  "name": "Frostzinnen",
+  "continent": "Aurelion",
+  "minLevel": 30,
+  "maxLevel": 40,
+  "faction": "None",
+  "biome": "Eis",
+  "description": "Gletscher und Eisriesen; hier lagern die Kristalle der Frostweber.",
+  "weather": [
+   "Snow",
+   "Storm"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_thalor",
+  "name": "Versunkenes Thalor",
+  "continent": "Aurelion",
+  "minLevel": 35,
+  "maxLevel": 45,
+  "faction": "None",
+  "biome": "Ruinenstadt",
+  "description": "Eine verlassene Elarii-Stadt, halb im See versunken.",
+  "weather": [
+   "Rain",
+   "Fog"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_glutsteinkamm",
+  "name": "Glutsteinkamm",
+  "continent": "Aurelion",
+  "minLevel": 45,
+  "maxLevel": 55,
+  "faction": "None",
+  "biome": "Vulkan",
+  "description": "Lavaflüsse und Feuerelementare. Eingang zur Glutherz-Zitadelle.",
+  "weather": [
+   "Clear",
+   "Storm"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_drachenschlund",
+  "name": "Drachenschlund",
+  "continent": "Aurelion",
+  "minLevel": 55,
+  "maxLevel": 60,
+  "faction": "None",
+  "biome": "Hochgebirge",
+  "description": "Elitegegner und Drachenbrut – das Hochlevelgebiet des Westens.",
+  "weather": [
+   "Storm",
+   "Snow"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_grabesmoor",
+  "name": "Grabesmoor",
+  "continent": "Kharvath",
+  "minLevel": 1,
+  "maxLevel": 10,
+  "faction": "Schattenpakt",
+  "biome": "Totenmoor",
+  "description": "Heimat der Nachtgeborenen: Gräber, Krähen und ewiger Nebel.",
+  "weather": [
+   "Fog",
+   "Rain"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_hornweiden",
+  "name": "Hornweiden",
+  "continent": "Kharvath",
+  "minLevel": 1,
+  "maxLevel": 10,
+  "faction": "Schattenpakt",
+  "biome": "Grasland",
+  "description": "Endlose Weiden des Hornvolks mit heiligen Steinkreisen.",
+  "weather": [
+   "Clear",
+   "Rain"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_kharzul",
+  "name": "Kharzul",
+  "continent": "Kharvath",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Schattenpakt",
+  "biome": "Hauptstadt",
+  "description": "Die Festungsstadt des Schattenpakts in einer erloschenen Caldera.",
+  "weather": [
+   "Clear",
+   "Storm"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_rotsand",
+  "name": "Rotsandwüste",
+  "continent": "Kharvath",
+  "minLevel": 10,
+  "maxLevel": 25,
+  "faction": "Schattenpakt",
+  "biome": "Wüste",
+  "description": "Rote Dünen, vergrabene Tempel und Riesenskorpione.",
+  "weather": [
+   "Clear",
+   "Storm"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_splitterkueste",
+  "name": "Splitterküste",
+  "continent": "Kharvath",
+  "minLevel": 15,
+  "maxLevel": 25,
+  "faction": "None",
+  "biome": "Küste",
+  "description": "Zerklüftete Küste mit Piraten, Nagas und Schiffswracks. Hafen nach Aurelion.",
+  "weather": [
+   "Rain",
+   "Storm"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_tiefenhallen",
+  "name": "Tiefenhallen",
+  "continent": "Kharvath",
+  "minLevel": 25,
+  "maxLevel": 35,
+  "faction": "None",
+  "biome": "Höhlen",
+  "description": "Ein unterirdisches Höhlensystem voller Kristalle und Troglodyten.",
+  "weather": [
+   "Fog"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_schlangendschungel",
+  "name": "Schlangendschungel",
+  "continent": "Kharvath",
+  "minLevel": 30,
+  "maxLevel": 45,
+  "faction": "None",
+  "biome": "Dschungel",
+  "description": "Die Urheimat der Skarr – Ruinen, Raubkatzen und Schlangenkulte.",
+  "weather": [
+   "Rain",
+   "Storm"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_sturmsee",
+  "name": "Sturmsee-Inseln",
+  "continent": "Kharvath",
+  "minLevel": 40,
+  "maxLevel": 50,
+  "faction": "None",
+  "biome": "Inseln",
+  "description": "Inseln im ewigen Sturm, Heimat der Sturmriesen.",
+  "weather": [
+   "Storm",
+   "Rain"
+  ],
+  "playable": false
+ },
+ {
+  "id": "zone_weltenriss",
+  "name": "Weltenriss",
+  "continent": "Kharvath",
+  "minLevel": 55,
+  "maxLevel": 60,
+  "faction": "None",
+  "biome": "Zerrissenes Land",
+  "description": "Wo die Welt zerbrach: Quelle der Hohlen Flut und Endgame-Gebiet.",
+  "weather": [
+   "Storm",
+   "Fog"
+  ],
+  "playable": false
+ },
+ {
+  "id": "raid_zwielichtbastion",
+  "name": "Zwielichtbastion",
+  "continent": "Aurelion",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "faction": "None",
+  "biome": "Raid",
+  "description": "Raid für 10 Spieler: die Festung der Zwielichtgeschwister.",
+  "weather": [
+   "Fog"
+  ],
+  "playable": false,
+  "isInstance": true,
+  "maxPlayers": 10
+ },
+ {
+  "id": "raid_glutherz",
+  "name": "Glutherz-Zitadelle",
+  "continent": "Aurelion",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "faction": "None",
+  "biome": "Raid",
+  "description": "Raid für 40 Spieler im Herzen des Glutsteinkamms.",
+  "weather": [
+   "Clear"
+  ],
+  "playable": false,
+  "isInstance": true,
+  "maxPlayers": 40
+ },
+ {
+  "id": "raid_hohle_flut",
+  "name": "Thron der Hohlen Flut",
+  "continent": "Kharvath",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "faction": "None",
+  "biome": "Raid",
+  "description": "Raid für 20 Spieler am Grund des Weltenrisses.",
+  "weather": [
+   "Storm"
+  ],
+  "playable": false,
+  "isInstance": true,
+  "maxPlayers": 20
+ }
+]

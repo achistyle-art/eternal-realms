@@ -1,0 +1,726 @@
+[
+ {
+  "id": "zone_aschensteppe",
+  "name": "Aschensteppe",
+  "continent": "Kharvath",
+  "minLevel": 1,
+  "maxLevel": 12,
+  "faction": "Schattenpakt",
+  "biome": "Steppe",
+  "description": "Eine rötliche, staubige Steppe unter einem glühenden Himmel. Das Lager Kargrak ist eine Festung aus Holz und Knochen. Im Süden liegt die Oase Zharim – und in den Schluchten predigt ein Kult vom Ende der Welt.",
+  "music": "music_aschensteppe",
+  "ambience": "amb_steppe_wind",
+  "weather": [
+   "Clear",
+   "Clear",
+   "Storm",
+   "Fog"
+  ],
+  "size": 1024,
+  "playable": true,
+  "ambientBots": 6,
+  "areas": [
+   {
+    "id": "area_as_grakar",
+    "name": "Grakar-Lager",
+    "center": [
+     215,
+     0,
+     225
+    ],
+    "radius": 35,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_as_grabwacht",
+    "name": "Grabwacht",
+    "center": [
+     320,
+     0,
+     140
+    ],
+    "radius": 35,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_as_hornweide",
+    "name": "Hornweide-Lager",
+    "center": [
+     140,
+     0,
+     330
+    ],
+    "radius": 35,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_as_skarr",
+    "name": "Schuppennest",
+    "center": [
+     285,
+     0,
+     320
+    ],
+    "radius": 30,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_as_lager",
+    "name": "Lager Kargrak",
+    "center": [
+     420,
+     0,
+     420
+    ],
+    "radius": 60,
+    "isInn": true,
+    "isCity": true,
+    "discoveryXp": 30,
+    "music": "music_camp"
+   },
+   {
+    "id": "area_as_hyaenenfelsen",
+    "name": "Hyänenfelsen",
+    "center": [
+     560,
+     0,
+     300
+    ],
+    "radius": 70,
+    "discoveryXp": 40
+   },
+   {
+    "id": "area_as_glutsenke",
+    "name": "Glutsenke",
+    "center": [
+     330,
+     0,
+     640
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_as_oase",
+    "name": "Oase Zharim",
+    "center": [
+     720,
+     0,
+     690
+    ],
+    "radius": 45,
+    "isViewpoint": true,
+    "discoveryXp": 80
+   },
+   {
+    "id": "area_as_sandschinder",
+    "name": "Sandschinder-Lager",
+    "center": [
+     620,
+     0,
+     520
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_as_kultschlucht",
+    "name": "Schlucht der Hohlen Flut",
+    "center": [
+     790,
+     0,
+     470
+    ],
+    "radius": 70,
+    "discoveryXp": 90
+   },
+   {
+    "id": "area_as_knochenschlucht",
+    "name": "Knochenschlucht",
+    "center": [
+     850,
+     0,
+     230
+    ],
+    "radius": 30,
+    "isSecret": true,
+    "discoveryXp": 150
+   },
+   {
+    "id": "area_as_krypta",
+    "name": "Wurzelkrypta-Eingang",
+    "center": [
+     880,
+     0,
+     820
+    ],
+    "radius": 30,
+    "discoveryXp": 120
+   },
+   {
+    "id": "area_as_aschenkrater",
+    "name": "Aschenkrater",
+    "center": [
+     900,
+     0,
+     640
+    ],
+    "radius": 50,
+    "discoveryXp": 120
+   }
+  ],
+  "graveyards": [
+   [
+    445,
+    0,
+    380
+   ],
+   [
+    700,
+    0,
+    560
+   ]
+  ],
+  "spawns": [
+   {
+    "creature": "mob_dust_hyena",
+    "position": [
+     240,
+     0,
+     260
+    ],
+    "count": 10,
+    "radius": 45,
+    "respawnSeconds": 30,
+    "wanderRadius": 8
+   },
+   {
+    "creature": "mob_dust_hyena",
+    "position": [
+     170,
+     0,
+     300
+    ],
+    "count": 6,
+    "radius": 30,
+    "respawnSeconds": 30,
+    "wanderRadius": 8
+   },
+   {
+    "creature": "mob_dust_hyena",
+    "position": [
+     300,
+     0,
+     180
+    ],
+    "count": 6,
+    "radius": 30,
+    "respawnSeconds": 30,
+    "wanderRadius": 8
+   },
+   {
+    "creature": "mob_ash_beetle",
+    "position": [
+     270,
+     0,
+     270
+    ],
+    "count": 8,
+    "radius": 50,
+    "respawnSeconds": 40,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_ember_lizard",
+    "position": [
+     560,
+     0,
+     300
+    ],
+    "count": 14,
+    "radius": 60,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_dunestalker",
+    "position": [
+     600,
+     0,
+     250
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1800,
+    "wanderRadius": 0,
+    "patrol": [
+     [
+      600,
+      0,
+      250
+     ],
+     [
+      650,
+      0,
+      320
+     ],
+     [
+      560,
+      0,
+      360
+     ],
+     [
+      520,
+      0,
+      270
+     ]
+    ]
+   },
+   {
+    "creature": "mob_ember_lizard",
+    "position": [
+     330,
+     0,
+     640
+    ],
+    "count": 8,
+    "radius": 50,
+    "respawnSeconds": 45,
+    "wanderRadius": 8
+   },
+   {
+    "creature": "mob_sandreaver",
+    "position": [
+     620,
+     0,
+     520
+    ],
+    "count": 12,
+    "radius": 55,
+    "respawnSeconds": 50,
+    "wanderRadius": 5
+   },
+   {
+    "creature": "mob_sandreaver_caller",
+    "position": [
+     640,
+     0,
+     545
+    ],
+    "count": 6,
+    "radius": 30,
+    "respawnSeconds": 60,
+    "wanderRadius": 3
+   },
+   {
+    "creature": "mob_hollow_cultist",
+    "position": [
+     790,
+     0,
+     470
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 60,
+    "wanderRadius": 4
+   },
+   {
+    "creature": "mob_varga",
+    "position": [
+     820,
+     0,
+     460
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 300,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "mob_kharox",
+    "position": [
+     900,
+     0,
+     640
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 7200,
+    "wanderRadius": 0
+   }
+  ],
+  "npcs": [
+   {
+    "npc": "npc_as_durgash",
+    "position": [
+     215,
+     0,
+     225
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_as_asha",
+    "position": [
+     222,
+     0,
+     218
+    ],
+    "facing": 4.1
+   },
+   {
+    "npc": "npc_as_sylva",
+    "position": [
+     325,
+     0,
+     145
+    ],
+    "facing": 5.5
+   },
+   {
+    "npc": "npc_as_haweno",
+    "position": [
+     145,
+     0,
+     335
+    ],
+    "facing": 4.4
+   },
+   {
+    "npc": "npc_as_zissa",
+    "position": [
+     285,
+     0,
+     325
+    ],
+    "facing": 3.3
+   },
+   {
+    "npc": "npc_as_chief",
+    "position": [
+     420,
+     0,
+     420
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_as_innkeeper",
+    "position": [
+     430,
+     0,
+     408
+    ],
+    "facing": 0.2
+   },
+   {
+    "npc": "npc_as_saltboiler",
+    "position": [
+     408,
+     0,
+     434
+    ],
+    "facing": 2.3
+   },
+   {
+    "npc": "npc_as_smith",
+    "position": [
+     440,
+     0,
+     432
+    ],
+    "facing": 4.0
+   },
+   {
+    "npc": "npc_as_beastmaster",
+    "position": [
+     404,
+     0,
+     414
+    ],
+    "facing": 0.9
+   },
+   {
+    "npc": "npc_as_flightmaster",
+    "position": [
+     460,
+     0,
+     398
+    ],
+    "facing": 5.0
+   },
+   {
+    "npc": "npc_as_elron",
+    "position": [
+     450,
+     0,
+     442
+    ],
+    "facing": 4.0
+   },
+   {
+    "npc": "npc_as_drummer",
+    "position": [
+     430,
+     0,
+     430
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_as_scout",
+    "position": [
+     720,
+     0,
+     690
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_as_flightmaster_oasis",
+    "position": [
+     732,
+     0,
+     680
+    ],
+    "facing": 3.9
+   },
+   {
+    "npc": "npc_as_tukan",
+    "position": [
+     600,
+     0,
+     470
+    ],
+    "facing": 1.0
+   },
+   {
+    "npc": "npc_as_seer",
+    "position": [
+     640,
+     0,
+     760
+    ],
+    "facing": 3.5
+   },
+   {
+    "npc": "npc_as_guard",
+    "position": [
+     380,
+     0,
+     420
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      380,
+      0,
+      420
+     ],
+     [
+      420,
+      0,
+      465
+     ],
+     [
+      465,
+      0,
+      420
+     ],
+     [
+      420,
+      0,
+      375
+     ]
+    ]
+   },
+   {
+    "npc": "npc_as_guard",
+    "position": [
+     465,
+     0,
+     420
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      465,
+      0,
+      420
+     ],
+     [
+      420,
+      0,
+      375
+     ],
+     [
+      380,
+      0,
+      420
+     ],
+     [
+      420,
+      0,
+      465
+     ]
+    ]
+   },
+   {
+    "npc": "npc_as_guard",
+    "position": [
+     720,
+     0,
+     680
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_as_spirit_healer",
+    "position": [
+     445,
+     0,
+     380
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_as_spirit_healer",
+    "position": [
+     700,
+     0,
+     560
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_as_trainer_warrior",
+    "position": [
+     442.0,
+     0,
+     420.0
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_as_trainer_hunter",
+    "position": [
+     435.6,
+     0,
+     435.6
+    ],
+    "facing": 3.93
+   },
+   {
+    "npc": "npc_as_trainer_rogue",
+    "position": [
+     420.0,
+     0,
+     442.0
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_as_trainer_priest",
+    "position": [
+     404.4,
+     0,
+     435.6
+    ],
+    "facing": 5.5
+   },
+   {
+    "npc": "npc_as_trainer_shaman",
+    "position": [
+     398.0,
+     0,
+     420.0
+    ],
+    "facing": 6.28
+   },
+   {
+    "npc": "npc_as_trainer_mage",
+    "position": [
+     404.4,
+     0,
+     404.4
+    ],
+    "facing": 7.07
+   },
+   {
+    "npc": "npc_as_trainer_warlock",
+    "position": [
+     420.0,
+     0,
+     398.0
+    ],
+    "facing": 7.85
+   },
+   {
+    "npc": "npc_as_trainer_druid",
+    "position": [
+     435.6,
+     0,
+     404.4
+    ],
+    "facing": 8.64
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_ember_salt",
+    "position": [
+     330,
+     0,
+     625
+    ],
+    "count": 8,
+    "radius": 40,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_grave_marker",
+    "position": [
+     335,
+     0,
+     120
+    ],
+    "count": 5,
+    "radius": 25,
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_bone_totem",
+    "position": [
+     295,
+     0,
+     340
+    ],
+    "count": 6,
+    "radius": 25,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_ritual_brazier",
+    "position": [
+     800,
+     0,
+     480
+    ],
+    "count": 4,
+    "radius": 40,
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_crypt_entrance_as",
+    "position": [
+     880,
+     0,
+     820
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
+   }
+  ]
+ }
+]
