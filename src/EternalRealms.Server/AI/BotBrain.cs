@@ -10,7 +10,6 @@ namespace EternalRealms.Server.AI
 {
     public enum BotStance { Passive, Assist, Aggressive }
 
-    public enum BotCommand { None, Follow, Stay, Attack, Dungeon, Rest, Passive, Assist, Aggressive, Status, Pull, Buff }
 
     /// <summary>
     /// Entscheidungslogik eines KI-Mitspielers. Ein Bot ist eine normale Spielfigur (Player); das Gehirn
@@ -20,7 +19,7 @@ namespace EternalRealms.Server.AI
     /// Prioritäten pro Denkschritt: tot? → zaubert gerade? → Notfall → Heilen → Kampf → Wiederbeleben →
     /// Haltung/Begleiter/Buffs → Rasten → Folgen bzw. eigenständig jagen.
     /// </summary>
-    public sealed class BotBrain
+    public sealed partial class BotBrain
     {
         public Player Me { get; }
         public BotData Data { get; }
@@ -57,8 +56,23 @@ namespace EternalRealms.Server.AI
             _thinkTimer = (float)world.Random.NextDouble();
         }
 
-        /// <summary>Reaktionszeit: geübte Bots reagieren schneller.</summary>
-        private float ReactionTime => 0.25f + (1 - Data.Skill) * 0.45f;
+        /// <summary>
+        /// Reaktionszeit: geübte Bots reagieren schneller, vertraute Begleiter des Anführers etwas schneller
+        /// (verbesserte Zusammenarbeit). Unbeobachtete Bots denken außerhalb des Kampfes seltener (Detailstufe).
+        /// </summary>
+        private float ReactionTime
+        {
+            get
+            {
+                float t = 0.25f + (1 - Data.Skill) * 0.45f;
+                if (Leader != null && Data.Familiarity.TryGetValue(Leader.Data.AccountId ?? -1, out var fam)) t -= Math.Min(fam, 50) / 50f * 0.08f;
+                if (!_observed && !Me.InCombat) t *= 4;
+                return Math.Max(0.2f, t);
+            }
+        }
+
+        private bool _observed = true;
+        private float _observeTimer;
         private Player? Leader => Me.Group != null && Me.Group.Leader != Me ? Me.Group.Leader : null;
         private bool InGroup => Me.Group != null && Me.Group.Members.Count > 1;
         private double Now => _w.Time;
@@ -68,6 +82,11 @@ namespace EternalRealms.Server.AI
         public void Update(float dt)
         {
             if (Me.Zone == null || Me.IsFlying) return;
+            if ((_observeTimer -= dt) <= 0)
+            {
+                _observeTimer = 2;
+                _observed = InGroup || Me.Zone.PlayersInRange(Me.Position, 150).Any(p => !p.IsBot);
+            }
             _thinkTimer -= dt;
             if (_thinkTimer <= 0)
             {
@@ -92,17 +111,26 @@ namespace EternalRealms.Server.AI
             }
             if (!Me.CanAct) return;
             if (InGroup && Leader != null && !SyncWithLeader()) return;
+            if (HandleRetreat()) return;
 
             var enemies = EngagedEnemies();
             if (Me.HealthPct < 0.25f && enemies.Count > 0 && TryEmergency()) return;
+            if (TryRequestedHeal()) return;
             if (TryHeal(enemies.Count > 0)) return;
             if (TryInterrupt(enemies)) return;
             if (enemies.Count > 0)
             {
                 StopResting();
+                ObserveFight(enemies);
+                if (MaintainControl()) return;
+                // Fehlerwahrscheinlichkeit der Schwierigkeitsstufe: kurzes Zögern statt perfekter Reaktion.
+                if (_w.Random.Chance(BotPersonality.MistakeChance(Data.Difficulty))) { Decide("zögert"); return; }
                 Fight(enemies);
                 return;
             }
+            // Befohlene Kontrolle auch als Eröffnung vor dem Kampf (erst verwandeln, dann ziehen).
+            if (MaintainControl()) return;
+            AfterFight();
             Me.AutoAttacking = false;
             if (TryResurrect()) return;
             if (MaintainSelf()) return;
@@ -235,6 +263,7 @@ namespace EternalRealms.Server.AI
                     Decide("Abstand gewinnen");
                     return;
                 }
+                if (Spread && d < 24) { MoveTo(target.Position + (Me.Position - target.Position).NormalizedXZ() * 27, 1.5f); return; }
                 if (d > 28) MoveTo(target.Position, 26);
                 else { _moveTarget = null; Me.Facing = Vec3.FacingTowards(Me.Position, target.Position); }
                 if (Me.Class == CharClass.Hunter) Me.AutoAttacking = d >= 8 || Me.InMeleeRange(target);
@@ -247,7 +276,12 @@ namespace EternalRealms.Server.AI
                     // Nahkämpfer stellen sich hinter das Ziel, wenn es nicht sie angreift (wie erfahrene Spieler).
                     Vec3 spot = target.Position;
                     if (target.Target != Me && Role != Role.Tank)
-                        spot = target.Position - new Vec3((float)Math.Sin(target.Facing), 0, (float)Math.Cos(target.Facing)) * 1.5f;
+                    {
+                        // Hinter dem Ziel; beim Befehl "verteilt euch" auf einem eigenen Winkel, damit Flächenangriffe nicht alle treffen.
+                        float spreadAngle = Spread ? (Me.Group?.Bots.ToList().IndexOf(Me) ?? 0) * 0.9f - 1.2f : 0;
+                        float a = target.Facing + (float)Math.PI + spreadAngle;
+                        spot = target.Position + new Vec3((float)Math.Sin(a), 0, (float)Math.Cos(a)) * 1.5f;
+                    }
                     MoveTo(spot, Me.MeleeReachTo(target) - 0.6f);
                 }
                 else { _moveTarget = null; Me.Facing = Vec3.FacingTowards(Me.Position, target.Position); }
@@ -258,6 +292,7 @@ namespace EternalRealms.Server.AI
         private Unit? PickTankTarget(List<Creature> enemies)
         {
             // 1. Lose Gegner, die Gruppenmitglieder angreifen, zurückholen (Spott).
+            enemies = enemies.Where(e => !IsControlled(e)).ToList();
             var loose = enemies.Where(e => e.Target != null && e.Target != Me && e.Target is Player tp && tp.Group == Me.Group)
                                .OrderBy(e => e.Target is Player p && p.Bot?.Role == Role.Healer ? 0 : 1).ThenBy(e => e.DistanceTo(Me)).FirstOrDefault();
             if (loose != null)
@@ -273,9 +308,17 @@ namespace EternalRealms.Server.AI
 
         private Unit? PickAssistTarget(List<Creature> enemies)
         {
-            var usable = enemies.Where(e => !e.Auras.Any(a => a.Def.BreaksOnDamage && a.Def.IsDebuff)).ToList();
+            var usable = enemies.Where(e => !IsControlled(e)).ToList();
             if (usable.Count == 0) return null;
             if (_forcedTarget is Creature f && usable.Contains(f)) return f;
+            var marked = MarkedTarget(usable);
+            if (marked != null) return marked;
+            // Mutige Nahkämpfer beschützen schwächere Gruppenmitglieder (nur wenn der Tank gerade anderweitig bindet).
+            if (Data.Archetype == BotPersonality.Mutig && !(Profile?.Ranged ?? false))
+            {
+                var bully = usable.FirstOrDefault(e => e.Target is Player p && p != Me && p.Group == Me.Group && !IsTank(p) && (p.Bot?.Role == Role.Healer || p.HealthPct < 0.5f));
+                if (bully != null) return bully;
+            }
             var tank = Me.Group?.MemberWithRole(Role.Tank);
             if (tank != null && tank != Me && tank.Target is Creature tt && usable.Contains(tt)) return tt;
             if (Leader?.Target is Creature lt && usable.Contains(lt)) return lt;
@@ -292,7 +335,7 @@ namespace EternalRealms.Server.AI
             if (tank == null || tank == Me || target is not Creature c) return false;
             if (c.Target != tank) return c.Target == null;
             if (!_firstTankHit.TryGetValue(c, out var t)) { _firstTankHit[c] = Now; return true; }
-            float patience = 1.2f + Data.Caution * 1.5f;
+            float patience = (1.2f + Data.Caution * 1.5f) * (Data.Archetype == BotPersonality.Mutig ? 0.6f : 1f);
             return Now - t < patience;
         }
 
@@ -347,10 +390,11 @@ namespace EternalRealms.Server.AI
         {
             var id = Profile?.Interrupt;
             if (id == null || Me.KnownRank(id) <= 0) return false;
-            var caster = enemies.FirstOrDefault(e => e.Cast != null && e.Cast.Remaining > 0.3f && e.Cast.Ability.IsSpell);
+            var casters = enemies.Where(e => e.Cast != null && e.Cast.Remaining > 0.3f && e.Cast.Ability.IsSpell).ToList();
+            var caster = (_interruptPriority ? casters.FirstOrDefault(e => e == Leader?.Target) : null) ?? casters.FirstOrDefault();
             if (caster == null) return false;
-            // Vorsichtige Bots reagieren zuverlässiger, ungeübte verpassen manche Unterbrechung.
-            if (!_w.Random.Chance(0.35 + Data.Skill * 0.6)) return false;
+            // Geübte Bots reagieren zuverlässiger, ungeübte verpassen manche Unterbrechung. Auf Befehl fast immer.
+            if (!_w.Random.Chance(_interruptPriority ? 0.95 : 0.35 + Data.Skill * 0.6)) return false;
             return TryAbility(id, caster);
         }
 
@@ -667,44 +711,6 @@ namespace EternalRealms.Server.AI
 
         // ================================================================== Ereignisse
 
-        public void OnPartyChat(Player from, string text)
-        {
-            var group = Me.Group;
-            if (group == null) return;
-            // Wird ein Bot namentlich angesprochen, reagieren nur die Genannten.
-            var named = group.Bots.Where(b => text.Contains(b.Name, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (named.Count > 0 && !named.Contains(Me)) return;
-            var cmd = BotCommandParser.Parse(text);
-            int order = group.Bots.ToList().IndexOf(Me);
-            switch (cmd)
-            {
-                case BotCommand.Follow: Following = true; Say("follow", delay: order * 0.6f); break;
-                case BotCommand.Stay: Following = false; StayPosition = Me.Position; _moveTarget = null; Say("stay", delay: order * 0.6f); break;
-                case BotCommand.Attack:
-                case BotCommand.Pull:
-                    if (from.Target is Creature t && Me.CanAttack(t))
-                    {
-                        _forcedTarget = t;
-                        if (cmd == BotCommand.Attack || Role == Role.Tank) { Me.Target = t; Say("attack", t, delay: order * 0.4f); }
-                    }
-                    break;
-                case BotCommand.Dungeon:
-                    DungeonMode = true;
-                    // Der Tank antwortet zuerst, die anderen beziehen sich darauf (Bots reden miteinander).
-                    float d = Role == Role.Tank ? 0.8f : 2.2f + order * 1.1f;
-                    Say("dungeon", delay: d);
-                    if (Role != Role.Tank && _w.Random.Chance(0.5)) Say("dungeon_reply", delay: d + 2.5f);
-                    if (Role == Role.Healer && Me.PowerPct < 0.8f) { Resting = false; _buffTimer = 0; }
-                    break;
-                case BotCommand.Rest: if (!Me.InCombat) { Resting = true; StartRestAbilities(Me.PowerPct); Say("rest", delay: order * 0.5f); } break;
-                case BotCommand.Passive: Stance = BotStance.Passive; Say("passive", delay: order * 0.5f); break;
-                case BotCommand.Assist: Stance = BotStance.Assist; Say("follow", delay: order * 0.5f); break;
-                case BotCommand.Aggressive: Stance = BotStance.Aggressive; Say("aggressive", delay: order * 0.5f); break;
-                case BotCommand.Status: Say("status", delay: order * 0.7f, force: true); break;
-                case BotCommand.Buff: _buffTimer = 0; break;
-            }
-        }
-
         public void OnWhisper(Player from, string text)
         {
             var lower = text.ToLowerInvariant();
@@ -731,6 +737,9 @@ namespace EternalRealms.Server.AI
             _firstTankHit.Remove(c);
             if (_forcedTarget == c) _forcedTarget = null;
             if (!InGroup) _killsSinceTown++;
+            _killsThisFight++;
+            if (c.IsBoss) RecordShared($"{c.Name} besiegt", 3);
+            else if (c.Template.Elite) RecordShared("", 1);
             if (c.IsBoss) Say("boss_kill", delay: 0.5f + (float)_w.Random.NextDouble() * 2);
             else if (_w.Random.Chance(Data.Chattiness * 0.08)) Say("kill");
         }
@@ -741,6 +750,7 @@ namespace EternalRealms.Server.AI
             if (Profile != null) _w.Progression.AutoSpendTalents(Me, Profile.TalentTree);
             Me.MarkStatsDirty();
             Say("level_up", force: InGroup);
+            if (Me.Level % 10 == 0) RecordShared($"Stufe {Me.Level} erreicht", 1);
             if (Me.Group != null)
                 foreach (var b in Me.Group.Bots.Where(b => b != Me))
                     if (_w.Random.Chance(b.Bot!.Data.Chattiness * 0.6)) b.Bot.Say("level_up_reply", Me, delay: 1.5f + (float)_w.Random.NextDouble() * 2);
@@ -813,33 +823,5 @@ namespace EternalRealms.Server.AI
         }
 
         private void Decide(string what) => LastDecision = what;
-    }
-
-    /// <summary>Versteht einfache Befehle im Gruppenchat (deutsch, teils englisch).</summary>
-    public static class BotCommandParser
-    {
-        private static readonly (BotCommand cmd, string[] words)[] Table =
-        {
-            (BotCommand.Dungeon, new[] { "dungeon", "instanz", "krypta", "verlies" }),
-            (BotCommand.Stay, new[] { "wartet", "warte", "bleibt", "bleib", "stopp", "stop", "halt", "stay" }),
-            (BotCommand.Follow, new[] { "folgt", "folge", "folg", "kommt", "follow", "mir nach" }),
-            (BotCommand.Pull, new[] { "zieh", "pull", "pullen" }),
-            (BotCommand.Attack, new[] { "angriff", "greift", "greif", "attack", "auf ihn", "attacke", "los!" }),
-            (BotCommand.Rest, new[] { "pause", "rast", "trinkt", "esst", "ausruhen" }),
-            (BotCommand.Passive, new[] { "passiv" }),
-            (BotCommand.Aggressive, new[] { "aggressiv", "aggro" }),
-            (BotCommand.Assist, new[] { "verteidig", "normal", "assist" }),
-            (BotCommand.Status, new[] { "status", "wie geht", "bericht" }),
-            (BotCommand.Buff, new[] { "buff" }),
-        };
-
-        public static BotCommand Parse(string text)
-        {
-            var t = " " + text.ToLowerInvariant() + " ";
-            foreach (var (cmd, words) in Table)
-                foreach (var w in words)
-                    if (t.Contains(w)) return cmd;
-            return BotCommand.None;
-        }
     }
 }

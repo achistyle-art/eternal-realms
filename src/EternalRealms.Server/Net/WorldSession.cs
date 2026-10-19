@@ -266,13 +266,21 @@ namespace EternalRealms.Server.Net
                 case C_GroupAccept ga: _w.Groups.Respond(p, ga.Accept); return;
                 case C_GroupLeave: _w.Groups.Leave(p); return;
                 case C_BotSearch bs:
-                    p.Send(new S_BotCandidates { Candidates = _w.Bots.FindCandidates(p, bs.Role == 255 ? null : (Role)Math.Min((int)bs.Role, 3)) });
+                    p.Send(new S_BotCandidates { Candidates = _w.Bots.FindCandidates(p, bs.Role == 255 ? null : (Role)Math.Min((int)bs.Role, 3),
+                        bs.Difficulty == 255 ? null : (BotDifficulty)Math.Min((int)bs.Difficulty, 3)) });
                     return;
                 case C_BotInvite bi:
                     if (p.Group != null && p.Group.Leader != p) { err = "Nur der Gruppenanführer kann einladen."; break; }
                     err = _w.Bots.Invite(p, bi.CandidateId);
                     break;
                 case C_BotDismiss bd: err = _w.Bots.Dismiss(p, bd.EntityId); break;
+                case C_BotFavorite bf: err = _w.Bots.SetFavorite(p, bf.EntityId, bf.Favorite); break;
+                case C_BotCommand bc: err = BotCommandFromUi(p, bc); break;
+                case C_SetMarker sm:
+                    if (p.Group == null) { err = "Ihr seid in keiner Gruppe."; break; }
+                    if (sm.TargetId != 0 && p.Zone?.GetUnit(sm.TargetId) == null) { err = "Ungültiges Ziel."; break; }
+                    p.Group.SetMarker(sm.Marker, sm.TargetId);
+                    return;
                 case C_CancelAura ca:
                 {
                     var aura = p.FindAura(ca.AuraId);
@@ -283,6 +291,26 @@ namespace EternalRealms.Server.Net
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);
+        }
+
+        /// <summary>Befehl aus der Kommandooberfläche – gleiche Logik wie ein Chatbefehl, aber ohne Textverständnis.</summary>
+        private string? BotCommandFromUi(Player p, C_BotCommand c)
+        {
+            var group = p.Group;
+            if (group == null || !group.Bots.Any()) return "Ihr habt keine KI-Mitspieler in der Gruppe.";
+            if (group.Leader != p) return "Nur der Gruppenanführer kann Befehle geben.";
+            if (c.Command == 0 || c.Command > (byte)BotCommand.Retreat) return "Unbekannter Befehl.";
+            if (c.TargetId != 0)
+            {
+                if (p.Zone?.GetUnit(c.TargetId) is not Unit t) return "Ungültiges Ziel.";
+                p.Target = t;
+            }
+            var order = new BotOrder { Command = (BotCommand)c.Command, Side = (OrderSide)Math.Min((int)c.Side, 2) };
+            var bots = group.Bots.Where(b => c.BotEntityId == 0 || b.Id == c.BotEntityId).ToList();
+            if (bots.Count == 0) return "Dieser KI-Mitspieler ist nicht in Eurer Gruppe.";
+            if (c.BotEntityId != 0) order.Addressees.Add(bots[0].Name);
+            foreach (var b in bots) b.Bot?.Execute(order, p);
+            return null;
         }
 
         private string? WithNpc(Player p, int npcId, Func<Creature, string?> action) =>

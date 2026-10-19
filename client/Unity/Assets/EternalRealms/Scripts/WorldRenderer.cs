@@ -243,6 +243,8 @@ namespace EternalRealms.Client
             }
             _body.material.color = BodyColor(e);
             string marker = e.Marker switch { QuestMarker.Available => "<color=yellow>!</color>\n", QuestMarker.ReadyToTurnIn => "<color=yellow>?</color>\n", QuestMarker.Incomplete => "<color=grey>?</color>\n", QuestMarker.AvailableLowLevel => "<color=grey>!</color>\n", _ => "" };
+            var net = NetworkManager.Instance;
+            if (net != null && net.Client.Markers.TryGetValue(e.Id, out var raidMark)) marker = GameUI.MarkerSymbol(raidMark) + "\n" + marker;
             string hp = e.Kind == EntityKind.GameObject || e.MaxHealth <= 0 ? "" : $"\n{Bar(e.HealthPct)}";
             string title = e.Title != "" ? $"\n<{e.Title}>" : "";
             _label.text = $"{marker}{e.Name}{(e.Kind == EntityKind.GameObject ? "" : $" ({e.Level})")}{title}{hp}";

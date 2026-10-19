@@ -97,6 +97,15 @@ namespace EternalRealms.Tests
             client.Send(new C_BotInvite { CandidateId = client.BotCandidates[0].CandidateId });
             await WaitFor(client, () => client.Group.Count == 2, "Gruppe mit Bot");
             await WaitFor(client, () => client.ChatLog.Any(c => c.SenderIsBot), "Begrüßung des Bots");
+            // Kommandooberfläche, Favoriten und Zielmarkierungen
+            int botId = client.Group.First(m => m.IsBot).EntityId;
+            client.BotCommand(2, botId); // Position halten
+            await WaitFor(client, () => server.World.AllPlayers.First(p => p.Id == botId).Bot!.Following == false, "Befehl „Halten“");
+            client.Send(new C_BotFavorite { EntityId = botId });
+            await WaitFor(client, () => client.Notices.Any(n => n.Contains("bevorzugter Begleiter")), "Favorit gespeichert");
+            var mob = client.State.Entities.Values.First(e => e.Kind == EntityKind.Creature);
+            client.SetMarker(8, mob.Id);
+            await WaitFor(client, () => client.Markers.TryGetValue(mob.Id, out var m) && m == 8, "Totenkopf-Markierung");
             client.Move(client.Me!.Position + new Vec3(2, 0, 0), 0);
             await WaitFor(client, () => Vec3.DistanceXZ(server.World.AllPlayers.First(p => !p.IsBot).Position, client.Me!.Position) < 0.5f, "Bewegung beim Server");
             cts.Cancel();

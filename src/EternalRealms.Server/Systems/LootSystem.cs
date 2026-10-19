@@ -93,6 +93,8 @@ namespace EternalRealms.Server.Systems
                 recipient.Send(recipient.BuildInventory());
                 _w.Quests.OnItemsChanged(recipient);
                 if (recipient.IsBot) _w.Bots.OnBotReceivedItem(recipient, item.ItemId);
+                if (def.Quality >= ItemQuality.Rare && looter.Group != null)
+                    foreach (var b in looter.Group.Bots) b.Bot?.OnRareLoot(def);
             }
             looter.Send(result);
             looter.Send(looter.BuildInventory());

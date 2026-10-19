@@ -87,9 +87,19 @@ namespace EternalRealms.Server.Systems
             _w.Quests.RefreshMarkers(p);
         }
 
+        /// <summary>Stufenaufstieg ohne Nachrichten (Hintergrundentwicklung offline befindlicher Bots).</summary>
+        public void LevelUpSilently(Player p)
+        {
+            p.Level++;
+            p.Data.Level = p.Level;
+            p.Data.Xp = 0;
+            p.MarkStatsDirty();
+        }
+
         public void DiscoverArea(Player p, AreaDef area)
         {
             if (!p.Data.DiscoveredAreas.Add(area.Id)) return;
+            p.Bot?.OnAreaDiscovered(area);
             p.Notice($"Entdeckt: {area.Name}");
             int xp = Experience.DiscoveryXp(p.Level, area.DiscoveryXp);
             if (xp > 0) GiveXp(p, xp, "explore");

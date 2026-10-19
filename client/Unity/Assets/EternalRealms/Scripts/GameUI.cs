@@ -274,10 +274,26 @@ namespace EternalRealms.Client
             if (me == null) return;
             DrawUnitFrame(new Rect(10, 10, 240, 70), me, true);
             var target = Client.State.Get(me.TargetId);
-            if (target != null) DrawUnitFrame(new Rect(260, 10, 240, 70), target, false);
+            if (target != null)
+            {
+                DrawUnitFrame(new Rect(260, 10, 240, 70), target, false);
+                if (Client.Group.Count > 0 && target.Kind != EntityKind.Player)
+                {
+                    // Markierungen: Totenkopf (zuerst), Kreuz (danach), Mond (kontrollieren), entfernen
+                    var marks = new (byte m, string label)[] { (8, "☠"), (7, "✖"), (5, "☾"), (0, "–") };
+                    for (int i = 0; i < marks.Length; i++)
+                        if (GUI.Button(Box(new Rect(260 + i * 30, 82, 28, 22)), marks[i].label))
+                        {
+                            byte m = marks[i].m;
+                            if (m == 0 && Client.Markers.TryGetValue(target.Id, out var cur)) Client.SetMarker((byte)cur, 0);
+                            else if (m != 0) Client.SetMarker(m, target.Id);
+                        }
+                }
+            }
             DrawGroupFrames();
             DrawInfo();
             DrawActionBar(me);
+            DrawBotCommandBar(me);
             DrawCastBar(me);
             DrawXpBar();
             DrawChat();
@@ -380,6 +396,43 @@ namespace EternalRealms.Client
                 GUI.Label(new Rect(tr.x + 6, tr.y + 4, 290, 80), GUI.tooltip, _wrap);
             }
         }
+
+        // ================================================================== KI-Befehlsleiste (Kapitel 9.7)
+
+        private int _commandBot; // 0 = alle KI-Mitspieler
+        private static readonly (byte cmd, string label, string tip)[] BotCommands =
+        {
+            (1, "Folgen", "Folgt mir"), (2, "Halten", "Position halten"), (3, "Angriff", "Greift mein Ziel an"), (7, "Verteidigen", "Nur angreifen, was uns angreift"),
+            (6, "Passiv", "Nicht kämpfen"), (12, "Fokus", "Alle auf mein Ziel"), (13, "Unterbrechen", "Zauber des Gegners unterbrechen"), (14, "Heilen", "Heilt mich"),
+            (15, "Mana", "Mana auffüllen"), (16, "Verteilen", "Flächenschaden meiden"), (17, "Kontrolle", "Mein Ziel kontrollieren (Mond)"), (18, "Rückzug", "Alle zurückziehen"),
+        };
+
+        private void DrawBotCommandBar(ClientEntity me)
+        {
+            var bots = Client.Group.Where(m => m.IsBot).ToList();
+            if (bots.Count == 0 || Client.GroupLeaderId != me.Id) return;
+            float w = 74, h = 24, total = BotCommands.Length * (w + 2);
+            float x0 = UnityEngine.Screen.width / 2 - total / 2, y = UnityEngine.Screen.height - 146;
+            // Empfänger: alle oder ein einzelner Bot
+            var names = new List<string> { "Alle" };
+            names.AddRange(bots.Select(b => b.Name));
+            int sel = System.Math.Max(0, bots.FindIndex(b => b.EntityId == _commandBot) + 1);
+            var rr = Box(new Rect(x0, y - h - 2, System.Math.Min(total, names.Count * 110), h));
+            sel = GUI.Toolbar(rr, sel, names.ToArray());
+            _commandBot = sel == 0 ? 0 : bots[sel - 1].EntityId;
+            for (int i = 0; i < BotCommands.Length; i++)
+            {
+                var (cmd, label, tip) = BotCommands[i];
+                if (GUI.Button(Box(new Rect(x0 + i * (w + 2), y, w, h)), new GUIContent(label, tip)))
+                    Client.BotCommand(cmd, _commandBot, me.TargetId);
+            }
+        }
+
+        public static string MarkerSymbol(int m) => m switch
+        {
+            8 => "<color=white>☠</color>", 7 => "<color=red>✖</color>", 6 => "<color=#4af>■</color>", 5 => "<color=#cdf>☾</color>",
+            4 => "<color=green>▲</color>", 3 => "<color=#c4f>◆</color>", 2 => "<color=orange>●</color>", 1 => "<color=yellow>★</color>", _ => "",
+        };
 
         private static string Short(string s) => s.Length <= 12 ? s : s.Substring(0, 11) + "…";
 
@@ -658,6 +711,8 @@ namespace EternalRealms.Client
             GUILayout.EndArea();
         }
 
+        private int _botDifficulty;
+
         private void DrawGroupWindow()
         {
             var area = Window("Gruppe", 600, 480);
@@ -666,18 +721,24 @@ namespace EternalRealms.Client
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label($"{m.Name} – Stufe {m.Level} {Content.Classes[m.Class].Name}{(m.IsBot ? $" <color=cyan>(KI, {RoleName(m.Role)})</color>" : "")}{(m.EntityId == Client.GroupLeaderId ? " ★" : "")}", _wrap, GUILayout.Width(420));
+                if (m.IsBot && GUILayout.Button(new GUIContent("★", "Als bevorzugten Begleiter merken"), GUILayout.Width(30))) Client.Send(new C_BotFavorite { EntityId = m.EntityId, Favorite = true });
                 if (m.IsBot && GUILayout.Button("Entlassen")) Client.Send(new C_BotDismiss { EntityId = m.EntityId });
                 GUILayout.EndHorizontal();
             }
             if (Client.Group.Count > 0 && GUILayout.Button("Gruppe verlassen")) Client.Send(new C_GroupLeave());
             GUILayout.Space(8);
-            GUILayout.Label("<b>KI-Mitspieler suchen</b> – Bots füllen fehlende Rollen, kämpfen, heilen, folgen und verstehen Gruppenchat-Befehle wie „folgt mir“, „wartet“, „Angriff“ oder „Wir gehen in den Dungeon“.", _wrap);
+            GUILayout.Label("<b>KI-Mitspieler suchen</b> – Bots füllen fehlende Rollen, kämpfen, heilen, folgen und verstehen Gruppenchat-Befehle wie „Tank, greif den Boss an.“, „Heiler, bitte Mana auffüllen.“, „Magier, kontrolliere den linken Gegner.“ oder „Alle zurückziehen.“ Mit ★ merkt Ihr Euch Lieblingsbegleiter – sie entwickeln sich weiter und erinnern sich an gemeinsame Abenteuer.", _wrap);
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Alle Rollen")) Client.Send(new C_BotSearch());
-            if (GUILayout.Button("Tank")) Client.Send(new C_BotSearch { Role = (byte)Role.Tank });
-            if (GUILayout.Button("Heiler")) Client.Send(new C_BotSearch { Role = (byte)Role.Healer });
-            if (GUILayout.Button("Nahkampf")) Client.Send(new C_BotSearch { Role = (byte)Role.MeleeDps });
-            if (GUILayout.Button("Fernkampf")) Client.Send(new C_BotSearch { Role = (byte)Role.RangedDps });
+            GUILayout.Label("Schwierigkeit:", GUILayout.Width(90));
+            _botDifficulty = GUILayout.Toolbar(_botDifficulty, new[] { "Beliebig", "Anfänger", "Normal", "Erfahren", "Veteran" });
+            GUILayout.EndHorizontal();
+            byte diff = _botDifficulty == 0 ? (byte)255 : (byte)(_botDifficulty - 1);
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Alle Rollen")) Client.Send(new C_BotSearch { Difficulty = diff });
+            if (GUILayout.Button("Tank")) Client.Send(new C_BotSearch { Role = (byte)Role.Tank, Difficulty = diff });
+            if (GUILayout.Button("Heiler")) Client.Send(new C_BotSearch { Role = (byte)Role.Healer, Difficulty = diff });
+            if (GUILayout.Button("Nahkampf")) Client.Send(new C_BotSearch { Role = (byte)Role.MeleeDps, Difficulty = diff });
+            if (GUILayout.Button("Fernkampf")) Client.Send(new C_BotSearch { Role = (byte)Role.RangedDps, Difficulty = diff });
             GUILayout.EndHorizontal();
             foreach (var c in Client.BotCandidates.ToList())
             {

@@ -20,12 +20,14 @@ namespace EternalRealms.Shared.Net
         C_Interact, C_QuestAccept, C_QuestTurnIn, C_QuestAbandon, C_Loot, C_UseItem, C_EquipItem, C_UnequipItem,
         C_BuyItem, C_SellItem, C_TrainAbility, C_LearnTalent, C_ReleaseSpirit, C_ReclaimCorpse, C_SpiritHealerResurrect,
         C_GroupInvite, C_GroupAccept, C_GroupLeave, C_BotSearch, C_BotInvite, C_BotDismiss, C_Ping, C_CancelAura, C_TakeFlight,
+        C_BotFavorite, C_BotCommand, C_SetMarker,
 
         // Server -> Client
         S_LoginResult = 100, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,
         S_Talents, S_Inventory, S_QuestLog, S_EntitySpawn, S_EntityDespawn, S_Snapshot, S_CombatEvent, S_CastStart,
         S_CastEnd, S_AuraUpdate, S_UnitDied, S_XpGain, S_LevelUp, S_NpcInteraction, S_LootResult, S_Chat, S_Notice,
         S_GroupUpdate, S_BotCandidates, S_DeathState, S_WorldState, S_Pong, S_Cooldown, S_GroupInviteRequest, S_QuestMarker,
+        S_GroupMarkers,
     }
 
     public abstract class Message

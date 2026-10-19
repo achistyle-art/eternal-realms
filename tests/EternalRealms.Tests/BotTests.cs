@@ -222,12 +222,12 @@ namespace EternalRealms.Tests
         [Fact]
         public void CommandParserUnderstandsGerman()
         {
-            Assert.Equal(BotCommand.Dungeon, BotCommandParser.Parse("Wir gehen in den Dungeon."));
-            Assert.Equal(BotCommand.Follow, BotCommandParser.Parse("Folgt mir!"));
-            Assert.Equal(BotCommand.Stay, BotCommandParser.Parse("Wartet hier kurz"));
-            Assert.Equal(BotCommand.Attack, BotCommandParser.Parse("Angriff!"));
-            Assert.Equal(BotCommand.Rest, BotCommandParser.Parse("Kurze Pause"));
-            Assert.Equal(BotCommand.None, BotCommandParser.Parse("Schönes Wetter heute"));
+            Assert.Equal(BotCommand.Dungeon, BotCommandParser.ParseCommand("Wir gehen in den Dungeon."));
+            Assert.Equal(BotCommand.Follow, BotCommandParser.ParseCommand("Folgt mir!"));
+            Assert.Equal(BotCommand.Stay, BotCommandParser.ParseCommand("Wartet hier kurz"));
+            Assert.Equal(BotCommand.Attack, BotCommandParser.ParseCommand("Angriff!"));
+            Assert.Equal(BotCommand.Rest, BotCommandParser.ParseCommand("Kurze Pause"));
+            Assert.Equal(BotCommand.None, BotCommandParser.ParseCommand("Schönes Wetter heute"));
         }
     }
 }

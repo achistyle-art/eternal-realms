@@ -13,6 +13,24 @@ namespace EternalRealms.Server.World
         public bool IsRaid { get; set; }
         public int MaxSize => IsRaid ? 40 : 5;
         public int LootRobin { get; set; }
+        /// <summary>Zielmarkierungen: Symbol (1–8) → Einheit. 8 = Totenkopf (zuerst töten), 7 = Kreuz (danach), 5 = Mond (kontrollieren).</summary>
+        public Dictionary<int, int> Markers { get; } = new();
+        public const int MarkSkull = 8, MarkCross = 7, MarkMoon = 5;
+
+        /// <summary>Setzt (oder löscht mit targetId 0) eine Markierung und informiert alle Mitglieder.</summary>
+        public void SetMarker(int marker, int targetId)
+        {
+            if (marker < 1 || marker > 8) return;
+            foreach (var k in Markers.Where(kv => kv.Value == targetId && targetId != 0).Select(kv => kv.Key).ToList()) Markers.Remove(k);
+            if (targetId == 0) Markers.Remove(marker); else Markers[marker] = targetId;
+            Broadcast(BuildMarkers());
+        }
+
+        public S_GroupMarkers BuildMarkers() => new()
+        {
+            Markers = Markers.Keys.ToList(),
+            Targets = Markers.Values.ToList(),
+        };
 
         public Group(Player leader)
         {

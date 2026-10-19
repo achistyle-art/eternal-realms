@@ -22,7 +22,6 @@ namespace EternalRealms.Server.AI
         private float _populationTimer = 2;
         private bool _loaded;
 
-        private static readonly string[] Archetypes = { "freundlich", "ehrgeizig", "vorsichtig", "witzig", "wortkarg" };
 
         private sealed class Candidate
         {
@@ -47,7 +46,7 @@ namespace EternalRealms.Server.AI
         /// "KI-Mitspieler suchen": schlägt Bots vor, die der Gruppe fehlende Rollen füllen –
         /// zuerst bekannte Bots, mit denen das Konto schon gespielt hat, dann neue.
         /// </summary>
-        public List<BotCandidateData> FindCandidates(Player p, Role? roleFilter)
+        public List<BotCandidateData> FindCandidates(Player p, Role? roleFilter, BotDifficulty? difficulty = null)
         {
             foreach (var k in _candidates.Where(kv => kv.Value.Expires < _w.Time || kv.Value.OwnerAccount == (p.Data.AccountId ?? -1)).Select(kv => kv.Key).ToList())
                 _candidates.Remove(k);
@@ -64,15 +63,23 @@ namespace EternalRealms.Server.AI
             }
             var result = new List<BotCandidateData>();
             long account = p.Data.AccountId ?? -1;
-            // Bekannte Bots
-            foreach (var known in _offline.Values.Where(b => b.Bot != null && b.Bot.KnownAccounts.Contains(account) && !b.Bot.Ambient
-                                                            && Math.Abs(b.Level - p.Level) <= 3 && _w.Content.Races[b.Race].Faction == p.Faction
-                                                            && (!roleFilter.HasValue || b.Bot.Role == roleFilter)).Take(3))
+            bool Fits(CharacterData b) => b.Bot != null && _w.Content.Races[b.Race].Faction == p.Faction && (!roleFilter.HasValue || b.Bot.Role == roleFilter)
+                                          && (!difficulty.HasValue || b.Bot.Difficulty == difficulty);
+            // 1. Bevorzugte Begleiter – unabhängig von der Stufe; sie haben inzwischen eigene Abenteuer erlebt.
+            foreach (var fav in _offline.Values.Where(b => Fits(b) && b.Bot!.FavoriteOf.Contains(account)).Take(4).ToList())
+            {
+                CatchUp(fav, p.Level);
+                result.Add(Register(fav, account, known: true));
+            }
+            // 2. Bekannte Bots, mit denen das Konto schon unterwegs war
+            foreach (var known in _offline.Values.Where(b => Fits(b) && !b.Bot!.Ambient && b.Bot.KnownAccounts.Contains(account) && !b.Bot.FavoriteOf.Contains(account)
+                                                            && Math.Abs(b.Level - p.Level) <= 3).Take(3).ToList())
                 result.Add(Register(known, account, known: true));
+            // 3. Neue Abenteurer für fehlende Rollen
             foreach (var role in needed)
             {
                 if (result.Count >= 8) break;
-                var data = CreateBotData(p.Faction, role, Math.Clamp(p.Level - (_w.Random.Chance(0.3) ? 1 : 0), 1, Experience.MaxLevel), null, p.Zone!.Def.Id);
+                var data = CreateBotData(p.Faction, role, Math.Clamp(p.Level - (_w.Random.Chance(0.3) ? 1 : 0), 1, Experience.MaxLevel), null, p.Zone!.Def.Id, difficulty: difficulty);
                 if (data != null) result.Add(Register(data, account, known: false));
             }
             return result;
@@ -84,10 +91,13 @@ namespace EternalRealms.Server.AI
             _candidates[id] = new Candidate { Data = data, Expires = _w.Time + 300, OwnerAccount = account };
             var bot = data.Bot!;
             var line = PickLine("join", bot.Role, bot.Archetype) ?? "Hallo!";
+            bool favorite = bot.FavoriteOf.Contains(account);
             return new BotCandidateData
             {
                 CandidateId = id, Name = data.Name, Race = data.Race, Class = data.Class, Level = data.Level, Role = bot.Role,
-                Personality = (known ? "bekannt, " : "") + bot.Archetype, Greeting = line.Replace("{leader}", "").Replace("{me}", data.Name).Replace(" !", "!"),
+                Personality = (favorite ? "Favorit, " : known ? "bekannt, " : "") + BotPersonality.Label(bot.Archetype) + ", " + BotPersonality.DifficultyLabel(bot.Difficulty),
+                Greeting = line.Replace("{leader}", "").Replace("{me}", data.Name).Replace(" !", "!"),
+                Difficulty = (byte)bot.Difficulty, IsFavorite = favorite,
             };
         }
 
@@ -107,9 +117,49 @@ namespace EternalRealms.Server.AI
             var bot = Spawn(data, p.Zone);
             if (p.Group == null) _w.Groups.Create(p);
             _w.Groups.Join(p.Group!, bot);
-            bot.Bot!.Say("join", force: true, delay: 0.8f);
+            bot.Bot!.Greet(p);
             if (data.Id == 0) PersistNew(bot);
             return null;
+        }
+
+        /// <summary>
+        /// Hintergrundentwicklung eines bevorzugten Begleiters: Pro Stunde ohne den Spieler steigt er eine Stufe,
+        /// höchstens bis zur Stufe des Spielers. Die Entwicklung wird gespeichert und in seiner Chronik vermerkt.
+        /// </summary>
+        public void CatchUp(CharacterData bot, int playerLevel)
+        {
+            if (bot.Bot == null || bot.Level >= playerLevel) return;
+            double hours = (DateTime.UtcNow - bot.Bot.LastActive).TotalHours;
+            int target = Math.Min(playerLevel, bot.Level + (int)Math.Floor(hours));
+            if (target <= bot.Level) return;
+            var tmp = new Player(bot, _w.Content);
+            while (tmp.Level < target) _w.Progression.LevelUpSilently(tmp);
+            _w.Progression.AutoTrain(tmp);
+            var profile = _w.Content.GetBotProfile(bot.Class, bot.Bot.Role);
+            if (profile != null) _w.Progression.AutoSpendTalents(tmp, profile.TalentTree);
+            bot.Level = tmp.Level;
+            bot.Bot.History.Add($"Auf eigenen Abenteuern Stufe {bot.Level} erreicht");
+            bot.Bot.LastActive = DateTime.UtcNow;
+            if (_w.Characters != null && bot.Id > 0) { var copy = bot.Clone(); Task.Run(() => _w.Characters.SaveAsync(copy)); }
+        }
+
+        public string? SetFavorite(Player owner, int botEntityId, bool favorite)
+        {
+            var bot = owner.Group?.Members.FirstOrDefault(m => m.Id == botEntityId && m.IsBot);
+            if (bot == null) return "Dieser KI-Mitspieler ist nicht in Eurer Gruppe.";
+            long acc = owner.Data.AccountId ?? -1;
+            if (favorite) bot.Data.Bot!.FavoriteOf.Add(acc); else bot.Data.Bot!.FavoriteOf.Remove(acc);
+            owner.Notice(favorite ? $"{bot.Name} ist jetzt ein bevorzugter Begleiter." : $"{bot.Name} ist kein bevorzugter Begleiter mehr.");
+            if (favorite) bot.Bot!.Say("favorite", owner, force: true);
+            _w.Save(bot);
+            return null;
+        }
+
+        /// <summary>Taktischer Hinweis eines Veteranen zu einem Boss (content/bots/dialog.json, Ereignis "boss_tip:&lt;id&gt;").</summary>
+        public string? BossTip(string creatureId)
+        {
+            var d = _w.Content.BotDialog.FirstOrDefault(x => x.Event == "boss_tip:" + creatureId);
+            return d == null || d.Lines.Count == 0 ? null : d.Lines[_w.Random.Range(0, d.Lines.Count - 1)];
         }
 
         public string? Dismiss(Player leader, int botEntityId)
@@ -124,6 +174,7 @@ namespace EternalRealms.Server.AI
         /// <summary>Entfernt einen Bot aus der Welt (speichert ihn und merkt ihn sich als "bekannt").</summary>
         public void DespawnBot(Player bot)
         {
+            if (bot.Data.Bot != null) bot.Data.Bot.LastActive = DateTime.UtcNow;
             if (bot.Group != null) _w.Groups.Leave(bot);
             _w.Save(bot);
             if (bot.Data.Id > 0) _offline[bot.Data.Id] = bot.Data;
@@ -158,7 +209,7 @@ namespace EternalRealms.Server.AI
         // ================================================================== Erzeugen
 
         /// <summary>Erzeugt einen vollständigen Bot-Charakter: Volk/Klasse passend zur Rolle, Fähigkeiten und Talente seiner Stufe.</summary>
-        public CharacterData? CreateBotData(Faction faction, Role role, int level, CharClass? cls, string zoneId, bool ambient = false)
+        public CharacterData? CreateBotData(Faction faction, Role role, int level, CharClass? cls, string zoneId, bool ambient = false, BotDifficulty? difficulty = null)
         {
             // Nur Klassen, die diese Rolle auf dieser Stufe schon ausfüllen können (z. B. Bärengestalt erst ab Stufe 10).
             var classes = _w.Content.BotProfiles.Where(pr => pr.Role == role && RoleAvailableAt(pr, level)).Select(pr => pr.Class).Distinct()
@@ -173,15 +224,10 @@ namespace EternalRealms.Server.AI
             data.IsBot = true;
             data.AccountId = null;
             data.ZoneId = zoneId;
-            string archetype = Archetypes[_w.Random.Range(0, Archetypes.Length - 1)];
-            data.Bot = new BotData
-            {
-                Role = role, Archetype = archetype, Ambient = ambient, HomeZone = zoneId,
-                Aggression = (float)_w.Random.NextDouble(),
-                Caution = archetype == "vorsichtig" ? 0.8f + (float)_w.Random.NextDouble() * 0.2f : (float)_w.Random.NextDouble() * 0.7f,
-                Chattiness = archetype == "wortkarg" ? 0.1f : archetype == "witzig" ? 0.85f : 0.3f + (float)_w.Random.NextDouble() * 0.5f,
-                Skill = 0.55f + (float)_w.Random.NextDouble() * 0.45f,
-            };
+            string archetype = BotPersonality.All[_w.Random.Range(0, BotPersonality.All.Length - 1)];
+            data.Bot = new BotData { Role = role, Ambient = ambient, HomeZone = zoneId };
+            var diff = difficulty ?? (BotDifficulty)(_w.Random.Chance(0.15) ? 0 : _w.Random.Chance(0.6) ? 1 : _w.Random.Chance(0.7) ? 2 : 3);
+            BotPersonality.Apply(data.Bot, archetype, diff, _w.Random);
             data.Level = level;
             // Ab Stufe 6 ersetzt die stufengerechte Grundausrüstung die Startausrüstung.
             if (level >= 6) data.Equipment.Clear();

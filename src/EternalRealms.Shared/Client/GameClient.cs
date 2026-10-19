@@ -33,6 +33,8 @@ namespace EternalRealms.Shared.Client
         public List<BotCandidateData> BotCandidates { get; private set; } = new List<BotCandidateData>();
         public List<GroupMemberData> Group { get; private set; } = new List<GroupMemberData>();
         public int GroupLeaderId { get; private set; }
+        /// <summary>Zielmarkierungen der Gruppe: Einheit → Symbol (1–8).</summary>
+        public Dictionary<int, int> Markers { get; } = new Dictionary<int, int>();
         public List<S_Chat> ChatLog { get; } = new List<S_Chat>();
         public List<string> Notices { get; } = new List<string>();
         public S_NpcInteraction? LastInteraction { get; private set; }
@@ -100,6 +102,12 @@ namespace EternalRealms.Shared.Client
 
         public void Target(int id) => Send(new C_SetTarget { TargetId = id });
         public void Cast(string abilityId, int targetId) => Send(new C_CastAbility { AbilityId = abilityId, TargetId = targetId });
+        /// <summary>Befehl an KI-Mitspieler (botEntityId 0 = alle). Werte siehe C_BotCommand.</summary>
+        public void BotCommand(byte command, int botEntityId = 0, int targetId = 0) =>
+            Send(new C_BotCommand { Command = command, BotEntityId = botEntityId, TargetId = targetId });
+
+        public void SetMarker(byte marker, int targetId) => Send(new C_SetMarker { Marker = marker, TargetId = targetId });
+
         public void Say(string text, ChatChannel ch = ChatChannel.Say) => Send(new C_Chat { Channel = ch, Text = text });
 
         /// <summary>Wählt mit der Tab-Taste das nächste feindliche Ziel vor dem Spieler.</summary>
@@ -175,7 +183,11 @@ namespace EternalRealms.Shared.Client
                     if (Notices.Count > 200) Notices.RemoveAt(0);
                     break;
                 case S_BotCandidates bc: BotCandidates = bc.Candidates; break;
-                case S_GroupUpdate gu: Group = gu.Members; GroupLeaderId = gu.LeaderId; break;
+                case S_GroupUpdate gu: Group = gu.Members; GroupLeaderId = gu.LeaderId; if (gu.Members.Count == 0) Markers.Clear(); break;
+                case S_GroupMarkers gm:
+                    Markers.Clear();
+                    for (int i = 0; i < gm.Markers.Count && i < gm.Targets.Count; i++) Markers[gm.Targets[i]] = gm.Markers[i];
+                    break;
                 case S_GroupInviteRequest gi: PendingInviteFrom = gi.FromName; break;
                 case S_NpcInteraction ni: LastInteraction = ni; break;
                 case S_DeathState d: State.DeathState = d.State; State.CorpsePosition = d.CorpsePosition; break;

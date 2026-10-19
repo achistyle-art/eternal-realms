@@ -104,16 +104,20 @@ namespace EternalRealms.Shared.Net
         public Role Role;
         public string Personality = "";
         public string Greeting = "";
+        /// <summary>0 Anfänger, 1 Normal, 2 Erfahren, 3 Veteran.</summary>
+        public byte Difficulty;
+        public bool IsFavorite;
 
         public void Write(NetDataWriter w)
         {
             w.Put(CandidateId); w.Put(Name); w.Put((byte)Race); w.Put((byte)Class); w.Put(Level); w.Put((byte)Role); w.Put(Personality); w.Put(Greeting);
+            w.Put(Difficulty); w.Put(IsFavorite);
         }
 
         public static BotCandidateData Read(NetDataReader r) => new BotCandidateData
         {
             CandidateId = r.GetLong(), Name = r.GetString(), Race = (Race)r.GetByte(), Class = (CharClass)r.GetByte(), Level = r.GetInt(),
-            Role = (Role)r.GetByte(), Personality = r.GetString(), Greeting = r.GetString(),
+            Role = (Role)r.GetByte(), Personality = r.GetString(), Greeting = r.GetString(), Difficulty = r.GetByte(), IsFavorite = r.GetBool(),
         };
     }
 

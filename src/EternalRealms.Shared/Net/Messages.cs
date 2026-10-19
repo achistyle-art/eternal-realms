@@ -276,8 +276,10 @@ namespace EternalRealms.Shared.Net
         public override Opcode Op => Opcode.C_BotSearch;
         /// <summary>255 = alle Rollen.</summary>
         public byte Role = 255;
-        public override void Write(NetDataWriter w) => w.Put(Role);
-        public override void Read(NetDataReader r) => Role = r.GetByte();
+        /// <summary>255 = beliebige Schwierigkeit, sonst 0 Anfänger … 3 Veteran.</summary>
+        public byte Difficulty = 255;
+        public override void Write(NetDataWriter w) { w.Put(Role); w.Put(Difficulty); }
+        public override void Read(NetDataReader r) { Role = r.GetByte(); Difficulty = r.GetByte(); }
     }
 
     public sealed class C_BotInvite : Message
@@ -294,6 +296,40 @@ namespace EternalRealms.Shared.Net
         public int EntityId;
         public override void Write(NetDataWriter w) => w.Put(EntityId);
         public override void Read(NetDataReader r) => EntityId = r.GetInt();
+    }
+
+    /// <summary>Bot als bevorzugten Begleiter speichern oder entfernen.</summary>
+    public sealed class C_BotFavorite : Message
+    {
+        public override Opcode Op => Opcode.C_BotFavorite;
+        public int EntityId;
+        public bool Favorite = true;
+        public override void Write(NetDataWriter w) { w.Put(EntityId); w.Put(Favorite); }
+        public override void Read(NetDataReader r) { EntityId = r.GetInt(); Favorite = r.GetBool(); }
+    }
+
+    /// <summary>Befehl aus der Kommandooberfläche an einen Bot (0 = alle Bots der Gruppe).</summary>
+    public sealed class C_BotCommand : Message
+    {
+        public override Opcode Op => Opcode.C_BotCommand;
+        /// <summary>Wert der Server-Aufzählung BotCommand (Follow=1, Stay=2, Attack=3 …).</summary>
+        public byte Command;
+        public int BotEntityId;
+        public int TargetId;
+        /// <summary>0 = keine, 1 = links, 2 = rechts.</summary>
+        public byte Side;
+        public override void Write(NetDataWriter w) { w.Put(Command); w.Put(BotEntityId); w.Put(TargetId); w.Put(Side); }
+        public override void Read(NetDataReader r) { Command = r.GetByte(); BotEntityId = r.GetInt(); TargetId = r.GetInt(); Side = r.GetByte(); }
+    }
+
+    /// <summary>Zielmarkierung setzen (1–8; 8 = Totenkopf, 7 = Kreuz, 5 = Mond). TargetId 0 entfernt sie.</summary>
+    public sealed class C_SetMarker : Message
+    {
+        public override Opcode Op => Opcode.C_SetMarker;
+        public byte Marker;
+        public int TargetId;
+        public override void Write(NetDataWriter w) { w.Put(Marker); w.Put(TargetId); }
+        public override void Read(NetDataReader r) { Marker = r.GetByte(); TargetId = r.GetInt(); }
     }
 
     public sealed class C_Ping : Message
@@ -675,6 +711,15 @@ namespace EternalRealms.Shared.Net
         public string FromName = "";
         public override void Write(NetDataWriter w) => w.Put(FromName);
         public override void Read(NetDataReader r) => FromName = r.GetString();
+    }
+
+    public sealed class S_GroupMarkers : Message
+    {
+        public override Opcode Op => Opcode.S_GroupMarkers;
+        public List<int> Markers = new List<int>();
+        public List<int> Targets = new List<int>();
+        public override void Write(NetDataWriter w) { w.PutList(Markers, (x, v) => x.Put(v)); w.PutList(Targets, (x, v) => x.Put(v)); }
+        public override void Read(NetDataReader r) { Markers = r.GetList(x => x.GetInt()); Targets = r.GetList(x => x.GetInt()); }
     }
 
     public sealed class S_QuestMarker : Message

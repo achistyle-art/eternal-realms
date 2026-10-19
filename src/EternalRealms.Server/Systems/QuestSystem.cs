@@ -118,7 +118,7 @@ namespace EternalRealms.Server.Systems
             p.Send(p.BuildQuestLog());
             p.Send(p.BuildPlayerState());
             RefreshMarkers(p);
-            if (p.IsBot) BotGearEquip(p);
+            if (p.IsBot) { BotGearEquip(p); p.Bot?.RecordShared(q.Category == QuestCategory.Dungeon ? $"Quest „{q.Title}“ abgeschlossen" : "", 1); }
             else _w.Bots.ShareTurnIn(p, npc, q);
             return null;
         }

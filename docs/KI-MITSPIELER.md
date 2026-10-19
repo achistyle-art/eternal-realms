@@ -12,7 +12,25 @@ Ein KI-Mitspieler ist eine normale Spielfigur (`Player`) mit Volk, Klasse, Stufe
 
 ## Persönlichkeit
 
-Jeder Bot hat einen Archetyp (`freundlich`, `ehrgeizig`, `vorsichtig`, `witzig`, `wortkarg`) und vier Werte:
+Jeder Bot hat einen dauerhaften Archetyp und vier Werte. Die Archetypen bestimmen nicht nur, was ein Bot sagt, sondern auch, wie er handelt:
+
+| Archetyp | Verhalten |
+|---|---|
+| `mutig` (mutiger Krieger) | wartet kürzer auf den Tank, schützt schwache Gruppenmitglieder, lobt Siege |
+| `vorsichtig` (vorsichtiger Heiler) | warnt vor starken oder vielen Gegnern, empfiehlt Pausen nach Kämpfen |
+| `abenteuerlustig` (abenteuerlustiger Magier) | freut sich über neue Gebiete und seltene Beute, schlägt Routen vor |
+| `veteran` (erfahrener Veteran) | gibt Bosstipps (`boss_tip:<id>` in `dialog.json`), kündigt Phasenwechsel an, mindestens „Erfahren“ |
+| `freundlich`, `witzig`, `wortkarg` | Gesprächsstil |
+
+Außerdem hat jeder Bot eine **Schwierigkeitsstufe** (Anfänger, Normal, Erfahren, Veteran). Sie bestimmt Reaktionszeit,
+Entscheidungsqualität und Fehlerwahrscheinlichkeit (15 % / 7 % / 3 % / 1 % „zögert“ pro Denkschritt) – nie aber
+zusätzliche Informationen: Bots sehen nur, was ein Spieler auch sehen würde. In der Suche lässt sich die Stufe filtern.
+
+**Langzeitbegleiter (9.9):** Mit ★ merkt sich ein Spieler einen Bot als Favoriten. Favoriten erscheinen zuerst in der Suche,
+entwickeln sich offline weiter (eine Stufe pro Stunde, höchstens bis zur Stufe des Spielers), sammeln Vertrautheit
+(gemeinsame Kämpfe, Bosse, Quests → schnellere Reaktion) und eine Chronik, aus der sie beim Wiedersehen erzählen.
+
+Die vier Werte:
 
 | Wert | Wirkung |
 |---|---|
@@ -67,6 +85,16 @@ Bots verstehen natürliche Sätze im Gruppenchat. Wird ein Bot mit Namen angespr
 | „Pause“ | rasten |
 | „passiv“ / „aggressiv“ / „normal“ | Haltung der Bots |
 | „Status“ | jeder Bot meldet Leben und Mana |
+| „Tank, greif den Boss an.“ | nur der Tank greift den nächsten Boss an |
+| „Heiler, bitte Mana auffüllen.“ | der Heiler trinkt (im Kampf: „Erst den Kampf beenden!“) |
+| „Magier, kontrolliere den linken Gegner.“ | Verwandlung auf den Gegner links vom Blick des Anführers, Mond-Markierung, andere greifen ihn nicht an |
+| „Alle zurückziehen.“ | Kampf abbrechen, zum Anführer laufen (8 s) |
+| „Fokus auf …“, „Unterbrecht!“, „Heil mich“, „Verteilt euch“, „verteidigen“ | Fokusziel, Unterbrechen mit Vorrang, gezielte Heilung, Abstand bei Flächenschaden, Verteidigungshaltung |
+
+Die Anrede steht vor dem ersten Komma oder Doppelpunkt (Name, Rolle wie „Tank“/„Heiler“ oder Klasse wie „Magier“);
+ohne Anrede oder mit „Alle“ gilt der Befehl allen. Dieselben Befehle gibt es als Befehlsleiste im Unity-Client
+(`C_BotCommand`, Empfänger „Alle“ oder ein einzelner Bot) und im Konsolen-Client (`cmd <befehl> [botId]`).
+Zielmarkierungen (`C_SetMarker`: ☠ Totenkopf = zuerst, ✖ Kreuz = danach, ☾ Mond = kontrollieren) beachten alle Bots.
 
 ## Bots reden miteinander
 

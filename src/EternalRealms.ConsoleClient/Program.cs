@@ -42,6 +42,9 @@ client.MessageReceived += m =>
                 Print($"  {i + 1}. {c.Name} – {content.Races[c.Race].Name} {content.Classes[c.Class].Name}, Stufe {c.Level}, {RoleName(c.Role)} ({c.Personality}) – „{c.Greeting}“");
             }
             break;
+        case S_GroupMarkers gm:
+            Print("Markierungen: " + (gm.Markers.Count == 0 ? "keine" : string.Join(", ", gm.Markers.Select((m, i) => $"{MarkerName(m)} → {Name(gm.Targets[i])}"))));
+            break;
         case S_GroupInviteRequest gi: Print($"{gi.FromName} lädt Euch in eine Gruppe ein. (annehmen: join)"); break;
         case S_DeathState ds when ds.State == DeathState.Dead: Print("Ihr seid gestorben. 'release' lässt den Geist frei."); break;
         case S_DeathState ds when ds.State == DeathState.Ghost: Print($"Ihr seid ein Geist. Lauft zur Leiche ({ds.CorpsePosition}) und schreibt 'reclaim' – oder 'talk' zum Geisterheiler."); break;
@@ -166,7 +169,40 @@ void Command(string line)
             break;
         case "talent": client.Send(new C_LearnTalent { TalentId = a[0] }); break;
         case "talents": Talents(); break;
-        case "bots": client.Send(new C_BotSearch()); break;
+        case "bots":
+        {
+            // bots [tank|heiler|dd|fern] [anfänger|normal|erfahren|veteran]
+            var search = new C_BotSearch();
+            foreach (var w in a)
+                switch (w.ToLowerInvariant())
+                {
+                    case "tank": search.Role = 0; break;
+                    case "heiler": search.Role = 1; break;
+                    case "dd": case "nah": search.Role = 2; break;
+                    case "fern": search.Role = 3; break;
+                    case "anfänger": case "anfaenger": search.Difficulty = 0; break;
+                    case "normal": search.Difficulty = 1; break;
+                    case "erfahren": search.Difficulty = 2; break;
+                    case "veteran": search.Difficulty = 3; break;
+                }
+            client.Send(search);
+            break;
+        }
+        case "fav": client.Send(new C_BotFavorite { EntityId = Int(0), Favorite = a.Length < 2 || a[1] != "aus" }); break;
+        case "cmd":
+        {
+            // cmd <befehl> [botId] – z. B. "cmd folgen", "cmd angriff 12", "cmd kontrolle"
+            int order = a.Length == 0 ? 0 : a[0].ToLowerInvariant() switch
+            {
+                "folgen" => 1, "halten" => 2, "angriff" => 3, "pause" => 5, "passiv" => 6, "verteidigen" => 7, "aggressiv" => 8,
+                "status" => 9, "fokus" => 12, "unterbrechen" => 13, "heilen" => 14, "mana" => 15, "verteilen" => 16, "kontrolle" => 17, "rückzug" => 18, "rueckzug" => 18,
+                _ => 0,
+            };
+            if (order == 0) { Print("Befehle: folgen, halten, angriff, pause, passiv, verteidigen, aggressiv, status, fokus, unterbrechen, heilen, mana, verteilen, kontrolle, rückzug"); break; }
+            client.Send(new C_BotCommand { Command = (byte)order, BotEntityId = Int(1, 0), TargetId = me?.TargetId ?? 0 });
+            break;
+        }
+        case "mark": client.Send(new C_SetMarker { Marker = (byte)Int(0, 8), TargetId = a.Length > 1 ? Int(1) : me?.TargetId ?? 0 }); break;
         case "bot": client.Send(new C_BotInvite { CandidateId = client.BotCandidates[Int(0) - 1].CandidateId }); break;
         case "dismiss": client.Send(new C_BotDismiss { EntityId = Int(0) }); break;
         case "group": Group(); break;
@@ -316,6 +352,7 @@ bool IsGroup(int id) => client.Group.Any(m => m.EntityId == id);
 string Name(int id) => client.State.Get(id)?.Name ?? (id == 0 ? "?" : "#" + id);
 string ItemName(string id) => content.Items.TryGetValue(id, out var i) ? i.Name : id;
 string RoleName(Role r) => r switch { Role.Tank => "Tank", Role.Healer => "Heiler", Role.MeleeDps => "Nahkampf", _ => "Fernkampf" };
+string MarkerName(int m) => m switch { 8 => "Totenkopf", 7 => "Kreuz", 6 => "Quadrat", 5 => "Mond", 4 => "Dreieck", 3 => "Raute", 2 => "Kreis", 1 => "Stern", _ => "?" };
 string Money(long c) => $"{c / 10000}g {c / 100 % 100}s {c % 100}k";
 void Print(string s) => Console.WriteLine(s);
 
@@ -324,7 +361,10 @@ void Help() => Print(@"Befehle:
   look | status | tab | target <id> | attack [id] | stop | cast <fähigkeit|name> [id] | spells
   go <id> | go <x> <z> | follow <id> | talk [id] | loot [id] | accept <Nr> | turnin <Nr> [Belohnung] | quests | abandon <quest>
   inv | equip <Platz> | item <Platz> | buy <Nr> [Anzahl] | sell <Platz> | train | talents | talent <id>
-  bots | bot <Nr> | dismiss <id> | group | invite <Name> | join | leave
+  bots [tank|heiler|dd|fern] [anfänger|normal|erfahren|veteran] | bot <Nr> | dismiss <id> | fav <id> [aus]
+  cmd <befehl> [botId] | mark <1-8> [id]   (8 = Totenkopf, 7 = Kreuz, 5 = Mond/Kontrolle; 0 als Ziel löscht)
+  Chatbefehle: p Tank, greif den Boss an. | p Heiler, bitte Mana auffüllen. | p Magier, kontrolliere den linken Gegner. | p Alle zurückziehen.
+  group | invite <Name> | join | leave
   s <Text> | p <Text> (Gruppe – Bots verstehen z. B. 'folgt mir', 'wartet', 'Angriff', 'Wir gehen in den Dungeon') | y | g | w <Name> <Text>
   release | reclaim | rez | fly <Nr> | ping | quit   (.pvp schaltet PvP um; #-Befehle nur mit ER_DEV_COMMANDS)");
 

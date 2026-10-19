@@ -118,7 +118,18 @@ namespace EternalRealms.Server.Persistence
         public string HomeZone { get; set; } = "";
         /// <summary>Konten, mit denen der Bot schon in einer Gruppe war ("Bekannte").</summary>
         public HashSet<long> KnownAccounts { get; set; } = new();
+        public BotDifficulty Difficulty { get; set; } = BotDifficulty.Normal;
+        /// <summary>Konten, die diesen Bot als bevorzugten Begleiter gespeichert haben.</summary>
+        public HashSet<long> FavoriteOf { get; set; } = new();
+        /// <summary>Gemeinsam erlebte Kämpfe und Quests je Konto – verbessert die Zusammenarbeit.</summary>
+        public Dictionary<long, int> Familiarity { get; set; } = new();
+        /// <summary>Persönliche Erfolgshistorie (Bosssiege, Stufen) – Stoff für Erinnerungen im Gespräch.</summary>
+        public List<string> History { get; set; } = new();
+        public DateTime LastActive { get; set; } = DateTime.UtcNow;
     }
+
+    /// <summary>KI-Schwierigkeit: Reaktionszeit, Taktik und Fehlerwahrscheinlichkeit.</summary>
+    public enum BotDifficulty : byte { Anfaenger = 0, Normal = 1, Erfahren = 2, Veteran = 3 }
 
     public sealed class Account
     {
