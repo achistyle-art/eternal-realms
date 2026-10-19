@@ -108,7 +108,7 @@ namespace EternalRealms.Server.Systems
             foreach (var it in q.RewardItems) p.AddItem(it.Item, it.Count);
             if (q.RewardChoices.Count > 0) p.AddItem(q.RewardChoices[choice].Item, q.RewardChoices[choice].Count);
             int money = p.Level >= Experience.MaxLevel ? q.RewardMoney + q.RewardXp / 2 : q.RewardMoney;
-            p.Money += money;
+            _w.Economy.Credit(p, money, "quest", q.Id);
             foreach (var r in q.RewardReputation) _w.Progression.AddReputation(p, r.Faction, r.Amount);
             if (q.RewardAbility != null) { p.Learn(q.RewardAbility, Math.Max(1, C.HighestRankForLevel(q.RewardAbility, p.Level))); p.Send(p.BuildSpellBook()); }
             p.Notice($"Quest abgeschlossen: {q.Title}");

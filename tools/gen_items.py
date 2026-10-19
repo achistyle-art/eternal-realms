@@ -66,6 +66,12 @@ misc("item_refreshing_water", "Erfrischendes Quellwasser", "Consumable", stack=2
 misc("item_ice_cold_milk", "Eiskalte Milch", "Consumable", stack=20, sell=5, buy=25, desc="Stellt Mana wieder her.", use="item_drink", req=5)
 misc("item_minor_healing_potion", "Schwacher Heiltrank", "Consumable", stack=5, sell=5, buy=20, desc="Stellt sofort 70–90 Leben wieder her.", use="item_minor_healing_potion")
 misc("item_lesser_healing_potion", "Geringer Heiltrank", "Consumable", stack=5, sell=20, buy=80, desc="Stellt sofort 140–180 Leben wieder her.", use="item_lesser_healing_potion", req=10)
+# ---- Taschen (Kapitel 14): vier Taschenplätze zusätzlich zum Rucksack
+for id, n, slots, q, sell, buy, ilvl in [("item_bag_linen", "Leinenbeutel", 6, "Common", 25, 100, 5), ("item_bag_leather", "Lederrucksack", 8, "Common", 125, 500, 15),
+                                        ("item_bag_wool", "Wollbeutel", 10, "Common", 500, 2000, 25), ("item_bag_mageweave", "Reisetasche aus Zauberstoff", 12, "Uncommon", 1500, 6000, 35),
+                                        ("item_bag_runecloth", "Runenstofftasche", 14, "Uncommon", 4000, 16000, 50)]:
+    d = misc(id, n, "Container", q, sell=sell, buy=buy, desc=f"Tasche mit {slots} Plätzen.", ilvl=ilvl)
+    d["bagSlots"] = slots
 # ---- Plunder (grau)
 for id, n, s in [("item_wolf_fang", "Wolfsfang", 4), ("item_broken_tooth", "Abgebrochener Zahn", 3), ("item_spider_leg", "Haariges Spinnenbein", 6),
                  ("item_tattered_cloth", "Zerfetztes Tuch", 5), ("item_rusty_gear", "Rostiges Zahnrad", 7), ("item_cracked_scale", "Gesprungene Schuppe", 6),

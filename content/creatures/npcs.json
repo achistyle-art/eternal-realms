@@ -103,7 +103,9 @@
    "item_fresh_bread",
    "item_refreshing_water",
    "item_ice_cold_milk",
-   "item_minor_healing_potion"
+   "item_minor_healing_potion",
+   "item_bag_linen",
+   "item_bag_leather"
   ],
   "gossip": "Ein warmes Bett, ein kühles Bier und keine Fragen. Wollt Ihr hier Euer Heim machen?",
   "barks": [
@@ -514,7 +516,9 @@
    "item_fresh_bread",
    "item_refreshing_water",
    "item_ice_cold_milk",
-   "item_minor_healing_potion"
+   "item_minor_healing_potion",
+   "item_bag_linen",
+   "item_bag_leather"
   ],
   "gossip": "Setz dich ans Feuer. Wer hier schläft, wacht stärker auf.",
   "barks": [
@@ -844,5 +848,61 @@
   "model": "npc",
   "trainerClass": "Druid",
   "gossip": "Willkommen. Ich lehre die Künste der Druiden. Kommt zu mir, sobald Ihr eine neue Stufe erreicht habt – es gibt immer etwas zu lernen."
+ },
+ {
+  "id": "npc_mt_banker",
+  "name": "Bankier Oswin Kettler",
+  "title": "Bank von Lindenfurt",
+  "faction": "Sonnenbuendnis",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Bei uns ist Euer Hab und Gut sicherer als unter jeder Matratze.",
+  "barks": [
+   "Zinsen gibt es keine, aber Sicherheit!"
+  ]
+ },
+ {
+  "id": "npc_mt_auctioneer",
+  "name": "Auktionatorin Wenna Silberstimme",
+  "title": "Auktionshaus",
+  "faction": "Sonnenbuendnis",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Kaufen, verkaufen, bieten – hier findet jedes Stück seinen Besitzer.",
+  "barks": [
+   "Frische Ware im Auktionshaus!"
+  ]
+ },
+ {
+  "id": "npc_as_banker",
+  "name": "Schatzhüter Gromm Eisenzahn",
+  "title": "Schatzkammer des Lagers",
+  "faction": "Schattenpakt",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Was hier liegt, bleibt hier. Dafür sorge ich.",
+  "barks": [
+   "Finger weg von den Truhen!"
+  ]
+ },
+ {
+  "id": "npc_as_auctioneer",
+  "name": "Feilscherin Raska",
+  "title": "Auktionshaus",
+  "faction": "Schattenpakt",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Gutes Zeug, faire Preise. Meistens.",
+  "barks": [
+   "Wer bietet mehr?"
+  ]
  }
 ]

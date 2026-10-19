@@ -34,6 +34,12 @@ namespace EternalRealms.Server.Persistence
         /// <summary>Taschenplätze; null = leer.</summary>
         public List<ItemStack?> Bag { get; set; } = new();
         public Dictionary<EquipSlot, ItemStack> Equipment { get; set; } = new();
+        /// <summary>Angelegte Taschen (Platz 0–3).</summary>
+        public Dictionary<int, ItemStack> BagContainers { get; set; } = new();
+        /// <summary>Bankfächer; null = leer.</summary>
+        public List<ItemStack?> Bank { get; set; } = new();
+        public int TalentResets { get; set; }
+        public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();
         public HashSet<string> CompletedQuests { get; set; } = new();
         public Dictionary<string, int> Reputation { get; set; } = new();

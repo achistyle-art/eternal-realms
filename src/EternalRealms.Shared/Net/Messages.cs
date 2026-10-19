@@ -401,7 +401,8 @@ namespace EternalRealms.Shared.Net
     public sealed class S_PlayerState : Message
     {
         public override Opcode Op => Opcode.S_PlayerState;
-        public int Level, Xp, XpToNext, RestedXp, Money, TalentPointsFree;
+        public int Level, Xp, XpToNext, RestedXp, TalentPointsFree;
+        public long Money;
         public float Strength, Agility, Stamina, Intellect, Spirit;
         public int Armor, AttackPower, SpellPower;
         public float MeleeCrit, SpellCrit, Dodge;
@@ -413,7 +414,7 @@ namespace EternalRealms.Shared.Net
         }
         public override void Read(NetDataReader r)
         {
-            Level = r.GetInt(); Xp = r.GetInt(); XpToNext = r.GetInt(); RestedXp = r.GetInt(); Money = r.GetInt(); TalentPointsFree = r.GetInt();
+            Level = r.GetInt(); Xp = r.GetInt(); XpToNext = r.GetInt(); RestedXp = r.GetInt(); Money = r.GetLong(); TalentPointsFree = r.GetInt();
             Strength = r.GetFloat(); Agility = r.GetFloat(); Stamina = r.GetFloat(); Intellect = r.GetFloat(); Spirit = r.GetFloat();
             Armor = r.GetInt(); AttackPower = r.GetInt(); SpellPower = r.GetInt(); MeleeCrit = r.GetFloat(); SpellCrit = r.GetFloat(); Dodge = r.GetFloat();
         }
@@ -442,14 +443,16 @@ namespace EternalRealms.Shared.Net
     public sealed class S_Inventory : Message
     {
         public override Opcode Op => Opcode.S_Inventory;
-        public int Money;
+        public long Money;
         public int BagSize;
-        /// <summary>Taschenplätze; leere Plätze haben ItemId "".</summary>
+        /// <summary>Taschenplätze; leere Plätze haben ItemId "". Reihenfolge: Rucksack, dann Taschen 1–4.</summary>
         public List<ItemStackData> Bag = new List<ItemStackData>();
         /// <summary>Index = (int)EquipSlot.</summary>
         public List<ItemStackData> Equipment = new List<ItemStackData>();
-        public override void Write(NetDataWriter w) { w.Put(Money); w.Put(BagSize); w.PutList(Bag, (x, s) => s.Write(x)); w.PutList(Equipment, (x, s) => s.Write(x)); }
-        public override void Read(NetDataReader r) { Money = r.GetInt(); BagSize = r.GetInt(); Bag = r.GetList(ItemStackData.Read); Equipment = r.GetList(ItemStackData.Read); }
+        /// <summary>Die vier angelegten Taschen (leer = ItemId "").</summary>
+        public List<ItemStackData> Containers = new List<ItemStackData>();
+        public override void Write(NetDataWriter w) { w.Put(Money); w.Put(BagSize); w.PutList(Bag, (x, s) => s.Write(x)); w.PutList(Equipment, (x, s) => s.Write(x)); w.PutList(Containers, (x, s) => s.Write(x)); }
+        public override void Read(NetDataReader r) { Money = r.GetLong(); BagSize = r.GetInt(); Bag = r.GetList(ItemStackData.Read); Equipment = r.GetList(ItemStackData.Read); Containers = r.GetList(ItemStackData.Read); }
     }
 
     public sealed class S_QuestLog : Message

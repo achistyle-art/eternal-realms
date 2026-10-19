@@ -19,6 +19,10 @@ namespace EternalRealms.Server.World
         public ServerConfig Config { get; }
         public IRandom Random { get; }
         public ICharacterRepository? Characters { get; }
+        public IEconomyRepository? EconomyStore { get; }
+        /// <summary>Geordnete Datenbankaufträge (null ohne Datenbank).</summary>
+        public PersistenceQueue? Persistence { get; }
+        public EconomySystem Economy { get; }
         public double Time { get; private set; }
         public Action<string> Log { get; set; } = Console.WriteLine;
 
@@ -45,7 +49,10 @@ namespace EternalRealms.Server.World
             Content = content;
             Config = config ?? new ServerConfig();
             Characters = characters;
+            EconomyStore = characters as IEconomyRepository;
+            if (characters != null) Persistence = new PersistenceQueue(ex => Post(() => Log("Datenbankfehler: " + ex.Message)));
             Random = random ?? new GameRandom();
+            Economy = new EconomySystem(this);
             Combat = new CombatSystem(this);
             Quests = new QuestSystem(this);
             Progression = new ProgressionSystem(this);
@@ -98,6 +105,7 @@ namespace EternalRealms.Server.World
             }
             Groups.Update(dt);
             Bots.Update(dt);
+            Economy.Update(dt);
             if (Time - _lastWorldStateBroadcast > 30)
             {
                 _lastWorldStateBroadcast = Time;
@@ -229,9 +237,16 @@ namespace EternalRealms.Server.World
         {
             if (Characters == null || p.Data.Id <= 0) return;
             p.SyncToData();
-            var snapshot = p.Data.Clone();
+            SaveData(p.Data);
+        }
+
+        /// <summary>Speichert eine Momentaufnahme in Auftragsreihenfolge (nie ein älterer Stand über einem neueren).</summary>
+        public void SaveData(CharacterData data)
+        {
+            if (Characters == null || Persistence == null || data.Id <= 0) return;
+            var snapshot = data.Clone();
             var repo = Characters;
-            Task.Run(async () =>
+            Persistence.Enqueue(async () =>
             {
                 try { await repo.SaveAsync(snapshot); }
                 catch (Exception ex) { Post(() => Log($"Speichern von {snapshot.Name} fehlgeschlagen: {ex.Message}")); }

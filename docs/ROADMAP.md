@@ -19,6 +19,21 @@ Ehrlicher Stand: Ein MMORPG im Umfang des klassischen Vorbilds ist die Arbeit ei
 
 ## Meilenstein 2 – Gesellschaft und Wirtschaft
 
+Stand: in Arbeit. Erledigt (implementiert und getestet):
+
+- [x] KI-Persönlichkeiten (mutig, vorsichtig, abenteuerlustig, Veteran …), Schwierigkeitsstufen Anfänger–Veteran
+- [x] Befehle mit Anrede („Tank, greif den Boss an.“), Kontrolle, Rückzug, Fokus, Markierungen, Befehlsleiste
+- [x] Langzeitbegleiter (Favoriten, Offline-Entwicklung, Vertrautheit, Chronik)
+- [x] Weltbewohner: Simulationsstufen voll/reduziert/ruhend, Stadtleben, eigenständiges Questen, Weiterziehen
+- [x] Geordnete Persistenz-Warteschlange, Geldprotokoll (`economy_log`) für jede Geldbewegung
+- [x] Taschen (4 Plätze), Stapel teilen/zusammenlegen, Sortieren, Bank beim Bankier
+
+Offen in diesem Meilenstein:
+
+- [ ] Beuteregeln (Jeder für sich, Reihum, Gruppe, Bedarf vor Gier, Plündermeister), Würfeln 1–100
+- [ ] Post (atomar mit dem Absender gespeichert), Auktionshaus (12/24/48 h, Gebote, Sofortkauf, Gebühren)
+- [ ] Talent-Reset gegen Gold, Rufstufen inkl. Hasserfüllt
+
 - [ ] Berufe: Kräuterkunde, Bergbau, Kürschnerei, Schmiedekunst, Alchemie, Schneiderei, Lederverarbeitung, Kochen, Erste Hilfe (Schema und Objekt-Felder vorhanden)
 - [ ] Auktionshaus je Fraktion (Tabelle `auctions` vorhanden), Post, Bank
 - [ ] Gilden mit Rängen und Gildenchat, Freundeslisten (Tabellen vorhanden)
@@ -47,3 +62,19 @@ Ehrlicher Stand: Ein MMORPG im Umfang des klassischen Vorbilds ist die Arbeit ei
 - [ ] TLS-Anmeldegateway, Zonen-Sharding über mehrere Prozesse, Layer
 - [ ] Monitoring, Admin-Werkzeuge, Anti-Cheat-Auswertung
 - [ ] Steam-Integration
+
+## Spezifikation Kapitel 28–68 (nachgereicht, nach Meilenstein 2)
+
+Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaft in dieser Reihenfolge eingeplant:
+
+| Block | Kapitel | Inhalt |
+|---|---|---|
+| A | 28, 29, 30, 59 | Vollständiges HUD (UI Toolkit), verschiebbare/skalierbare Fenster, frei belegbare Tasten, Weltkarte und Minimap, Barrierefreiheit – Einstellungen dauerhaft gespeichert |
+| B | 31, 32, 46 | Chatkanäle (Handel, Gebiet, Raid, Gilde), Blockieren/Melden, Gegenstandslinks, Freundesliste inkl. KI-Freunde, direkter Spielerhandel (atomar) |
+| C | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
+| D | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
+| E | 38, 39, 58 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer, Lokalisierung Deutsch/Englisch |
+| F | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
+| G | 43–45, 48 | KI-Ebenen ausbauen: Encounter-Manager für Dungeons/Raids, Tankwechsel, Flächen ausweichen, Raidkoordination bis 40, Bot-Balance |
+| H | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
+| I | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang 1–60, kosmetische Monetarisierung ohne Pay-to-Win, Endgame |

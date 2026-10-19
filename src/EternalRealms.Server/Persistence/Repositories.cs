@@ -45,7 +45,7 @@ namespace EternalRealms.Server.Persistence
     }
 
     /// <summary>Speicher im Arbeitsspeicher – für Tests und Einzelspieler ohne Datenbank.</summary>
-    public sealed class InMemoryStore : IAccountRepository, ICharacterRepository
+    public sealed class InMemoryStore : IAccountRepository, ICharacterRepository, IEconomyRepository
     {
         private readonly ConcurrentDictionary<long, Account> _accounts = new();
         private readonly ConcurrentDictionary<long, CharacterData> _chars = new();
@@ -91,5 +91,50 @@ namespace EternalRealms.Server.Persistence
         }
 
         public Task<List<CharacterData>> ListBotsAsync() => Task.FromResult(_chars.Values.Where(c => c.IsBot).Select(c => c.Clone()).ToList());
+
+        // ------------------------------------------------------------ Wirtschaft
+
+        private readonly object _economyLock = new();
+        private readonly Dictionary<long, MailData> _mail = new();
+        private readonly Dictionary<long, AuctionData> _auctions = new();
+        private readonly List<LedgerEntry> _ledger = new();
+
+        /// <summary>Alle Einträge des Geldprotokolls (für Tests und Auswertungen).</summary>
+        public IReadOnlyList<LedgerEntry> Ledger { get { lock (_economyLock) return _ledger.ToList(); } }
+
+        public Task CommitAsync(EconomyCommit commit)
+        {
+            lock (_economyLock)
+            {
+                foreach (var c in commit.Characters) if (c.Id > 0) _chars[c.Id] = c.Clone();
+                foreach (var m in commit.UpsertMail) _mail[m.Id] = m.Clone();
+                foreach (var id in commit.DeleteMail) _mail.Remove(id);
+                foreach (var a in commit.UpsertAuctions) _auctions[a.Id] = a.Clone();
+                foreach (var id in commit.DeleteAuctions) _auctions.Remove(id);
+                _ledger.AddRange(commit.Ledger);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task<List<MailData>> LoadMailAsync()
+        {
+            lock (_economyLock) return Task.FromResult(_mail.Values.Where(m => _chars.ContainsKey(m.RecipientId)).Select(m => m.Clone()).ToList());
+        }
+
+        public Task<List<AuctionData>> LoadAuctionsAsync()
+        {
+            lock (_economyLock) return Task.FromResult(_auctions.Values.Select(a => a.Clone()).ToList());
+        }
+
+        public Task<CharacterRef?> FindCharacterAsync(string name)
+        {
+            var c = _chars.Values.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase));
+            return Task.FromResult(c == null ? null : new CharacterRef { Id = c.Id, AccountId = c.AccountId, Name = c.Name, Race = c.Race });
+        }
+
+        public Task<List<LedgerEntry>> LedgerForAsync(long characterId, int limit)
+        {
+            lock (_economyLock) return Task.FromResult(_ledger.Where(l => l.CharacterId == characterId).Reverse().Take(limit).ToList());
+        }
     }
 }

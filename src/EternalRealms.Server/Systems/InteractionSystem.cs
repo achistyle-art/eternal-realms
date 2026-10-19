@@ -75,11 +75,16 @@ namespace EternalRealms.Server.Systems
             if (roles.HasFlag(NpcRole.Repair))
             {
                 int cost = p.RepairCost();
-                if (cost > 0 && p.Money >= cost) { p.Money -= cost; p.RepairAll(); p.Notice($"Ausrüstung repariert für {LootSystem.Money(cost)}."); p.Send(p.BuildInventory()); }
+                if (cost > 0 && _w.Economy.Debit(p, cost, "repair")) { p.RepairAll(); p.Notice($"Ausrüstung repariert für {LootSystem.Money(cost)}."); p.Send(p.BuildInventory()); }
             }
             p.Send(msg);
+            if (roles.HasFlag(NpcRole.Banker)) p.Send(p.BuildBank(npc.Id));
             return null;
         }
+
+        /// <summary>Ein lebender NPC mit dieser Rolle in Reichweite (Bank, Auktionshaus, Lehrer) – sonst null.</summary>
+        public Creature? NpcWithRole(Player p, int npcId, NpcRole role) =>
+            p.Zone?.Get(npcId) is Creature c && c.IsAlive && c.Template.Roles.HasFlag(role) && p.DistanceTo(c) <= NpcRange && !p.IsDead ? c : null;
 
         private TravelNodeDef? NodeAt(Creature npc) =>
             _w.Content.TravelNodes.Values.FirstOrDefault(n => n.Zone == npc.Zone?.Def.Id && Vec3.DistanceXZ(n.Position, npc.Position) < 20);
@@ -167,7 +172,7 @@ namespace EternalRealms.Server.Systems
             long cost = (long)def.BuyPrice * count;
             if (p.Money < cost) return "Ihr habt nicht genug Geld.";
             if (p.SpaceFor(itemId) < count) return "Eure Taschen sind voll.";
-            p.Money -= cost;
+            _w.Economy.Debit(p, cost, "vendor_buy", $"{itemId}x{count}");
             p.AddItem(itemId, count);
             p.Send(p.BuildInventory());
             return null;
@@ -181,7 +186,7 @@ namespace EternalRealms.Server.Systems
             var stack = p.Data.Bag[bagIndex]!;
             var def = _w.Content.Items[stack.ItemId];
             if (def.Category == ItemCategory.Quest || def.SellPrice <= 0) return "Das will der Händler nicht.";
-            p.Money += (long)def.SellPrice * stack.Count;
+            _w.Economy.Credit(p, (long)def.SellPrice * stack.Count, "vendor_sell", $"{stack.ItemId}x{stack.Count}");
             p.Data.Bag[bagIndex] = null;
             p.Send(p.BuildInventory());
             _w.Quests.OnItemsChanged(p);
@@ -204,7 +209,7 @@ namespace EternalRealms.Server.Systems
             if (p.Money < path.Cost) return "Ihr habt nicht genug Geld.";
             var to = _w.Content.TravelNodes[destination];
             if (to.Zone != p.Zone!.Def.Id) return "Flüge in andere Regionen folgen mit den Schiffs- und Flugrouten der nächsten Meilensteine.";
-            p.Money -= path.Cost;
+            _w.Economy.Debit(p, path.Cost, "flight", destination);
             p.FlightFrom = p.Position;
             p.FlightTo = to.Position;
             p.FlightTime = 0;

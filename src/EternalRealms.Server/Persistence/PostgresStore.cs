@@ -88,6 +88,8 @@ namespace EternalRealms.Server.Persistence
             public Vec3 BindPosition { get; set; }
             public string? ReturnZone { get; set; }
             public Vec3 ReturnPosition { get; set; }
+            public int TalentResets { get; set; }
+            public DateTime LastTalentReset { get; set; }
         }
 
         private const string CharColumns = "id, account_id, name, race, class, gender, appearance, level, xp, rested_xp, money, zone_id, pos_x, pos_y, pos_z, facing, " +
@@ -146,7 +148,7 @@ namespace EternalRealms.Server.Persistence
                     DeathState = (DeathState)r.GetInt16(18), IsBot = r.GetBoolean(19),
                     Bot = r.IsDBNull(20) ? null : JsonSerializer.Deserialize<BotData>(r.GetString(20), Json),
                     CorpseZone = ws.CorpseZone, CorpsePosition = ws.CorpsePosition, BindZone = ws.BindZone, BindPosition = ws.BindPosition,
-                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition,
+                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset,
                     DiscoveredAreas = new HashSet<string>(r.GetFieldValue<string[]>(22)), KnownTravelNodes = new HashSet<string>(r.GetFieldValue<string[]>(23)),
                     CompletedQuests = new HashSet<string>(r.GetFieldValue<string[]>(24)), PlayedSeconds = r.GetInt64(25), LoggedOutInInn = r.GetBoolean(26),
                     CreatedAt = r.GetDateTime(27), LastLogout = r.GetDateTime(28),
@@ -172,7 +174,14 @@ namespace EternalRealms.Server.Persistence
                 {
                     var stack = new ItemStack { ItemId = r.GetString(2), Count = r.GetInt32(3), Durability = r.GetInt32(4) };
                     int slot = r.GetInt32(1);
-                    if (r.GetInt16(0) == 1) c.Equipment[(EquipSlot)slot] = stack;
+                    short container = r.GetInt16(0);
+                    if (container == 1) c.Equipment[(EquipSlot)slot] = stack;
+                    else if (container == 2)
+                    {
+                        while (c.Bank.Count <= slot) c.Bank.Add(null);
+                        c.Bank[slot] = stack;
+                    }
+                    else if (container == 3) c.BagContainers[slot] = stack;
                     else
                     {
                         while (c.Bag.Count <= slot) c.Bag.Add(null);
@@ -232,7 +241,7 @@ namespace EternalRealms.Server.Persistence
             var ws = new WorldStateJson
             {
                 CorpseZone = d.CorpseZone, CorpsePosition = d.CorpsePosition, BindZone = d.BindZone, BindPosition = d.BindPosition,
-                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition,
+                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset,
             };
             await using (var cmd = new NpgsqlCommand(
                 "UPDATE characters SET level=@lv, xp=@xp, rested_xp=@rx, money=@m, zone_id=@z, pos_x=@x, pos_y=@y, pos_z=@zz, facing=@f, health=@h, mana=@mn, " +
@@ -264,6 +273,9 @@ namespace EternalRealms.Server.Persistence
             for (int i = 0; i < d.Bag.Count; i++)
                 if (d.Bag[i] is { } s) { containers.Add(0); slots.Add(i); items.Add(s.ItemId); counts.Add(s.Count); durs.Add(s.Durability); }
             foreach (var kv in d.Equipment) { containers.Add(1); slots.Add((int)kv.Key); items.Add(kv.Value.ItemId); counts.Add(kv.Value.Count); durs.Add(kv.Value.Durability); }
+            for (int i = 0; i < d.Bank.Count; i++)
+                if (d.Bank[i] is { } b) { containers.Add(2); slots.Add(i); items.Add(b.ItemId); counts.Add(b.Count); durs.Add(b.Durability); }
+            foreach (var kv in d.BagContainers) { containers.Add(3); slots.Add(kv.Key); items.Add(kv.Value.ItemId); counts.Add(kv.Value.Count); durs.Add(kv.Value.Durability); }
             if (items.Count > 0)
                 await using (var cmd = new NpgsqlCommand("INSERT INTO character_items (character_id, container, slot, item_id, count, durability) " +
                                                          "SELECT @id, unnest(@c), unnest(@s), unnest(@i), unnest(@n), unnest(@d)", conn, tx))

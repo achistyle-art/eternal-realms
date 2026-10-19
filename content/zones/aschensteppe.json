@@ -663,6 +663,24 @@
      404.4
     ],
     "facing": 8.64
+   },
+   {
+    "npc": "npc_as_banker",
+    "position": [
+     406,
+     0,
+     426
+    ],
+    "facing": 1.6
+   },
+   {
+    "npc": "npc_as_auctioneer",
+    "position": [
+     406,
+     0,
+     414
+    ],
+    "facing": 1.4
    }
   ],
   "objects": [
@@ -720,6 +738,17 @@
     "count": 1,
     "radius": 0,
     "respawnSeconds": 45
+   },
+   {
+    "object": "obj_mailbox",
+    "position": [
+     414,
+     0,
+     418
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
    }
   ]
  }

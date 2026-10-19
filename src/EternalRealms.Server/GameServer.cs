@@ -123,7 +123,10 @@ namespace EternalRealms.Server
             foreach (var p in pending) World.Logout(p);
             Network.Stop();
             _running = false;
-            Thread.Sleep(1500); // Hintergrund-Speichervorgänge abschließen lassen
+            World.Economy.Commit(new Persistence.EconomyCommit());
+            if (World.Persistence != null && !World.Persistence.Flush(TimeSpan.FromSeconds(15)))
+                World.Log($"Warnung: {World.Persistence.Pending} Speicheraufträge nicht abgeschlossen.");
+            World.Persistence?.Dispose();
             _store?.Dispose();
         }
 

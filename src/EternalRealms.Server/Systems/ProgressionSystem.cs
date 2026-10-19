@@ -137,7 +137,7 @@ namespace EternalRealms.Server.Systems
             var next = Trainable(p, p.Class).FirstOrDefault(a => a.Id == abilityBaseId);
             if (next == null) return "Ihr könnt diese Fähigkeit noch nicht lernen.";
             if (!free && p.Money < next.TrainingCost) return "Ihr habt nicht genug Geld.";
-            if (!free) p.Money -= next.TrainingCost;
+            if (!free) _w.Economy.Debit(p, next.TrainingCost, "training", next.Id);
             p.Learn(next.Id, next.Rank);
             p.Send(p.BuildSpellBook());
             p.Send(p.BuildPlayerState());

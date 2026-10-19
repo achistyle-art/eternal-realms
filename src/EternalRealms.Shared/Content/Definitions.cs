@@ -484,6 +484,8 @@ namespace EternalRealms.Shared.Content
         public float InteractTime { get; set; } = 1.5f;
         public string? Profession { get; set; }
         public int SkillRequired { get; set; }
+        /// <summary>Briefkasten: öffnet das Postfach statt Beute.</summary>
+        public bool IsMailbox { get; set; }
     }
 
     public sealed class FlightPathDef

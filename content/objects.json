@@ -143,5 +143,12 @@
   "model": "portal_roots",
   "teleportZone": "@return",
   "interactTime": 0.5
+ },
+ {
+  "id": "obj_mailbox",
+  "name": "Briefkasten",
+  "model": "mailbox",
+  "isMailbox": true,
+  "interactTime": 0
  }
 ]

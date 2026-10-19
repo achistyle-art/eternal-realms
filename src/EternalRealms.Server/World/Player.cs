@@ -12,7 +12,7 @@ namespace EternalRealms.Server.World
     /// Eine Spielfigur – gesteuert von einem Menschen (Connection) oder einem KI-Mitspieler (Bot).
     /// Beide nutzen exakt dieselben Regeln, Fähigkeiten, Quests und Erfahrungswege.
     /// </summary>
-    public sealed class Player : Unit
+    public sealed partial class Player : Unit
     {
         public const int BagSize = 20;
         public const int MaxQuests = 20;
@@ -70,7 +70,10 @@ namespace EternalRealms.Server.World
         public bool IsBot => Data.IsBot;
         public CharClass Class => Data.Class;
         public Race Race => Data.Race;
-        public long Money { get => Data.Money; set => Data.Money = Math.Max(0, value); }
+        public long Money => Data.Money;
+
+        /// <summary>Nur über EconomySystem aufrufen – dort wird jede Geldbewegung protokolliert.</summary>
+        internal void ApplyMoney(long delta) => Data.Money = Math.Max(0, Data.Money + delta);
 
         public override PowerType PowerType
         {
@@ -205,7 +208,8 @@ namespace EternalRealms.Server.World
 
         public void EnsureBagSize()
         {
-            while (Data.Bag.Count < BagSize) Data.Bag.Add(null);
+            int cap = BagCapacity;
+            while (Data.Bag.Count < cap) Data.Bag.Add(null);
         }
 
         public int CountItem(string itemId)
@@ -320,14 +324,17 @@ namespace EternalRealms.Server.World
             Data.Bag[bagIndex] = null;
             var displaced = new List<ItemStack>();
             if (Data.Equipment.TryGetValue(slot, out var old)) displaced.Add(old);
+            ItemStack? removedOff = null, removedMain = null;
             if (item.InventoryType == InventoryType.TwoHand && Data.Equipment.TryGetValue(EquipSlot.OffHand, out var off))
             {
+                removedOff = off;
                 displaced.Add(off);
                 Data.Equipment.Remove(EquipSlot.OffHand);
             }
             if (slot == EquipSlot.OffHand && Data.Equipment.TryGetValue(EquipSlot.MainHand, out var main) &&
                 Content.Items[main.ItemId].InventoryType == InventoryType.TwoHand)
             {
+                removedMain = main;
                 displaced.Add(main);
                 Data.Equipment.Remove(EquipSlot.MainHand);
             }
@@ -335,6 +342,8 @@ namespace EternalRealms.Server.World
             {
                 Data.Bag[bagIndex] = stack;
                 if (old != null) Data.Equipment[slot] = old;
+                if (removedOff != null) Data.Equipment[EquipSlot.OffHand] = removedOff;
+                if (removedMain != null) Data.Equipment[EquipSlot.MainHand] = removedMain;
                 return "Nicht genug Platz in den Taschen.";
             }
             Data.Equipment[slot] = stack;
@@ -425,7 +434,7 @@ namespace EternalRealms.Server.World
             EnsureStats();
             return new S_PlayerState
             {
-                Level = Level, Xp = Data.Xp, XpToNext = Experience.XpToNextLevel(Level), RestedXp = Data.RestedXp, Money = (int)Math.Min(int.MaxValue, Money),
+                Level = Level, Xp = Data.Xp, XpToNext = Experience.XpToNextLevel(Level), RestedXp = Data.RestedXp, Money = Money,
                 TalentPointsFree = TalentPointsFree, Strength = Stats.Strength, Agility = Stats.Agility, Stamina = Stats.Stamina, Intellect = Stats.Intellect,
                 Spirit = Stats.Spirit, Armor = Armor, AttackPower = AttackPower, SpellPower = SpellPower, MeleeCrit = MeleeCrit, SpellCrit = SpellCrit, Dodge = Dodge,
             };
@@ -434,8 +443,10 @@ namespace EternalRealms.Server.World
         public S_Inventory BuildInventory()
         {
             EnsureBagSize();
-            var inv = new S_Inventory { Money = (int)Math.Min(int.MaxValue, Money), BagSize = Data.Bag.Count };
+            var inv = new S_Inventory { Money = Money, BagSize = Data.Bag.Count };
             foreach (var s in Data.Bag) inv.Bag.Add(s?.ToNet() ?? new ItemStackData { ItemId = "", Count = 0 });
+            for (int i = 0; i < ContainerSlots; i++)
+                inv.Containers.Add(Data.BagContainers.TryGetValue(i, out var c) ? c.ToNet() : new ItemStackData { ItemId = "", Count = 0 });
             int slots = Enum.GetValues(typeof(EquipSlot)).Length;
             for (int i = 0; i < slots; i++)
                 inv.Equipment.Add(Data.Equipment.TryGetValue((EquipSlot)i, out var e) ? e.ToNet() : new ItemStackData { ItemId = "", Count = 0 });

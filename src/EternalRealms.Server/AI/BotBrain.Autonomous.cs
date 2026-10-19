@@ -309,7 +309,7 @@ namespace EternalRealms.Server.AI
                 if (def.IsEquippable && _w.Bots.ConsiderEquip(Me, i)) continue;
                 // Gute Stücke bringen auf dem Auktionshaus mehr – sie bleiben für den nächsten Besuch dort in der Tasche.
                 if (def.Quality >= ItemQuality.Uncommon && def.Category != ItemCategory.TradeGoods && _w.Random.Chance(0.5)) continue;
-                Me.Money += (long)def.SellPrice * s.Count;
+                _w.Economy.Credit(Me, (long)def.SellPrice * s.Count, "vendor_sell", $"{s.ItemId}x{s.Count}");
                 Me.Data.Bag[i] = null;
             }
         }

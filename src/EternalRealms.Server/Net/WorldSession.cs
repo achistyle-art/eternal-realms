@@ -127,7 +127,7 @@ namespace EternalRealms.Server.Net
         private void SendCharacterList()
         {
             var accountId = Account!.Id;
-            Task.Run(async () =>
+            Queue(async () =>
             {
                 var list = await _chars.ListForAccountAsync(accountId);
                 _w.Post(() => Connection.Send(new S_CharacterList { Characters = list.Select(c => c.ToSummary()).ToList() }));
@@ -161,7 +161,7 @@ namespace EternalRealms.Server.Net
             data.AccountId = Account!.Id;
             _busy = true;
             int max = _w.Config.MaxCharactersPerAccount;
-            Task.Run(async () =>
+            Queue(async () =>
             {
                 string message = "";
                 long id = 0;
@@ -186,7 +186,7 @@ namespace EternalRealms.Server.Net
         private void DeleteCharacter(long id)
         {
             var accountId = Account!.Id;
-            Task.Run(async () =>
+            Queue(async () =>
             {
                 var c = await _chars.GetAsync(id);
                 if (c != null && c.AccountId == accountId && !c.IsBot) await _chars.DeleteAsync(id);
@@ -194,12 +194,19 @@ namespace EternalRealms.Server.Net
             });
         }
 
+        private void Queue(Func<Task> job)
+        {
+            if (_w.Persistence != null) _w.Persistence.Enqueue(job);
+            else Task.Run(job);
+        }
+
         private void EnterWorld(long id)
         {
             if (_busy) return;
             _busy = true;
             var accountId = Account!.Id;
-            Task.Run(async () =>
+            // Über die Persistenz-Warteschlange: geladen wird erst nach der letzten Speicherung dieses Charakters.
+            Queue(async () =>
             {
                 CharacterData? data = null;
                 try { data = await _chars.GetAsync(id); }
@@ -288,6 +295,22 @@ namespace EternalRealms.Server.Net
                     return;
                 }
                 case C_TakeFlight tf: err = _w.Interactions.TakeFlight(p, tf.NpcId, tf.Destination ?? ""); break;
+                case C_MoveItem mi: err = Inv(p, p.MoveItem(mi.From, mi.To)); break;
+                case C_SplitStack ss: err = Inv(p, p.SplitStack(ss.From, ss.Count)); break;
+                case C_SortBags: p.SortBags(); p.Send(p.BuildInventory()); return;
+                case C_EquipBag eb: err = Inv(p, p.EquipBag(eb.BagIndex)); break;
+                case C_UnequipBag ub: err = Inv(p, p.UnequipBag(ub.ContainerSlot)); break;
+                case C_DestroyItem di: err = Inv(p, p.DestroyItem(di.BagIndex)); if (err == null) _w.Quests.OnItemsChanged(p); break;
+                case C_BankDeposit bdp:
+                    if (_w.Interactions.NpcWithRole(p, bdp.NpcId, NpcRole.Banker) == null) { err = "Kein Bankier in der Nähe."; break; }
+                    err = Inv(p, p.BankDeposit(bdp.BagIndex));
+                    if (err == null) { p.Send(p.BuildBank(bdp.NpcId)); _w.Quests.OnItemsChanged(p); }
+                    break;
+                case C_BankWithdraw bw:
+                    if (_w.Interactions.NpcWithRole(p, bw.NpcId, NpcRole.Banker) == null) { err = "Kein Bankier in der Nähe."; break; }
+                    err = Inv(p, p.BankWithdraw(bw.BankIndex));
+                    if (err == null) { p.Send(p.BuildBank(bw.NpcId)); _w.Quests.OnItemsChanged(p); }
+                    break;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);
@@ -311,6 +334,13 @@ namespace EternalRealms.Server.Net
             if (c.BotEntityId != 0) order.Addressees.Add(bots[0].Name);
             foreach (var b in bots) b.Bot?.Execute(order, p);
             return null;
+        }
+
+        /// <summary>Nach einer Inventaränderung: bei Erfolg das neue Inventar senden.</summary>
+        private static string? Inv(Player p, string? err)
+        {
+            if (err == null) p.Send(p.BuildInventory());
+            return err;
         }
 
         private string? WithNpc(Player p, int npcId, Func<Creature, string?> action) =>

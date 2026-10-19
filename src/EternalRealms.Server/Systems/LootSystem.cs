@@ -59,7 +59,7 @@ namespace EternalRealms.Server.Systems
                 foreach (var m in members)
                 {
                     int amount = share + (m == looter ? rest : 0);
-                    m.Money += amount;
+                    _w.Economy.Credit(m, amount, "loot", c.Template.Id);
                     if (m != looter && amount > 0) m.Notice($"Euer Anteil: {Money(amount)}");
                     m.Send(m.BuildPlayerState());
                 }

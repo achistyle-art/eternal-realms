@@ -21,6 +21,9 @@ namespace EternalRealms.Shared.Net
         C_BuyItem, C_SellItem, C_TrainAbility, C_LearnTalent, C_ReleaseSpirit, C_ReclaimCorpse, C_SpiritHealerResurrect,
         C_GroupInvite, C_GroupAccept, C_GroupLeave, C_BotSearch, C_BotInvite, C_BotDismiss, C_Ping, C_CancelAura, C_TakeFlight,
         C_BotFavorite, C_BotCommand, C_SetMarker,
+        C_MoveItem, C_SplitStack, C_SortBags, C_EquipBag, C_UnequipBag, C_DestroyItem, C_BankDeposit, C_BankWithdraw,
+        C_SetLootMethod, C_LootRoll, C_MasterLoot, C_MailList, C_MailSend, C_MailTake, C_MailDelete, C_MailReturn,
+        C_AuctionSearch, C_AuctionPost, C_AuctionBid, C_AuctionCancel, C_AuctionMine, C_ResetTalents,
 
         // Server -> Client
         S_LoginResult = 100, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,
@@ -28,6 +31,7 @@ namespace EternalRealms.Shared.Net
         S_CastEnd, S_AuraUpdate, S_UnitDied, S_XpGain, S_LevelUp, S_NpcInteraction, S_LootResult, S_Chat, S_Notice,
         S_GroupUpdate, S_BotCandidates, S_DeathState, S_WorldState, S_Pong, S_Cooldown, S_GroupInviteRequest, S_QuestMarker,
         S_GroupMarkers,
+        S_Bank, S_LootMethod, S_LootRollStart, S_LootRollResult, S_MailList, S_NewMail, S_AuctionList, S_TalentResetCost,
     }
 
     public abstract class Message

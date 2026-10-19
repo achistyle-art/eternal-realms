@@ -140,7 +140,7 @@ namespace EternalRealms.Server.AI
             bot.Level = tmp.Level;
             bot.Bot.History.Add($"Auf eigenen Abenteuern Stufe {bot.Level} erreicht");
             bot.Bot.LastActive = DateTime.UtcNow;
-            if (_w.Characters != null && bot.Id > 0) { var copy = bot.Clone(); Task.Run(() => _w.Characters.SaveAsync(copy)); }
+            _w.SaveData(bot);
         }
 
         public string? SetFavorite(Player owner, int botEntityId, bool favorite)
@@ -195,7 +195,7 @@ namespace EternalRealms.Server.AI
             var repo = _w.Characters;
             if (repo == null) return;
             var snapshot = bot.Data.Clone();
-            Task.Run(async () =>
+            _w.Persistence!.Enqueue(async () =>
             {
                 try
                 {
@@ -338,7 +338,7 @@ namespace EternalRealms.Server.AI
                 if (s == null || !_w.Content.Items.TryGetValue(s.ItemId, out var def)) continue;
                 if (def.Quality < ItemQuality.Uncommon || def.Category is ItemCategory.Quest or ItemCategory.Consumable) continue;
                 if (def.IsEquippable && ConsiderEquip(bot, i)) continue;
-                bot.Money += (long)def.SellPrice * s.Count;
+                _w.Economy.Credit(bot, (long)def.SellPrice * s.Count, "vendor_sell", $"{s.ItemId}x{s.Count}");
                 bot.Data.Bag[i] = null;
             }
         }
@@ -378,7 +378,7 @@ namespace EternalRealms.Server.AI
             int kills = (int)expected + (_w.Random.Chance(expected - Math.Floor(expected)) ? 1 : 0);
             if (kills <= 0) return;
             if (bot.Level < Experience.MaxLevel) _w.Progression.GiveXp(bot, kills * Experience.KillXp(bot.Level, bot.Level, false), "background");
-            bot.Money += kills * (long)_w.Random.Range(bot.Level * 2, bot.Level * 5);
+            _w.Economy.Credit(bot, kills * (long)_w.Random.Range(bot.Level * 2, bot.Level * 5), "loot_background");
             if (bot.Level > bot.Zone.Def.MaxLevel + 2) MoveOn(bot);
         }
 

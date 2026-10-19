@@ -28,7 +28,7 @@ namespace EternalRealms.Server.Systems
                     p.Send(p.BuildPlayerState());
                     break;
                 case "xp": _w.Progression.GiveXp(p, IntArg(1, 100), "dev"); break;
-                case "gold": p.Money += IntArg(1, 1) * 10000L; p.Send(p.BuildPlayerState()); p.Send(p.BuildInventory()); break;
+                case "gold": _w.Economy.Credit(p, IntArg(1, 1) * 10000L, "dev"); p.Send(p.BuildPlayerState()); p.Send(p.BuildInventory()); break;
                 case "item":
                     if (!_w.Content.Items.ContainsKey(Arg(1))) { p.Notice("Unbekannter Gegenstand.", true); return; }
                     p.AddItem(Arg(1), IntArg(2, 1));

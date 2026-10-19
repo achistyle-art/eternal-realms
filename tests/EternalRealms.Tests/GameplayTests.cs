@@ -64,7 +64,7 @@ namespace EternalRealms.Tests
             for (int i = 1; i < 4; i++) t.World.Progression.LevelUp(p);
             p.Data.Abilities.Remove("mage_frostbolt");
             Assert.NotNull(t.World.Progression.Train(p, trainer, "mage_frostbolt")); // kein Geld
-            p.Money = 10000;
+            t.World.Economy.Credit(p, 10000, "test");
             Assert.Null(t.World.Progression.Train(p, trainer, "mage_frostbolt"));
             Assert.Equal(1, p.KnownRank("mage_frostbolt"));
             Assert.NotNull(t.World.Progression.Train(p, trainer, "mage_frostbolt")); // nächster Rang erst ab Stufe 8
