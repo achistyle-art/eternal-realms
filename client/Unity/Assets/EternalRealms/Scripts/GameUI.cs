@@ -82,8 +82,8 @@ namespace EternalRealms.Client
             else if (Client.InWorld) _screen = Screen.World;
             else if (_screen == Screen.Login || _screen == Screen.World) _screen = Screen.Characters;
             if (_screen == Screen.World && !_chatFocus) HandleWorldHotkeys();
+            UpdateWindowSounds();
             UpdateSettingsPersistence();
-            ApplyAudio();
             while (_noticeIndex < Client.Notices.Count) Toast(Client.Notices[_noticeIndex++]);
             _toasts.RemoveAll(t => Time.time - t.time > 5);
         }
@@ -92,8 +92,9 @@ namespace EternalRealms.Client
         private void Styles()
         {
             int fs = Client.InWorld ? Settings.FontSize : 13;
-            if (_small != null && fs == _styleFontSize) return;
-            _styleFontSize = fs;
+            int key = fs * 2 + (Client.InWorld && Settings.HighContrast ? 1 : 0);
+            if (_small != null && key == _styleFontSize) return;
+            _styleFontSize = key;
             GUI.skin.label.fontSize = GUI.skin.button.fontSize = GUI.skin.textField.fontSize = GUI.skin.toggle.fontSize = GUI.skin.box.fontSize = fs;
             _small = new GUIStyle(GUI.skin.label) { fontSize = Mathf.Max(8, fs - 2), richText = true };
             _title = new GUIStyle(GUI.skin.label) { fontSize = fs + 3, fontStyle = FontStyle.Bold, richText = true };
@@ -106,6 +107,7 @@ namespace EternalRealms.Client
         private void OnGUI()
         {
             HandleKeyCapture();
+            ApplySkin();
             Styles();
             GUI.matrix = Matrix4x4.Scale(new Vector3(Scale, Scale, 1));
             if (Event.current.type == EventType.Layout) _uiRects.Clear();
@@ -335,6 +337,8 @@ namespace EternalRealms.Client
             DrawFinderPopups();
             if (_showOptions) DrawOptions();
             DrawTradeWindows();
+            if (_showEmotes) DrawEmotes();
+            DrawPerformance();
             DrawPinnedLink();
             DrawDragGhost();
             DrawTooltip();
@@ -535,7 +539,7 @@ namespace EternalRealms.Client
                 {
                     string col = c.Channel switch { ChatChannel.Party => "#7fb2ff", ChatChannel.Raid => "#ff9a3c", ChatChannel.Guild => "#40ff40", ChatChannel.Yell => "#ff5050", ChatChannel.Whisper => "#ff80ff", ChatChannel.General => "#ffc080", ChatChannel.Trade => "#ffb0a0", ChatChannel.LookingForGroup => "#c0e0ff", ChatChannel.System => "#ffff60", _ => "#ffffff" };
                     string ts = Settings.ChatTimestamps ? $"<color=#999>[{ChatFormat.Timestamp(at)}]</color> " : "";
-                    GUILayout.Label($"{ts}<color={col}>{ChatFormat.ChannelPrefix(c.Channel)}{(c.SenderName != "" ? $"{c.SenderName}{(c.SenderIsBot ? " (KI)" : "")}: " : "")}{RenderLinks(c.Text, col)}</color>", _wrap);
+                    GUILayout.Label($"{ts}<color={col}>{ChatFormat.ChannelPrefix(c.Channel)}{(c.SenderName != "" ? $"{c.SenderName}{(c.SenderIsBot ? " (KI)" : "")}{(c.Channel == ChatChannel.Emote ? " " : ": ")}" : "")}{RenderLinks(c.Text, col)}</color>", _wrap);
                     DrawLinkButtons(c.Text);
                 }
             }
@@ -591,6 +595,10 @@ namespace EternalRealms.Client
                         var wp = body.Split(new[] { ' ' }, 2);
                         ch = ChatChannel.Whisper; whisper = wp[0]; text = wp.Length > 1 ? wp[1] : ""; break;
                     case "/inv": Client.Send(new C_GroupInvite { Name = body }); return;
+                    case "/e": case "/me": ch = ChatChannel.Emote; text = body; break;
+                    default:
+                        if (TryEmoteCommand(parts[0])) return;
+                        break;
                 }
             }
             Client.Send(new C_Chat { Channel = ch, Text = text, WhisperTo = whisper });

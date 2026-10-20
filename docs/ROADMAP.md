@@ -77,7 +77,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 |---|---|---|
 | A ✅ | 28, 29, 30, 59 | Vollständiges HUD, verschiebbare/skalierbare Fenster, frei belegbare Tasten, Weltkarte und Minimap, Barrierefreiheit – Einstellungen dauerhaft gespeichert |
 | B ✅ | 31, 32, 46 | Chatkanäle (Handel, Gebiet, Raid, Gilde), Blockieren/Melden, Gegenstandslinks, Freundesliste inkl. KI-Freunde, direkter Spielerhandel (atomar) |
-| C | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
+| C ✅ | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
 | D | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
 | E | 38, 39, 58 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer, Lokalisierung Deutsch/Englisch |
 | F | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
@@ -114,3 +114,22 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 - KI-Mitspieler der eigenen Gruppe nehmen Geschenke an, legen Verbesserungen sofort an und bedanken sich; sie geben nichts her. KI-Freunde stehen bereits seit Meilenstein 2 in der Freundesliste; Melden und Blockieren ebenso.
 
 **Nur kompiliergeprüft** (Unity): Handelsfenster, Handelsanfrage, „Handeln“ am Zielrahmen und `/handeln`, Linkdarstellung mit festhaltbarem Tooltip, Kanal-Schalter in den Chatoptionen.
+
+### Block C – Stand
+
+**Umgesetzt und getestet** (`PresentationTests`, Live-Lauf mit Konsolenclients):
+- 20 Emotes als Content (`content/emotes.json`: /winken, /tanzen, /verbeugen, /jubeln, /sitzen …, mit und ohne Ziel), Text an alle in Sprechweite, `S_Emote` für Animation und Klang, Ignorierliste gilt, Spamschutz 1 s. Freie Emotes mit `/e`.
+- KI-Mitspieler erwidern Gesten, die ihnen gelten, winken beim Beitritt, jubeln bei Stufenaufstieg, nach Siegen und Bosskämpfen und setzen sich oder tanzen im Gasthaus.
+- `AnimationController`: Zustände für Stehen, Gehen, Rennen, Rückwärts, Kampfhaltung, Reiten, Betäubung, Tod, Geist, Schleifen-Emotes (enden bei Bewegung oder Kampf) und Oberkörper-Einblendungen (Angriff, Schuss, Zaubern, Kanalisieren, Treffer, Ausweichen, Blocken, Sammeln, Sprung, Emotes). Schrittzyklus an die Strecke gekoppelt.
+- `Synth`: alle Effekte, Umgebungsgeräusche und Musik werden zur Laufzeit erzeugt – deterministisch, ohne Übersteuerung, Musik und Umgebung nahtlos schleifbar. Keine Audiodateien, keine fremden Rechte.
+- `MusicDirector`: Musik nach Region, Gebiet (Stadt/Gasthaus), Nacht, Kampf (setzt nach 2 s ein, klingt 8 s nach), Boss und Geisterwelt; Überblendung 2,5 s. `SoundEvents` ordnet Servernachrichten Klängen zu, nur bei eigener oder Gruppenbeteiligung.
+- Grafikstufen Niedrig/Mittel/Hoch/Ultra/Eigene mit Hardwareempfehlung; Anzeigeeinstellungen bleiben beim Stufenwechsel erhalten.
+- Leistung: `FrameStats` (Mittel, Perzentile, 1 % Tiefstwerte). Der Server misst jeden Takt (Ø/99 %/max/Überläufe), meldet ihn im Pong, im Statusprotokoll und mit `#perf`. Lasttest: 150 KI-Mitspieler in einer Zone bleiben deutlich unter dem 50-ms-Budget.
+
+**Nur kompiliergeprüft** (Unity):
+- Figuren aus Gelenken (Mensch, Vierbeiner, Klumpen) mit allen Animationen, Fußtritt-Geräusche, Angriffs-/Treffer-/Zauberanimationen aus Kampfereignissen.
+- `AudioManager`: zwei Musikquellen mit Überblendung, Umgebungsquelle, Effektpool im Raum, Oberflächenklänge, NPC-Sprechlaute; Lautstärken Gesamt/Musik/Effekte/Umgebung/Sprache wirken jetzt alle.
+- `GraphicsApplier`: Schatten, Kantenglättung, Sichtweite, Nebel, Bildrate (auch im Hintergrund), Auflösung/Vollbild; Figuren- und Namensschild-Sichtweite, Partikeldichte.
+- Eigener Oberflächen-Look (`UiSkin`, ohne Grafikdateien) und kontrastreiche Variante; Emote-Auswahl (K), Leistungsanzeige (Strg+F), Grafik-Reiter in den Optionen.
+
+**Grenzen:** Die Figuren bleiben stilisierte Grundkörper, bis echte Modelle mit Animator eingebunden werden (die Zustandsnamen in `AnimClip` sind dafür vorgesehen). Die erzeugte Musik ist bewusst schlicht und kein Ersatz für komponierte Stücke.

@@ -54,7 +54,11 @@ namespace EternalRealms.Client
                 _moved = true;
             }
             // Sprung ist rein optisch (Höhe wird nur dargestellt).
-            if (UiInput.Down(keys, "jump") && _height <= 0.01f && canMove) _verticalVelocity = 6f;
+            if (UiInput.Down(keys, "jump") && _height <= 0.01f && canMove)
+            {
+                _verticalVelocity = 6f;
+                WorldRenderer.Instance.ViewOf(me.Id)?.Anim.OnJump(Time.timeAsDouble);
+            }
             _verticalVelocity -= 18f * Time.deltaTime;
             _height = Mathf.Max(0, _height + _verticalVelocity * Time.deltaTime);
             pos.y = _height;

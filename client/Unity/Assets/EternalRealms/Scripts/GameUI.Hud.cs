@@ -25,6 +25,7 @@ namespace EternalRealms.Client
 
         /// <summary>Änderung merken; gespeichert wird gesammelt nach zwei Sekunden Ruhe.</summary>
         private void SettingsChanged() => _settingsDirtyAt = Time.unscaledTime;
+        public void NotifySettingsChanged() => SettingsChanged();
 
         private void UpdateSettingsPersistence()
         {
@@ -127,6 +128,7 @@ namespace EternalRealms.Client
             _windowClosers["DrawCharacter"] = () => _showCharacter = false;
             _windowClosers["DrawWorldMap"] = () => _showMap = false;
             _windowClosers["DrawOptions"] = () => CloseOptions();
+            _windowClosers["DrawEmotes"] = () => _showEmotes = false;
             _windowClosers["DrawTrade"] = () => { if (Client.Trade != null) Client.Send(new C_TradeCancel()); };
         }
 
@@ -155,6 +157,8 @@ namespace EternalRealms.Client
             if (UiInput.Down(k, "professions")) _showProfessions = !_showProfessions;
             if (UiInput.Down(k, "social")) { _showSocial = !_showSocial; if (_showSocial) { Client.Send(new C_FriendList()); Client.Send(new C_GuildRoster()); } }
             if (UiInput.Down(k, "toggle_ui")) _hideUi = !_hideUi;
+            if (UiInput.Down(k, "emotes")) _showEmotes = !_showEmotes;
+            if (UiInput.Down(k, "perf_overlay")) { Settings.ShowPerformance = !Settings.ShowPerformance; SettingsChanged(); }
             if (UiInput.Down(k, "minimap_zoom_in")) { Settings.MinimapZoom = Mathf.Min(4f, Settings.MinimapZoom * 1.25f); SettingsChanged(); }
             if (UiInput.Down(k, "minimap_zoom_out")) { Settings.MinimapZoom = Mathf.Max(0.5f, Settings.MinimapZoom / 1.25f); SettingsChanged(); }
             if (UiInput.Down(k, "reply") && _lastWhisperFrom != "") { _chatInput = $"/w {_lastWhisperFrom} "; _focusChat = true; }

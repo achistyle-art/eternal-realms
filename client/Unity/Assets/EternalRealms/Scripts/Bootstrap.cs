@@ -18,6 +18,8 @@ namespace EternalRealms.Client
             root.AddComponent<WorldRenderer>();
             root.AddComponent<PlayerController>();
             root.AddComponent<GameUI>();
+            root.AddComponent<AudioManager>();
+            root.AddComponent<GraphicsApplier>();
             var cam = Camera.main;
             if (cam == null)
             {
@@ -28,7 +30,7 @@ namespace EternalRealms.Client
             cam.farClipPlane = 600;
             cam.clearFlags = CameraClearFlags.SolidColor;
             if (cam.GetComponent<ThirdPersonCamera>() == null) cam.gameObject.AddComponent<ThirdPersonCamera>();
-            Application.targetFrameRate = 120;
+            Application.targetFrameRate = 60; // danach bestimmt GraphicsApplier die Bildrate
             Application.runInBackground = true;
         }
     }

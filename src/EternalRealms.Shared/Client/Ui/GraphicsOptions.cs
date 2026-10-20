@@ -3,7 +3,7 @@ using System;
 namespace EternalRealms.Shared.Client.Ui
 {
     public enum GraphicsPreset : byte { Low = 0, Medium = 1, High = 2, Ultra = 3, Custom = 4 }
-    public enum ShadowQuality : byte { Off = 0, Hard = 1, Soft = 2 }
+    public enum ShadowMode : byte { Off = 0, Hard = 1, Soft = 2 }
 
     /// <summary>
     /// Grafikstufen (Kapitel 51/52). Jede Stufe ist ein fester Satz Werte; ändert der Spieler einen Wert,
@@ -14,7 +14,7 @@ namespace EternalRealms.Shared.Client.Ui
         public GraphicsPreset Preset { get; set; } = GraphicsPreset.Medium;
         /// <summary>Sichtweite der Kamera in Metern.</summary>
         public float ViewDistance { get; set; } = 300;
-        public ShadowQuality Shadows { get; set; } = ShadowQuality.Hard;
+        public ShadowMode Shadows { get; set; } = ShadowMode.Hard;
         public float ShadowDistance { get; set; } = 60;
         /// <summary>Kantenglättung: 0, 2, 4 oder 8 Abtastungen.</summary>
         public int Msaa { get; set; } = 2;
@@ -40,16 +40,16 @@ namespace EternalRealms.Shared.Client.Ui
             switch (p)
             {
                 case GraphicsPreset.Low:
-                    g.ViewDistance = 150; g.Shadows = ShadowQuality.Off; g.ShadowDistance = 0; g.Msaa = 0; g.ParticleDensity = 0.25f;
+                    g.ViewDistance = 150; g.Shadows = ShadowMode.Off; g.ShadowDistance = 0; g.Msaa = 0; g.ParticleDensity = 0.25f;
                     g.NameplateDistance = 25; g.EntityDistance = 80; g.FpsLimit = 60; break;
                 case GraphicsPreset.Medium:
-                    g.ViewDistance = 300; g.Shadows = ShadowQuality.Hard; g.ShadowDistance = 60; g.Msaa = 2; g.ParticleDensity = 0.7f;
+                    g.ViewDistance = 300; g.Shadows = ShadowMode.Hard; g.ShadowDistance = 60; g.Msaa = 2; g.ParticleDensity = 0.7f;
                     g.NameplateDistance = 40; g.EntityDistance = 150; g.FpsLimit = 60; break;
                 case GraphicsPreset.High:
-                    g.ViewDistance = 450; g.Shadows = ShadowQuality.Soft; g.ShadowDistance = 100; g.Msaa = 4; g.ParticleDensity = 1f;
+                    g.ViewDistance = 450; g.Shadows = ShadowMode.Soft; g.ShadowDistance = 100; g.Msaa = 4; g.ParticleDensity = 1f;
                     g.NameplateDistance = 60; g.EntityDistance = 220; g.FpsLimit = 120; break;
                 case GraphicsPreset.Ultra:
-                    g.ViewDistance = 600; g.Shadows = ShadowQuality.Soft; g.ShadowDistance = 150; g.Msaa = 8; g.ParticleDensity = 1f;
+                    g.ViewDistance = 600; g.Shadows = ShadowMode.Soft; g.ShadowDistance = 150; g.Msaa = 8; g.ParticleDensity = 1f;
                     g.NameplateDistance = 80; g.EntityDistance = 300; g.FpsLimit = 0; break;
             }
             return g;
@@ -96,7 +96,7 @@ namespace EternalRealms.Shared.Client.Ui
             BackgroundFps = Math.Max(5, Math.Min(60, BackgroundFps));
             Width = Math.Max(0, Width); Height = Math.Max(0, Height);
             if (!Enum.IsDefined(typeof(GraphicsPreset), Preset)) Preset = GraphicsPreset.Custom;
-            if (!Enum.IsDefined(typeof(ShadowQuality), Shadows)) Shadows = ShadowQuality.Hard;
+            if (!Enum.IsDefined(typeof(ShadowMode), Shadows)) Shadows = ShadowMode.Hard;
         }
 
         private static float Clamp(float v, float min, float max) => float.IsNaN(v) ? min : v < min ? min : v > max ? max : v;

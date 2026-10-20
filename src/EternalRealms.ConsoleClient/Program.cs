@@ -126,6 +126,7 @@ Print($"Verbinde mit {host}:{port} …");
 var reader = new Thread(() => { while (true) { var l = Console.ReadLine(); if (l == null) { input.Enqueue("quit"); break; } input.Enqueue(l); } }) { IsBackground = true };
 reader.Start();
 
+var lastPing = DateTime.MinValue;
 while (true)
 {
     client.Poll();
@@ -134,9 +135,11 @@ while (true)
     {
         var c = client.ChatLog[lastChat++];
         string ch = c.Channel switch { ChatChannel.Yell => "[schreit] ", ChatChannel.Whisper => "[flüstert] ", ChatChannel.General => "[Gebiet] ", ChatChannel.Trade => "[Handel] ", ChatChannel.LookingForGroup => "[Gruppensuche] ", ChatChannel.System => "[System] ", _ => ChatFormat.ChannelPrefix(c.Channel) };
-        Print($"{ch}{(c.SenderName != "" ? c.SenderName + (c.SenderIsBot ? " (KI)" : "") + ": " : "")}{ChatLinks.Plain(c.Text, content)}");
+        string who = c.SenderName == "" ? "" : c.SenderName + (c.SenderIsBot ? " (KI)" : "") + (c.Channel == ChatChannel.Emote ? " " : ": ");
+        Print($"{ch}{who}{ChatLinks.Plain(c.Text, content)}");
     }
     UpdateWalking();
+    if (client.Connected && (DateTime.UtcNow - lastPing).TotalSeconds > 5) { lastPing = DateTime.UtcNow; client.SendPing(); }
     while (input.TryDequeue(out var line))
     {
         if (line.Trim() == "quit") { client.Send(new C_Logout()); client.Poll(); Thread.Sleep(200); client.Disconnect(); return; }
@@ -403,6 +406,18 @@ void Command(string line)
         case "g": client.Say(Links(rest), ChatChannel.General); break;
         case "h": client.Say(Links(rest), ChatChannel.Trade); break;
         case "suche": client.Say(Links(rest), ChatChannel.LookingForGroup); break;
+        case "e":
+            if (a.Length > 0 && content.EmoteCommands.TryGetValue(a[0].TrimStart('/').ToLowerInvariant(), out var emo))
+                client.Send(new C_Emote { EmoteId = emo.Id, TargetId = client.Me?.TargetId ?? 0 });
+            else client.Say(rest, ChatChannel.Emote);
+            break;
+        case "emotes": Print("Emotes: " + string.Join(", ", content.Emotes.Values.Select(x => x.Commands[0]))); break;
+        case "perf":
+        {
+            var sp = client.ServerPerf;
+            Print($"Ping {client.Ping} ms – Server-Takt Ø {sp.TickMs:0.00} ms, 99 % {sp.TickP99Ms:0.00} ms – {sp.Players} Spieler/KI, {sp.Entities} Einheiten");
+            break;
+        }
         case "kanal":
         {
             var chan = (a.Length > 0 ? a[0] : "").ToLowerInvariant() switch { "gebiet" => ChatChannel.General, "handel" => ChatChannel.Trade, "suche" or "gruppensuche" => ChatChannel.LookingForGroup, _ => (ChatChannel?)null };
@@ -642,6 +657,7 @@ void Help() => Print(@"Befehle:
   Chatbefehle: p Tank, greif den Boss an. | p Heiler, bitte Mana auffüllen. | p Magier, kontrolliere den linken Gegner. | p Alle zurückziehen.
   group | invite <Name> | join | leave
   g <Text> Gebiet | h <Text> Handel (nur in Städten) | suche <Text> Gruppensuche | kanal gebiet|handel|suche an|aus | #3 im Text verlinkt Taschenplatz 3
+  e <Emote> [mit Ziel: zuerst 'target'] z. B. e winken | e <freier Text> | emotes | perf
   trade <id|Name> | tradeyes | tradeno | tput <1-6> <Taschenplatz> | tgold <Kupfer> | tok | tcancel
   s <Text> | p <Text> (Gruppe – Bots verstehen z. B. 'folgt mir', 'wartet', 'Angriff', 'Wir gehen in den Dungeon') | y | g | w <Name> <Text>
   release | reclaim | rez | fly <Nr> | ping | quit   (.pvp schaltet PvP um; #-Befehle nur mit ER_DEV_COMMANDS)");

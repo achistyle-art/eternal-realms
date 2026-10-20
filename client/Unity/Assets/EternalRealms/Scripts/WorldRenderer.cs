@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using EternalRealms.Shared;
 using EternalRealms.Shared.Client;
+using EternalRealms.Shared.Client.Anim;
 using EternalRealms.Shared.Net;
 using UnityEngine;
 
@@ -50,6 +51,7 @@ namespace EternalRealms.Client
             switch (m)
             {
                 case S_CombatEvent ce:
+                    AnimateCombat(ce);
                     var v = ViewOf(ce.TargetId);
                     if (v == null || (ce.SourceId != Client.State.MyId && ce.TargetId != Client.State.MyId && !Client.Group.Exists(g => g.EntityId == ce.SourceId))) break;
                     string text = ce.Result switch
@@ -64,7 +66,36 @@ namespace EternalRealms.Client
                     bool big = ce.Result is CombatResult.Crit or CombatResult.CritHeal;
                     FloatingTexts.Add(new FloatingText { WorldPos = v.transform.position + Vector3.up * 2.4f, Text = big ? text + "!" : text, Color = c, Big = big, Born = Time.time });
                     break;
+                case S_CastEnd end when end.Success:
+                    ViewOf(end.CasterId)?.Anim.OnCastRelease(Time.timeAsDouble);
+                    break;
+                case S_Emote em when NetworkManager.Instance.Content.Emotes.TryGetValue(em.EmoteId, out var emote):
+                    ViewOf(em.SourceId)?.Anim.OnEmote(Time.timeAsDouble, emote);
+                    break;
                 case S_EnterWorld:
+                    break;
+            }
+        }
+
+        /// <summary>Angreifer schwingt, Ziel zuckt zusammen, weicht aus oder blockt (Kapitel 33).</summary>
+        private void AnimateCombat(S_CombatEvent ce)
+        {
+            double now = Time.timeAsDouble;
+            var content = NetworkManager.Instance.Content;
+            var src = ViewOf(ce.SourceId);
+            if (src != null && !ce.Periodic && ce.Result is not (CombatResult.Heal or CombatResult.CritHeal))
+            {
+                bool spell = ce.AbilityId != "" && content.Abilities.TryGetValue(ce.AbilityId, out var ab) && ab.IsSpell;
+                if (!spell) src.Anim.OnAttack(now, ranged: ce.AbilityId != "" && content.Abilities.TryGetValue(ce.AbilityId, out var ab2) && ab2.RequiresRangedWeapon, armed: true);
+            }
+            var dst = ViewOf(ce.TargetId);
+            if (dst == null) return;
+            switch (ce.Result)
+            {
+                case CombatResult.Dodge: case CombatResult.Evade: dst.Anim.OnAvoid(now, false); break;
+                case CombatResult.Parry: case CombatResult.Block: dst.Anim.OnAvoid(now, true); break;
+                case CombatResult.Hit: case CombatResult.Crit: case CombatResult.Glancing: case CombatResult.PartialResist:
+                    if (ce.Amount > 0) dst.Anim.OnHit(now);
                     break;
             }
         }
@@ -173,7 +204,7 @@ namespace EternalRealms.Client
                 _rain.transform.position = Client.Me.Position.ToUnity() + Vector3.up * 20;
                 var emission = _rain.emission;
                 bool wet = weather == Weather.Rain || weather == Weather.Storm || weather == Weather.Snow;
-                emission.rateOverTime = wet ? 1500 * Mathf.Max(0.3f, intensity) * (Client.Settings.ReduceParticles ? 0.2f : 1f) : 0;
+                emission.rateOverTime = wet ? 1500 * Mathf.Max(0.3f, intensity) * Client.Settings.Graphics.ParticleDensity * (Client.Settings.ReduceParticles ? 0.2f : 1f) : 0;
                 var main = _rain.main;
                 main.startSpeed = weather == Weather.Snow ? 3 : 18;
                 main.startColor = weather == Weather.Snow ? Color.white : new Color(0.7f, 0.75f, 0.9f, 0.6f);
@@ -190,16 +221,22 @@ namespace EternalRealms.Client
         public float Born;
     }
 
-    /// <summary>Darstellung einer Einheit: Platzhalterkörper, Namensschild, Interpolation.</summary>
+    /// <summary>Darstellung einer Einheit: Figur mit Animation, Namensschild, Interpolation, Sichtweite.</summary>
     public sealed class EntityView : MonoBehaviour
     {
         public int EntityId;
+        public readonly AnimationController Anim = new AnimationController();
+        public ProceduralRig? Rig { get; private set; }
         private TextMesh _label = null!;
         private Vector3 _from, _to;
         private float _lerpStart;
-        private Renderer _body = null!;
+        private Renderer? _block;
         private GameObject? _mount;
         private string _mountId = "";
+        private Vector3 _lastPos;
+        private float _speed;
+        private Color _lastColor = Color.clear;
+        private bool _visible = true;
 
         /// <summary>Platzhalter-Reittier: liegende Kapsel unter der Figur, Farbe aus der Modell-ID.</summary>
         private void SyncMount(ClientEntity e)
@@ -222,13 +259,24 @@ namespace EternalRealms.Client
 
         public static EntityView Create(ClientEntity e, bool isMe)
         {
-            var prim = e.Kind == EntityKind.GameObject ? PrimitiveType.Cube : PrimitiveType.Capsule;
-            var go = GameObject.CreatePrimitive(prim);
+            var content = NetworkManager.Instance.Content;
+            GameObject go;
+            ProceduralRig? rig = null;
+            if (e.Kind == EntityKind.GameObject) go = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            else
+            {
+                // Leeres Wurzelobjekt mit Klickfläche, darunter die animierte Figur
+                go = new GameObject();
+                var col = go.AddComponent<CapsuleCollider>();
+                col.height = 2f; col.radius = 0.45f;
+                string family = content.Creatures.TryGetValue(e.TemplateId, out var cdef) ? cdef.Family : "";
+                rig = ProceduralRig.Build(go, e.Kind == EntityKind.Player || e.Kind == EntityKind.Npc ? ProceduralRig.Plan.Humanoid : ProceduralRig.PlanFor(family));
+            }
             go.name = $"{e.Name} #{e.Id}";
             var view = go.AddComponent<EntityView>();
             view.EntityId = e.Id;
-            view._body = go.GetComponent<Renderer>();
-            var content = NetworkManager.Instance.Content;
+            view.Rig = rig;
+            view._block = rig == null ? go.GetComponent<Renderer>() : null;
             float scale = 1f;
             if (e.Kind == EntityKind.Creature || e.Kind == EntityKind.Npc || e.Kind == EntityKind.Pet)
                 if (content.Creatures.TryGetValue(e.TemplateId, out var def)) scale = def.Scale * (e.Kind == EntityKind.Pet ? 0.7f : 1f);
@@ -244,7 +292,8 @@ namespace EternalRealms.Client
             view._label.fontSize = 48;
             view._from = view._to = e.Position.ToUnity() + Vector3.up * (e.Kind == EntityKind.GameObject ? 0.4f : 1f);
             go.transform.position = view._to;
-            if (isMe) go.layer = 2; // Ignore Raycast – man klickt sich nicht selbst an
+            view._lastPos = view._to;
+            if (isMe) foreach (var t in go.GetComponentsInChildren<Transform>()) t.gameObject.layer = 2; // Ignore Raycast – man klickt sich nicht selbst an
             return view;
         }
 
@@ -264,10 +313,38 @@ namespace EternalRealms.Client
                 transform.position = (target - transform.position).sqrMagnitude > 400 ? target : Vector3.Lerp(_from, _to, t);
                 transform.rotation = Quaternion.Euler(0, Conversions.FacingToYaw(e.Facing), 0);
             }
-            _body.material.color = BodyColor(e);
-            string marker = e.Marker switch { QuestMarker.Available => "<color=yellow>!</color>\n", QuestMarker.ReadyToTurnIn => "<color=yellow>?</color>\n", QuestMarker.Incomplete => "<color=grey>?</color>\n", QuestMarker.AvailableLowLevel => "<color=grey>!</color>\n", _ => "" };
             var net = NetworkManager.Instance;
-            if (net != null && net.Client.Markers.TryGetValue(e.Id, out var raidMark)) marker = GameUI.MarkerSymbol(raidMark) + "\n" + marker;
+            var gfx = net.Client.Settings.Graphics;
+            float dist = Camera.main != null ? Vector3.Distance(Camera.main.transform.position, transform.position) : 0;
+            // Sichtweite (Kapitel 51): ferne Einheiten werden nicht gezeichnet, Namensschilder nur in der Nähe
+            bool visible = isMe || dist <= gfx.EntityDistance || e.Id == net.Client.Me?.TargetId;
+            if (visible != _visible) { _visible = visible; Rig?.SetVisible(visible); if (_block != null) _block.enabled = visible; if (_mount != null) _mount.SetActive(visible); }
+            _label.gameObject.SetActive(visible && (isMe || dist <= gfx.NameplateDistance || e.Id == net.Client.Me?.TargetId));
+
+            // Tempo für die Animation aus der tatsächlichen Bewegung (vorwärts positiv)
+            var delta = transform.position - _lastPos;
+            delta.y = 0;
+            _lastPos = transform.position;
+            float inst = Time.deltaTime > 0 ? delta.magnitude / Time.deltaTime : 0;
+            if (Vector3.Dot(delta, transform.forward) < -0.01f) inst = -inst;
+            _speed = Mathf.Lerp(_speed, inst, 0.25f);
+            if (Rig != null && visible)
+            {
+                bool channel = e.Casting != null && net.Content.Abilities.TryGetValue(e.Casting.AbilityId, out var ab) && ab.Channeled;
+                var pose = Anim.Update(Time.timeAsDouble, _speed, e.Flags, (e.Flags & UnitFlags.InCombat) != 0, e.Casting != null && !channel, channel, _mount != null);
+                Rig.Apply(pose);
+            }
+
+            var color = BodyColor(e);
+            if (color != _lastColor)
+            {
+                _lastColor = color;
+                if (Rig != null) Rig.SetColor(color, Color.Lerp(color, new Color(0.95f, 0.8f, 0.65f), 0.55f));
+                else if (_block != null) _block.material.color = color;
+            }
+            if (!_label.gameObject.activeSelf) return;
+            string marker = e.Marker switch { QuestMarker.Available => "<color=yellow>!</color>\n", QuestMarker.ReadyToTurnIn => "<color=yellow>?</color>\n", QuestMarker.Incomplete => "<color=grey>?</color>\n", QuestMarker.AvailableLowLevel => "<color=grey>!</color>\n", _ => "" };
+            if (net.Client.Markers.TryGetValue(e.Id, out var raidMark)) marker = GameUI.MarkerSymbol(raidMark) + "\n" + marker;
             string hp = e.Kind == EntityKind.GameObject || e.MaxHealth <= 0 ? "" : $"\n{Bar(e.HealthPct)}";
             string title = e.Title != "" ? $"\n<{e.Title}>" : "";
             _label.text = $"{marker}{e.Name}{(e.Kind == EntityKind.GameObject ? "" : $" ({e.Level})")}{title}{hp}";

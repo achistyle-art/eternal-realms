@@ -29,7 +29,7 @@ namespace EternalRealms.Client
             SaveSettingsNow();
         }
 
-        private static readonly string[] OptionTabs = { "Spiel", "Oberfläche", "Chat", "Tasten", "Barrierefreiheit", "Kamera", "Ton" };
+        private static readonly string[] OptionTabs = { "Spiel", "Oberfläche", "Chat", "Tasten", "Barrierefreiheit", "Grafik", "Kamera", "Ton" };
 
         private void DrawOptions()
         {
@@ -45,7 +45,8 @@ namespace EternalRealms.Client
                 case 2: DrawChatOptions(); break;
                 case 3: DrawKeyOptions(); break;
                 case 4: DrawAccessibilityOptions(); break;
-                case 5: DrawCameraOptions(); break;
+                case 5: DrawGraphicsOptions(); break;
+                case 6: DrawCameraOptions(); break;
                 default: DrawAudioOptions(); break;
             }
             GUILayout.EndScrollView();
@@ -193,6 +194,7 @@ namespace EternalRealms.Client
             GUILayout.Label("Ersetzt Rot/Grün bzw. Blau/Gelb in Leisten, Karten, Schadenszahlen und Gegenstandsqualitäten. Markierungen tragen zusätzlich Symbole.", _wrap);
             Settings.FontSize = Mathf.RoundToInt(Slider("Schriftgröße", Settings.FontSize, 9, 28, "0"));
             Settings.UiScale = Mathf.Round(Slider("Oberflächengröße", Settings.UiScale, 0.5f, 2f) * 20) / 20;
+            Settings.HighContrast = GUILayout.Toggle(Settings.HighContrast, "Kontrastreiche Oberfläche (schwarze Flächen, weiße Rahmen und Schrift)");
             Settings.ReduceFlashes = GUILayout.Toggle(Settings.ReduceFlashes, "Blitz- und Pulseffekte reduzieren (keine vergrößerten Kritzahlen)");
             Settings.ReduceParticles = GUILayout.Toggle(Settings.ReduceParticles, "Partikel reduzieren (Regen, Schnee)");
             Settings.Subtitles = GUILayout.Toggle(Settings.Subtitles, "Untertitel für Sprechtexte von NPCs");
@@ -216,13 +218,8 @@ namespace EternalRealms.Client
             Settings.VolumeAmbient = Slider("Umgebung", Settings.VolumeAmbient, 0, 1);
             Settings.VolumeDialog = Slider("Sprache", Settings.VolumeDialog, 0, 1);
             Settings.MuteInBackground = GUILayout.Toggle(Settings.MuteInBackground, "Stumm, wenn das Fenster im Hintergrund ist");
-            GUILayout.Label("Hinweis: Musik, Effekte, Umgebung und Sprache kommen mit dem Audiosystem (Block C); bis dahin wirkt die Gesamtlautstärke.", _wrap);
-        }
-
-        private void ApplyAudio()
-        {
-            bool muted = Settings.MuteInBackground && !Application.isFocused;
-            AudioListener.volume = muted ? 0 : Settings.VolumeMaster;
+            GUILayout.Label("Alle Klänge und die Musik werden im Spiel erzeugt; die Musik passt sich Region, Gebiet, Tageszeit, Kampf und Bossen an.", _wrap);
+            if (GUILayout.Button("Probeton")) AudioManager.Instance.PlayUi("levelup");
         }
     }
 }
