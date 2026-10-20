@@ -707,6 +707,24 @@ namespace EternalRealms.Shared.Content
         public List<string> ExclusiveWith { get; set; } = new List<string>();
     }
 
+    /// <summary>
+    /// Emote (Kapitel 33): Chatbefehle, Texte und die zugehörige Animation. Platzhalter: {me} {target}.
+    /// Ohne Ziel gilt TextNoTarget, mit Ziel TextTarget.
+    /// </summary>
+    public sealed class EmoteDef
+    {
+        public string Id { get; set; } = "";
+        public List<string> Commands { get; set; } = new List<string>();
+        public string TextNoTarget { get; set; } = "";
+        public string TextTarget { get; set; } = "";
+        /// <summary>Animationsname (siehe Client.Anim.AnimClip); leer = nur Text.</summary>
+        public string Animation { get; set; } = "";
+        /// <summary>Wiederholt sich, bis sich die Figur bewegt (Tanzen, Sitzen, Schlafen).</summary>
+        public bool Loop { get; set; }
+        /// <summary>Dauer einer einmaligen Animation in Sekunden.</summary>
+        public float Duration { get; set; } = 2f;
+    }
+
     /// <summary>Sätze der KI-Mitspieler für Ereignisse. Platzhalter: {me} {leader} {tank} {healer} {target} {zone}.</summary>
     public sealed class BotDialogDef
     {

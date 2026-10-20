@@ -56,6 +56,12 @@ namespace EternalRealms.Shared.Client.Ui
         public bool ShowGroupFrames { get; set; } = true;
         /// <summary>Gesperrte Leisten: Knöpfe nur mit gedrückter Umschalttaste verschieben.</summary>
         public bool LockActionBars { get; set; }
+        /// <summary>Kontrastreiche Oberfläche (Kapitel 59): kräftige Rahmen, dunkle Flächen, weiße Schrift.</summary>
+        public bool HighContrast { get; set; }
+        public bool ShowPerformance { get; set; }
+        public GraphicsOptions Graphics { get; set; } = new GraphicsOptions();
+        /// <summary>Wurde die Grafikstufe schon nach der Hardware gewählt? (nur beim ersten Start)</summary>
+        public bool GraphicsDetected { get; set; }
 
         // Barrierefreiheit (Kapitel 59)
         public ColorblindMode Colorblind { get; set; }
@@ -98,6 +104,8 @@ namespace EternalRealms.Shared.Client.Ui
             Keys ??= Keybindings.CreateDefault();
             Keys.Bindings ??= new Dictionary<string, string[]>();
             Keys.Normalize();
+            Graphics ??= new GraphicsOptions();
+            Graphics.Normalize();
             ActionBars ??= new ActionBarSet();
             ActionBars.Normalize();
             Windows ??= new Dictionary<string, WindowLayout>();

@@ -272,6 +272,7 @@ namespace EternalRealms.Server.AI
                     Resting = true;
                     StartRestAbilities(1);
                     if (_w.Random.Chance(Data.Chattiness * 0.5)) Say("town_inn");
+                    else if (_w.Random.Chance(0.3)) Gesture(_w.Random.Chance(0.5) ? "sit" : "dance", chance: 1);
                     return 15 + (float)_w.Random.NextDouble() * 30;
                 case "auction":
                     _w.Bots.OnBotVisitsAuctioneer(Me);

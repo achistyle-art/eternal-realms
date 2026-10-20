@@ -45,6 +45,11 @@ namespace EternalRealms.Server.Systems
                 case "spawn":
                     if (_w.Content.Creatures.ContainsKey(Arg(1))) p.Zone!.SpawnCreature(Arg(1), p.Position + new Vec3(5, 0, 0));
                     break;
+                case "perf":
+                    var ts = _w.TickStats;
+                    p.Notice($"Takt Ø {ts.Average:0.00} ms, 99 % {ts.Percentile(99):0.00} ms, max {ts.Max:0.00} ms, {_w.TickOverruns} Überläufe – " +
+                             $"{_w.AllPlayers.Count()} Spieler/Bots, {_w.EntityCount} Einheiten, {_w.AllZones.Count()} Zonen");
+                    break;
                 case "where": p.Notice($"{p.Zone!.Def.Id} {p.Position} – {p.CurrentArea?.Name ?? "-"} – {_w.GameHour:0.0} Uhr"); break;
                 default: p.Notice("Unbekannter Befehl.", true); break;
             }

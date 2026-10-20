@@ -91,7 +91,7 @@ namespace EternalRealms.Server.AI
             if (_wasFighting)
             {
                 _wasFighting = false;
-                if (InGroup && _killsThisFight >= 3 && _w.Random.Chance(Data.Chattiness)) Say("victory");
+                if (InGroup && _killsThisFight >= 3 && _w.Random.Chance(Data.Chattiness)) { Say("victory"); Gesture("cheer", chance: 0.5); }
                 _killsThisFight = 0;
                 _warnedAbout.Clear();
                 if (InGroup && Data.Archetype == BotPersonality.Vorsichtig)
@@ -181,6 +181,7 @@ namespace EternalRealms.Server.AI
                 }
             }
             Say("join", force: true, delay: 0.8f);
+            Gesture("wave", Me.Group?.Leader, chance: 0.9);
         }
     }
 }

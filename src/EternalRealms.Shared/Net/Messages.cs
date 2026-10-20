@@ -707,8 +707,11 @@ namespace EternalRealms.Shared.Net
         public override Opcode Op => Opcode.S_Pong;
         public long ClientTime;
         public long ServerTime;
-        public override void Write(NetDataWriter w) { w.Put(ClientTime); w.Put(ServerTime); }
-        public override void Read(NetDataReader r) { ClientTime = r.GetLong(); ServerTime = r.GetLong(); }
+        /// <summary>Leistung des Servers (Kapitel 52): mittlere und 99-%-Taktdauer in ms, Spieler und Einheiten in der Welt.</summary>
+        public float TickMs, TickP99Ms;
+        public int Players, Entities;
+        public override void Write(NetDataWriter w) { w.Put(ClientTime); w.Put(ServerTime); w.Put(TickMs); w.Put(TickP99Ms); w.Put(Players); w.Put(Entities); }
+        public override void Read(NetDataReader r) { ClientTime = r.GetLong(); ServerTime = r.GetLong(); TickMs = r.GetFloat(); TickP99Ms = r.GetFloat(); Players = r.GetInt(); Entities = r.GetInt(); }
     }
 
     public sealed class S_Cooldown : Message

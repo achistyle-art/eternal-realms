@@ -23,7 +23,7 @@ namespace EternalRealms.Shared.Client.Ui
                 ("bags", "Inventar", "I"), ("all_bags", "Alle Taschen", "Shift+B"), ("character", "Charakterfenster", "C"), ("world_map", "Weltkarte", "M"),
                 ("quest_log", "Questlog", "L"), ("spellbook", "Zauberbuch", "P"), ("talents", "Talente", "N"), ("social", "Sozialmenü", "O"),
                 ("group", "Gruppe und Gruppensuche", "G"), ("mounts", "Reittiere", "J"), ("professions", "Berufe", "U"),
-                ("chat", "Chat", "Return"), ("reply", "Antworten", "R"), ("menu", "Hauptmenü", "Escape"), ("toggle_ui", "Oberfläche ein/aus", "Alt+Z"),
+                ("chat", "Chat", "Return"), ("reply", "Antworten", "R"), ("menu", "Hauptmenü", "Escape"), ("toggle_ui", "Oberfläche ein/aus", "Alt+Z"), ("perf_overlay", "Leistungsanzeige", "Ctrl+F"), ("emotes", "Emote-Auswahl", "K"),
                 ("minimap_zoom_in", "Minikarte vergrößern", "Equals"), ("minimap_zoom_out", "Minikarte verkleinern", "Minus"),
             };
             for (int i = 0; i < 12; i++)

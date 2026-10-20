@@ -642,6 +642,34 @@ namespace EternalRealms.Server.AI
 
         // ================================================================== Ereignisse
 
+        /// <summary>Geste beantworten, die einem Bot gilt: Winken mit Winken, Verbeugen mit Verbeugen, Tanzen mit Tanzen …</summary>
+        public void OnEmote(Player from, EmoteDef emote)
+        {
+            if (Me.InCombat || !_w.Random.Chance(0.85)) return;
+            string? reply = emote.Id switch
+            {
+                "wave" or "hello" or "bye" => "wave",
+                "bow" or "kneel" => "bow",
+                "thank" => "nod",
+                "cheer" or "applaud" or "flex" => "cheer",
+                "dance" => "dance",
+                "salute" or "ready" => "salute",
+                "laugh" => "laugh",
+                "point" => "nod",
+                "cry" => "shrug",
+                "no" => "shrug",
+                _ => null,
+            };
+            if (reply != null) _w.Bots.ScheduleEmote(Me, reply, from, 0.6 + _w.Random.NextDouble() * 1.2);
+        }
+
+        /// <summary>Gelegentliche Geste zu einem Ereignis (je nach Gesprächigkeit).</summary>
+        public void Gesture(string emoteId, Unit? target = null, double chance = 0.6, double delay = 0)
+        {
+            if ((Me.InCombat && delay <= 0) || !_w.Random.Chance(chance * (0.4 + Data.Chattiness))) return;
+            _w.Bots.ScheduleEmote(Me, emoteId, target, delay + 0.5 + _w.Random.NextDouble());
+        }
+
         public void OnWhisper(Player from, string text)
         {
             var lower = text.ToLowerInvariant();
@@ -671,7 +699,7 @@ namespace EternalRealms.Server.AI
             _killsThisFight++;
             if (c.IsBoss) RecordShared($"{c.Name} besiegt", 3);
             else if (c.Template.Elite) RecordShared("", 1);
-            if (c.IsBoss) Say("boss_kill", delay: 0.5f + (float)_w.Random.NextDouble() * 2);
+            if (c.IsBoss) { Say("boss_kill", delay: 0.5f + (float)_w.Random.NextDouble() * 2); Gesture("cheer", chance: 1, delay: 6); }
             else if (_w.Random.Chance(Data.Chattiness * 0.08)) Say("kill");
         }
 
@@ -682,6 +710,7 @@ namespace EternalRealms.Server.AI
             _w.Mounts.BotProgress(Me);
             Me.MarkStatsDirty();
             Say("level_up", force: InGroup);
+            Gesture("cheer", chance: 0.8);
             if (Me.Level % 10 == 0) RecordShared($"Stufe {Me.Level} erreicht", 1);
             if (Me.Group != null)
                 foreach (var b in Me.Group.Bots.Where(b => b != Me))
@@ -691,7 +720,7 @@ namespace EternalRealms.Server.AI
         public void OnDied() { Say("died", force: true); _moveTarget = null; Resting = false; }
         public void OnGroupMemberDied(Player p) { }
         public void OnQuestAccepted(QuestDef q) { }
-        public void OnQuestReady(QuestDef q) { if (InGroup && _w.Random.Chance(Data.Chattiness * 0.4)) Say("quest_done"); }
+        public void OnQuestReady(QuestDef q) { if (InGroup && _w.Random.Chance(Data.Chattiness * 0.4)) Say("quest_done"); Gesture("cheer", chance: 0.2); }
 
         public void OnAbilityUsed(AbilityDef ab, Unit? target)
         {

@@ -1,0 +1,22 @@
+[
+  {"id": "wave", "commands": ["winken", "wave"], "textNoTarget": "{me} winkt.", "textTarget": "{me} winkt {target} zu.", "animation": "Wave", "duration": 2.0},
+  {"id": "bow", "commands": ["verbeugen", "bow"], "textNoTarget": "{me} verbeugt sich.", "textTarget": "{me} verbeugt sich vor {target}.", "animation": "Bow", "duration": 2.0},
+  {"id": "cheer", "commands": ["jubeln", "cheer"], "textNoTarget": "{me} jubelt!", "textTarget": "{me} jubelt {target} zu!", "animation": "Cheer", "duration": 2.5},
+  {"id": "dance", "commands": ["tanzen", "dance"], "textNoTarget": "{me} tanzt.", "textTarget": "{me} tanzt mit {target}.", "animation": "Dance", "loop": true},
+  {"id": "sit", "commands": ["sitzen", "sit"], "textNoTarget": "{me} setzt sich.", "textTarget": "{me} setzt sich zu {target}.", "animation": "Sit", "loop": true},
+  {"id": "sleep", "commands": ["schlafen", "sleep"], "textNoTarget": "{me} legt sich schlafen.", "textTarget": "{me} schläft neben {target} ein.", "animation": "Sleep", "loop": true},
+  {"id": "laugh", "commands": ["lachen", "lol", "laugh"], "textNoTarget": "{me} lacht.", "textTarget": "{me} lacht über {target}.", "animation": "Laugh", "duration": 2.0},
+  {"id": "cry", "commands": ["weinen", "cry"], "textNoTarget": "{me} weint.", "textTarget": "{me} weint an der Schulter von {target}.", "animation": "Cry", "duration": 3.0},
+  {"id": "point", "commands": ["zeigen", "point"], "textNoTarget": "{me} zeigt nach vorn.", "textTarget": "{me} zeigt auf {target}.", "animation": "Point", "duration": 1.5},
+  {"id": "salute", "commands": ["salutieren", "salute"], "textNoTarget": "{me} salutiert.", "textTarget": "{me} salutiert vor {target}.", "animation": "Salute", "duration": 1.5},
+  {"id": "kneel", "commands": ["knien", "kneel"], "textNoTarget": "{me} kniet nieder.", "textTarget": "{me} kniet vor {target} nieder.", "animation": "Kneel", "loop": true},
+  {"id": "thank", "commands": ["danken", "danke", "thank"], "textNoTarget": "{me} bedankt sich.", "textTarget": "{me} bedankt sich bei {target}.", "animation": "Bow", "duration": 1.5},
+  {"id": "hello", "commands": ["hallo", "hello", "hi"], "textNoTarget": "{me} grüßt alle herzlich.", "textTarget": "{me} grüßt {target}.", "animation": "Wave", "duration": 2.0},
+  {"id": "bye", "commands": ["tschüss", "bye"], "textNoTarget": "{me} verabschiedet sich.", "textTarget": "{me} verabschiedet sich von {target}.", "animation": "Wave", "duration": 2.0},
+  {"id": "flex", "commands": ["muskeln", "flex"], "textNoTarget": "{me} lässt die Muskeln spielen.", "textTarget": "{me} zeigt {target} die Muskeln.", "animation": "Flex", "duration": 2.0},
+  {"id": "shrug", "commands": ["achselzucken", "shrug"], "textNoTarget": "{me} zuckt mit den Achseln.", "textTarget": "{me} zuckt bei {target} mit den Achseln.", "animation": "Shrug", "duration": 1.5},
+  {"id": "applaud", "commands": ["applaus", "klatschen", "applaud"], "textNoTarget": "{me} applaudiert.", "textTarget": "{me} applaudiert {target}.", "animation": "Applaud", "duration": 2.5},
+  {"id": "ready", "commands": ["bereit", "ready"], "textNoTarget": "{me} ist bereit!", "textTarget": "{me} signalisiert {target}: bereit!", "animation": "Salute", "duration": 1.5},
+  {"id": "nod", "commands": ["nicken", "ja", "nod"], "textNoTarget": "{me} nickt.", "textTarget": "{me} nickt {target} zu.", "animation": "Nod", "duration": 1.2},
+  {"id": "no", "commands": ["kopfschütteln", "nein", "no"], "textNoTarget": "{me} schüttelt den Kopf.", "textTarget": "{me} schüttelt den Kopf über {target}.", "animation": "HeadShake", "duration": 1.2}
+]

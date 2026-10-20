@@ -64,7 +64,11 @@ namespace EternalRealms.Server.Net
             }
         }
 
-        private void Pong(C_Ping p) => Connection.Send(new S_Pong { ClientTime = p.ClientTime, ServerTime = (long)(_w.Time * 1000) });
+        private void Pong(C_Ping p) => Connection.Send(new S_Pong
+        {
+            ClientTime = p.ClientTime, ServerTime = (long)(_w.Time * 1000), TickMs = _w.TickStats.Average, TickP99Ms = _w.TickStats.Percentile(99),
+            Players = _w.AllPlayers.Count(), Entities = _w.EntityCount,
+        });
 
         // ------------------------------------------------------------ Anmeldung
 
@@ -394,6 +398,7 @@ namespace EternalRealms.Server.Net
                 case C_TradeSetMoney tsm: err = _w.Trades.SetMoney(p, tsm.Money); break;
                 case C_TradeAccept ta: err = _w.Trades.Accept(p, ta.Accept, ta.Version); break;
                 case C_TradeCancel: _w.Trades.Cancel(p); return;
+                case C_Emote em: err = _w.Emotes.Perform(p, em.EmoteId, em.TargetId); break;
                 case C_ChatJoin cj: _w.Chat.SetChannel(p, cj.Channel, cj.Join); return;
                 case C_SaveSettings ss:
                     // Nur Größe prüfen: Inhalt wertet allein der Client aus, Spielregeln hängen nicht davon ab.

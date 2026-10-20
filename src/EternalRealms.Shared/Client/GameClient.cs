@@ -26,6 +26,8 @@ namespace EternalRealms.Shared.Client
         public string ZoneId { get; private set; } = "";
         public long CharacterId { get; private set; }
         public int Ping { get; private set; }
+        /// <summary>Letzte Leistungswerte des Servers (kommen mit jedem Pong).</summary>
+        public S_Pong ServerPerf { get; private set; } = new S_Pong();
         public ClientWorldState State { get; } = new ClientWorldState();
         public List<CharacterSummary> Characters { get; private set; } = new List<CharacterSummary>();
         public Dictionary<string, int> SpellBook { get; } = new Dictionary<string, int>();
@@ -272,7 +274,7 @@ namespace EternalRealms.Shared.Client
                 case S_NpcInteraction ni: LastInteraction = ni; break;
                 case S_DeathState d: State.DeathState = d.State; State.CorpsePosition = d.CorpsePosition; break;
                 case S_WorldState w: State.World = w; break;
-                case S_Pong p: Ping = (int)((long)(now * 1000) - p.ClientTime); break;
+                case S_Pong p: Ping = (int)((long)(now * 1000) - p.ClientTime); ServerPerf = p; break;
             }
             MessageReceived?.Invoke(m);
         }

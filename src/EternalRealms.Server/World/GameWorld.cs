@@ -31,6 +31,7 @@ namespace EternalRealms.Server.World
         public ProfessionSystem Professions { get; }
         public SocialSystem Social { get; }
         public TradeSystem Trades { get; }
+        public EmoteSystem Emotes { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
@@ -70,6 +71,7 @@ namespace EternalRealms.Server.World
             Professions = new ProfessionSystem(this);
             Social = new SocialSystem(this);
             Trades = new TradeSystem(this);
+            Emotes = new EmoteSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
@@ -104,7 +106,26 @@ namespace EternalRealms.Server.World
 
         // ================================================================== Tick
 
+        /// <summary>Dauer der letzten 1200 Takte (ca. eine Minute bei 20 Hz) in Millisekunden (Kapitel 52).</summary>
+        public FrameStats TickStats { get; } = new(1200);
+        /// <summary>Takte, die länger als ihr Zeitbudget gebraucht haben.</summary>
+        public long TickOverruns { get; private set; }
+
         public void Update(float dt)
+        {
+            long start = System.Diagnostics.Stopwatch.GetTimestamp();
+            try { UpdateCore(dt); }
+            finally
+            {
+                float ms = (float)((System.Diagnostics.Stopwatch.GetTimestamp() - start) * 1000.0 / System.Diagnostics.Stopwatch.Frequency);
+                TickStats.Add(ms);
+                if (ms > dt * 1000) TickOverruns++;
+            }
+        }
+
+        public int EntityCount => AllZones.Sum(z => z.Entities.Count);
+
+        private void UpdateCore(float dt)
         {
             Time += dt;
             while (_mainThread.TryDequeue(out var a))

@@ -18,6 +18,7 @@ namespace EternalRealms.Server.AI
         /// <summary>Gespeicherte, gerade nicht aktive Bots (für "Bekannte" und die Zonenbevölkerung).</summary>
         private readonly Dictionary<long, CharacterData> _offline = new();
         private readonly List<(double at, Player bot, ChatChannel ch, string text)> _chatQueue = new();
+        private readonly List<(double at, Player bot, string emote, int target)> _emoteQueue = new();
         private long _nextCandidateId = 1;
         private float _populationTimer = 2;
         private bool _loaded;
@@ -326,6 +327,13 @@ namespace EternalRealms.Server.AI
                 _chatQueue.RemoveAt(i);
                 if (!bot.Removed && bot.Zone != null) _w.Chat.BotSay(bot, ch, text);
             }
+            for (int i = _emoteQueue.Count - 1; i >= 0; i--)
+            {
+                var (at, bot, emote, target) = _emoteQueue[i];
+                if (at > _w.Time) continue;
+                _emoteQueue.RemoveAt(i);
+                if (!bot.Removed && bot.Zone != null && !bot.InCombat) _w.Emotes.Perform(bot, emote, target);
+            }
             if (!_w.Config.AmbientBots || !_loaded) return;
             _populationTimer -= dt;
             if (_populationTimer > 0) return;
@@ -532,6 +540,9 @@ namespace EternalRealms.Server.AI
             if (delay <= 0) { _w.Chat.BotSay(bot, ch, text); return; }
             _chatQueue.Add((_w.Time + delay, bot, ch, text));
         }
+
+        /// <summary>Geste eines Bots mit Verzögerung (wirkt menschlicher als eine sofortige Reaktion).</summary>
+        public void ScheduleEmote(Player bot, string emoteId, Unit? target, double delay) => _emoteQueue.Add((_w.Time + delay, bot, emoteId, target?.Id ?? 0));
 
         public void Whisper(Player bot, Player to, string text) =>
             to.Send(new S_Chat { Channel = ChatChannel.Whisper, SenderId = bot.Id, SenderName = bot.Name, Text = text, SenderIsBot = true });

@@ -125,7 +125,8 @@ namespace EternalRealms.Server
                 {
                     lastStatus = now;
                     World.Log($"Status: {Network.ConnectedCount} Verbindungen, {World.AllPlayers.Count(p => !p.IsBot)} Spieler, " +
-                              $"{World.AllPlayers.Count(p => p.IsBot)} KI-Mitspieler, Tick Ø {AverageTickMs:0.00} ms");
+                              $"{World.AllPlayers.Count(p => p.IsBot)} KI-Mitspieler, {World.EntityCount} Einheiten, Takt Ø {World.TickStats.Average:0.00} ms / " +
+                              $"99 % {World.TickStats.Percentile(99):0.00} ms / max {World.TickStats.Max:0.00} ms, {World.TickOverruns} Überläufe");
                 }
             }
         }

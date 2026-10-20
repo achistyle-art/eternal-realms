@@ -36,6 +36,9 @@ namespace EternalRealms.Shared.Content
         public Dictionary<string, TravelNodeDef> TravelNodes { get; } = new Dictionary<string, TravelNodeDef>();
         public List<FlightPathDef> FlightPaths { get; } = new List<FlightPathDef>();
         public List<BotDialogDef> BotDialog { get; } = new List<BotDialogDef>();
+        public Dictionary<string, EmoteDef> Emotes { get; } = new Dictionary<string, EmoteDef>();
+        /// <summary>Chatbefehl ohne Schrägstrich (klein) → Emote.</summary>
+        public Dictionary<string, EmoteDef> EmoteCommands { get; } = new Dictionary<string, EmoteDef>();
         public List<BotProfileDef> BotProfiles { get; } = new List<BotProfileDef>();
 
         public static readonly JsonSerializerOptions JsonOptions = CreateOptions();
@@ -83,6 +86,11 @@ namespace EternalRealms.Shared.Content
             db.FlightPaths.AddRange(ReadList<FlightPathDef>(root, "travel/paths"));
             db.BotDialog.AddRange(ReadList<BotDialogDef>(root, "bots/dialog"));
             db.BotProfiles.AddRange(ReadList<BotProfileDef>(root, "bots/profiles"));
+            foreach (var e in ReadList<EmoteDef>(root, "emotes"))
+            {
+                AddUnique(db.Emotes, e.Id, e, "Emote");
+                foreach (var c in e.Commands) AddUnique(db.EmoteCommands, c.ToLowerInvariant(), e, "Emote-Befehl");
+            }
             return db;
         }
 
@@ -206,6 +214,14 @@ namespace EternalRealms.Shared.Content
             var errors = new List<string>();
             void Need(bool ok, string message) { if (!ok) errors.Add(message); }
             bool HasAbility(string id) => AbilityRanks.ContainsKey(id) || Abilities.ContainsKey(id);
+
+            foreach (var e in Emotes.Values)
+            {
+                Need(e.Commands.Count > 0, $"Emote {e.Id}: keine Befehle");
+                Need(e.TextNoTarget.Contains("{me}") && e.TextTarget.Contains("{target}"), $"Emote {e.Id}: Texte brauchen {{me}} bzw. {{target}}");
+                Need(e.Animation == "" || Enum.IsDefined(typeof(Client.Anim.AnimClip), e.Animation), $"Emote {e.Id}: unbekannte Animation '{e.Animation}'");
+                Need(e.Loop || e.Duration > 0, $"Emote {e.Id}: Dauer fehlt");
+            }
 
             foreach (var race in Races.Values)
             {
