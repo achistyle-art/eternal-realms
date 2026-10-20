@@ -291,6 +291,8 @@ namespace EternalRealms.Client
             if (target != null)
             {
                 DrawUnitFrame(new Rect(260, 10, 240, 70), target, false);
+                if (target.Kind == EntityKind.Player && target.Id != me.Id && target.Faction == me.Faction && Client.Trade == null
+                    && GUI.Button(Box(new Rect(400, 82, 100, 22)), "Handeln")) Client.Send(new C_TradeRequest { TargetId = target.Id });
                 if (Client.Group.Count > 0 && target.Kind != EntityKind.Player)
                 {
                     // Markierungen: Totenkopf (zuerst), Kreuz (danach), Mond (kontrollieren), entfernen
@@ -332,6 +334,8 @@ namespace EternalRealms.Client
             if (_showMap) DrawWorldMap();
             DrawFinderPopups();
             if (_showOptions) DrawOptions();
+            DrawTradeWindows();
+            DrawPinnedLink();
             DrawDragGhost();
             DrawTooltip();
         }
@@ -529,9 +533,10 @@ namespace EternalRealms.Client
             {
                 foreach (var (c, at) in _chat.Where(x => ChatFormat.Accepts(tab, x.msg.Channel)).Skip(0).Reverse().Take(60).Reverse())
                 {
-                    string col = c.Channel switch { ChatChannel.Party => "#7fb2ff", ChatChannel.Raid => "#ff9a3c", ChatChannel.Guild => "#40ff40", ChatChannel.Yell => "#ff5050", ChatChannel.Whisper => "#ff80ff", ChatChannel.General => "#ffc080", ChatChannel.System => "#ffff60", _ => "#ffffff" };
+                    string col = c.Channel switch { ChatChannel.Party => "#7fb2ff", ChatChannel.Raid => "#ff9a3c", ChatChannel.Guild => "#40ff40", ChatChannel.Yell => "#ff5050", ChatChannel.Whisper => "#ff80ff", ChatChannel.General => "#ffc080", ChatChannel.Trade => "#ffb0a0", ChatChannel.LookingForGroup => "#c0e0ff", ChatChannel.System => "#ffff60", _ => "#ffffff" };
                     string ts = Settings.ChatTimestamps ? $"<color=#999>[{ChatFormat.Timestamp(at)}]</color> " : "";
-                    GUILayout.Label($"{ts}<color={col}>{ChatFormat.ChannelPrefix(c.Channel)}{(c.SenderName != "" ? $"{c.SenderName}{(c.SenderIsBot ? " (KI)" : "")}: " : "")}{c.Text}</color>", _wrap);
+                    GUILayout.Label($"{ts}<color={col}>{ChatFormat.ChannelPrefix(c.Channel)}{(c.SenderName != "" ? $"{c.SenderName}{(c.SenderIsBot ? " (KI)" : "")}: " : "")}{RenderLinks(c.Text, col)}</color>", _wrap);
+                    DrawLinkButtons(c.Text);
                 }
             }
             GUILayout.EndScrollView();
@@ -566,7 +571,22 @@ namespace EternalRealms.Client
                     case "/p": ch = ChatChannel.Party; text = body; break;
                     case "/s": ch = ChatChannel.Say; text = body; break;
                     case "/y": ch = ChatChannel.Yell; text = body; break;
-                    case "/g": ch = ChatChannel.General; text = body; break;
+                    case "/g": case "/1": case "/gebiet": ch = ChatChannel.General; text = body; break;
+                    case "/2": case "/h": case "/handel": ch = ChatChannel.Trade; text = body; break;
+                    case "/4": case "/suche": ch = ChatChannel.LookingForGroup; text = body; break;
+                    case "/gu": case "/gilde": ch = ChatChannel.Guild; text = body; break;
+                    case "/ra": ch = ChatChannel.Raid; text = body; break;
+                    case "/r" when _lastWhisperFrom != "": ch = ChatChannel.Whisper; whisper = _lastWhisperFrom; text = body; break;
+                    case "/join": case "/leave":
+                    {
+                        var target = body.Trim().ToLowerInvariant() switch { "1" or "gebiet" => ChatChannel.General, "2" or "handel" => ChatChannel.Trade, "4" or "suche" => ChatChannel.LookingForGroup, _ => (ChatChannel?)null };
+                        if (target == null) { Toast("Kanäle: gebiet (1), handel (2), suche (4)"); return; }
+                        Client.Send(new C_ChatJoin { Channel = target.Value, Join = parts[0].ToLowerInvariant() == "/join" });
+                        return;
+                    }
+                    case "/handeln":
+                        if (Client.Me != null && Client.Me.TargetId != 0) Client.Send(new C_TradeRequest { TargetId = Client.Me.TargetId });
+                        return;
                     case "/w":
                         var wp = body.Split(new[] { ' ' }, 2);
                         ch = ChatChannel.Whisper; whisper = wp[0]; text = wp.Length > 1 ? wp[1] : ""; break;
@@ -719,7 +739,9 @@ namespace EternalRealms.Client
                     }
                     if (GUI.Button(rr, $"{inv.Bag[i].Count}× {ItemLabel(inv.Bag[i].ItemId)}"))
                     {
-                        if (Event.current.button == 1 && _bankOpen && Client.Bank != null) Client.Send(new C_BankDeposit { NpcId = Client.Bank.NpcId, BagIndex = i });
+                        if (Event.current.button == 0 && Event.current.shift) InsertItemLink(inv.Bag[i].ItemId);
+                        else if (Event.current.button == 1 && Client.Trade != null) OfferToTrade(i);
+                        else if (Event.current.button == 1 && _bankOpen && Client.Bank != null) Client.Send(new C_BankDeposit { NpcId = Client.Bank.NpcId, BagIndex = i });
                         else if (Event.current.button == 1 && _mailOpen) ToggleAttachment(i);
                         else if (Event.current.button == 1 && _ahOpen) _ahSellIndex = i;
                         else if (Event.current.button == 1 && _npc != null) Client.Send(new C_SellItem { NpcId = _npc.NpcId, BagIndex = i });

@@ -32,6 +32,7 @@ namespace EternalRealms.Shared.Net
         C_SetRole, C_SetBotRole, C_ConvertToRaid, C_SetSubgroup,
         C_LearnProfession, C_TrainProfessionRank, C_LearnRecipe, C_UnlearnProfession, C_Craft, C_Skin, C_Disenchant, C_ProfessionInfo,
         C_SaveSettings,
+        C_TradeRequest, C_TradeRespond, C_TradeSetItem, C_TradeSetMoney, C_TradeAccept, C_TradeCancel, C_ChatJoin,
 
         // Server -> Client (ab 1000)
         S_LoginResult = 1000, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,
@@ -44,6 +45,7 @@ namespace EternalRealms.Shared.Net
         S_FinderActivities, S_FinderStatus, S_FinderProposal, S_ReadyCheck, S_ReadyCheckResult, S_VoteKick,
         S_Professions, S_ProfessionTrainer,
         S_Settings, S_Exploration,
+        S_TradeRequest, S_TradeState, S_TradeClosed, S_ChatChannels,
     }
 
     public abstract class Message

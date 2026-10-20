@@ -12,8 +12,8 @@ namespace EternalRealms.Shared.Client.Ui
 
         public static string ChannelPrefix(ChatChannel c) => c switch
         {
-            ChatChannel.Party => "[Gruppe] ", ChatChannel.Raid => "[Schlachtzug] ", ChatChannel.Guild => "[Gilde] ", ChatChannel.General => "[Allgemein] ",
-            ChatChannel.Whisper => "[Flüstern] ", ChatChannel.Yell => "[Schreien] ", _ => "",
+            ChatChannel.Party => "[Gruppe] ", ChatChannel.Raid => "[Schlachtzug] ", ChatChannel.Guild => "[Gilde] ", ChatChannel.General => "[Gebiet] ",
+            ChatChannel.Whisper => "[Flüstern] ", ChatChannel.Yell => "[Schreien] ", ChatChannel.Trade => "[Handel] ", ChatChannel.LookingForGroup => "[Gruppensuche] ", _ => "",
         };
 
         public static string Timestamp(DateTime t) => t.ToString("HH:mm");

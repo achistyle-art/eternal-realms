@@ -123,7 +123,8 @@ namespace EternalRealms.Shared
         Talk,
     }
 
-    public enum ChatChannel : byte { Say = 0, Yell, Party, Guild, Whisper, General, System, Emote, Raid }
+    /// <summary>General = Gebietskanal, Trade = Handel (nur in Städten), LookingForGroup = Gruppensuche (ganze Fraktion).</summary>
+    public enum ChatChannel : byte { Say = 0, Yell, Party, Guild, Whisper, General, System, Emote, Raid, Trade, LookingForGroup }
 
     public enum Weather : byte { Clear = 0, Rain, Snow, Fog, Storm }
 

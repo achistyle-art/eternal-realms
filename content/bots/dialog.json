@@ -105,5 +105,7 @@
   {"event": "ready_yes", "lines": ["Bereit!", "Bin bereit.", "Kann losgehen."]},
   {"event": "ready_no", "lines": ["Moment, ich trinke noch kurz.", "Noch nicht – mir fehlt Leben.", "Gleich, noch ein paar Sekunden."]},
   {"event": "replaced", "lines": ["Ein echter Abenteurer übernimmt – viel Erfolg euch!", "Ich mache Platz. Passt auf euch auf!", "Gute Reise, ihr Lieben. Ruft mich, wenn ihr mich braucht."]},
-  {"event": "role_change", "lines": ["Verstanden, ich wechsle die Rolle.", "Neue Rolle, neues Glück.", "Alles klar, ich passe mich an."]}
+  {"event": "role_change", "lines": ["Verstanden, ich wechsle die Rolle.", "Neue Rolle, neues Glück.", "Alles klar, ich passe mich an."]},
+  {"event": "trade_thanks", "lines": ["Danke, {target}! Das kann ich gut gebrauchen.", "Oh, für mich? Vielen Dank!", "Sehr großzügig, danke dir."]},
+  {"event": "trade_full", "lines": ["Meine Taschen sind leider voll.", "Dafür habe ich keinen Platz mehr, tut mir leid."]}
 ]

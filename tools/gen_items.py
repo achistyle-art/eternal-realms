@@ -58,7 +58,7 @@ weapon("item_crude_bow", "Grober Kurzbogen", "Bow", 2, 1, 2.3)
 armor("item_recruit_tunic", "Rekrutenhemd", "Chest", "Cloth", 1, 1)
 armor("item_recruit_pants", "Rekrutenhose", "Legs", "Cloth", 1, 1)
 armor("item_novice_robe", "Novizenrobe", "Chest", "Cloth", 1, 1)
-misc("item_hearthstone", "Ruhestein", desc="Bringt Euch zum Gasthaus zurück, an das Ihr gebunden seid.", use="item_hearthstone", unique=True)
+misc("item_hearthstone", "Ruhestein", desc="Bringt Euch zum Gasthaus zurück, an das Ihr gebunden seid.", use="item_hearthstone", unique=True)["bindOnPickup"] = True
 # ---- Verbrauchsgüter
 misc("item_tough_jerky", "Zähes Dörrfleisch", "Consumable", stack=20, sell=1, buy=5, desc="Stellt Leben wieder her, wenn man sitzt und isst.", use="item_eat")
 misc("item_fresh_bread", "Frisches Brot", "Consumable", stack=20, sell=5, buy=25, desc="Stellt Leben wieder her, wenn man sitzt und isst.", use="item_eat", req=5)

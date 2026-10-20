@@ -168,7 +168,8 @@
   "buyPrice": 0,
   "modifiers": [],
   "useAbility": "item_hearthstone",
-  "unique": true
+  "unique": true,
+  "bindOnPickup": true
  },
  {
   "id": "item_tough_jerky",

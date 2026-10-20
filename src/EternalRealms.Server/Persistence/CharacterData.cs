@@ -56,6 +56,8 @@ namespace EternalRealms.Server.Persistence
         public Dictionary<string, ProfessionProgress> Professions { get; set; } = new();
         /// <summary>Clienteinstellungen (Tasten, Leisten, Fenster, Barrierefreiheit) als JSON; der Server prüft nur die Größe.</summary>
         public string ClientSettings { get; set; } = "";
+        /// <summary>Verlassene öffentliche Kanäle (ChatChannel als Zahl); standardmäßig ist man in allen.</summary>
+        public HashSet<int> LeftChannels { get; set; } = new();
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();

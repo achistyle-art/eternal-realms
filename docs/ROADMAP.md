@@ -76,7 +76,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | Block | Kapitel | Inhalt |
 |---|---|---|
 | A ✅ | 28, 29, 30, 59 | Vollständiges HUD, verschiebbare/skalierbare Fenster, frei belegbare Tasten, Weltkarte und Minimap, Barrierefreiheit – Einstellungen dauerhaft gespeichert |
-| B | 31, 32, 46 | Chatkanäle (Handel, Gebiet, Raid, Gilde), Blockieren/Melden, Gegenstandslinks, Freundesliste inkl. KI-Freunde, direkter Spielerhandel (atomar) |
+| B ✅ | 31, 32, 46 | Chatkanäle (Handel, Gebiet, Raid, Gilde), Blockieren/Melden, Gegenstandslinks, Freundesliste inkl. KI-Freunde, direkter Spielerhandel (atomar) |
 | C | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
 | D | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
 | E | 38, 39, 58 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer, Lokalisierung Deutsch/Englisch |
@@ -103,3 +103,14 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 - Farbenblind-Paletten (Protanopie/Deuteranopie/Tritanopie, Symbole zusätzlich zur Farbe), weniger Blitze/Partikel, Kamera mit Kollision, Empfindlichkeit, Y-Umkehr, maximaler Entfernung.
 
 **Grenzen:** Die Oberfläche ist weiterhin IMGUI (ohne Grafik-Assets); ein eigener Look mit UI Toolkit folgt mit Block C. Musik-, Effekt-, Umgebungs- und Sprachlautstärke werden gespeichert, wirken aber erst mit dem Audiosystem (Block C); die Gesamtlautstärke wirkt sofort.
+
+### Block B – Stand
+
+**Umgesetzt und getestet** (`TradeChatTests`, Ende-zu-Ende mit zwei Konsolenclients gegen PostgreSQL):
+- Kanäle: Gebiet (`/1`, eigene Region), Handel (`/2`, nur in Städten), Gruppensuche (`/4`, ganze Fraktion), Gilde, Gruppe, Schlachtzug, Flüstern (`/r` antwortet). Öffentliche Kanäle sind fraktionsgetrennt, lassen sich betreten/verlassen (`/join`, `/leave`, gespeichert am Charakter) und respektieren die Ignorierliste.
+- Spamschutz: höchstens 6 öffentliche Nachrichten in 10 s, derselbe Text frühestens nach 30 s erneut; Gruppen- und Flüsterchat sind ausgenommen.
+- Links `|item:ID|`, `|quest:ID|`, `|ability:ID|`: der Server entfernt unbekannte IDs und begrenzt auf 5 Links; der Client zeigt farbige [Namen] mit Tooltip (Umschalt+Klick in den Taschen fügt einen Link ein). Bots bekommen den Text ohne Steuerzeichen.
+- Direkter Handel: Anfrage, je 6 Plätze plus Geld, jede Änderung hebt beide Bestätigungen auf, eine Bestätigung gilt nur für den gesehenen Stand (Version). Beim Abschluss prüft der Server jeden Stapel per Referenz, Geld, Platz und Einzigartigkeit erneut und tauscht in einem Schritt; beide Charaktere und das Protokoll (`trade`, `trade_item`) gehen in eine Transaktion. Gebundene Gegenstände (jetzt auch der Ruhestein), Fraktionswechsel, Entfernung > 10 m, Kampf, Tod und Abmelden verhindern oder beenden den Handel. Verschwindet ein angebotener Gegenstand aus der Tasche, fällt er aus dem Handel.
+- KI-Mitspieler der eigenen Gruppe nehmen Geschenke an, legen Verbesserungen sofort an und bedanken sich; sie geben nichts her. KI-Freunde stehen bereits seit Meilenstein 2 in der Freundesliste; Melden und Blockieren ebenso.
+
+**Nur kompiliergeprüft** (Unity): Handelsfenster, Handelsanfrage, „Handeln“ am Zielrahmen und `/handeln`, Linkdarstellung mit festhaltbarem Tooltip, Kanal-Schalter in den Chatoptionen.

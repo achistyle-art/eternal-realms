@@ -388,6 +388,13 @@ namespace EternalRealms.Server.Net
                 case C_Skin sk: err = _w.Professions.Skin(p, sk.CorpseId); break;
                 case C_Disenchant de: err = _w.Professions.Disenchant(p, de.BagIndex); break;
                 case C_ProfessionInfo: p.Send(_w.Professions.Build(p)); return;
+                case C_TradeRequest tr: err = _w.Trades.Request(p, tr.TargetId); break;
+                case C_TradeRespond tre: err = _w.Trades.Respond(p, tre.Accept); break;
+                case C_TradeSetItem tsi: err = _w.Trades.SetItem(p, tsi.Slot, tsi.BagIndex); break;
+                case C_TradeSetMoney tsm: err = _w.Trades.SetMoney(p, tsm.Money); break;
+                case C_TradeAccept ta: err = _w.Trades.Accept(p, ta.Accept, ta.Version); break;
+                case C_TradeCancel: _w.Trades.Cancel(p); return;
+                case C_ChatJoin cj: _w.Chat.SetChannel(p, cj.Channel, cj.Join); return;
                 case C_SaveSettings ss:
                     // Nur Größe prüfen: Inhalt wertet allein der Client aus, Spielregeln hängen nicht davon ab.
                     if (ss.Json.Length > C_SaveSettings.MaxLength) { err = "Einstellungen zu groß."; break; }

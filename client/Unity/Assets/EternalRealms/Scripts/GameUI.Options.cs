@@ -93,8 +93,16 @@ namespace EternalRealms.Client
         private void DrawChatOptions()
         {
             Settings.ChatTimestamps = GUILayout.Toggle(Settings.ChatTimestamps, "Zeitstempel anzeigen");
+            GUILayout.Label("<b>Öffentliche Kanäle</b> (Befehle: /1 Gebiet, /2 Handel – nur in Städten, /4 Gruppensuche)", _wrap);
+            GUILayout.BeginHorizontal();
+            foreach (var pub in new[] { ChatChannel.General, ChatChannel.Trade, ChatChannel.LookingForGroup })
+            {
+                bool joined = Client.JoinedChannels.Contains(pub);
+                if (GUILayout.Toggle(joined, ChatFormat.ChannelPrefix(pub).Trim('[', ']', ' ')) != joined) Client.Send(new C_ChatJoin { Channel = pub, Join = !joined });
+            }
+            GUILayout.EndHorizontal();
             GUILayout.Label("<b>Chatreiter</b> (ohne gewählte Kanäle zeigt ein Reiter alle)", _wrap);
-            var channels = new[] { ChatChannel.Say, ChatChannel.Yell, ChatChannel.Party, ChatChannel.Raid, ChatChannel.Guild, ChatChannel.Whisper, ChatChannel.General, ChatChannel.Emote };
+            var channels = new[] { ChatChannel.Say, ChatChannel.Yell, ChatChannel.Party, ChatChannel.Raid, ChatChannel.Guild, ChatChannel.Whisper, ChatChannel.General, ChatChannel.Trade, ChatChannel.LookingForGroup, ChatChannel.Emote };
             foreach (var tab in Settings.ChatTabs.ToList())
             {
                 GUILayout.BeginVertical(GUI.skin.box);

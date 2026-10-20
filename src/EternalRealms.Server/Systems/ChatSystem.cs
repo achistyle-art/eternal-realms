@@ -1,5 +1,6 @@
 using EternalRealms.Server.World;
 using EternalRealms.Shared;
+using EternalRealms.Shared.Client.Ui;
 using EternalRealms.Shared.Net;
 
 namespace EternalRealms.Server.Systems
@@ -11,6 +12,54 @@ namespace EternalRealms.Server.Systems
 
         public const float SayRange = 40f, YellRange = 200f;
         public const int MaxLength = 255;
+
+        /// <summary>Öffentliche Kanäle, die man betreten und verlassen kann (Kapitel 31).</summary>
+        public static readonly ChatChannel[] PublicChannels = { ChatChannel.General, ChatChannel.Trade, ChatChannel.LookingForGroup };
+
+        // Spamschutz für öffentliche Kanäle: höchstens 6 Nachrichten in 10 s, gleicher Text frühestens nach 30 s erneut
+        public const int SpamBurst = 6;
+        public const double SpamWindow = 10, RepeatWindow = 30;
+        private readonly Dictionary<long, Queue<double>> _recent = new();
+        private readonly Dictionary<long, (string text, double at)> _lastPublic = new();
+
+        public static string ChannelName(ChatChannel c) => c switch
+        {
+            ChatChannel.General => "Gebiet", ChatChannel.Trade => "Handel", ChatChannel.LookingForGroup => "Gruppensuche", _ => c.ToString(),
+        };
+
+        public bool InChannel(Player p, ChatChannel c) => !p.Data.LeftChannels.Contains((int)c);
+
+        public void SetChannel(Player p, ChatChannel c, bool join)
+        {
+            if (Array.IndexOf(PublicChannels, c) < 0) { p.Notice("Diesen Kanal kann man nicht verlassen.", true); return; }
+            bool changed = join ? p.Data.LeftChannels.Remove((int)c) : p.Data.LeftChannels.Add((int)c);
+            if (changed) p.Notice(join ? $"Kanal {ChannelName(c)} betreten." : $"Kanal {ChannelName(c)} verlassen.");
+            p.Send(BuildChannels(p));
+        }
+
+        public S_ChatChannels BuildChannels(Player p) => new() { Joined = PublicChannels.Where(c => InChannel(p, c)).Select(c => (byte)c).ToList() };
+
+        private static bool IsPublic(ChatChannel c) => c is ChatChannel.Say or ChatChannel.Yell or ChatChannel.Emote or ChatChannel.General or ChatChannel.Trade or ChatChannel.LookingForGroup;
+
+        /// <summary>Rückgabe: Grund der Sperre oder null.</summary>
+        private string? SpamCheck(Player from, ChatChannel channel, string text)
+        {
+            if (from.IsBot || !IsPublic(channel)) return null;
+            long key = from.Data.Id != 0 ? from.Data.Id : -from.Id;
+            if (!_recent.TryGetValue(key, out var q)) _recent[key] = q = new Queue<double>();
+            while (q.Count > 0 && _w.Time - q.Peek() > SpamWindow) q.Dequeue();
+            if (q.Count >= SpamBurst) return "Ihr schreibt zu schnell. Bitte wartet einen Moment.";
+            if (_lastPublic.TryGetValue(key, out var last) && last.text == text && _w.Time - last.at < RepeatWindow) return "Ihr habt das gerade schon geschrieben.";
+            q.Enqueue(_w.Time);
+            _lastPublic[key] = (text, _w.Time);
+            return null;
+        }
+
+        /// <summary>Empfänger eines Fraktionskanals; Handel nur für Spieler, die gerade in einer Stadt sind.</summary>
+        private IEnumerable<Player> FactionListeners(Player from, ChatChannel channel) =>
+            _w.AllPlayers.Where(p => !p.IsBot && p.Faction == from.Faction && InChannel(p, channel) && !_w.Social.Ignores(p, from)
+                                     && (channel != ChatChannel.Trade || p.CurrentArea?.IsCity == true)
+                                     && (channel != ChatChannel.General || p.Zone == from.Zone));
 
         /// <summary>„/würfeln“ bzw. „/roll“ [max] oder [min-max]: sichtbar für die Gruppe, sonst für die Umgebung.</summary>
         private bool TryRollCommand(Player from, string text)
@@ -40,6 +89,12 @@ namespace EternalRealms.Server.Systems
             if (text.Length > MaxLength) text = text.Substring(0, MaxLength);
             if (text.StartsWith("#") && _w.Config.DevCommands && !from.IsBot) { _w.DevCommands.Execute(from, text); return; }
             if (TryRollCommand(from, text)) return;
+            text = ChatLinks.Sanitize(text, _w.Content);
+            if (text.Length == 0) return;
+            if (Array.IndexOf(PublicChannels, channel) >= 0 && !InChannel(from, channel)) { from.Notice($"Ihr seid nicht im Kanal {ChannelName(channel)} (/join {ChannelName(channel).ToLowerInvariant()}).", true); return; }
+            if (channel == ChatChannel.Trade && from.CurrentArea?.IsCity != true) { from.Notice("Der Handelskanal ist nur in Städten verfügbar.", true); return; }
+            var spam = SpamCheck(from, channel, text);
+            if (spam != null) { from.Notice(spam, true); return; }
             var msg = new S_Chat { Channel = channel, SenderId = from.Id, SenderName = from.Name, Text = text, SenderIsBot = from.IsBot };
             _w.Social.RememberChat(from, $"[{channel}] {text}");
             switch (channel)
@@ -62,7 +117,9 @@ namespace EternalRealms.Server.Systems
                     if (!from.IsBot) RouteToBots(from, text, saidAloud: false);
                     break;
                 case ChatChannel.General:
-                    if (from.Zone != null) foreach (var p in from.Zone.Players) if (!_w.Social.Ignores(p, from)) p.Send(msg);
+                case ChatChannel.Trade:
+                case ChatChannel.LookingForGroup:
+                    foreach (var p in FactionListeners(from, channel)) p.Send(msg);
                     break;
                 case ChatChannel.Whisper:
                     var to = _w.FindPlayer(whisperTo);
@@ -70,7 +127,7 @@ namespace EternalRealms.Server.Systems
                     if (_w.Social.Ignores(to, from)) { from.Notice($"{to.Name} ignoriert Euch.", true); return; }
                     to.Send(msg);
                     from.Send(new S_Chat { Channel = ChatChannel.Whisper, SenderId = to.Id, SenderName = "An " + to.Name, Text = text });
-                    to.Bot?.OnWhisper(from, text);
+                    to.Bot?.OnWhisper(from, ChatLinks.Plain(text, _w.Content));
                     break;
                 default:
                     from.Notice("Dieser Kanal ist nicht verfügbar.", true);
@@ -89,7 +146,7 @@ namespace EternalRealms.Server.Systems
         private void RouteToBots(Player from, string text, bool saidAloud)
         {
             foreach (var b in from.Group!.Bots.ToList())
-                if (!saidAloud || b.DistanceTo(from) <= SayRange) b.Bot!.OnPartyChat(from, text);
+                if (!saidAloud || b.DistanceTo(from) <= SayRange) b.Bot!.OnPartyChat(from, ChatLinks.Plain(text, _w.Content));
         }
 
         public void BotSay(Player bot, ChatChannel channel, string text)
@@ -104,7 +161,9 @@ namespace EternalRealms.Server.Systems
                     _w.Guilds.Chat(bot, msg);
                     break;
                 case ChatChannel.General:
-                    bot.Zone?.BroadcastAll(msg);
+                case ChatChannel.Trade:
+                case ChatChannel.LookingForGroup:
+                    foreach (var p in FactionListeners(bot, channel)) p.Send(msg);
                     break;
                 default:
                     bot.Zone?.BroadcastInRange(bot.Position, SayRange, msg);

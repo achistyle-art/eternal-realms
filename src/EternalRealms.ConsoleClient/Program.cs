@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using System.Globalization;
 using EternalRealms.Shared;
 using EternalRealms.Shared.Client;
+using EternalRealms.Shared.Client.Ui;
 using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
 
@@ -68,6 +69,15 @@ client.MessageReceived += m =>
             for (int i = 0; i < pt2.Recipes.Count; i++)
                 Print($"  {pt2.Recipes[i]} – {content.Recipes[pt2.Recipes[i]].Name} (ab {content.Recipes[pt2.Recipes[i]].SkillRequired}) – {Money(pt2.RecipeCosts[i])}");
             break;
+        case S_TradeRequest tq: Print($"{tq.FromName} möchte handeln (tradeyes / tradeno)."); break;
+        case S_TradeState ts:
+            Print($"Handel mit {ts.PartnerName}{(ts.PartnerIsBot ? " (KI)" : "")} – Stand {ts.Version}:");
+            Print($"  Ihr gebt: {TradeList(ts.MyItems)}{(ts.MyMoney > 0 ? " + " + Money(ts.MyMoney) : "")}{(ts.MyAccepted ? " ✔" : "")}");
+            Print($"  Ihr erhaltet: {TradeList(ts.TheirItems)}{(ts.TheirMoney > 0 ? " + " + Money(ts.TheirMoney) : "")}{(ts.TheirAccepted ? " ✔" : "")}");
+            Print("  tput <Handelsplatz 1-6> <Taschenplatz> | tput <Handelsplatz> 0 (leeren) | tgold <Kupfer> | tok | tcancel");
+            break;
+        case S_TradeClosed tcl: Print(tcl.Completed ? "Handel abgeschlossen." : "Handel beendet: " + tcl.Reason); break;
+        case S_ChatChannels cc2: Print("Kanäle: " + string.Join(", ", cc2.Joined.Select(j => ((ChatChannel)j) switch { ChatChannel.General => "Gebiet", ChatChannel.Trade => "Handel", _ => "Gruppensuche" }))); break;
         case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
         case S_MailList ml:
             Print(ml.Mails.Count == 0 ? "Keine Post." : "Post:");
@@ -123,8 +133,8 @@ while (true)
     while (lastChat < client.ChatLog.Count)
     {
         var c = client.ChatLog[lastChat++];
-        string ch = c.Channel switch { ChatChannel.Party => "[Gruppe] ", ChatChannel.Yell => "[schreit] ", ChatChannel.Whisper => "[flüstert] ", ChatChannel.General => "[Allgemein] ", ChatChannel.System => "[System] ", _ => "" };
-        Print($"{ch}{(c.SenderName != "" ? c.SenderName + (c.SenderIsBot ? " (KI)" : "") + ": " : "")}{c.Text}");
+        string ch = c.Channel switch { ChatChannel.Yell => "[schreit] ", ChatChannel.Whisper => "[flüstert] ", ChatChannel.General => "[Gebiet] ", ChatChannel.Trade => "[Handel] ", ChatChannel.LookingForGroup => "[Gruppensuche] ", ChatChannel.System => "[System] ", _ => ChatFormat.ChannelPrefix(c.Channel) };
+        Print($"{ch}{(c.SenderName != "" ? c.SenderName + (c.SenderIsBot ? " (KI)" : "") + ": " : "")}{ChatLinks.Plain(c.Text, content)}");
     }
     UpdateWalking();
     while (input.TryDequeue(out var line))
@@ -390,7 +400,29 @@ void Command(string line)
         case "p": client.Say(rest, ChatChannel.Party); break;
         case "s": client.Say(rest); break;
         case "y": client.Say(rest, ChatChannel.Yell); break;
-        case "g": client.Say(rest, ChatChannel.General); break;
+        case "g": client.Say(Links(rest), ChatChannel.General); break;
+        case "h": client.Say(Links(rest), ChatChannel.Trade); break;
+        case "suche": client.Say(Links(rest), ChatChannel.LookingForGroup); break;
+        case "kanal":
+        {
+            var chan = (a.Length > 0 ? a[0] : "").ToLowerInvariant() switch { "gebiet" => ChatChannel.General, "handel" => ChatChannel.Trade, "suche" or "gruppensuche" => ChatChannel.LookingForGroup, _ => (ChatChannel?)null };
+            if (chan == null) { Print("kanal gebiet|handel|suche an|aus"); break; }
+            client.Send(new C_ChatJoin { Channel = chan.Value, Join = !(a.Length > 1 && a[1] == "aus") });
+            break;
+        }
+        case "trade":
+        {
+            var target = int.TryParse(rest, out var tid) ? client.State.Get(tid) : client.State.Entities.Values.FirstOrDefault(e => e.Name.Equals(rest, StringComparison.OrdinalIgnoreCase));
+            if (target == null) { Print("Wen? trade <id|Name>"); break; }
+            client.Send(new C_TradeRequest { TargetId = target.Id });
+            break;
+        }
+        case "tradeyes": client.Send(new C_TradeRespond { Accept = true }); break;
+        case "tradeno": client.Send(new C_TradeRespond { Accept = false }); break;
+        case "tput": client.Send(new C_TradeSetItem { Slot = Int(0, 1) - 1, BagIndex = Int(1, 0) - 1 }); break;
+        case "tgold": client.Send(new C_TradeSetMoney { Money = Int(0, 0) }); break;
+        case "tok": client.TradeAccept(true); break;
+        case "tcancel": client.Send(new C_TradeCancel()); break;
         case "w": client.Send(new C_Chat { Channel = ChatChannel.Whisper, WhisperTo = a[0], Text = rest.Substring(a[0].Length).Trim() }); break;
         case "release": client.Send(new C_ReleaseSpirit()); break;
         case "reclaim": client.Send(new C_ReclaimCorpse()); break;
@@ -568,6 +600,20 @@ void ShowNpc(S_NpcInteraction ni)
 
 bool IsGroup(int id) => client.Group.Any(m => m.EntityId == id);
 string Name(int id) => client.State.Get(id)?.Name ?? (id == 0 ? "?" : "#" + id);
+string TradeList(List<ItemStackData> items)
+{
+    var l = items.Where(i => i.ItemId != "").Select(i => $"{i.Count}× {ItemName(i.ItemId)}").ToList();
+    return l.Count == 0 ? "nichts" : string.Join(", ", l);
+}
+
+/// <summary>"#3" im Text wird zum Link auf den Gegenstand in Taschenplatz 3.</summary>
+string Links(string text) => System.Text.RegularExpressions.Regex.Replace(text, @"#(\d+)", m =>
+{
+    int i = int.Parse(m.Groups[1].Value) - 1;
+    var bag = client.State.Inventory?.Bag;
+    return bag != null && i >= 0 && i < bag.Count && bag[i].ItemId != "" ? ChatLinks.Item(bag[i].ItemId) : m.Value;
+});
+
 string ItemName(string id) => content.Items.TryGetValue(id, out var i) ? i.Name : id;
 string RoleName(Role r) => r switch { Role.Tank => "Tank", Role.Healer => "Heiler", Role.MeleeDps => "Nahkampf", _ => "Fernkampf" };
 string MarkerName(int m) => m switch { 8 => "Totenkopf", 7 => "Kreuz", 6 => "Quadrat", 5 => "Mond", 4 => "Dreieck", 3 => "Raute", 2 => "Kreis", 1 => "Stern", _ => "?" };
@@ -595,11 +641,14 @@ void Help() => Print(@"Befehle:
   cmd <befehl> [botId] | mark <1-8> [id]   (8 = Totenkopf, 7 = Kreuz, 5 = Mond/Kontrolle; 0 als Ziel löscht)
   Chatbefehle: p Tank, greif den Boss an. | p Heiler, bitte Mana auffüllen. | p Magier, kontrolliere den linken Gegner. | p Alle zurückziehen.
   group | invite <Name> | join | leave
+  g <Text> Gebiet | h <Text> Handel (nur in Städten) | suche <Text> Gruppensuche | kanal gebiet|handel|suche an|aus | #3 im Text verlinkt Taschenplatz 3
+  trade <id|Name> | tradeyes | tradeno | tput <1-6> <Taschenplatz> | tgold <Kupfer> | tok | tcancel
   s <Text> | p <Text> (Gruppe – Bots verstehen z. B. 'folgt mir', 'wartet', 'Angriff', 'Wir gehen in den Dungeon') | y | g | w <Name> <Text>
   release | reclaim | rez | fly <Nr> | ping | quit   (.pvp schaltet PvP um; #-Befehle nur mit ER_DEV_COMMANDS)");
 
 static string FindContent()
 {
+    if (Environment.GetEnvironmentVariable("ER_CONTENT") is { Length: > 0 } env) return env;
     var dir = new DirectoryInfo(AppContext.BaseDirectory);
     while (dir != null && !Directory.Exists(Path.Combine(dir.FullName, "content"))) dir = dir.Parent;
     return Path.Combine(dir?.FullName ?? ".", "content");

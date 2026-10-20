@@ -30,6 +30,7 @@ namespace EternalRealms.Server.World
         public GroupFinderSystem Finder { get; }
         public ProfessionSystem Professions { get; }
         public SocialSystem Social { get; }
+        public TradeSystem Trades { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
@@ -68,6 +69,7 @@ namespace EternalRealms.Server.World
             Finder = new GroupFinderSystem(this);
             Professions = new ProfessionSystem(this);
             Social = new SocialSystem(this);
+            Trades = new TradeSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
@@ -113,6 +115,7 @@ namespace EternalRealms.Server.World
             Instances.Update(dt);
             Groups.Update(dt);
             Finder.Update(dt);
+            Trades.Update();
             Bots.Update(dt);
             Mail.Update(dt);
             LootRolls.Update();
@@ -234,6 +237,7 @@ namespace EternalRealms.Server.World
                 p.Send(Social.BuildList(p));
                 Social.NotifyFriends(p, true);
                 p.Send(new S_Settings { Json = p.Data.ClientSettings });
+                p.Send(Chat.BuildChannels(p));
                 p.Send(new S_Exploration { Full = true, Areas = p.Data.DiscoveredAreas.OrderBy(a => a).ToList(), FlightNodes = p.Data.KnownTravelNodes.OrderBy(n => n).ToList() });
             }
             p.Send(p.BuildSpawn(p));
@@ -253,6 +257,7 @@ namespace EternalRealms.Server.World
             p.Data.LoggedOutInInn = p.CurrentArea != null && (p.CurrentArea.IsInn || p.CurrentArea.IsCity);
             p.Data.LastLogout = DateTime.UtcNow;
             Finder.Leave(p);
+            Trades.Cancel(p, $"{p.Name} hat sich abgemeldet.");
             if (p.Group != null) Groups.Leave(p);
             Save(p);
             RemoveFromWorld(p);

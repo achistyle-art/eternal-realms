@@ -127,6 +127,7 @@ namespace EternalRealms.Client
             _windowClosers["DrawCharacter"] = () => _showCharacter = false;
             _windowClosers["DrawWorldMap"] = () => _showMap = false;
             _windowClosers["DrawOptions"] = () => CloseOptions();
+            _windowClosers["DrawTrade"] = () => { if (Client.Trade != null) Client.Send(new C_TradeCancel()); };
         }
 
         private void CloseAllWindows()

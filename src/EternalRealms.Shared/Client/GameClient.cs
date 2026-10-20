@@ -71,6 +71,12 @@ namespace EternalRealms.Shared.Client
         /// <summary>Entdeckte Gebiete (Weltkarte, Nebel des Krieges).</summary>
         public HashSet<string> DiscoveredAreas { get; } = new HashSet<string>();
         public HashSet<string> KnownFlightNodes { get; } = new HashSet<string>();
+        /// <summary>Offener Handel (null = keiner) und eine eingegangene Handelsanfrage.</summary>
+        public S_TradeState? Trade { get; private set; }
+        public S_TradeRequest? TradeRequest { get; set; }
+        public S_TradeClosed? LastTradeResult { get; private set; }
+        /// <summary>Betretene öffentliche Kanäle (Gebiet, Handel, Gruppensuche).</summary>
+        public HashSet<ChatChannel> JoinedChannels { get; } = new HashSet<ChatChannel>();
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -249,6 +255,13 @@ namespace EternalRealms.Shared.Client
                 case S_VoteKick vk: VoteKick = vk; break;
                 case S_InstanceInfo ii: InstanceInfo = ii; break;
                 case S_Professions pf: Professions = pf.Professions; break;
+                case S_TradeRequest treq: TradeRequest = treq; break;
+                case S_TradeState tst: Trade = tst; TradeRequest = null; break;
+                case S_TradeClosed tc: Trade = null; LastTradeResult = tc; break;
+                case S_ChatChannels cc:
+                    JoinedChannels.Clear();
+                    foreach (var c in cc.Joined) JoinedChannels.Add((ChatChannel)c);
+                    break;
                 case S_Settings st: Settings = Ui.GameSettings.FromJson(st.Json); SettingsLoaded = true; break;
                 case S_Exploration ex:
                     if (ex.Full) { DiscoveredAreas.Clear(); KnownFlightNodes.Clear(); }
@@ -286,6 +299,8 @@ namespace EternalRealms.Shared.Client
             var json = Settings.ToJson();
             if (json.Length <= C_SaveSettings.MaxLength) Send(new C_SaveSettings { Json = json });
         }
+
+        public void TradeAccept(bool accept) { if (Trade != null) Send(new C_TradeAccept { Accept = accept, Version = Trade.Version }); }
 
         public void SendPing() => Send(new C_Ping { ClientTime = (long)(Now * 1000) });
 
