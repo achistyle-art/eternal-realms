@@ -62,6 +62,7 @@ namespace EternalRealms.Tests
             t.World.Professions.Learn(p, Npc(t, "npc_mt_prof_mining").Id);
             var zone = p.Zone!;
             var vein = zone.Objects.First(o => o.Def.Id == "obj_prof_vein0" && o.Available);
+            t.ClearMonstersAround(vein.Position, 80); // ein Biss würde das Abbauen unterbrechen
             t.World.MovePlayerWithinZone(p, vein.Position + new Vec3(1, 0, 0));
             Assert.Contains("Bergbauhacke", t.World.Interactions.Interact(p, vein.Id)); // ohne Werkzeug
             p.AddItem("item_tool_mining_pick", 1);

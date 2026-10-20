@@ -243,11 +243,13 @@ def write_world(profs, objects, I):
         for sid, dx in (("anvil", -6), ("forge", -10), ("fire", 10)):
             z["objects"].append({"object": "obj_station_" + sid, "position": [cx + dx, 0, cz - 20], "count": 1, "radius": 0, "respawnSeconds": 1})
         # Abbaustellen der ersten beiden Stufen in den Startregionen
-        rng = sum(ord(c) for c in pre)
-        for t, count in ((0, 8), (1, 4)):
-            for kind, oid in (("vein", f"obj_prof_vein{t}"), ("herb", f"obj_prof_herb{t}a"), ("herb", f"obj_prof_herb{t}b")):
-                areas = [a for a in z["areas"] if not a.get("isCity")]
-                a = areas[(rng + t * 7 + len(oid)) % len(areas)] if t == 0 else areas[(rng * 3 + len(oid)) % len(areas)]
+        # Stufe 0 in den leichten Gebieten nahe dem Startpunkt, Stufe 1 in den Gebieten der zweiten Hälfte (Gebiete sind
+        # in der Zonendatei grob nach Schwierigkeit geordnet).
+        areas = [a for a in z["areas"] if not a.get("isCity") and "rypta" not in a["name"]]
+        easy, hard = areas[:4], areas[len(areas) // 2:]
+        for t, count, pool in ((0, 8, easy), (1, 4, hard)):
+            for j, oid in enumerate((f"obj_prof_vein{t}", f"obj_prof_herb{t}a", f"obj_prof_herb{t}b")):
+                a = pool[j % len(pool)]
                 z["objects"].append({"object": oid, "position": a["center"], "count": count, "radius": a["radius"] + 20, "respawnSeconds": 180 + t * 120})
         for t, aname in ((0, ("Silberquell", "Oase Zharim")), (1, ("Banditenlager am Rotbach", "Glutsenke"))):
             area = next((a for a in z["areas"] if a["name"] in aname), z["areas"][0])

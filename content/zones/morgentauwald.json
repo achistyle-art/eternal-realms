@@ -969,34 +969,34 @@
    {
     "object": "obj_prof_vein0",
     "position": [
-     900,
+     205,
      0,
-     640
+     200
     ],
     "count": 8,
-    "radius": 70,
+    "radius": 60,
     "respawnSeconds": 180
    },
    {
     "object": "obj_prof_herb0a",
     "position": [
-     205,
+     120,
      0,
-     200
+     320
     ],
     "count": 8,
-    "radius": 60,
+    "radius": 55,
     "respawnSeconds": 180
    },
    {
     "object": "obj_prof_herb0b",
     "position": [
-     205,
+     300,
      0,
-     200
+     120
     ],
     "count": 8,
-    "radius": 60,
+    "radius": 55,
     "respawnSeconds": 180
    },
    {
@@ -1024,12 +1024,12 @@
    {
     "object": "obj_prof_herb1b",
     "position": [
-     340,
+     700,
      0,
-     660
+     700
     ],
     "count": 4,
-    "radius": 80,
+    "radius": 55,
     "respawnSeconds": 300
    },
    {

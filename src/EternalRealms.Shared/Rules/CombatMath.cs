@@ -11,6 +11,8 @@ namespace EternalRealms.Shared.Rules
         public const float GlobalCooldown = 1.5f;
         public const float EnergyGlobalCooldown = 1.0f;
         public const float LeaveCombatSeconds = 5f;
+        /// <summary>Ab dieser Entfernung endet die Kampfbeziehung zweier Einheiten.</summary>
+        public const float CombatDropDistance = 100f;
 
         /// <summary>Schadensreduktion durch Rüstung (0..0,75).</summary>
         public static float ArmorReduction(float armor, int attackerLevel)

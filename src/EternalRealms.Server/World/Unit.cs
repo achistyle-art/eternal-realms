@@ -249,7 +249,8 @@ namespace EternalRealms.Server.World
                 }
             if (InCombat)
             {
-                CombatWith.RemoveWhere(u => u.Removed || u.IsDead || u.Zone != Zone);
+                // Weit entfernte Gegner (Teleport, Flucht) halten niemanden im Kampf.
+                CombatWith.RemoveWhere(u => u.Removed || u.IsDead || u.Zone != Zone || Vec3.DistanceXZ(u.Position, Position) > CombatMath.CombatDropDistance);
                 if (CombatWith.Count == 0)
                 {
                     CombatTimer -= dt;

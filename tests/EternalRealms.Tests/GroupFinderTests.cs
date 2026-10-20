@@ -75,6 +75,8 @@ namespace EternalRealms.Tests
             var botHealer = g.Bots.Single(b => b.Bot!.Role == Role.Healer);
             // Kampf gegen einen Boss läuft
             var boss = solo.Zone!.Units.OfType<Creature>().First(c => c.Template.Id == "boss_moderkeim");
+            var entry = solo.Position;
+            t.World.MovePlayerWithinZone(solo, boss.Position + new Vec3(3, 0, 0));
             solo.EnterCombatWith(boss);
             boss.EnterCombatWith(solo);
 
@@ -87,7 +89,9 @@ namespace EternalRealms.Tests
             t.Run(2);
             Assert.Same(g, botHealer.Group); // nicht mitten im Bosskampf
             Assert.Null(priest.Group);
-            solo.ClearCombat(); boss.ClearCombat();
+            t.World.MovePlayerWithinZone(solo, entry); // Kampf vorbei: weit weg vom Boss
+            foreach (var m in g.Members) m.ClearCombat();
+            boss.ClearCombat();
             t.Run(2);
             Assert.Null(botHealer.Group);
             Assert.Same(g, priest.Group);
