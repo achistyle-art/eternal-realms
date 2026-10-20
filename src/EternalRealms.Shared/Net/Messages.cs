@@ -406,17 +406,28 @@ namespace EternalRealms.Shared.Net
         public float Strength, Agility, Stamina, Intellect, Spirit;
         public int Armor, AttackPower, SpellPower;
         public float MeleeCrit, SpellCrit, Dodge;
+        // Charakterfenster (Kapitel 28)
+        public int RangedAttackPower, HealingPower;
+        public float Parry, Block, Hit, MoveSpeed;
+        /// <summary>Widerstände je Schule (Index = <see cref="School"/>).</summary>
+        public List<int> Resist = new List<int>();
+        public List<string> ReputationIds = new List<string>();
+        public List<int> ReputationValues = new List<int>();
         public override void Write(NetDataWriter w)
         {
             w.Put(Level); w.Put(Xp); w.Put(XpToNext); w.Put(RestedXp); w.Put(Money); w.Put(TalentPointsFree);
             w.Put(Strength); w.Put(Agility); w.Put(Stamina); w.Put(Intellect); w.Put(Spirit);
             w.Put(Armor); w.Put(AttackPower); w.Put(SpellPower); w.Put(MeleeCrit); w.Put(SpellCrit); w.Put(Dodge);
+            w.Put(RangedAttackPower); w.Put(HealingPower); w.Put(Parry); w.Put(Block); w.Put(Hit); w.Put(MoveSpeed);
+            w.PutList(Resist, (x, v) => x.Put(v)); w.PutStrings(ReputationIds); w.PutList(ReputationValues, (x, v) => x.Put(v));
         }
         public override void Read(NetDataReader r)
         {
             Level = r.GetInt(); Xp = r.GetInt(); XpToNext = r.GetInt(); RestedXp = r.GetInt(); Money = r.GetLong(); TalentPointsFree = r.GetInt();
             Strength = r.GetFloat(); Agility = r.GetFloat(); Stamina = r.GetFloat(); Intellect = r.GetFloat(); Spirit = r.GetFloat();
             Armor = r.GetInt(); AttackPower = r.GetInt(); SpellPower = r.GetInt(); MeleeCrit = r.GetFloat(); SpellCrit = r.GetFloat(); Dodge = r.GetFloat();
+            RangedAttackPower = r.GetInt(); HealingPower = r.GetInt(); Parry = r.GetFloat(); Block = r.GetFloat(); Hit = r.GetFloat(); MoveSpeed = r.GetFloat();
+            Resist = r.GetList(x => x.GetInt()); ReputationIds = r.GetStrings(); ReputationValues = r.GetList(x => x.GetInt());
         }
     }
 

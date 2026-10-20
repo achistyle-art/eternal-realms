@@ -57,7 +57,11 @@ namespace EternalRealms.Server.Systems
                 var node = NodeAt(npc);
                 if (node != null)
                 {
-                    if (p.Data.KnownTravelNodes.Add(node.Id)) p.Notice($"Neuer Flugpunkt entdeckt: {node.Name}");
+                    if (p.Data.KnownTravelNodes.Add(node.Id))
+                    {
+                        p.Notice($"Neuer Flugpunkt entdeckt: {node.Name}");
+                        p.Send(new S_Exploration { FlightNodes = new List<string> { node.Id } });
+                    }
                     msg.FlightDestinations.AddRange(_w.Content.FlightPaths.Where(f => f.From == node.Id && p.Data.KnownTravelNodes.Contains(f.To)).Select(f => f.To));
                 }
             }

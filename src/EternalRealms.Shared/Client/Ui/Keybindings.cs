@@ -18,7 +18,7 @@ namespace EternalRealms.Shared.Client.Ui
             {
                 ("move_forward", "Vorwärts", "W"), ("move_back", "Rückwärts", "S"), ("turn_left", "Nach links", "A"), ("turn_right", "Nach rechts", "D"),
                 ("strafe_left", "Seitwärts links", "Q"), ("strafe_right", "Seitwärts rechts", "E"), ("jump", "Springen", "Space"),
-                ("autorun", "Automatisch laufen", "Numlock"), ("walk_toggle", "Gehen/Rennen", "Slash"), ("sit", "Hinsetzen", "X"),
+                ("autorun", "Automatisch laufen", "Numlock"), ("walk_toggle", "Gehen/Rennen", "Slash"),
                 ("target_next", "Nächstes Ziel", "Tab"), ("interact", "Interagieren", "F"), ("mount", "Aufsitzen", "Y"),
                 ("bags", "Inventar", "I"), ("all_bags", "Alle Taschen", "Shift+B"), ("character", "Charakterfenster", "C"), ("world_map", "Weltkarte", "M"),
                 ("quest_log", "Questlog", "L"), ("spellbook", "Zauberbuch", "P"), ("talents", "Talente", "N"), ("social", "Sozialmenü", "O"),
@@ -31,6 +31,8 @@ namespace EternalRealms.Shared.Client.Ui
                 string key = i < 9 ? "Alpha" + (i + 1) : i == 9 ? "Alpha0" : i == 10 ? "Minus" : "Equals";
                 list.Add(("action_1_" + (i + 1), $"Aktionsleiste 1, Platz {i + 1}", i < 10 ? key : ""));
                 list.Add(("action_2_" + (i + 1), $"Aktionsleiste 2, Platz {i + 1}", i < 10 ? "Shift+" + key : ""));
+                list.Add(("action_3_" + (i + 1), $"Aktionsleiste 3, Platz {i + 1}", ""));
+                list.Add(("action_4_" + (i + 1), $"Aktionsleiste 4, Platz {i + 1}", ""));
             }
             // Minus/Gleich gehören standardmäßig der Minikarte; Plätze 11/12 sind frei belegbar.
             return list;

@@ -260,17 +260,6 @@ namespace EternalRealms.Server.Systems
 
         public const int ReputationMin = -42000, ReputationMax = 42999;
 
-        /// <summary>Rufstufen (Kapitel 24): Hasserfüllt bis Ehrfürchtig.</summary>
-        public static string Standing(int value) => value switch
-        {
-            < -6000 => "Hasserfüllt",
-            < -3000 => "Feindselig",
-            < 0 => "Unfreundlich",
-            < 3000 => "Neutral",
-            < 9000 => "Freundlich",
-            < 21000 => "Wohlwollend",
-            < 42000 => "Respektvoll",
-            _ => "Ehrfürchtig",
-        };
+        public static string Standing(int value) => Shared.Rules.Reputation.Standing(value);
     }
 }

@@ -103,7 +103,7 @@ namespace EternalRealms.Client
         private void DrawGuildInvite()
         {
             var inv = Client.PendingGuildInvite!;
-            var r = Box(new Rect(UnityEngine.Screen.width / 2 - 170, 220, 340, 90));
+            var r = Box(new Rect(ScreenW / 2 - 170, 220, 340, 90));
             GUI.Box(r, "");
             GUI.Label(new Rect(r.x + 10, r.y + 8, 320, 40), $"{inv.From} lädt Euch in die Gilde &lt;{inv.GuildName}&gt; ein.", _wrap);
             if (GUI.Button(new Rect(r.x + 10, r.y + 52, 150, 28), "Beitreten")) { Client.Send(new C_GuildRespond { Accept = true }); Client.PendingGuildInvite = null; }

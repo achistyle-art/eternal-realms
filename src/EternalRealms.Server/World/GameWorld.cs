@@ -234,7 +234,7 @@ namespace EternalRealms.Server.World
                 p.Send(Social.BuildList(p));
                 Social.NotifyFriends(p, true);
                 p.Send(new S_Settings { Json = p.Data.ClientSettings });
-                p.Send(new S_Exploration { Full = true, Areas = p.Data.DiscoveredAreas.OrderBy(a => a).ToList() });
+                p.Send(new S_Exploration { Full = true, Areas = p.Data.DiscoveredAreas.OrderBy(a => a).ToList(), FlightNodes = p.Data.KnownTravelNodes.OrderBy(n => n).ToList() });
             }
             p.Send(p.BuildSpawn(p));
             p.Send(p.BuildPlayerState());

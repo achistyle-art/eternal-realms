@@ -54,6 +54,8 @@ namespace EternalRealms.Shared.Client.Ui
         public bool ShowMinimap { get; set; } = true;
         public float MinimapZoom { get; set; } = 1f;
         public bool ShowGroupFrames { get; set; } = true;
+        /// <summary>Gesperrte Leisten: Knöpfe nur mit gedrückter Umschalttaste verschieben.</summary>
+        public bool LockActionBars { get; set; }
 
         // Barrierefreiheit (Kapitel 59)
         public ColorblindMode Colorblind { get; set; }

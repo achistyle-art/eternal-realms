@@ -75,7 +75,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 
 | Block | Kapitel | Inhalt |
 |---|---|---|
-| A | 28, 29, 30, 59 | Vollständiges HUD (UI Toolkit), verschiebbare/skalierbare Fenster, frei belegbare Tasten, Weltkarte und Minimap, Barrierefreiheit – Einstellungen dauerhaft gespeichert |
+| A ✅ | 28, 29, 30, 59 | Vollständiges HUD, verschiebbare/skalierbare Fenster, frei belegbare Tasten, Weltkarte und Minimap, Barrierefreiheit – Einstellungen dauerhaft gespeichert |
 | B | 31, 32, 46 | Chatkanäle (Handel, Gebiet, Raid, Gilde), Blockieren/Melden, Gegenstandslinks, Freundesliste inkl. KI-Freunde, direkter Spielerhandel (atomar) |
 | C | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
 | D | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
@@ -84,3 +84,22 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | G | 43–45, 48 | KI-Ebenen ausbauen: Encounter-Manager für Dungeons/Raids, Tankwechsel, Flächen ausweichen, Raidkoordination bis 40, Bot-Balance |
 | H | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
 | I | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang 1–60, kosmetische Monetarisierung ohne Pay-to-Win, Endgame |
+
+### Block A – Stand
+
+**Umgesetzt und getestet** (Shared/Server, `UiModelTests`):
+- `Keybindings`: Standardbelegung nach Kapitel 29, zwei Belegungen je Aktion, Umbelegen nimmt die Taste anderen Aktionen weg, Normalisierung der Schreibweise, Ergänzung neuer Aktionen in alten Einstellungen.
+- `ActionBarSet`: vier Leisten à 12 Plätze, Tauschen beim Ziehen, automatisches Belegen neuer Fähigkeiten, Anzeigezustand (Abklingzeit, Ressource, Reichweite, aktive Haltung, Anzahl).
+- `GameSettings`: JSON mit Wertebereichen, kaputte oder alte Daten fallen auf Standardwerte zurück; Server speichert sie am Charakter (`C_SaveSettings`, max. 32 KB, `S_Settings` beim Betreten).
+- `MapModel`: Minikartenmarkierungen (Sammelpunkte nur mit Beruf), Kontinentkarte mit Kartenrechtecken je Region, Nebel des Krieges über entdeckte Gebiete (`S_Exploration` inkl. Flugpunkte), Regionsmarkierungen.
+- `ItemTooltip` (Vergleich mit dem schwächeren passenden Platz, Haltbarkeit, Anforderungen), `ChatFormat` (Reiterfilter, Kampflog), `Reputation`.
+- `S_PlayerState` enthält Parieren, Blocken, Treffer, Distanz-AP, Heilkraft, Tempo, Widerstände und Ruf.
+
+**Umgesetzt, nur kompiliergeprüft** (Unity, noch nicht im Editor ausgeführt):
+- Fenster an der Titelleiste verschieben, an der Ecke skalieren, Lage je Fenster gespeichert; Oberflächengröße 0,5–2 und Schriftgröße 9–28.
+- Aktionsleisten mit Ziehen aus Zauberbuch/Taschen, Wegziehen entfernt, Sperre; Abklingzeit-Overlay, Reichweite/Ressource eingefärbt, Tastenanzeige.
+- Alle Tasten über `UiInput` (Bewegung, Fenster, Leisten 1–4); Umbelegen im Optionsfenster mit Konflikthinweis.
+- Charakterfenster (Ausrüstung mit Haltbarkeit, Werte, Widerstände, Ruf), Vergleichs-Tooltips, Minikarte mit Zoom, Weltkarte/Regionskarte, Quest-Tracker, Chatreiter mit Zeitstempel und Kampflog, Untertitel für NPC-Sprechtexte.
+- Farbenblind-Paletten (Protanopie/Deuteranopie/Tritanopie, Symbole zusätzlich zur Farbe), weniger Blitze/Partikel, Kamera mit Kollision, Empfindlichkeit, Y-Umkehr, maximaler Entfernung.
+
+**Grenzen:** Die Oberfläche ist weiterhin IMGUI (ohne Grafik-Assets); ein eigener Look mit UI Toolkit folgt mit Block C. Musik-, Effekt-, Umgebungs- und Sprachlautstärke werden gespeichert, wirken aber erst mit dem Audiosystem (Block C); die Gesamtlautstärke wirkt sofort.

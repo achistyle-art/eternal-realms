@@ -36,7 +36,7 @@ namespace EternalRealms.Client
             if (_ahOpen) DrawAuctionHouse();
             DrawRolls();
             if (Client.TalentResetOffer != null) DrawTalentReset();
-            if (Client.UnreadMail > 0) GUI.Label(Box(new Rect(UnityEngine.Screen.width - 150, 200, 140, 22)), "<color=yellow>✉ Neue Post</color>", _wrap);
+            if (Client.UnreadMail > 0) GUI.Label(Box(new Rect(ScreenW - 150, 200, 140, 22)), "<color=yellow>✉ Neue Post</color>", _wrap);
         }
 
         // ------------------------------------------------------------ Bank
@@ -206,7 +206,7 @@ namespace EternalRealms.Client
             int i = 0;
             foreach (var r in Client.OpenRolls.Values.ToList())
             {
-                var rect = Box(new Rect(UnityEngine.Screen.width / 2 - 170, 120 + i++ * 64, 340, 58));
+                var rect = Box(new Rect(ScreenW / 2 - 170, 120 + i++ * 64, 340, 58));
                 GUI.Box(rect, "");
                 GUI.Label(new Rect(rect.x + 8, rect.y + 4, 324, 22), $"{r.Count}× {ItemLabel(r.ItemId)}", _wrap);
                 GUI.enabled = r.CanNeed;
@@ -220,7 +220,7 @@ namespace EternalRealms.Client
         private void DrawTalentReset()
         {
             var offer = Client.TalentResetOffer!;
-            var r = Box(new Rect(UnityEngine.Screen.width / 2 - 180, UnityEngine.Screen.height / 2 - 50, 360, 100));
+            var r = Box(new Rect(ScreenW / 2 - 180, ScreenH / 2 - 50, 360, 100));
             GUI.Box(r, "");
             GUI.Label(new Rect(r.x + 10, r.y + 8, 340, 40), $"Alle Talente zurücksetzen für {Money(offer.Cost)}?", _wrap);
             if (GUI.Button(new Rect(r.x + 10, r.y + 60, 160, 28), "Zurücksetzen")) { Client.Send(new C_ResetTalents { NpcId = offer.NpcId, Confirm = true }); Client.TalentResetOffer = null; }

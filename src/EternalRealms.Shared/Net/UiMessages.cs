@@ -23,13 +23,15 @@ namespace EternalRealms.Shared.Net
         public override void Read(NetDataReader r) => Json = r.GetString();
     }
 
-    /// <summary>Entdeckte Gebiete für Weltkarte und Nebel des Krieges. Full = vollständige Liste, sonst nur neue Gebiete.</summary>
+    /// <summary>Entdeckte Gebiete und Flugpunkte für Weltkarte und Nebel des Krieges. Full = vollständige Liste, sonst nur neue Gebiete.</summary>
     public sealed class S_Exploration : Message
     {
         public override Opcode Op => Opcode.S_Exploration;
         public bool Full;
         public List<string> Areas = new List<string>();
-        public override void Write(NetDataWriter w) { w.Put(Full); w.PutStrings(Areas); }
-        public override void Read(NetDataReader r) { Full = r.GetBool(); Areas = r.GetStrings(); }
+        /// <summary>Bekannte Flugpunkte (gleiche Regel: Full = alle, sonst neue).</summary>
+        public List<string> FlightNodes = new List<string>();
+        public override void Write(NetDataWriter w) { w.Put(Full); w.PutStrings(Areas); w.PutStrings(FlightNodes); }
+        public override void Read(NetDataReader r) { Full = r.GetBool(); Areas = r.GetStrings(); FlightNodes = r.GetStrings(); }
     }
 }

@@ -454,6 +454,10 @@ namespace EternalRealms.Server.World
                 Level = Level, Xp = Data.Xp, XpToNext = Experience.XpToNextLevel(Level), RestedXp = Data.RestedXp, Money = Money,
                 TalentPointsFree = TalentPointsFree, Strength = Stats.Strength, Agility = Stats.Agility, Stamina = Stats.Stamina, Intellect = Stats.Intellect,
                 Spirit = Stats.Spirit, Armor = Armor, AttackPower = AttackPower, SpellPower = SpellPower, MeleeCrit = MeleeCrit, SpellCrit = SpellCrit, Dodge = Dodge,
+                RangedAttackPower = RangedAttackPower, HealingPower = HealingPower, Parry = Parry, Block = Block, Hit = HitBonus, MoveSpeed = MoveSpeed,
+                Resist = Resist.Select(v => (int)v).ToList(),
+                ReputationIds = Data.Reputation.Keys.OrderBy(k => k).ToList(),
+                ReputationValues = Data.Reputation.OrderBy(k => k.Key).Select(k => k.Value).ToList(),
             };
         }
 

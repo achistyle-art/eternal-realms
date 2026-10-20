@@ -65,7 +65,7 @@ namespace EternalRealms.Client
             var y = 300f;
             if (Client.FinderProposal is S_FinderProposal fp)
             {
-                var r = Box(new Rect(UnityEngine.Screen.width / 2 - 200, y, 400, 120));
+                var r = Box(new Rect(ScreenW / 2 - 200, y, 400, 120));
                 GUI.Box(r, "");
                 GUI.Label(new Rect(r.x + 10, r.y + 6, 380, 70), $"<b>{(fp.IsReplacement ? "Platz frei" : "Gruppe gefunden")}: {fp.Activity}</b>\nEure Rolle: {RoleName(fp.Role)}\n{string.Join(", ", fp.Members)}", _wrap);
                 if (GUI.Button(new Rect(r.x + 10, r.y + 84, 180, 28), "Bereit")) { Client.Send(new C_FinderAccept { ProposalId = fp.ProposalId, Accept = true }); Client.FinderProposal = null; }
@@ -74,7 +74,7 @@ namespace EternalRealms.Client
             }
             if (Client.ReadyCheck is S_ReadyCheck rc)
             {
-                var r = Box(new Rect(UnityEngine.Screen.width / 2 - 160, y, 320, 80));
+                var r = Box(new Rect(ScreenW / 2 - 160, y, 320, 80));
                 GUI.Box(r, "");
                 GUI.Label(new Rect(r.x + 10, r.y + 6, 300, 30), $"{rc.From}: Seid Ihr bereit?", _wrap);
                 if (GUI.Button(new Rect(r.x + 10, r.y + 44, 140, 26), "Bereit")) { Client.Send(new C_ReadyResponse { Ready = true }); Client.ReadyCheck = null; }
@@ -83,7 +83,7 @@ namespace EternalRealms.Client
             }
             if (Client.VoteKick is S_VoteKick vk)
             {
-                var r = Box(new Rect(UnityEngine.Screen.width / 2 - 180, y, 360, 90));
+                var r = Box(new Rect(ScreenW / 2 - 180, y, 360, 90));
                 GUI.Box(r, "");
                 GUI.Label(new Rect(r.x + 10, r.y + 6, 340, 44), $"{vk.TargetName} aus der Gruppe entfernen?\nGrund: {vk.Reason}", _wrap);
                 if (GUI.Button(new Rect(r.x + 10, r.y + 56, 160, 26), "Ja")) { Client.Send(new C_VoteKickResponse { VoteId = vk.VoteId, Yes = true }); Client.VoteKick = null; }

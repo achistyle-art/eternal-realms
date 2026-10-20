@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EternalRealms.Shared;
 using EternalRealms.Shared.Client;
+using EternalRealms.Shared.Client.Ui;
 using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
 using UnityEngine;
@@ -17,7 +18,8 @@ namespace EternalRealms.Client
         public static GameUI Instance { get; private set; } = null!;
         public static bool PointerOverUi { get; private set; }
         public static bool TypingInChat { get; private set; }
-        public static bool AnyWindowOpen => Instance != null && (Instance._showQuests || Instance._showBags || Instance._showTalents || Instance._showGroup || Instance._showBook || Instance._npc != null);
+        public static bool AnyWindowOpen => Instance != null && (Instance._showQuests || Instance._showBags || Instance._showTalents || Instance._showGroup || Instance._showBook || Instance._npc != null
+            || Instance._showCharacter || Instance._showMap || Instance._showMounts || Instance._showSocial || Instance._showProfessions || Instance._bankOpen || Instance._mailOpen || Instance._ahOpen);
 
         private enum Screen { Login, Characters, Create, World }
 
@@ -46,13 +48,18 @@ namespace EternalRealms.Client
         private readonly List<Rect> _uiRects = new List<Rect>();
         private int _noticeIndex;
         private readonly List<(string text, float time)> _toasts = new List<(string, float)>();
-        private GUIStyle? _small, _title, _wrap, _center;
+        private GUIStyle? _small, _title, _wrap, _center, _centerWrap, _right;
+        private int _styleFontSize;
 
         private void Awake()
         {
             Instance = this;
+            RegisterWindowClosers();
             Client.MessageReceived += m =>
             {
+                if (m is S_Settings st) OnSettingsReceived(st);
+                if (m is S_SpellBook) OnSpellBook();
+                if (m is S_Chat chat) OnChat(chat);
                 if (m is S_NpcInteraction ni) { _npc = ni; _choice = -1; }
                 OnEconomyMessage(m);
                 if (m is S_LoginResult lr) _status = lr.Message;
@@ -67,41 +74,40 @@ namespace EternalRealms.Client
 
         private void Update()
         {
-            var mouse = new Vector2(Input.mousePosition.x, UnityEngine.Screen.height - Input.mousePosition.y);
-            PointerOverUi = _uiRects.Any(r => r.Contains(mouse));
-            TypingInChat = _chatFocus;
+            // Oberflächenkoordinaten: oben links, durch die UI-Skalierung geteilt
+            var mouse = new Vector2(Input.mousePosition.x, UnityEngine.Screen.height - Input.mousePosition.y) / Scale;
+            PointerOverUi = _uiRects.Any(r => r.Contains(mouse)) || _drag != null || _dragWindow != null;
+            TypingInChat = _chatFocus || _capturingAction != null;
             if (!Client.LoggedIn) _screen = Screen.Login;
             else if (Client.InWorld) _screen = Screen.World;
             else if (_screen == Screen.Login || _screen == Screen.World) _screen = Screen.Characters;
-            if (_screen == Screen.World && !_chatFocus)
-            {
-                if (Input.GetKeyDown(KeyCode.L)) _showQuests = !_showQuests;
-                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.C)) _showBags = !_showBags;
-                if (Input.GetKeyDown(KeyCode.N)) _showTalents = !_showTalents;
-                if (Input.GetKeyDown(KeyCode.P)) _showGroup = !_showGroup;
-                if (Input.GetKeyDown(KeyCode.K)) _showBook = !_showBook;
-                if (Input.GetKeyDown(KeyCode.Y)) Client.Send(new C_Mount());
-                if (Input.GetKeyDown(KeyCode.J)) _showMounts = !_showMounts;
-                if (Input.GetKeyDown(KeyCode.U)) _showProfessions = !_showProfessions;
-                if (Input.GetKeyDown(KeyCode.O)) { _showSocial = !_showSocial; if (_showSocial) { Client.Send(new C_FriendList()); Client.Send(new C_GuildRoster()); } }
-                if (Input.GetKeyDown(KeyCode.Escape)) { _npc = null; _showQuests = _showBags = _showTalents = _showGroup = _showBook = false; _bankOpen = _mailOpen = _ahOpen = false; }
-            }
+            if (_screen == Screen.World && !_chatFocus) HandleWorldHotkeys();
+            UpdateSettingsPersistence();
+            ApplyAudio();
             while (_noticeIndex < Client.Notices.Count) Toast(Client.Notices[_noticeIndex++]);
             _toasts.RemoveAll(t => Time.time - t.time > 5);
         }
 
+        /// <summary>Stile nach der eingestellten Schriftgröße (Kapitel 59) – neu aufgebaut, sobald sie sich ändert.</summary>
         private void Styles()
         {
-            if (_small != null) return;
-            _small = new GUIStyle(GUI.skin.label) { fontSize = 11, richText = true };
-            _title = new GUIStyle(GUI.skin.label) { fontSize = 16, fontStyle = FontStyle.Bold, richText = true };
+            int fs = Client.InWorld ? Settings.FontSize : 13;
+            if (_small != null && fs == _styleFontSize) return;
+            _styleFontSize = fs;
+            GUI.skin.label.fontSize = GUI.skin.button.fontSize = GUI.skin.textField.fontSize = GUI.skin.toggle.fontSize = GUI.skin.box.fontSize = fs;
+            _small = new GUIStyle(GUI.skin.label) { fontSize = Mathf.Max(8, fs - 2), richText = true };
+            _title = new GUIStyle(GUI.skin.label) { fontSize = fs + 3, fontStyle = FontStyle.Bold, richText = true };
             _wrap = new GUIStyle(GUI.skin.label) { wordWrap = true, richText = true };
             _center = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, richText = true, fontStyle = FontStyle.Bold };
+            _centerWrap = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, richText = true, wordWrap = true };
+            _right = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.LowerRight, richText = true };
         }
 
         private void OnGUI()
         {
+            HandleKeyCapture();
             Styles();
+            GUI.matrix = Matrix4x4.Scale(new Vector3(Scale, Scale, 1));
             if (Event.current.type == EventType.Layout) _uiRects.Clear();
             if (NetworkManager.Instance.LoadError != null) { GUI.Label(new Rect(20, 20, 900, 60), "<color=red>" + NetworkManager.Instance.LoadError + "</color>", _wrap); return; }
             switch (_screen)
@@ -120,7 +126,7 @@ namespace EternalRealms.Client
 
         private void DrawLogin()
         {
-            var r = Box(new Rect(UnityEngine.Screen.width / 2 - 180, UnityEngine.Screen.height / 2 - 150, 360, 300));
+            var r = Box(new Rect(ScreenW / 2 - 180, ScreenH / 2 - 150, 360, 300));
             GUILayout.BeginArea(r, GUI.skin.box);
             GUILayout.Label("ETERNAL REALMS", _title);
             GUILayout.Label("Server");
@@ -156,7 +162,7 @@ namespace EternalRealms.Client
 
         private void DrawCharacters()
         {
-            var r = Box(new Rect(UnityEngine.Screen.width / 2 - 260, 80, 520, 520));
+            var r = Box(new Rect(ScreenW / 2 - 260, 80, 520, 520));
             GUILayout.BeginArea(r, GUI.skin.box);
             GUILayout.Label("Eure Charaktere", _title);
             foreach (var c in Client.Characters.ToList())
@@ -179,7 +185,7 @@ namespace EternalRealms.Client
 
         private void DrawCreate()
         {
-            var r = Box(new Rect(40, 40, UnityEngine.Screen.width - 80, UnityEngine.Screen.height - 80));
+            var r = Box(new Rect(40, 40, ScreenW - 80, ScreenH - 80));
             GUILayout.BeginArea(r, GUI.skin.box);
             _scrollCreate = GUILayout.BeginScrollView(_scrollCreate);
             GUILayout.Label("Charaktererstellung", _title);
@@ -277,6 +283,9 @@ namespace EternalRealms.Client
         {
             var me = Client.Me;
             if (me == null) return;
+            if (Settings.ShowDamageNumbers) DrawFloatingText();
+            DrawSubtitles();
+            if (_hideUi) { GUI.Label(new Rect(10, 10, 400, 22), $"<size=11>Oberfläche ausgeblendet ({Settings.Keys.KeyFor("toggle_ui")})</size>", _small); return; }
             DrawUnitFrame(new Rect(10, 10, 240, 70), me, true);
             var target = Client.State.Get(me.TargetId);
             if (target != null)
@@ -295,15 +304,16 @@ namespace EternalRealms.Client
                         }
                 }
             }
-            DrawGroupFrames();
+            if (Settings.ShowGroupFrames) DrawGroupFrames();
+            DrawMinimap();
             DrawInfo();
-            DrawActionBar(me);
+            DrawQuestTracker();
+            DrawActionBars();
             DrawBotCommandBar(me);
             DrawCastBar(me);
             DrawXpBar();
             DrawChat();
             DrawMenuButtons();
-            DrawFloatingText();
             DrawBuffs(me);
             if (Client.State.DeathState != DeathState.Alive) DrawDeath();
             if (Client.PendingInviteFrom != null) DrawInvite();
@@ -318,7 +328,12 @@ namespace EternalRealms.Client
             if (_showSocial) DrawSocial();
             if (_showProfessions) DrawProfessions();
             if (Client.PendingGuildInvite != null) DrawGuildInvite();
+            if (_showCharacter) DrawCharacter();
+            if (_showMap) DrawWorldMap();
             DrawFinderPopups();
+            if (_showOptions) DrawOptions();
+            DrawDragGhost();
+            DrawTooltip();
         }
 
         private void DrawUnitFrame(Rect r, ClientEntity e, bool me)
@@ -327,7 +342,7 @@ namespace EternalRealms.Client
             string cls = e.Kind == EntityKind.Player ? Content.Classes.TryGetValue(e.Class, out var c) ? c.Name : "" : e.Title;
             string elite = (e.Flags & UnitFlags.Boss) != 0 ? " <color=magenta>Boss</color>" : (e.Flags & UnitFlags.Elite) != 0 ? " <color=orange>Elite</color>" : (e.Flags & UnitFlags.Rare) != 0 ? " <color=silver>Selten</color>" : "";
             GUI.Label(new Rect(r.x + 6, r.y + 2, r.width - 12, 20), $"<b>{e.Name}</b> ({e.Level}){elite} {cls}{(e.IsBot ? " <color=cyan>KI</color>" : "")}", _small);
-            Bar(new Rect(r.x + 6, r.y + 22, r.width - 12, 18), e.HealthPct, new Color(0.1f, 0.7f, 0.1f), $"{e.Health} / {e.MaxHealth}");
+            Bar(new Rect(r.x + 6, r.y + 22, r.width - 12, 18), e.HealthPct, Palette.Health, $"{e.Health} / {e.MaxHealth}");
             if (e.MaxPower > 0)
             {
                 var pc = e.PowerType == PowerType.Rage ? new Color(0.8f, 0.1f, 0.1f) : e.PowerType == PowerType.Energy ? new Color(0.9f, 0.8f, 0.1f) : new Color(0.15f, 0.35f, 0.9f);
@@ -359,7 +374,7 @@ namespace EternalRealms.Client
                 var r = Box(new Rect(10, y, 200, 34));
                 GUI.Box(r, "");
                 GUI.Label(new Rect(r.x + 4, r.y, 190, 16), $"{m.Name} ({m.Level}){(m.IsBot ? " <color=cyan>KI " + RoleName(m.Role) + "</color>" : "")}", _small);
-                Bar(new Rect(r.x + 4, r.y + 16, 192, 14), m.Health / (float)Mathf.Max(1, m.MaxHealth), new Color(0.1f, 0.7f, 0.1f), $"{m.Health}/{m.MaxHealth}");
+                Bar(new Rect(r.x + 4, r.y + 16, 192, 14), m.Health / (float)Mathf.Max(1, m.MaxHealth), Palette.Health, $"{m.Health}/{m.MaxHealth}");
                 if (Event.current.type == EventType.MouseUp && r.Contains(Event.current.mousePosition)) Client.Target(m.EntityId);
                 y += 38;
             }
@@ -367,45 +382,13 @@ namespace EternalRealms.Client
 
         private void DrawInfo()
         {
-            var r = Box(new Rect(UnityEngine.Screen.width - 260, 10, 250, 64));
+            var r = Box(new Rect(ScreenW - 260, Settings.ShowMinimap ? 205 : 10, 250, 64));
             GUI.Box(r, "");
             var ws = Client.State.World;
             string time = ws != null ? $"{(int)ws.GameHour:00}:{(int)(ws.GameHour % 1 * 60):00}" : "--:--";
             string weather = ws?.Weather switch { Weather.Rain => "Regen", Weather.Snow => "Schnee", Weather.Fog => "Nebel", Weather.Storm => "Sturm", _ => "Klar" };
             var me = Client.Me!;
             GUI.Label(new Rect(r.x + 6, r.y + 2, 240, 60), $"<b>{ZoneName(Client.ZoneId)}</b>\n{time} Uhr · {weather} · {Client.Ping} ms\n{me.Position.X:0} / {me.Position.Z:0}", _small);
-        }
-
-        private List<string> ActionAbilities() =>
-            Client.SpellBook.Keys.Where(k => Content.AbilityRanks.ContainsKey(k) && !k.StartsWith("item_"))
-                .OrderBy(k => Content.AbilityRanks[k][0].Level).ThenBy(k => k).Take(12).ToList();
-
-        public void UseActionSlot(int slot)
-        {
-            var list = ActionAbilities();
-            if (slot >= list.Count || Client.Me == null) return;
-            Client.Cast(list[slot], Client.Me.TargetId);
-        }
-
-        private void DrawActionBar(ClientEntity me)
-        {
-            var list = ActionAbilities();
-            float w = 52, total = list.Count * (w + 4);
-            float x0 = UnityEngine.Screen.width / 2 - total / 2, y = UnityEngine.Screen.height - 86;
-            for (int i = 0; i < list.Count; i++)
-            {
-                var ab = Content.GetAbilityRank(list[i], Client.SpellBook[list[i]])!;
-                var r = Box(new Rect(x0 + i * (w + 4), y, w, w));
-                string cd = Client.Cooldowns.TryGetValue(ab.Id, out var until) ? $"\n<color=red>{until - Client.Now:0}</color>" : "";
-                if (GUI.Button(r, new GUIContent($"<size=9>{(i + 1) % 10}</size>\n<size=9>{Short(ab.Name)}</size>{cd}", $"{ab.Name} (Rang {ab.Rank})\n{ab.Description}\nKosten: {ab.Cost} · Zauberzeit: {(ab.CastTime > 0 ? ab.CastTime + " s" : "sofort")}{(ab.Cooldown > 0 ? " · Abklingzeit " + ab.Cooldown + " s" : "")}"), new GUIStyle(GUI.skin.button) { richText = true, wordWrap = true }))
-                    Client.Cast(ab.Id, me.TargetId);
-            }
-            if (!string.IsNullOrEmpty(GUI.tooltip))
-            {
-                var tr = new Rect(Event.current.mousePosition.x, Event.current.mousePosition.y - 90, 300, 85);
-                GUI.Box(tr, "");
-                GUI.Label(new Rect(tr.x + 6, tr.y + 4, 290, 80), GUI.tooltip, _wrap);
-            }
         }
 
         // ================================================================== KI-Befehlsleiste (Kapitel 9.7)
@@ -423,7 +406,7 @@ namespace EternalRealms.Client
             var bots = Client.Group.Where(m => m.IsBot).ToList();
             if (bots.Count == 0 || Client.GroupLeaderId != me.Id) return;
             float w = 74, h = 24, total = BotCommands.Length * (w + 2);
-            float x0 = UnityEngine.Screen.width / 2 - total / 2, y = UnityEngine.Screen.height - 146;
+            float x0 = ScreenW / 2 - total / 2, y = BotBarY;
             // Empfänger: alle oder ein einzelner Bot
             var names = new List<string> { "Alle" };
             names.AddRange(bots.Select(b => b.Name));
@@ -447,11 +430,14 @@ namespace EternalRealms.Client
 
         private static string Short(string s) => s.Length <= 12 ? s : s.Substring(0, 11) + "…";
 
+        /// <summary>Oberkante der KI-Befehlsleiste: direkt über der obersten sichtbaren unteren Aktionsleiste.</summary>
+        private float BotBarY => (Settings.ActionBars.Bars[1].Visible ? ScreenH - 134 : ScreenH - 84) - 28;
+
         private void DrawCastBar(ClientEntity me)
         {
             if (me.Casting == null) return;
             float t = Mathf.Clamp01((float)(Client.Now - me.CastStartedAt) / Mathf.Max(0.1f, me.Casting.CastTime));
-            Bar(new Rect(UnityEngine.Screen.width / 2 - 150, UnityEngine.Screen.height - 130, 300, 18), t, new Color(1f, 0.75f, 0.1f), AbilityName(me.Casting.AbilityId));
+            Bar(new Rect(ScreenW / 2 - 150, BotBarY - 54, 300, 18), t, new Color(1f, 0.75f, 0.1f), AbilityName(me.Casting.AbilityId));
         }
 
         private string AbilityName(string rankedId) => rankedId == "interact" ? "Benutzen" : Content.Abilities.TryGetValue(rankedId, out var a) ? a.Name : rankedId;
@@ -461,13 +447,13 @@ namespace EternalRealms.Client
             var s = Client.State.Stats;
             if (s == null) return;
             float pct = s.XpToNext > 0 ? s.Xp / (float)s.XpToNext : 1;
-            Bar(new Rect(UnityEngine.Screen.width / 2 - 300, UnityEngine.Screen.height - 26, 600, 14), pct, s.RestedXp > 0 ? new Color(0.25f, 0.4f, 0.9f) : new Color(0.6f, 0.2f, 0.7f),
+            Bar(new Rect(ScreenW / 2 - 300, ScreenH - 26, 600, 14), pct, s.RestedXp > 0 ? new Color(0.25f, 0.4f, 0.9f) : new Color(0.6f, 0.2f, 0.7f),
                 s.XpToNext > 0 ? $"Stufe {s.Level} · EP {s.Xp} / {s.XpToNext}{(s.RestedXp > 0 ? $" · Ruhebonus {s.RestedXp}" : "")}" : $"Stufe {s.Level} (Höchststufe)");
         }
 
         private void DrawBuffs(ClientEntity me)
         {
-            float x = UnityEngine.Screen.width - 270;
+            float x = ScreenW - 270;
             foreach (var a in me.Auras)
             {
                 if (!Content.Auras.TryGetValue(a.AuraId, out var def)) continue;
@@ -479,22 +465,80 @@ namespace EternalRealms.Client
             }
         }
 
+        // ------------------------------------------------------------ Chat (Reiter, Zeitstempel, Kampflog)
+
+        private readonly List<(S_Chat msg, System.DateTime at)> _chat = new List<(S_Chat, System.DateTime)>();
+        private readonly List<(string text, float until)> _subtitles = new List<(string, float)>();
+        private string _lastWhisperFrom = "";
+        private bool _focusChat;
+        private int _chatTab;
+
+        private void OnChat(S_Chat c)
+        {
+            _chat.Add((c, System.DateTime.Now));
+            if (_chat.Count > 300) _chat.RemoveAt(0);
+            if (c.Channel == ChatChannel.Whisper && c.SenderId != Client.State.MyId && c.SenderName != "") _lastWhisperFrom = c.SenderName;
+            // Untertitel: Sprechtexte von NPCs (keine Spieler, keine KI-Mitspieler)
+            var sender = Client.State.Get(c.SenderId);
+            if (Settings.Subtitles && sender != null && (sender.Kind == EntityKind.Creature || sender.Kind == EntityKind.Npc) && (c.Channel == ChatChannel.Say || c.Channel == ChatChannel.Yell))
+            {
+                _subtitles.Add(($"{c.SenderName}: {c.Text}", Time.time + 4 + c.Text.Length * 0.04f));
+                if (_subtitles.Count > 3) _subtitles.RemoveAt(0);
+            }
+        }
+
+        private void DrawSubtitles()
+        {
+            _subtitles.RemoveAll(x => x.until < Time.time);
+            float y = ScreenH - 200;
+            foreach (var (text, _) in _subtitles)
+            {
+                var r = new Rect(ScreenW / 2 - 320, y, 640, 26);
+                var old = GUI.color;
+                GUI.color = new Color(0, 0, 0, 0.55f);
+                GUI.DrawTexture(r, Texture2D.whiteTexture);
+                GUI.color = old;
+                GUI.Label(r, text, _centerWrap);
+                y -= 28;
+            }
+        }
+
+        private string EntityName(int id) => id == Client.State.MyId ? "Ihr" : Client.State.Get(id)?.Name ?? "Unbekannt";
+
         private void DrawChat()
         {
-            var r = Box(new Rect(10, UnityEngine.Screen.height - 250, 440, 200));
+            var r = Box(new Rect(10, ScreenH - 270, Mathf.Clamp(ScreenW / 2 - 320, 300, 460), 220));
             GUI.Box(r, "");
-            GUILayout.BeginArea(new Rect(r.x + 4, r.y + 4, r.width - 8, r.height - 34));
+            var tabs = Settings.ChatTabs;
+            _chatTab = Mathf.Clamp(_chatTab, 0, tabs.Count - 1);
+            for (int i = 0; i < tabs.Count; i++)
+                if (GUI.Toggle(new Rect(r.x + 4 + i * 84, r.y + 2, 80, 20), _chatTab == i, tabs[i].Name, GUI.skin.button)) _chatTab = i;
+            var tab = tabs[_chatTab];
+            GUILayout.BeginArea(new Rect(r.x + 4, r.y + 24, r.width - 8, r.height - 54));
             _scrollChat = GUILayout.BeginScrollView(new Vector2(0, float.MaxValue));
-            foreach (var c in Client.ChatLog.Skip(Mathf.Max(0, Client.ChatLog.Count - 40)))
+            if (tab.CombatLog)
             {
-                string col = c.Channel switch { ChatChannel.Party => "#7fb2ff", ChatChannel.Yell => "#ff5050", ChatChannel.Whisper => "#ff80ff", ChatChannel.General => "#ffc080", ChatChannel.System => "#ffff60", _ => "#ffffff" };
-                string ch = c.Channel switch { ChatChannel.Party => "[Gruppe] ", ChatChannel.General => "[Allgemein] ", ChatChannel.Whisper => "[Flüstern] ", ChatChannel.Yell => "[Schreien] ", _ => "" };
-                GUILayout.Label($"<color={col}>{ch}{(c.SenderName != "" ? $"{c.SenderName}{(c.SenderIsBot ? " (KI)" : "")}: " : "")}{c.Text}</color>", _wrap);
+                foreach (var e in Client.CombatLog.Skip(Mathf.Max(0, Client.CombatLog.Count - 60)))
+                {
+                    var line = ChatFormat.CombatLine(e, EntityName, AbilityName);
+                    bool heal = e.Result == CombatResult.Heal || e.Result == CombatResult.CritHeal;
+                    GUILayout.Label($"<color={Palette.Hex(heal ? Palette.Heal : e.TargetId == Client.State.MyId ? Palette.Damage : Color.white)}>{line}</color>", _wrap);
+                }
+            }
+            else
+            {
+                foreach (var (c, at) in _chat.Where(x => ChatFormat.Accepts(tab, x.msg.Channel)).Skip(0).Reverse().Take(60).Reverse())
+                {
+                    string col = c.Channel switch { ChatChannel.Party => "#7fb2ff", ChatChannel.Raid => "#ff9a3c", ChatChannel.Guild => "#40ff40", ChatChannel.Yell => "#ff5050", ChatChannel.Whisper => "#ff80ff", ChatChannel.General => "#ffc080", ChatChannel.System => "#ffff60", _ => "#ffffff" };
+                    string ts = Settings.ChatTimestamps ? $"<color=#999>[{ChatFormat.Timestamp(at)}]</color> " : "";
+                    GUILayout.Label($"{ts}<color={col}>{ChatFormat.ChannelPrefix(c.Channel)}{(c.SenderName != "" ? $"{c.SenderName}{(c.SenderIsBot ? " (KI)" : "")}: " : "")}{c.Text}</color>", _wrap);
+                }
             }
             GUILayout.EndScrollView();
             GUILayout.EndArea();
             GUI.SetNextControlName("chat");
             _chatInput = GUI.TextField(new Rect(r.x + 4, r.yMax - 26, r.width - 8, 22), _chatInput, 255);
+            if (_focusChat) { GUI.FocusControl("chat"); _focusChat = false; }
             var ev = Event.current;
             if (ev.type == EventType.KeyDown && (ev.keyCode == KeyCode.Return || ev.keyCode == KeyCode.KeypadEnter))
             {
@@ -502,6 +546,7 @@ namespace EternalRealms.Client
                 else GUI.FocusControl("chat");
                 ev.Use();
             }
+            else if (_chatFocus && ev.type == EventType.KeyDown && ev.keyCode == KeyCode.Escape) { GUI.FocusControl(null); ev.Use(); }
             _chatFocus = GUI.GetNameOfFocusedControl() == "chat";
         }
 
@@ -531,18 +576,25 @@ namespace EternalRealms.Client
             Client.Send(new C_Chat { Channel = ch, Text = text, WhisperTo = whisper });
         }
 
+        private string KeyHint(string action) { var k = UiInput.Short(Settings.Keys.KeyFor(action)); return k == "" ? "" : $" ({k})"; }
+
+        /// <summary>Menüknöpfe unten rechts (4×2), Tastenkürzel im Tooltip, damit sie neben den Leisten Platz haben.</summary>
         private void DrawMenuButtons()
         {
-            var r = Box(new Rect(UnityEngine.Screen.width - 420, UnityEngine.Screen.height - 44, 410, 30));
-            GUILayout.BeginArea(r);
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Quests (L)")) _showQuests = !_showQuests;
-            if (GUILayout.Button("Taschen (B)")) _showBags = !_showBags;
-            if (GUILayout.Button("Zauber (K)")) _showBook = !_showBook;
-            if (GUILayout.Button("Talente (N)")) _showTalents = !_showTalents;
-            if (GUILayout.Button("Gruppe (P)")) _showGroup = !_showGroup;
-            GUILayout.EndHorizontal();
-            GUILayout.EndArea();
+            var items = new (string label, string action, System.Action toggle)[]
+            {
+                ("Charakter", "character", () => _showCharacter = !_showCharacter), ("Taschen", "bags", () => _showBags = !_showBags),
+                ("Zauber", "spellbook", () => _showBook = !_showBook), ("Talente", "talents", () => _showTalents = !_showTalents),
+                ("Quests", "quest_log", () => _showQuests = !_showQuests), ("Karte", "world_map", () => _showMap = !_showMap),
+                ("Gruppe", "group", () => _showGroup = !_showGroup), ("Menü", "menu", () => { if (_showOptions) CloseOptions(); else OpenOptions(); }),
+            };
+            const float w = 80, h = 22;
+            float x0 = ScreenW - 4 * (w + 2) - 8, y0 = ScreenH - 2 * (h + 2) - 30;
+            for (int i = 0; i < items.Length; i++)
+            {
+                var r = Box(new Rect(x0 + i % 4 * (w + 2), y0 + i / 4 * (h + 2), w, h));
+                if (GUI.Button(r, new GUIContent(items[i].label, items[i].label + KeyHint(items[i].action)))) items[i].toggle();
+            }
         }
 
         private void DrawFloatingText()
@@ -554,24 +606,27 @@ namespace EternalRealms.Client
                 float age = Time.time - f.Born;
                 var p = cam.WorldToScreenPoint(f.WorldPos + Vector3.up * age * 1.2f);
                 if (p.z < 0) continue;
-                var style = new GUIStyle(_center) { fontSize = f.Big ? 22 : 15, normal = { textColor = new Color(f.Color.r, f.Color.g, f.Color.b, 1 - age / 1.6f) } };
-                GUI.Label(new Rect(p.x - 60, UnityEngine.Screen.height - p.y - 12, 120, 24), f.Text, style);
+                var col = Palette.Floating(f.Color);
+                bool big = f.Big && !Settings.ReduceFlashes;
+                var style = new GUIStyle(_center) { fontSize = big ? 22 : 15, normal = { textColor = new Color(col.r, col.g, col.b, 1 - age / 1.6f) } };
+                // Bildschirmpunkte → Oberflächeneinheiten
+                GUI.Label(new Rect(p.x / Scale - 60, (UnityEngine.Screen.height - p.y) / Scale - 12, 120, 24), f.Text, style);
             }
         }
 
         private void DrawToasts()
         {
-            float y = UnityEngine.Screen.height * 0.22f;
+            float y = ScreenH * 0.22f;
             foreach (var (text, _) in _toasts.Skip(Mathf.Max(0, _toasts.Count - 4)))
             {
-                GUI.Label(new Rect(UnityEngine.Screen.width / 2 - 300, y, 600, 24), $"<color=#ffe080>{text}</color>", _center);
+                GUI.Label(new Rect(ScreenW / 2 - 300, y, 600, 24), $"<color=#ffe080>{text}</color>", _center);
                 y += 24;
             }
         }
 
         private void DrawDeath()
         {
-            var r = Box(new Rect(UnityEngine.Screen.width / 2 - 170, 120, 340, 110));
+            var r = Box(new Rect(ScreenW / 2 - 170, 120, 340, 110));
             GUILayout.BeginArea(r, GUI.skin.box);
             if (Client.State.DeathState == DeathState.Dead)
             {
@@ -593,7 +648,7 @@ namespace EternalRealms.Client
 
         private void DrawInvite()
         {
-            var r = Box(new Rect(UnityEngine.Screen.width / 2 - 160, 240, 320, 80));
+            var r = Box(new Rect(ScreenW / 2 - 160, 240, 320, 80));
             GUILayout.BeginArea(r, GUI.skin.box);
             GUILayout.Label($"{Client.PendingInviteFrom} lädt Euch in eine Gruppe ein.", _wrap);
             GUILayout.BeginHorizontal();
@@ -606,14 +661,6 @@ namespace EternalRealms.Client
         private void ClearInvite() => Client.ClearInvite();
 
         // ------------------------------------------------------------ Fenster
-
-        private Rect Window(string title, float w, float h)
-        {
-            var r = Box(new Rect(UnityEngine.Screen.width / 2 - w / 2, UnityEngine.Screen.height / 2 - h / 2, w, h));
-            GUI.Box(r, "");
-            GUI.Label(new Rect(r.x + 8, r.y + 4, w - 40, 24), title, _title);
-            return new Rect(r.x + 8, r.y + 30, w - 16, h - 38);
-        }
 
         private void DrawQuestLog()
         {
@@ -639,7 +686,7 @@ namespace EternalRealms.Client
 
         private void DrawBags()
         {
-            var area = Window("Charakter & Taschen", 560, 480);
+            var area = Window("Taschen", 560, 480);
             GUILayout.BeginArea(area);
             var inv = Client.State.Inventory;
             var st = Client.State.Stats;
@@ -665,6 +712,11 @@ namespace EternalRealms.Client
                 {
                     if (inv.Bag[i].ItemId == "") continue;
                     var rr = GUILayoutUtility.GetRect(new GUIContent("x"), GUI.skin.button);
+                    if (Content.Items.TryGetValue(inv.Bag[i].ItemId, out var hoverDef))
+                    {
+                        if (hoverDef.UseAbility != null) BeginDragFrom(rr, ActionKind.Item, hoverDef.Id, hoverDef.Name);
+                        if (rr.Contains(Event.current.mousePosition)) _tooltip = ItemTooltipText(hoverDef, inv.Bag[i]);
+                    }
                     if (GUI.Button(rr, $"{inv.Bag[i].Count}× {ItemLabel(inv.Bag[i].ItemId)}"))
                     {
                         if (Event.current.button == 1 && _bankOpen && Client.Bank != null) Client.Send(new C_BankDeposit { NpcId = Client.Bank.NpcId, BagIndex = i });
@@ -683,22 +735,25 @@ namespace EternalRealms.Client
         private string ItemLabel(string id)
         {
             if (!Content.Items.TryGetValue(id, out var it)) return id;
-            string col = it.Quality switch { ItemQuality.Poor => "#9d9d9d", ItemQuality.Uncommon => "#1eff00", ItemQuality.Rare => "#0070dd", ItemQuality.Epic => "#a335ee", ItemQuality.Legendary => "#ff8000", _ => "#ffffff" };
-            return $"<color={col}>{it.Name}</color>";
+            return $"<color={Palette.Quality(it.Quality)}>{it.Name}</color>";
         }
 
         private static string Money(long c) => $"{c / 10000}g {c / 100 % 100}s {c % 100}k";
 
         private void DrawSpellBook()
         {
-            var area = Window("Zauberbuch", 560, 460);
+            var area = Window("Zauberbuch – Fähigkeiten auf die Aktionsleiste ziehen", 560, 460);
             GUILayout.BeginArea(area);
             _scrollBook = GUILayout.BeginScrollView(_scrollBook);
             foreach (var kv in Client.SpellBook.OrderBy(k => Content.AbilityRanks.TryGetValue(k.Key, out var l) ? l[0].Level : 0))
             {
                 var ab = Content.GetAbilityRank(kv.Key, kv.Value);
                 if (ab == null) continue;
-                GUILayout.Label($"<b>{ab.Name}</b> (Rang {kv.Value}) – {ab.Description}", _wrap);
+                var content = new GUIContent($"<b>{ab.Name}</b> (Rang {kv.Value}) – {ab.Description}");
+                var rr = GUILayoutUtility.GetRect(content, _wrap);
+                // Auf eine Aktionsleiste ziehen
+                BeginDragFrom(rr, ActionKind.Ability, kv.Key, ab.Name);
+                GUI.Label(rr, content, _wrap);
             }
             GUILayout.EndScrollView();
             if (GUILayout.Button("Schließen")) _showBook = false;

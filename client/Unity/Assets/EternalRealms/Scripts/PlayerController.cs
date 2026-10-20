@@ -6,15 +6,16 @@ using UnityEngine;
 namespace EternalRealms.Client
 {
     /// <summary>
-    /// Steuerung: WASD laufen (relativ zur Kamera), Q/E seitwärts, Leertaste springen, Num-Lock Autolauf,
-    /// Linksklick Ziel wählen, Rechtsklick angreifen/ansprechen, Tab nächstes Ziel, 1–0 Aktionsleiste, F interagieren.
+    /// Steuerung über die frei belegbaren Tasten (Standard: WASD laufen, Q/E seitwärts, Leertaste springen, Num-Lock Autolauf,
+    /// Tab nächstes Ziel, F interagieren). Linksklick wählt ein Ziel, Rechtsklick greift an oder spricht an.
+    /// Aktionsleisten und Fenster-Tasten verarbeitet <see cref="GameUI"/>.
     /// Der Client meldet Bewegungen; der Server prüft Tempo und Kontrolleffekte und korrigiert notfalls.
     /// </summary>
     public sealed class PlayerController : MonoBehaviour
     {
         public float RunSpeed = 7f;
         private float _sendTimer;
-        private bool _moved, _autoRun;
+        private bool _moved, _autoRun, _walking;
         private float _verticalVelocity, _height;
         private Vector3 _lastSent;
 
@@ -35,14 +36,17 @@ namespace EternalRealms.Client
             bool canMove = (me.Flags & (UnitFlags.Stunned | UnitFlags.Rooted | UnitFlags.Feared | UnitFlags.Dead)) == 0;
             var cam = Camera.main!.GetComponent<ThirdPersonCamera>();
             float yaw = cam.Yaw;
-            if (Input.GetKeyDown(KeyCode.Numlock)) _autoRun = !_autoRun;
-            float fwd = Input.GetAxisRaw("Vertical") + (_autoRun ? 1 : 0) + (Input.GetMouseButton(0) && Input.GetMouseButton(1) ? 1 : 0);
-            float side = (Input.GetKey(KeyCode.E) ? 1 : 0) - (Input.GetKey(KeyCode.Q) ? 1 : 0);
-            float turn = Input.GetAxisRaw("Horizontal");
-            if (cam.RotatingCharacter) side += turn; else cam.Yaw += turn * 120f * Time.deltaTime;
-            if (Mathf.Abs(fwd) > 0.01f) _autoRun = _autoRun && fwd > 0;
+            var keys = Client.Settings.Keys;
+            if (UiInput.Down(keys, "autorun")) _autoRun = !_autoRun;
+            if (UiInput.Down(keys, "walk_toggle")) _walking = !_walking;
+            float axis = (UiInput.Held(keys, "move_forward") ? 1 : 0) - (UiInput.Held(keys, "move_back") ? 1 : 0);
+            float fwd = axis + (_autoRun ? 1 : 0) + (Input.GetMouseButton(0) && Input.GetMouseButton(1) ? 1 : 0);
+            float side = (UiInput.Held(keys, "strafe_right") ? 1 : 0) - (UiInput.Held(keys, "strafe_left") ? 1 : 0);
+            float turn = (UiInput.Held(keys, "turn_right") ? 1 : 0) - (UiInput.Held(keys, "turn_left") ? 1 : 0);
+            if (cam.RotatingCharacter) side += turn; else cam.Yaw += turn * 120f * Client.Settings.CameraSpeed * Time.deltaTime;
+            if (axis < 0) _autoRun = false;
             var dir = Quaternion.Euler(0, yaw, 0) * new Vector3(Mathf.Clamp(side, -1, 1), 0, Mathf.Clamp(fwd, -1, 1));
-            float speed = RunSpeed * ((me.Flags & UnitFlags.Ghost) != 0 ? 1.25f : 1f) * (fwd < 0 ? 0.6f : 1f);
+            float speed = RunSpeed * ((me.Flags & UnitFlags.Ghost) != 0 ? 1.25f : 1f) * (fwd < 0 ? 0.6f : 1f) * (_walking ? 0.4f : 1f);
             var pos = me.Position.ToUnity();
             if (canMove && dir.sqrMagnitude > 0.01f)
             {
@@ -50,7 +54,7 @@ namespace EternalRealms.Client
                 _moved = true;
             }
             // Sprung ist rein optisch (Höhe wird nur dargestellt).
-            if (Input.GetKeyDown(KeyCode.Space) && _height <= 0.01f && canMove) _verticalVelocity = 6f;
+            if (UiInput.Down(keys, "jump") && _height <= 0.01f && canMove) _verticalVelocity = 6f;
             _verticalVelocity -= 18f * Time.deltaTime;
             _height = Mathf.Max(0, _height + _verticalVelocity * Time.deltaTime);
             pos.y = _height;
@@ -95,18 +99,13 @@ namespace EternalRealms.Client
 
         private void HandleHotkeys(ClientEntity me)
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            var keys = Client.Settings.Keys;
+            if (UiInput.Down(keys, "target_next"))
             {
                 var next = Client.NextEnemyTarget(me.TargetId);
                 if (next != null) { Client.Target(next.Id); me.TargetId = next.Id; }
             }
-            if (Input.GetKeyDown(KeyCode.Escape) && !GameUI.AnyWindowOpen) { Client.Target(0); me.TargetId = 0; }
-            if (Input.GetKeyDown(KeyCode.F) && Client.State.Get(me.TargetId) is ClientEntity t) Activate(t);
-            for (int i = 0; i < 10; i++)
-            {
-                var key = i == 9 ? KeyCode.Alpha0 : KeyCode.Alpha1 + i;
-                if (Input.GetKeyDown(key)) GameUI.Instance.UseActionSlot(i);
-            }
+            if (UiInput.Down(keys, "interact") && Client.State.Get(me.TargetId) is ClientEntity t) Activate(t);
         }
     }
 }

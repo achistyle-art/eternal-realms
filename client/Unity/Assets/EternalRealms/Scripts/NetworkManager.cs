@@ -50,7 +50,7 @@ namespace EternalRealms.Client
 
         private void OnApplicationQuit()
         {
-            if (Client.InWorld) Client.Send(new Shared.Net.C_Logout());
+            if (Client.InWorld) { Client.SaveSettings(); Client.Send(new Shared.Net.C_Logout()); }
             Client.Poll();
             Client.Disconnect();
         }

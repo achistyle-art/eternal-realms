@@ -4,6 +4,7 @@ using EternalRealms.Shared.Client;
 using EternalRealms.Shared.Client.Ui;
 using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
+using EternalRealms.Shared.Rules;
 
 namespace EternalRealms.Tests
 {
@@ -255,6 +256,92 @@ namespace EternalRealms.Tests
             t.World.Persistence?.Flush(TimeSpan.FromSeconds(5));
             var stored = t.Store.GetAsync(p.Data.Id).Result!;
             Assert.Equal(20, GameSettings.FromJson(stored.ClientSettings).FontSize);
+        }
+
+        [Fact]
+        public void TooltipComparesAgainstTheWeakerMatchingSlot()
+        {
+            var db = TestContent.Db;
+            var ring = db.Items.Values.First(i => i.InventoryType == InventoryType.Finger && i.Modifiers.Count > 0);
+            var inv = new S_Inventory();
+            for (int i = 0; i <= (int)EquipSlot.Ranged; i++) inv.Equipment.Add(new ItemStackData());
+            // Beide Ringplätze leer: Vergleich zeigt den vollen Wert
+            var diff = ItemTooltip.Compare(ring, inv, db);
+            Assert.NotEmpty(diff);
+            Assert.All(diff, d => Assert.True(d.delta > 0));
+            // Ein Platz belegt mit genau diesem Ring, der andere leer: verglichen wird gegen den leeren
+            inv.Equipment[(int)EquipSlot.Finger1] = new ItemStackData { ItemId = ring.Id, Count = 1 };
+            Assert.Equal(diff, ItemTooltip.Compare(ring, inv, db));
+            inv.Equipment[(int)EquipSlot.Finger2] = new ItemStackData { ItemId = ring.Id, Count = 1 };
+            Assert.Empty(ItemTooltip.Compare(ring, inv, db));
+            var potion = db.Items["item_minor_healing_potion"];
+            Assert.Empty(ItemTooltip.Compare(potion, inv, db));
+
+            var weapon = db.Items.Values.First(i => i.IsWeapon && i.MaxDurability > 0 && i.RequiredLevel > 1);
+            var lines = ItemTooltip.Lines(weapon, db, new ItemStackData { ItemId = weapon.Id, Durability = weapon.MaxDurability / 2 }, playerLevel: 1);
+            Assert.Contains(lines, l => l.Contains("DPS"));
+            Assert.Contains(lines, l => l.StartsWith("Haltbarkeit"));
+            Assert.Contains(lines, l => l.StartsWith("(!) Benötigt Stufe"));
+            Assert.InRange(ItemTooltip.DurabilityPercent(weapon, weapon.MaxDurability / 2), 49, 51);
+            Assert.Equal(100, ItemTooltip.DurabilityPercent(potion, 0));
+        }
+
+        [Fact]
+        public void ChatTabsFilterChannelsAndCombatLinesReadNaturally()
+        {
+            var party = new ChatTab { Channels = { (int)ChatChannel.Party } };
+            Assert.True(ChatFormat.Accepts(party, ChatChannel.Party));
+            Assert.False(ChatFormat.Accepts(party, ChatChannel.Say));
+            Assert.True(ChatFormat.Accepts(party, ChatChannel.System));
+            Assert.True(ChatFormat.Accepts(new ChatTab(), ChatChannel.Whisper));
+
+            string Name(int id) => id == 1 ? "Ihr" : "Wolf";
+            var hit = new S_CombatEvent { SourceId = 2, TargetId = 1, Result = CombatResult.Hit, Amount = 12, School = School.Physical };
+            Assert.Equal("Wolf trifft Ihr für 12 Körperlich.", ChatFormat.CombatLine(hit, Name, a => a));
+            var heal = new S_CombatEvent { SourceId = 1, TargetId = 1, Result = CombatResult.CritHeal, Amount = 80, AbilityId = "x" };
+            Assert.Equal("Ihr heilt Ihr (Heilung) kritisch um 80.", ChatFormat.CombatLine(heal, Name, a => "Heilung"));
+            Assert.Contains("weicht", ChatFormat.CombatLine(new S_CombatEvent { Result = CombatResult.Dodge }, Name, a => a));
+        }
+
+        [Fact]
+        public void ReputationStandingsAndProgress()
+        {
+            Assert.Equal("Neutral", Reputation.Standing(0));
+            Assert.Equal("Freundlich", Reputation.Standing(3000));
+            Assert.Equal("Ehrfürchtig", Reputation.Standing(42999));
+            Assert.Equal("Hasserfüllt", Reputation.Standing(-42000));
+            Assert.Equal((500, 3000), Reputation.WithinStanding(500));
+            Assert.Equal((0, 6000), Reputation.WithinStanding(3000));
+        }
+
+        [Fact]
+        public void PlayerStateCarriesCharacterWindowValues()
+        {
+            var t = new TestWorld();
+            var p = t.CreatePlayer(Race.Aldorer, CharClass.Warrior, 10);
+            p.Data.Reputation["rep_test"] = 4500;
+            var st = p.BuildPlayerState();
+            Assert.Equal(7, st.Resist.Count);
+            Assert.True(st.Parry > 0); // Krieger können parieren
+            Assert.True(st.MoveSpeed > 0);
+            Assert.Equal(4500, st.ReputationValues[st.ReputationIds.IndexOf("rep_test")]);
+            var back = (S_PlayerState)Packets.Deserialize(Packets.Serialize(st));
+            Assert.Equal(st.Parry, back.Parry);
+            Assert.Equal(st.ReputationIds, back.ReputationIds);
+        }
+
+        [Fact]
+        public void ExplorationIncludesKnownFlightNodes()
+        {
+            var t = new TestWorld();
+            var p = t.CreatePlayer(Race.Aldorer, CharClass.Warrior);
+            var full = t.Conn(p).Of<S_Exploration>().Single();
+            Assert.Equal(p.Data.KnownTravelNodes.OrderBy(n => n), full.FlightNodes);
+            var client = new GameClient();
+            client.Receive(full);
+            client.Receive(new S_Exploration { FlightNodes = { "node_neu" } });
+            Assert.Contains("node_neu", client.KnownFlightNodes);
+            Assert.Equal(full.FlightNodes.Count + 1, client.KnownFlightNodes.Count);
         }
     }
 }

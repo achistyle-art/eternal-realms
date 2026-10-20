@@ -173,7 +173,7 @@ namespace EternalRealms.Client
                 _rain.transform.position = Client.Me.Position.ToUnity() + Vector3.up * 20;
                 var emission = _rain.emission;
                 bool wet = weather == Weather.Rain || weather == Weather.Storm || weather == Weather.Snow;
-                emission.rateOverTime = wet ? 1500 * Mathf.Max(0.3f, intensity) : 0;
+                emission.rateOverTime = wet ? 1500 * Mathf.Max(0.3f, intensity) * (Client.Settings.ReduceParticles ? 0.2f : 1f) : 0;
                 var main = _rain.main;
                 main.startSpeed = weather == Weather.Snow ? 3 : 18;
                 main.startColor = weather == Weather.Snow ? Color.white : new Color(0.7f, 0.75f, 0.9f, 0.6f);

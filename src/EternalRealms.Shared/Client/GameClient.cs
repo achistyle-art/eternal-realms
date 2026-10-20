@@ -37,6 +37,10 @@ namespace EternalRealms.Shared.Client
         public Dictionary<int, int> Markers { get; } = new Dictionary<int, int>();
         public List<S_Chat> ChatLog { get; } = new List<S_Chat>();
         public List<string> Notices { get; } = new List<string>();
+        /// <summary>Kampfereignisse mit eigener Beteiligung (Kampflog im Chat), höchstens 300.</summary>
+        public List<S_CombatEvent> CombatLog { get; } = new List<S_CombatEvent>();
+        /// <summary>Zähler für neue Kampflog-Einträge (Benutzeroberflächen erkennen so Neues, auch wenn die Liste gekürzt wurde).</summary>
+        public int CombatLogTotal { get; private set; }
         public S_NpcInteraction? LastInteraction { get; private set; }
         public string? PendingInviteFrom { get; private set; }
 
@@ -66,6 +70,7 @@ namespace EternalRealms.Shared.Client
         public bool SettingsLoaded { get; private set; }
         /// <summary>Entdeckte Gebiete (Weltkarte, Nebel des Krieges).</summary>
         public HashSet<string> DiscoveredAreas { get; } = new HashSet<string>();
+        public HashSet<string> KnownFlightNodes { get; } = new HashSet<string>();
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -204,6 +209,11 @@ namespace EternalRealms.Shared.Client
                 case S_Cooldown cd:
                     if (cd.Seconds > 0) Cooldowns[cd.AbilityId] = (float)(now + cd.Seconds);
                     break;
+                case S_CombatEvent cev:
+                    CombatLog.Add(cev);
+                    CombatLogTotal++;
+                    if (CombatLog.Count > 300) CombatLog.RemoveRange(0, CombatLog.Count - 300);
+                    break;
                 case S_Chat chat:
                     ChatLog.Add(chat);
                     if (ChatLog.Count > 500) ChatLog.RemoveAt(0);
@@ -241,8 +251,9 @@ namespace EternalRealms.Shared.Client
                 case S_Professions pf: Professions = pf.Professions; break;
                 case S_Settings st: Settings = Ui.GameSettings.FromJson(st.Json); SettingsLoaded = true; break;
                 case S_Exploration ex:
-                    if (ex.Full) DiscoveredAreas.Clear();
+                    if (ex.Full) { DiscoveredAreas.Clear(); KnownFlightNodes.Clear(); }
                     foreach (var a in ex.Areas) DiscoveredAreas.Add(a);
+                    foreach (var n in ex.FlightNodes) KnownFlightNodes.Add(n);
                     break;
                 case S_ProfessionTrainer pt: ProfessionTrainer = pt; break;
                 case S_NpcInteraction ni: LastInteraction = ni; break;
@@ -259,6 +270,13 @@ namespace EternalRealms.Shared.Client
         {
             Send(new C_LootRoll { RollId = rollId, Choice = choice });
             OpenRolls.Remove(rollId);
+        }
+
+        /// <summary>Einstellungen ersetzen (z. B. ein neuer Charakter übernimmt Tasten und Optionen des zuletzt gespielten).</summary>
+        public void ApplySettings(Ui.GameSettings settings)
+        {
+            settings.Normalize();
+            Settings = settings;
         }
 
         /// <summary>Einstellungen bereinigen und am Charakter speichern (z. B. nach dem Schließen des Optionsfensters).</summary>
