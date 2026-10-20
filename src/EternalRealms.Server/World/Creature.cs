@@ -89,6 +89,8 @@ namespace EternalRealms.Server.World
         public bool Evading { get; set; }
         /// <summary>Beschworene Zusatzgegner verschwinden nach dem Kampf.</summary>
         public bool IsSummoned { get; set; }
+        /// <summary>Gehört zu einem laufenden Weltereignis (Kapitel 37).</summary>
+        public string? EventId { get; set; }
 
         public override EntityKind Kind => IsPet ? EntityKind.Pet : Template.IsNpc && Faction != Faction.Hostile && Faction != Faction.Neutral ? EntityKind.Npc : EntityKind.Creature;
         public override bool IsEvading => Evading;
@@ -181,7 +183,10 @@ namespace EternalRealms.Server.World
         public float RespawnTimer { get; set; }
         public int Index { get; }
 
-        public SpawnPoint(SpawnDef def, Vec3 pos, float facing, int index) { Def = def; Position = pos; Facing = facing; Index = index; }
+        public SpawnPoint(SpawnDef def, Vec3 pos, float facing, int index, string zoneId = "") { Def = def; Position = pos; Facing = facing; Index = index; Key = $"{zoneId}:{index}:{def.Creature}"; }
+
+        /// <summary>Schlüssel für gespeicherte Wiederkehrzeiten.</summary>
+        public string Key { get; }
     }
 
     /// <summary>Laufende Eskorte (Eskortquest).</summary>

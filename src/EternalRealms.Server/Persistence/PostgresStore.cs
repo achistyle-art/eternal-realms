@@ -11,7 +11,7 @@ namespace EternalRealms.Server.Persistence
     /// Quests und Ruf in eigenen Tabellen (abfragbar, z. B. für Auktionshaus und Auswertungen).
     /// Ein Speichervorgang ist eine Transaktion: Entweder alles oder nichts wird geschrieben.
     /// </summary>
-    public sealed class PostgresStore : IAccountRepository, ICharacterRepository, IEconomyRepository, ISocialRepository, IDisposable
+    public sealed class PostgresStore : IAccountRepository, ICharacterRepository, IEconomyRepository, ISocialRepository, IWorldRepository, IDisposable
     {
         private readonly NpgsqlDataSource _ds;
         private static readonly JsonSerializerOptions Json = ContentDatabase.CreateOptions();
@@ -459,6 +459,25 @@ namespace EternalRealms.Server.Persistence
         }
 
         // ------------------------------------------------------------ Soziales
+
+        public async Task<Dictionary<string, DateTime>> LoadSpawnTimersAsync()
+        {
+            var d = new Dictionary<string, DateTime>();
+            await using var cmd = _ds.CreateCommand("SELECT key, respawn_at FROM spawn_timers");
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync()) d[r.GetString(0)] = DateTime.SpecifyKind(r.GetDateTime(1), DateTimeKind.Utc);
+            return d;
+        }
+
+        public async Task SaveSpawnTimerAsync(string key, DateTime? respawnAt)
+        {
+            await using var cmd = respawnAt == null
+                ? _ds.CreateCommand("DELETE FROM spawn_timers WHERE key = @k")
+                : _ds.CreateCommand("INSERT INTO spawn_timers (key, respawn_at) VALUES (@k, @t) ON CONFLICT (key) DO UPDATE SET respawn_at = EXCLUDED.respawn_at");
+            cmd.Parameters.AddWithValue("k", key);
+            if (respawnAt != null) cmd.Parameters.AddWithValue("t", DateTime.SpecifyKind(respawnAt.Value, DateTimeKind.Utc));
+            await cmd.ExecuteNonQueryAsync();
+        }
 
         public async Task<List<GuildData>> LoadGuildsAsync()
         {

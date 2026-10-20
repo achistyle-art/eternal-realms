@@ -90,6 +90,7 @@ namespace EternalRealms.Shared.Client.Audio
                 case "mount": b = Whoosh(rate, rng, 0.4, 200, 900); break;
                 case "quest_accept": b = Chime(rate, new[] { 67.0, 72 }, 0.5, 0.12); break;
                 case "quest_done": b = Chime(rate, new[] { 72.0, 76, 79, 84 }, 0.9, 0.12); break;
+                case "thunder": b = Thunder(rate, rng); break;
                 default: b = Chime(rate, new[] { 60.0 + rng.Range(0, 24) }, 0.25, 0); break;
             }
             Normalize(b, 0.9f);
@@ -154,6 +155,23 @@ namespace EternalRealms.Shared.Client.Audio
                     double env = Math.Min(1, t * 200) * Math.Exp(-t * 6);
                     b[i] += (float)((Math.Sin(Tau * f * t) + 0.3 * Math.Sin(Tau * f * 2.01 * t) + 0.12 * Math.Sin(Tau * f * 3.98 * t)) * env);
                 }
+            }
+            return b;
+        }
+
+        /// <summary>Donner: tiefes, langsam abklingendes Grollen mit einem Knall am Anfang.</summary>
+        private static float[] Thunder(int rate, Rng rng)
+        {
+            var b = Buffer(2.5, rate);
+            double lp = 0, lp2 = 0;
+            for (int i = 0; i < b.Length; i++)
+            {
+                double t = (double)i / rate;
+                lp += (rng.Signed() - lp) * 0.04;
+                lp2 += (lp - lp2) * 0.08;
+                double crack = t < 0.08 ? rng.Signed() * (1 - t / 0.08) : 0;
+                double roll = 0.6 + 0.4 * Math.Sin(Tau * t * 3.3) * Math.Sin(Tau * t * 1.1);
+                b[i] = (float)((lp2 * 10 * roll + crack * 0.6) * Math.Exp(-t * 1.6));
             }
             return b;
         }
@@ -289,7 +307,13 @@ namespace EternalRealms.Shared.Client.Audio
             for (int e = 0; e < events; e++)
             {
                 int start = (int)(rng.Float() * loop);
-                if (key.Contains("crypt"))
+                if (key.Contains("city"))
+                {
+                    // Stadt: entfernte Glocken und Hammerschläge über dem Stimmengewirr des Grundrauschens
+                    if (rng.Float() < 0.3) AddTone(b, start, rate, 330 + rng.Float() * 220, 1.5, 2.5, 0.25);
+                    else for (int k = 0; k < 3; k++) AddTone(b, start + k * rate / 3, rate, 900 + rng.Float() * 300, 0.06, 60, 0.18);
+                }
+                else if (key.Contains("crypt"))
                 {
                     double f = 1200 + rng.Float() * 1500;
                     for (int k = 0; k < 3; k++) // Tropfen mit Echo
@@ -462,7 +486,7 @@ namespace EternalRealms.Shared.Client.Audio
         /// <summary>Alle Effektschlüssel, die das Spiel verwendet (für Vorab-Erzeugung und Tests).</summary>
         public static IEnumerable<string> KnownEffects()
         {
-            foreach (var s in new[] { "hit_physical", "hit_crit", "swing_miss", "block", "resist", "heal", "cast_generic", "levelup", "loot", "coins", "mail", "death", "error", "emote", "ui_click", "ui_open", "ui_close", "mount", "quest_accept", "quest_done" })
+            foreach (var s in new[] { "hit_physical", "hit_crit", "swing_miss", "block", "resist", "heal", "cast_generic", "levelup", "loot", "coins", "mail", "death", "error", "emote", "ui_click", "ui_open", "ui_close", "mount", "quest_accept", "quest_done", "thunder" })
                 yield return s;
             foreach (var school in new[] { "holy", "fire", "nature", "frost", "shadow", "arcane" })
             {

@@ -18,6 +18,7 @@ int followId = 0;
 int lastNotice = 0, lastChat = 0;
 double nextMoveSend = 0;
 
+var lastEventState = new Dictionary<string, string>();
 client.MessageReceived += m =>
 {
     switch (m)
@@ -77,6 +78,11 @@ client.MessageReceived += m =>
             Print("  tput <Handelsplatz 1-6> <Taschenplatz> | tput <Handelsplatz> 0 (leeren) | tgold <Kupfer> | tok | tcancel");
             break;
         case S_TradeClosed tcl: Print(tcl.Completed ? "Handel abgeschlossen." : "Handel beendet: " + tcl.Reason); break;
+        case S_WorldEvent we2 when lastEventState.TryGetValue(we2.EventId, out var seen) && seen == $"{we2.State}{we2.Text}{we2.Progress}": break;
+        case S_WorldEvent we2:
+            lastEventState[we2.EventId] = $"{we2.State}{we2.Text}{we2.Progress}";
+            Print($"[Weltereignis] {we2.Name}: {we2.Text}{(we2.State == WorldEventState.Running ? $" ({we2.Progress}/{we2.Goal}, noch {we2.SecondsLeft:0} s, bei {we2.Position.X:0}/{we2.Position.Z:0})" : "")}{(we2.Participating ? " – Ihr seid dabei" : "")}");
+            break;
         case S_ChatChannels cc2: Print("Kanäle: " + string.Join(", ", cc2.Joined.Select(j => ((ChatChannel)j) switch { ChatChannel.General => "Gebiet", ChatChannel.Trade => "Handel", _ => "Gruppensuche" }))); break;
         case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
         case S_MailList ml:
@@ -411,6 +417,10 @@ void Command(string line)
                 client.Send(new C_Emote { EmoteId = emo.Id, TargetId = client.Me?.TargetId ?? 0 });
             else client.Say(rest, ChatChannel.Emote);
             break;
+        case "events":
+            if (client.WorldEvents.Count == 0) Print("Keine Weltereignisse in dieser Region.");
+            foreach (var w in client.WorldEvents.Values) Print($"  {w.Name}: {w.State} – {w.Text} {w.Progress}/{w.Goal}, {w.Participants} Beteiligte");
+            break;
         case "emotes": Print("Emotes: " + string.Join(", ", content.Emotes.Values.Select(x => x.Commands[0]))); break;
         case "perf":
         {
@@ -657,6 +667,7 @@ void Help() => Print(@"Befehle:
   Chatbefehle: p Tank, greif den Boss an. | p Heiler, bitte Mana auffüllen. | p Magier, kontrolliere den linken Gegner. | p Alle zurückziehen.
   group | invite <Name> | join | leave
   g <Text> Gebiet | h <Text> Handel (nur in Städten) | suche <Text> Gruppensuche | kanal gebiet|handel|suche an|aus | #3 im Text verlinkt Taschenplatz 3
+  events (laufende Weltereignisse) | #event <id>, #time <Stunde>, #weather <Wetter> (Entwicklermodus)
   e <Emote> [mit Ziel: zuerst 'target'] z. B. e winken | e <freier Text> | emotes | perf
   trade <id|Name> | tradeyes | tradeno | tput <1-6> <Taschenplatz> | tgold <Kupfer> | tok | tcancel
   s <Text> | p <Text> (Gruppe – Bots verstehen z. B. 'folgt mir', 'wartet', 'Angriff', 'Wir gehen in den Dungeon') | y | g | w <Name> <Text>

@@ -22,6 +22,30 @@ namespace EternalRealms.Server.World
         public IEconomyRepository? EconomyStore { get; }
         /// <summary>Geordnete Datenbankaufträge (null ohne Datenbank).</summary>
         public PersistenceQueue? Persistence { get; }
+        public IWorldRepository? WorldStore { get; }
+
+        /// <summary>Wiederkehrzeit eines dauerhaften Spawns speichern (null = lebt).</summary>
+        public void SaveSpawnTimer(string key, DateTime? at)
+        {
+            if (WorldStore == null || Persistence == null) return;
+            var store = WorldStore;
+            Persistence.Enqueue(() => store.SaveSpawnTimerAsync(key, at));
+        }
+
+        /// <summary>Beim Start: Weltbosse, deren Zeit noch läuft, wieder entfernen und die Restzeit übernehmen.</summary>
+        public int ApplySpawnTimers(Dictionary<string, DateTime> timers)
+        {
+            int n = 0;
+            foreach (var z in OpenZones)
+                foreach (var sp in z.SpawnPoints.Where(s => s.Def.Persistent))
+                {
+                    if (!timers.TryGetValue(sp.Key, out var at) || at <= DateTime.UtcNow) continue;
+                    if (sp.Current != null) { z.Remove(sp.Current); sp.Current = null; }
+                    sp.RespawnTimer = (float)(at - DateTime.UtcNow).TotalSeconds;
+                    n++;
+                }
+            return n;
+        }
         public EconomySystem Economy { get; }
         public MailSystem Mail { get; }
         public MountSystem Mounts { get; }
@@ -32,6 +56,7 @@ namespace EternalRealms.Server.World
         public SocialSystem Social { get; }
         public TradeSystem Trades { get; }
         public EmoteSystem Emotes { get; }
+        public WorldEventSystem Events { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
@@ -60,6 +85,7 @@ namespace EternalRealms.Server.World
             Config = config ?? new ServerConfig();
             Characters = characters;
             EconomyStore = characters as IEconomyRepository;
+            WorldStore = characters as IWorldRepository;
             if (characters != null) Persistence = new PersistenceQueue(ex => Post(() => Log("Datenbankfehler: " + ex.Message)));
             Random = random ?? new GameRandom();
             Economy = new EconomySystem(this);
@@ -72,6 +98,7 @@ namespace EternalRealms.Server.World
             Social = new SocialSystem(this);
             Trades = new TradeSystem(this);
             Emotes = new EmoteSystem(this);
+            Events = new WorldEventSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
@@ -99,7 +126,15 @@ namespace EternalRealms.Server.World
         public ZoneInstance? Zone(string id) => _zones.TryGetValue(id, out var z) ? z : null;
 
         /// <summary>Spielzeit in Stunden (0–24). Die Welt startet um 8 Uhr morgens.</summary>
-        public float GameHour => (float)((8 + Time * Config.TimeScale / 3600.0) % 24);
+        public float GameHour => (float)(((8 + _hourOffset + Time * Config.TimeScale / 3600.0) % 24 + 24) % 24);
+        private double _hourOffset;
+
+        /// <summary>Uhrzeit setzen (GM-Befehl, Tests); alle Regionen erfahren es sofort.</summary>
+        public void SetGameHour(float hour)
+        {
+            _hourOffset += hour - GameHour;
+            foreach (var z in AllZones) z.BroadcastAll(BuildWorldState(z));
+        }
 
         /// <summary>Führt eine Aktion im Spielthread aus (z. B. Ergebnis einer Datenbankabfrage).</summary>
         public void Post(Action a) => _mainThread.Enqueue(a);
@@ -137,6 +172,7 @@ namespace EternalRealms.Server.World
             Groups.Update(dt);
             Finder.Update(dt);
             Trades.Update();
+            Events.Update(dt);
             Bots.Update(dt);
             Mail.Update(dt);
             LootRolls.Update();

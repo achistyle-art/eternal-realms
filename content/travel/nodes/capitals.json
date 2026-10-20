@@ -1,0 +1,46 @@
+[
+ {
+  "id": "tn_sf",
+  "name": "Sonnenfeste",
+  "zone": "zone_sonnenfeste",
+  "position": [
+   286,
+   0,
+   421
+  ],
+  "faction": "Sonnenbuendnis"
+ },
+ {
+  "id": "tn_sm",
+  "name": "Silbermond",
+  "zone": "zone_silbermond",
+  "position": [
+   286,
+   0,
+   421
+  ],
+  "faction": "Sonnenbuendnis"
+ },
+ {
+  "id": "tn_kz",
+  "name": "Kharzul",
+  "zone": "zone_kharzul",
+  "position": [
+   286,
+   0,
+   421
+  ],
+  "faction": "Schattenpakt"
+ },
+ {
+  "id": "tn_nw",
+  "name": "Nachtwacht",
+  "zone": "zone_nachtwacht",
+  "position": [
+   286,
+   0,
+   421
+  ],
+  "faction": "Schattenpakt"
+ }
+]

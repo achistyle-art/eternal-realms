@@ -1,4 +1,5 @@
 using EternalRealms.Server.World;
+using EternalRealms.Shared.Rules;
 using EternalRealms.Shared;
 using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
@@ -62,7 +63,7 @@ namespace EternalRealms.Server.AI
 
         private void Despawn()
         {
-            if (_c.Spawn != null && _c.Spawn.Current == _c) { _c.Spawn.RespawnTimer = _c.Spawn.Def.RespawnSeconds; _c.Spawn.Current = null; }
+            if (_c.Spawn != null && _c.Spawn.Current == _c && _c.Zone != null) _c.Zone.OnSpawnDied(_c.Spawn, _c);
             _c.Zone?.Remove(_c);
         }
 
@@ -123,7 +124,9 @@ namespace EternalRealms.Server.AI
             {
                 if (!_c.CanAttack(u) || u.Removed) continue;
                 if (u is Player pl && (pl.IsFlying || pl.DeathState != DeathState.Alive)) continue;
-                if (guard && !(u is Creature cu && cu.Faction == Faction.Hostile && (cu.InCombat || _c.DistanceTo(cu) < 12))) continue;
+                // Wachen: Monster in der Nähe und – in Städten und Lagern – Spieler der feindlichen Fraktion (Kapitel 35)
+                if (guard && !(u is Creature cu && cu.Faction == Faction.Hostile && (cu.InCombat || _c.DistanceTo(cu) < 12))
+                          && !(u is Player enemy && !enemy.IsBot && enemy.Faction != T.Faction && _c.DistanceTo(enemy) < 20)) continue;
                 if (_c.Escort != null && !(u is Creature ec && ec.InCombat)) continue;
                 float radius = AggroRadiusFor(u);
                 float d = _c.DistanceTo(u);
@@ -139,6 +142,8 @@ namespace EternalRealms.Server.AI
         {
             float r = T.AggroRadius + (_c.Level - u.Level) * 1f;
             if (u.Level - _c.Level >= 5) r *= 0.5f;
+            // Nebel, Sturm und Nacht verkürzen die Sicht (Kapitel 36)
+            if (_c.Zone != null) r *= EnvironmentRules.SightFactor(_c.Zone.Weather, _c.Zone.WeatherIntensity, _c.World.GameHour);
             return Math.Clamp(r, 4f, 40f);
         }
 

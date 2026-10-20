@@ -47,7 +47,7 @@ namespace EternalRealms.Shared.Net
         S_Professions, S_ProfessionTrainer,
         S_Settings, S_Exploration,
         S_TradeRequest, S_TradeState, S_TradeClosed, S_ChatChannels,
-        S_Emote,
+        S_Emote, S_WorldEvent,
     }
 
     public abstract class Message

@@ -1,0 +1,2702 @@
+[
+ {
+  "id": "zone_sonnenfeste",
+  "name": "Sonnenfeste",
+  "continent": "Aurelion",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Sonnenbuendnis",
+  "isCapital": true,
+  "biome": "Hauptstadt",
+  "description": "Weiße Mauern, goldene Dächer: die Hauptstadt der Aldorer und Fennlinge mit Königspalast, Auktionshaus, Bank und allen Lehrern.",
+  "music": "music_city_sonnenfeste",
+  "ambience": "amb_city",
+  "weather": [
+   "Clear",
+   "Clear",
+   "Rain"
+  ],
+  "size": 512,
+  "playable": true,
+  "ambientBots": 8,
+  "areas": [
+   {
+    "id": "area_sf_markt",
+    "name": "Marktplatz von Sonnenfeste",
+    "center": [
+     256,
+     0,
+     256
+    ],
+    "radius": 45,
+    "isCity": true,
+    "discoveryXp": 40,
+    "music": "music_city_sonnenfeste"
+   },
+   {
+    "id": "area_sf_handel",
+    "name": "Handelsviertel",
+    "center": [
+     346,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_sonnenfeste"
+   },
+   {
+    "id": "area_sf_lehrer",
+    "name": "Hof der Lehrmeister",
+    "center": [
+     166,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_sonnenfeste"
+   },
+   {
+    "id": "area_sf_handwerk",
+    "name": "Handwerkergasse",
+    "center": [
+     256,
+     0,
+     166
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_sonnenfeste"
+   },
+   {
+    "id": "area_sf_gasthaus",
+    "name": "Gasthaus von Sonnenfeste",
+    "center": [
+     256,
+     0,
+     346
+    ],
+    "radius": 30,
+    "isCity": true,
+    "isInn": true,
+    "discoveryXp": 20
+   },
+   {
+    "id": "area_sf_tor",
+    "name": "Stadttor",
+    "center": [
+     256,
+     0,
+     431
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_sf_palast",
+    "name": "Palast",
+    "center": [
+     256,
+     0,
+     86
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 30,
+    "music": "music_city_sonnenfeste"
+   }
+  ],
+  "graveyards": [
+   [
+    256,
+    0,
+    481
+   ]
+  ],
+  "spawns": [],
+  "npcs": [
+   {
+    "npc": "npc_sf_herrscher",
+    "position": [
+     256,
+     0,
+     81
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_bank1",
+    "position": [
+     356,
+     0,
+     244
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_sf_bank2",
+    "position": [
+     356,
+     0,
+     268
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_sf_auktion1",
+    "position": [
+     336,
+     0,
+     231
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_auktion2",
+    "position": [
+     336,
+     0,
+     281
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_ruestung",
+    "position": [
+     316,
+     0,
+     216
+    ],
+    "facing": 2.0
+   },
+   {
+    "npc": "npc_sf_wirt",
+    "position": [
+     262,
+     0,
+     348
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_werkzeug",
+    "position": [
+     270,
+     0,
+     186
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_stall",
+    "position": [
+     226,
+     0,
+     416
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_flug",
+    "position": [
+     286,
+     0,
+     421
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_lehrer_druid",
+    "position": [
+     188.0,
+     0,
+     256.0
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_sf_lehrer_hunter",
+    "position": [
+     181.6,
+     0,
+     271.6
+    ],
+    "facing": -2.36
+   },
+   {
+    "npc": "npc_sf_lehrer_mage",
+    "position": [
+     166.0,
+     0,
+     278.0
+    ],
+    "facing": -1.57
+   },
+   {
+    "npc": "npc_sf_lehrer_paladin",
+    "position": [
+     150.4,
+     0,
+     271.6
+    ],
+    "facing": -0.79
+   },
+   {
+    "npc": "npc_sf_lehrer_priest",
+    "position": [
+     144.0,
+     0,
+     256.0
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_sf_lehrer_rogue",
+    "position": [
+     150.4,
+     0,
+     240.4
+    ],
+    "facing": 0.79
+   },
+   {
+    "npc": "npc_sf_lehrer_warlock",
+    "position": [
+     166.0,
+     0,
+     234.0
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_lehrer_warrior",
+    "position": [
+     181.6,
+     0,
+     240.4
+    ],
+    "facing": 2.36
+   },
+   {
+    "npc": "npc_sf_beruf_mining",
+    "position": [
+     190,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_herbalism",
+    "position": [
+     216,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_skinning",
+    "position": [
+     242,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_blacksmithing",
+    "position": [
+     268,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_leatherworking",
+    "position": [
+     294,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_tailoring",
+    "position": [
+     320,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_alchemy",
+    "position": [
+     190,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_engineering",
+    "position": [
+     216,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_enchanting",
+    "position": [
+     242,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_fishing",
+    "position": [
+     268,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_cooking",
+    "position": [
+     294,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_beruf_first_aid",
+    "position": [
+     320,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     244,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     268,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     241,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     271,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     381,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     131,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     256,
+     0,
+     196
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     316,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     256,
+     0,
+     316
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sf_wache",
+    "position": [
+     196,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sf_buerger1",
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sf_buerger2",
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sf_buerger3",
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sf_buerger4",
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sf_buerger5",
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sf_buerger6",
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sf_geisterheiler",
+    "position": [
+     256,
+     0,
+     486
+    ],
+    "facing": 4.71
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_mailbox",
+    "position": [
+     326,
+     0,
+     264
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_mailbox",
+    "position": [
+     266,
+     0,
+     331
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_portal_sf_heim",
+    "position": [
+     236,
+     0,
+     456
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   }
+  ],
+  "mapRect": [
+   430,
+   820,
+   120,
+   90
+  ]
+ },
+ {
+  "id": "zone_silbermond",
+  "name": "Silbermond",
+  "continent": "Aurelion",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Sonnenbuendnis",
+  "isCapital": true,
+  "biome": "Hauptstadt",
+  "description": "Unter uralten Mondbäumen und Felsbögen: die Stadt der Elarii und Felsgeborenen, berühmt für Magie, Schmiedekunst und Druidenhaine.",
+  "music": "music_city_silbermond",
+  "ambience": "amb_city",
+  "weather": [
+   "Clear",
+   "Fog",
+   "Rain"
+  ],
+  "size": 512,
+  "playable": true,
+  "ambientBots": 8,
+  "areas": [
+   {
+    "id": "area_sm_markt",
+    "name": "Marktplatz von Silbermond",
+    "center": [
+     256,
+     0,
+     256
+    ],
+    "radius": 45,
+    "isCity": true,
+    "discoveryXp": 40,
+    "music": "music_city_silbermond"
+   },
+   {
+    "id": "area_sm_handel",
+    "name": "Handelsviertel",
+    "center": [
+     346,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_silbermond"
+   },
+   {
+    "id": "area_sm_lehrer",
+    "name": "Hof der Lehrmeister",
+    "center": [
+     166,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_silbermond"
+   },
+   {
+    "id": "area_sm_handwerk",
+    "name": "Handwerkergasse",
+    "center": [
+     256,
+     0,
+     166
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_silbermond"
+   },
+   {
+    "id": "area_sm_gasthaus",
+    "name": "Gasthaus von Silbermond",
+    "center": [
+     256,
+     0,
+     346
+    ],
+    "radius": 30,
+    "isCity": true,
+    "isInn": true,
+    "discoveryXp": 20
+   },
+   {
+    "id": "area_sm_tor",
+    "name": "Stadttor",
+    "center": [
+     256,
+     0,
+     431
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_sm_palast",
+    "name": "Palast",
+    "center": [
+     256,
+     0,
+     86
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 30,
+    "music": "music_city_silbermond"
+   }
+  ],
+  "graveyards": [
+   [
+    256,
+    0,
+    481
+   ]
+  ],
+  "spawns": [],
+  "npcs": [
+   {
+    "npc": "npc_sm_herrscher",
+    "position": [
+     256,
+     0,
+     81
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_bank1",
+    "position": [
+     356,
+     0,
+     244
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_sm_bank2",
+    "position": [
+     356,
+     0,
+     268
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_sm_auktion1",
+    "position": [
+     336,
+     0,
+     231
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_auktion2",
+    "position": [
+     336,
+     0,
+     281
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_ruestung",
+    "position": [
+     316,
+     0,
+     216
+    ],
+    "facing": 2.0
+   },
+   {
+    "npc": "npc_sm_wirt",
+    "position": [
+     262,
+     0,
+     348
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_werkzeug",
+    "position": [
+     270,
+     0,
+     186
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_stall",
+    "position": [
+     226,
+     0,
+     416
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_flug",
+    "position": [
+     286,
+     0,
+     421
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_lehrer_druid",
+    "position": [
+     188.0,
+     0,
+     256.0
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_sm_lehrer_hunter",
+    "position": [
+     181.6,
+     0,
+     271.6
+    ],
+    "facing": -2.36
+   },
+   {
+    "npc": "npc_sm_lehrer_mage",
+    "position": [
+     166.0,
+     0,
+     278.0
+    ],
+    "facing": -1.57
+   },
+   {
+    "npc": "npc_sm_lehrer_paladin",
+    "position": [
+     150.4,
+     0,
+     271.6
+    ],
+    "facing": -0.79
+   },
+   {
+    "npc": "npc_sm_lehrer_priest",
+    "position": [
+     144.0,
+     0,
+     256.0
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_sm_lehrer_rogue",
+    "position": [
+     150.4,
+     0,
+     240.4
+    ],
+    "facing": 0.79
+   },
+   {
+    "npc": "npc_sm_lehrer_warlock",
+    "position": [
+     166.0,
+     0,
+     234.0
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_lehrer_warrior",
+    "position": [
+     181.6,
+     0,
+     240.4
+    ],
+    "facing": 2.36
+   },
+   {
+    "npc": "npc_sm_beruf_mining",
+    "position": [
+     190,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_herbalism",
+    "position": [
+     216,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_skinning",
+    "position": [
+     242,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_blacksmithing",
+    "position": [
+     268,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_leatherworking",
+    "position": [
+     294,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_tailoring",
+    "position": [
+     320,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_alchemy",
+    "position": [
+     190,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_engineering",
+    "position": [
+     216,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_enchanting",
+    "position": [
+     242,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_fishing",
+    "position": [
+     268,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_cooking",
+    "position": [
+     294,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_beruf_first_aid",
+    "position": [
+     320,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     244,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     268,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     241,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     271,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     381,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     131,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     256,
+     0,
+     196
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     316,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     256,
+     0,
+     316
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sm_wache",
+    "position": [
+     196,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ]
+    ]
+   },
+   {
+    "npc": "npc_sm_buerger1",
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sm_buerger2",
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sm_buerger3",
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sm_buerger4",
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sm_buerger5",
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sm_buerger6",
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_sm_geisterheiler",
+    "position": [
+     256,
+     0,
+     486
+    ],
+    "facing": 4.71
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_mailbox",
+    "position": [
+     326,
+     0,
+     264
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_mailbox",
+    "position": [
+     266,
+     0,
+     331
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_portal_sm_heim",
+    "position": [
+     236,
+     0,
+     456
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   }
+  ],
+  "mapRect": [
+   570,
+   850,
+   110,
+   80
+  ]
+ },
+ {
+  "id": "zone_kharzul",
+  "name": "Kharzul",
+  "continent": "Kharvath",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Schattenpakt",
+  "isCapital": true,
+  "biome": "Hauptstadt",
+  "description": "Die Festungsstadt der Grakar und Skarr in einer erloschenen Caldera: Kriegsrat, Arenen, Basare und alle Lehrer.",
+  "music": "music_city_kharzul",
+  "ambience": "amb_city",
+  "weather": [
+   "Clear",
+   "Clear",
+   "Storm"
+  ],
+  "size": 512,
+  "playable": true,
+  "ambientBots": 8,
+  "areas": [
+   {
+    "id": "area_kz_markt",
+    "name": "Marktplatz von Kharzul",
+    "center": [
+     256,
+     0,
+     256
+    ],
+    "radius": 45,
+    "isCity": true,
+    "discoveryXp": 40,
+    "music": "music_city_kharzul"
+   },
+   {
+    "id": "area_kz_handel",
+    "name": "Handelsviertel",
+    "center": [
+     346,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_kharzul"
+   },
+   {
+    "id": "area_kz_lehrer",
+    "name": "Hof der Lehrmeister",
+    "center": [
+     166,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_kharzul"
+   },
+   {
+    "id": "area_kz_handwerk",
+    "name": "Handwerkergasse",
+    "center": [
+     256,
+     0,
+     166
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_kharzul"
+   },
+   {
+    "id": "area_kz_gasthaus",
+    "name": "Gasthaus von Kharzul",
+    "center": [
+     256,
+     0,
+     346
+    ],
+    "radius": 30,
+    "isCity": true,
+    "isInn": true,
+    "discoveryXp": 20
+   },
+   {
+    "id": "area_kz_tor",
+    "name": "Stadttor",
+    "center": [
+     256,
+     0,
+     431
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_kz_palast",
+    "name": "Kriegsfeste",
+    "center": [
+     256,
+     0,
+     86
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 30,
+    "music": "music_city_kharzul"
+   }
+  ],
+  "graveyards": [
+   [
+    256,
+    0,
+    481
+   ]
+  ],
+  "spawns": [],
+  "npcs": [
+   {
+    "npc": "npc_kz_herrscher",
+    "position": [
+     256,
+     0,
+     81
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_bank1",
+    "position": [
+     356,
+     0,
+     244
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_kz_bank2",
+    "position": [
+     356,
+     0,
+     268
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_kz_auktion1",
+    "position": [
+     336,
+     0,
+     231
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_auktion2",
+    "position": [
+     336,
+     0,
+     281
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_ruestung",
+    "position": [
+     316,
+     0,
+     216
+    ],
+    "facing": 2.0
+   },
+   {
+    "npc": "npc_kz_wirt",
+    "position": [
+     262,
+     0,
+     348
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_werkzeug",
+    "position": [
+     270,
+     0,
+     186
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_stall",
+    "position": [
+     226,
+     0,
+     416
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_flug",
+    "position": [
+     286,
+     0,
+     421
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_lehrer_druid",
+    "position": [
+     188.0,
+     0,
+     256.0
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_kz_lehrer_hunter",
+    "position": [
+     181.6,
+     0,
+     271.6
+    ],
+    "facing": -2.36
+   },
+   {
+    "npc": "npc_kz_lehrer_mage",
+    "position": [
+     166.0,
+     0,
+     278.0
+    ],
+    "facing": -1.57
+   },
+   {
+    "npc": "npc_kz_lehrer_priest",
+    "position": [
+     150.4,
+     0,
+     271.6
+    ],
+    "facing": -0.79
+   },
+   {
+    "npc": "npc_kz_lehrer_rogue",
+    "position": [
+     144.0,
+     0,
+     256.0
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_kz_lehrer_shaman",
+    "position": [
+     150.4,
+     0,
+     240.4
+    ],
+    "facing": 0.79
+   },
+   {
+    "npc": "npc_kz_lehrer_warlock",
+    "position": [
+     166.0,
+     0,
+     234.0
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_lehrer_warrior",
+    "position": [
+     181.6,
+     0,
+     240.4
+    ],
+    "facing": 2.36
+   },
+   {
+    "npc": "npc_kz_beruf_mining",
+    "position": [
+     190,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_herbalism",
+    "position": [
+     216,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_skinning",
+    "position": [
+     242,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_blacksmithing",
+    "position": [
+     268,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_leatherworking",
+    "position": [
+     294,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_tailoring",
+    "position": [
+     320,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_alchemy",
+    "position": [
+     190,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_engineering",
+    "position": [
+     216,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_enchanting",
+    "position": [
+     242,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_fishing",
+    "position": [
+     268,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_cooking",
+    "position": [
+     294,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_beruf_first_aid",
+    "position": [
+     320,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     244,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     268,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     241,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     271,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     381,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     131,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     256,
+     0,
+     196
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     316,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ]
+    ]
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     256,
+     0,
+     316
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_kz_wache",
+    "position": [
+     196,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ]
+    ]
+   },
+   {
+    "npc": "npc_kz_buerger1",
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_kz_buerger2",
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_kz_buerger3",
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_kz_buerger4",
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_kz_buerger5",
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_kz_buerger6",
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_kz_geisterheiler",
+    "position": [
+     256,
+     0,
+     486
+    ],
+    "facing": 4.71
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_mailbox",
+    "position": [
+     326,
+     0,
+     264
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_mailbox",
+    "position": [
+     266,
+     0,
+     331
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_portal_kz_heim",
+    "position": [
+     236,
+     0,
+     456
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   }
+  ],
+  "mapRect": [
+   460,
+   800,
+   130,
+   100
+  ]
+ },
+ {
+  "id": "zone_nachtwacht",
+  "name": "Nachtwacht",
+  "continent": "Kharvath",
+  "minLevel": 1,
+  "maxLevel": 60,
+  "faction": "Schattenpakt",
+  "isCapital": true,
+  "biome": "Hauptstadt",
+  "description": "Eine Stadt aus schwarzem Stein zwischen Grabhügeln und Steinkreisen: Heimat der Nachtgeborenen und des Hornvolks.",
+  "music": "music_city_nachtwacht",
+  "ambience": "amb_city",
+  "weather": [
+   "Fog",
+   "Clear",
+   "Rain"
+  ],
+  "size": 512,
+  "playable": true,
+  "ambientBots": 8,
+  "areas": [
+   {
+    "id": "area_nw_markt",
+    "name": "Marktplatz von Nachtwacht",
+    "center": [
+     256,
+     0,
+     256
+    ],
+    "radius": 45,
+    "isCity": true,
+    "discoveryXp": 40,
+    "music": "music_city_nachtwacht"
+   },
+   {
+    "id": "area_nw_handel",
+    "name": "Handelsviertel",
+    "center": [
+     346,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_nachtwacht"
+   },
+   {
+    "id": "area_nw_lehrer",
+    "name": "Hof der Lehrmeister",
+    "center": [
+     166,
+     0,
+     256
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_nachtwacht"
+   },
+   {
+    "id": "area_nw_handwerk",
+    "name": "Handwerkergasse",
+    "center": [
+     256,
+     0,
+     166
+    ],
+    "radius": 40,
+    "isCity": true,
+    "discoveryXp": 20,
+    "music": "music_city_nachtwacht"
+   },
+   {
+    "id": "area_nw_gasthaus",
+    "name": "Gasthaus von Nachtwacht",
+    "center": [
+     256,
+     0,
+     346
+    ],
+    "radius": 30,
+    "isCity": true,
+    "isInn": true,
+    "discoveryXp": 20
+   },
+   {
+    "id": "area_nw_tor",
+    "name": "Stadttor",
+    "center": [
+     256,
+     0,
+     431
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 10
+   },
+   {
+    "id": "area_nw_palast",
+    "name": "Kriegsfeste",
+    "center": [
+     256,
+     0,
+     86
+    ],
+    "radius": 35,
+    "isCity": true,
+    "discoveryXp": 30,
+    "music": "music_city_nachtwacht"
+   }
+  ],
+  "graveyards": [
+   [
+    256,
+    0,
+    481
+   ]
+  ],
+  "spawns": [],
+  "npcs": [
+   {
+    "npc": "npc_nw_herrscher",
+    "position": [
+     256,
+     0,
+     81
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_bank1",
+    "position": [
+     356,
+     0,
+     244
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_nw_bank2",
+    "position": [
+     356,
+     0,
+     268
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_nw_auktion1",
+    "position": [
+     336,
+     0,
+     231
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_auktion2",
+    "position": [
+     336,
+     0,
+     281
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_ruestung",
+    "position": [
+     316,
+     0,
+     216
+    ],
+    "facing": 2.0
+   },
+   {
+    "npc": "npc_nw_wirt",
+    "position": [
+     262,
+     0,
+     348
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_werkzeug",
+    "position": [
+     270,
+     0,
+     186
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_stall",
+    "position": [
+     226,
+     0,
+     416
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_flug",
+    "position": [
+     286,
+     0,
+     421
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_lehrer_druid",
+    "position": [
+     188.0,
+     0,
+     256.0
+    ],
+    "facing": 3.14
+   },
+   {
+    "npc": "npc_nw_lehrer_hunter",
+    "position": [
+     181.6,
+     0,
+     271.6
+    ],
+    "facing": -2.36
+   },
+   {
+    "npc": "npc_nw_lehrer_mage",
+    "position": [
+     166.0,
+     0,
+     278.0
+    ],
+    "facing": -1.57
+   },
+   {
+    "npc": "npc_nw_lehrer_priest",
+    "position": [
+     150.4,
+     0,
+     271.6
+    ],
+    "facing": -0.79
+   },
+   {
+    "npc": "npc_nw_lehrer_rogue",
+    "position": [
+     144.0,
+     0,
+     256.0
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_nw_lehrer_shaman",
+    "position": [
+     150.4,
+     0,
+     240.4
+    ],
+    "facing": 0.79
+   },
+   {
+    "npc": "npc_nw_lehrer_warlock",
+    "position": [
+     166.0,
+     0,
+     234.0
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_lehrer_warrior",
+    "position": [
+     181.6,
+     0,
+     240.4
+    ],
+    "facing": 2.36
+   },
+   {
+    "npc": "npc_nw_beruf_mining",
+    "position": [
+     190,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_herbalism",
+    "position": [
+     216,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_skinning",
+    "position": [
+     242,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_blacksmithing",
+    "position": [
+     268,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_leatherworking",
+    "position": [
+     294,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_tailoring",
+    "position": [
+     320,
+     0,
+     156
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_alchemy",
+    "position": [
+     190,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_engineering",
+    "position": [
+     216,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_enchanting",
+    "position": [
+     242,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_fishing",
+    "position": [
+     268,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_cooking",
+    "position": [
+     294,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_beruf_first_aid",
+    "position": [
+     320,
+     0,
+     178
+    ],
+    "facing": 1.57
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     244,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     268,
+     0,
+     446
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     241,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     271,
+     0,
+     106
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     381,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     131,
+     0,
+     256
+    ],
+    "facing": 4.71
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     256,
+     0,
+     196
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     316,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ]
+    ]
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     256,
+     0,
+     316
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      256,
+      0,
+      316
+     ],
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ]
+    ]
+   },
+   {
+    "npc": "npc_nw_wache",
+    "position": [
+     196,
+     0,
+     256
+    ],
+    "facing": 0,
+    "patrol": [
+     [
+      196,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      196
+     ],
+     [
+      316,
+      0,
+      256
+     ],
+     [
+      256,
+      0,
+      316
+     ]
+    ]
+   },
+   {
+    "npc": "npc_nw_buerger1",
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_nw_buerger2",
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_nw_buerger3",
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_nw_buerger4",
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_nw_buerger5",
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_nw_buerger6",
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "facing": 0
+   },
+   {
+    "npc": "npc_nw_geisterheiler",
+    "position": [
+     256,
+     0,
+     486
+    ],
+    "facing": 4.71
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_mailbox",
+    "position": [
+     326,
+     0,
+     264
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_mailbox",
+    "position": [
+     266,
+     0,
+     331
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_portal_nw_heim",
+    "position": [
+     236,
+     0,
+     456
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   }
+  ],
+  "mapRect": [
+   620,
+   830,
+   120,
+   80
+  ]
+ }
+]

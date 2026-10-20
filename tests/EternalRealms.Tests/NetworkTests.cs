@@ -224,6 +224,14 @@ namespace EternalRealms.Tests
             Assert.Equal(77, mail.Money);
             Assert.Contains(await store.LoadAuctionsAsync(), a => a.Id == auctionId && a.Buyout == 20);
             Assert.Equal(-30, (await store.LedgerForAsync(id, 5)).Single().Delta);
+
+            // Weltboss-Wiederkehr (Block D) übersteht Neustarts
+            var key = "test:" + name;
+            var when = DateTime.UtcNow.AddHours(3);
+            await store.SaveSpawnTimerAsync(key, when);
+            Assert.Equal(when, (await store.LoadSpawnTimersAsync())[key], TimeSpan.FromSeconds(1));
+            await store.SaveSpawnTimerAsync(key, null);
+            Assert.False((await store.LoadSpawnTimersAsync()).ContainsKey(key));
             Assert.Equal(id, (await store.FindCharacterAsync(name.ToLowerInvariant()))!.Id);
             var del = new EconomyCommit();
             del.DeleteMail.Add(mailId);

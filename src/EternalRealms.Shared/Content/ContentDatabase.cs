@@ -37,6 +37,7 @@ namespace EternalRealms.Shared.Content
         public List<FlightPathDef> FlightPaths { get; } = new List<FlightPathDef>();
         public List<BotDialogDef> BotDialog { get; } = new List<BotDialogDef>();
         public Dictionary<string, EmoteDef> Emotes { get; } = new Dictionary<string, EmoteDef>();
+        public Dictionary<string, WorldEventDef> WorldEvents { get; } = new Dictionary<string, WorldEventDef>();
         /// <summary>Chatbefehl ohne Schrägstrich (klein) → Emote.</summary>
         public Dictionary<string, EmoteDef> EmoteCommands { get; } = new Dictionary<string, EmoteDef>();
         public List<BotProfileDef> BotProfiles { get; } = new List<BotProfileDef>();
@@ -86,6 +87,7 @@ namespace EternalRealms.Shared.Content
             db.FlightPaths.AddRange(ReadList<FlightPathDef>(root, "travel/paths"));
             db.BotDialog.AddRange(ReadList<BotDialogDef>(root, "bots/dialog"));
             db.BotProfiles.AddRange(ReadList<BotProfileDef>(root, "bots/profiles"));
+            foreach (var ev in ReadList<WorldEventDef>(root, "events")) AddUnique(db.WorldEvents, ev.Id, ev, "Weltereignis");
             foreach (var e in ReadList<EmoteDef>(root, "emotes"))
             {
                 AddUnique(db.Emotes, e.Id, e, "Emote");
@@ -215,6 +217,20 @@ namespace EternalRealms.Shared.Content
             void Need(bool ok, string message) { if (!ok) errors.Add(message); }
             bool HasAbility(string id) => AbilityRanks.ContainsKey(id) || Abilities.ContainsKey(id);
 
+            foreach (var ev in WorldEvents.Values)
+            {
+                Need(Zones.ContainsKey(ev.Zone), $"Ereignis {ev.Id}: Zone '{ev.Zone}' fehlt");
+                Need(ev.Phases.Count > 0, $"Ereignis {ev.Id}: keine Abschnitte");
+                Need(ev.IntervalMinutes.Count == 2 && ev.IntervalMinutes[0] > 0 && ev.IntervalMinutes[1] >= ev.IntervalMinutes[0], $"Ereignis {ev.Id}: Intervall ungültig");
+                foreach (var ph in ev.Phases)
+                {
+                    Need(Creatures.ContainsKey(ph.Creature), $"Ereignis {ev.Id}: Kreatur '{ph.Creature}' fehlt");
+                    Need(ph.Type != WorldEventPhaseType.Defend || Creatures.ContainsKey(ph.Defend), $"Ereignis {ev.Id}: zu schützender NPC '{ph.Defend}' fehlt");
+                    Need(ph.Count > 0 && ph.PerWave > 0, $"Ereignis {ev.Id}: Anzahl ungültig");
+                }
+                foreach (var it in ev.Rewards.Items) Need(Items.ContainsKey(it.Item), $"Ereignis {ev.Id}: Gegenstand '{it.Item}' fehlt");
+                foreach (var r in ev.Rewards.Reputation) Need(Reputations.ContainsKey(r.Faction), $"Ereignis {ev.Id}: Ruf '{r.Faction}' fehlt");
+            }
             foreach (var e in Emotes.Values)
             {
                 Need(e.Commands.Count > 0, $"Emote {e.Id}: keine Befehle");

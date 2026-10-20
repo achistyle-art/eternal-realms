@@ -78,7 +78,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | A ✅ | 28, 29, 30, 59 | Vollständiges HUD, verschiebbare/skalierbare Fenster, frei belegbare Tasten, Weltkarte und Minimap, Barrierefreiheit – Einstellungen dauerhaft gespeichert |
 | B ✅ | 31, 32, 46 | Chatkanäle (Handel, Gebiet, Raid, Gilde), Blockieren/Melden, Gegenstandslinks, Freundesliste inkl. KI-Freunde, direkter Spielerhandel (atomar) |
 | C ✅ | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
-| D | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
+| D ✅ | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
 | E | 38, 39, 58 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer, Lokalisierung Deutsch/Englisch |
 | F | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
 | G | 43–45, 48 | KI-Ebenen ausbauen: Encounter-Manager für Dungeons/Raids, Tankwechsel, Flächen ausweichen, Raidkoordination bis 40, Bot-Balance |
@@ -133,3 +133,16 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 - Eigener Oberflächen-Look (`UiSkin`, ohne Grafikdateien) und kontrastreiche Variante; Emote-Auswahl (K), Leistungsanzeige (Strg+F), Grafik-Reiter in den Optionen.
 
 **Grenzen:** Die Figuren bleiben stilisierte Grundkörper, bis echte Modelle mit Animator eingebunden werden (die Zustandsnamen in `AnimClip` sind dafür vorgesehen). Die erzeugte Musik ist bewusst schlicht und kein Ersatz für komponierte Stücke.
+
+### Block D – Stand
+
+**Umgesetzt und getestet** (`WorldDynamicsTests`, Live-Lauf gegen PostgreSQL mit Serverneustart):
+- Vier spielbare Hauptstädte (`tools/gen_world_d.py`): Sonnenfeste und Silbermond (Sonnenbündnis), Kharzul und Nachtwacht (Schattenpakt). Jede mit sieben Stadtvierteln (Handelskanal überall), Bank, Auktionshaus, Briefkästen, Gasthaus (Ruhestein-Bindung), Lehrern aller Klassen der Fraktion, allen Berufslehrern, Waffen-/Werkzeughändlern, Stallmeisterei, Flugmeister, Geisterheiler, Bürgern mit Tagesablauf, KI-Bewohnern und Elitewachen der Stufe 60. Wachen greifen auch Eindringlinge der anderen Fraktion an.
+- Anreise: Portale in den Startregionen und zurück (nur für die eigene Fraktion), Fernflüge zwischen Startregion und Hauptstädten sowie zwischen den beiden Hauptstädten einer Fraktion. Flüge in andere Regionen sind jetzt möglich.
+- Tag/Nacht und Wetter mit Wirkung (`EnvironmentRules`): Regen dämpft Feuer und stärkt Natur/Frost, Schnee stärkt Frost, Gewitter stärkt Natur; Nebel, Sturm, Schnee und Nacht verkürzen die Sicht der Kreaturen; Untote und Geister sind nachts stärker. Spawns mit Tageszeit (Irrlichter und Aschegeister nur nachts, Graumähne nachts, Dünenpirscher tagsüber) erscheinen und verschwinden passend. Bewegungstempo bleibt unverändert, weil die Clientvorhersage es nicht kennt.
+- Spawnregeln (`SpawnRules`): zufällige Wiederkehrfenster, schnellere Wiederkehr bei vielen Spielern (bis 35 %), Platzhalter-Seltene (nie zwei zugleich), Weltbosse mit 2–4 h Fenster, Ankündigung in der Region und gespeicherter Wiederkehrzeit (Tabelle `spawn_timers`, Migration 005) – im Live-Lauf blieb der getötete Dornenschlund nach einem Neustart verschwunden.
+- Weltereignisse (`content/events.json`, `WorldEventSystem`): vier Ereignisse (Wolfsnacht, Händlerkarren verteidigen, Ruf der Hohlen Flut, Oase in Gefahr) mit Abschnitten Töten/Boss/Verteidigen, Ankündigung, Zeitlimit, Fehlschlag, Belohnung für alle Beteiligten (EP, Geld, Ruf, Gegenstände; bei vollen Taschen per Post). KI-Bewohner der Region gehen von sich aus hin und kämpfen mit. GM-Befehle: `#event`, `#time`, `#weather`.
+
+**Nur kompiliergeprüft** (Unity): Ereignis-Tracker über den Quests, Ereignismarker auf Minikarte und Karte, Blitze bei Gewitter (abschaltbar), Stadtgeräusche.
+
+**Unterwegs gefunden:** Die Erstbesetzung beim Serverstart hat gespeicherte Weltboss-Zeiten gelöscht, bevor sie geladen wurden – der Unit-Test nutzte einen frischen Speicher und sah es nicht. Behoben; der Test stellt den Neustart jetzt mit demselben Speicher nach. `#kill` traf gepanzerte Bosse nicht tödlich; behoben.

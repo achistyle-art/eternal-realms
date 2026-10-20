@@ -77,6 +77,11 @@ namespace EternalRealms.Server
                 server.World.Guilds.Load(guilds);
                 log($"Gilden: {guilds.Count} geladen");
             }
+            if (chars is IWorldRepository worldRepo)
+            {
+                int waiting = server.World.ApplySpawnTimers(await worldRepo.LoadSpawnTimersAsync());
+                log($"Weltbosse: {waiting} warten auf ihre Wiederkehr");
+            }
             return server;
         }
 

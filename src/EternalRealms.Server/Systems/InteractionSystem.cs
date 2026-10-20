@@ -111,6 +111,7 @@ namespace EternalRealms.Server.Systems
             if (go.Def.Profession != null && _w.Professions.CanGather(p, go.Def) is string gatherErr) return gatherErr;
             if (go.Def.TeleportZone != null)
             {
+                if (go.Def.RequiredFaction is Faction need && p.Faction != need) return "Dieses Portal gehorcht Euch nicht.";
                 _w.TeleportSpecial(p, go.Def.TeleportZone, go.Def.TeleportPosition);
                 return null;
             }
@@ -224,8 +225,15 @@ namespace EternalRealms.Server.Systems
             if (path == null || !p.Data.KnownTravelNodes.Contains(destination)) return "Diese Route kennt Ihr nicht.";
             if (p.Money < path.Cost) return "Ihr habt nicht genug Geld.";
             var to = _w.Content.TravelNodes[destination];
-            if (to.Zone != p.Zone!.Def.Id) return "Flüge in andere Regionen folgen mit den Schiffs- und Flugrouten der nächsten Meilensteine.";
             _w.Economy.Debit(p, path.Cost, "flight", destination);
+            if (to.Zone != p.Zone!.Def.Id)
+            {
+                // Fernflug in eine andere Region (z. B. zur Hauptstadt): Ankunft am Zielflugmeister
+                if (p.IsMounted) _w.Mounts.Dismount(p);
+                p.Notice($"Fernflug nach {to.Name}.");
+                _w.Transfer(p, to.Zone, to.Position);
+                return null;
+            }
             p.FlightFrom = p.Position;
             p.FlightTo = to.Position;
             p.FlightTime = 0;

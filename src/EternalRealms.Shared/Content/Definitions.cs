@@ -533,6 +533,19 @@ namespace EternalRealms.Shared.Content
         public List<Vec3> Patrol { get; set; } = new List<Vec3>();
         /// <summary>Wandert zufällig im Umkreis um den Spawnpunkt.</summary>
         public float WanderRadius { get; set; }
+
+        // Spawnregeln (Kapitel 47)
+        /// <summary>Obergrenze für eine zufällige Wiederkehr (RespawnSeconds…RespawnMaxSeconds); 0 = fest.</summary>
+        public float RespawnMaxSeconds { get; set; }
+        /// <summary>"" = immer, "day" = nur tagsüber, "night" = nur nachts.</summary>
+        public string TimeOfDay { get; set; } = "";
+        /// <summary>Platzhalter-Prinzip: Statt der normalen Kreatur erscheint mit dieser Chance ein Seltener (nie zwei gleichzeitig).</summary>
+        public string? RareCreature { get; set; }
+        public float RareChance { get; set; }
+        /// <summary>Wiederkehr-Zeit übersteht Serverneustarts (Weltbosse).</summary>
+        public bool Persistent { get; set; }
+        /// <summary>Meldung an die ganze Region beim Erscheinen ({name}).</summary>
+        public string Announce { get; set; } = "";
     }
 
     public sealed class ObjectSpawnDef
@@ -556,6 +569,8 @@ namespace EternalRealms.Shared.Content
         /// <summary>Teleportiert in eine Zone (Dungeon-Eingang, Schiff).</summary>
         public string? TeleportZone { get; set; }
         public Vec3 TeleportPosition { get; set; }
+        /// <summary>Nur für diese Fraktion nutzbar (Stadtportale).</summary>
+        public Faction? RequiredFaction { get; set; }
         public float InteractTime { get; set; } = 1.5f;
         public string? Profession { get; set; }
         public int SkillRequired { get; set; }
@@ -595,6 +610,8 @@ namespace EternalRealms.Shared.Content
     public sealed class ZoneDef
     {
         public string Id { get; set; } = "";
+        /// <summary>Hauptstadt einer Fraktion (Kapitel 35): Wachen, alle Dienste, Portale.</summary>
+        public bool IsCapital { get; set; }
         public string Name { get; set; } = "";
         public string Continent { get; set; } = "";
         public int MinLevel { get; set; } = 1;
@@ -705,6 +722,61 @@ namespace EternalRealms.Shared.Content
         public float TimeLimitSeconds { get; set; }
         /// <summary>Entscheidungsquests: schließt diese Quests aus, sobald angenommen.</summary>
         public List<string> ExclusiveWith { get; set; } = new List<string>();
+    }
+
+    public enum WorldEventPhaseType : byte { Kill = 0, Boss = 1, Defend = 2 }
+
+    /// <summary>Abschnitt eines Weltereignisses.</summary>
+    public sealed class WorldEventPhaseDef
+    {
+        public WorldEventPhaseType Type { get; set; }
+        public string Text { get; set; } = "";
+        /// <summary>Angreifende Kreatur (Kill/Defend) bzw. der Boss.</summary>
+        public string Creature { get; set; } = "";
+        /// <summary>Kill: so viele müssen fallen.</summary>
+        public int Count { get; set; } = 1;
+        /// <summary>Gegner je Welle und Abstand der Wellen.</summary>
+        public int PerWave { get; set; } = 3;
+        public float WaveSeconds { get; set; } = 20;
+        /// <summary>Defend: zu schützender NPC und Dauer in Sekunden.</summary>
+        public string Defend { get; set; } = "";
+        public float Seconds { get; set; } = 120;
+        public string Yell { get; set; } = "";
+    }
+
+    public sealed class WorldEventRewardDef
+    {
+        public int Xp { get; set; }
+        public int Money { get; set; }
+        public List<ReputationRewardDef> Reputation { get; set; } = new List<ReputationRewardDef>();
+        public List<LootEntryDef> Items { get; set; } = new List<LootEntryDef>();
+    }
+
+    /// <summary>
+    /// Dynamisches Weltereignis (Kapitel 37): erscheint zu zufälligen Zeiten (optional nur tags/nachts), wird in der
+    /// Region angekündigt, läuft in Abschnitten und belohnt alle Beteiligten – Spieler wie KI-Mitspieler.
+    /// </summary>
+    public sealed class WorldEventDef
+    {
+        public string Id { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string Zone { get; set; } = "";
+        public Vec3 Position { get; set; }
+        public float Radius { get; set; } = 50;
+        public int MinLevel { get; set; } = 1;
+        public int MaxLevel { get; set; } = 60;
+        /// <summary>Abstand zwischen zwei Durchläufen in Minuten (von–bis).</summary>
+        public List<float> IntervalMinutes { get; set; } = new List<float> { 30, 60 };
+        public string TimeOfDay { get; set; } = "";
+        /// <summary>Vorlauf zwischen Ankündigung und Beginn in Sekunden.</summary>
+        public float Warmup { get; set; } = 30;
+        /// <summary>Höchstdauer; danach gilt das Ereignis als gescheitert.</summary>
+        public float Duration { get; set; } = 600;
+        public string Announce { get; set; } = "";
+        public string SuccessText { get; set; } = "";
+        public string FailureText { get; set; } = "";
+        public List<WorldEventPhaseDef> Phases { get; set; } = new List<WorldEventPhaseDef>();
+        public WorldEventRewardDef Rewards { get; set; } = new WorldEventRewardDef();
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ namespace EternalRealms.Server.AI
     /// </summary>
     public sealed partial class BotBrain
     {
-        private enum AutoState { Hunt, ToTown, Town, Errand, TurnIn }
+        private enum AutoState { Hunt, ToTown, Town, Errand, TurnIn, Event }
         private AutoState _auto = AutoState.Hunt;
         private Creature? _prey;
         private int _killsSinceTown;
@@ -29,6 +29,7 @@ namespace EternalRealms.Server.AI
             AutoState.Town => "in der Stadt",
             AutoState.Errand => "besucht " + (_errandNpc?.Name ?? "jemanden"),
             AutoState.TurnIn => "gibt eine Quest ab",
+            AutoState.Event => "kämpft beim Weltereignis mit",
             _ => "",
         };
 
@@ -52,9 +53,16 @@ namespace EternalRealms.Server.AI
                 if (dist > 80 && !Me.IsMounted && _w.Mounts.BestMount(Me) != null) { _w.Mounts.Mount(Me, ""); return; }
                 if (dist < 25 && Me.IsMounted) _w.Mounts.Dismount(Me);
             }
+            // Weltereignisse ziehen Bewohner an (Kapitel 37) – nicht mitten in einer Besorgung
+            if ((_auto == AutoState.Hunt || _auto == AutoState.Town) && !Me.InCombat && _w.Events.ActiveFor(zone, Me) != null && Me.HealthPct > 0.5f)
+            {
+                _auto = AutoState.Event;
+                _prey = null;
+            }
             switch (_auto)
             {
                 case AutoState.Hunt: Hunt(zone); return;
+                case AutoState.Event: FightEvent(zone); return;
                 case AutoState.ToTown:
                 {
                     var town = Town(zone);
@@ -97,6 +105,12 @@ namespace EternalRealms.Server.AI
                 _prey = FindPrey(zone);
                 if (_prey == null) { MoveTo(HuntingGround(zone), 5); return; }
             }
+            AttackPrey();
+        }
+
+        private void AttackPrey()
+        {
+            if (_prey == null) return;
             Me.Target = _prey;
             var ab = OpeningAbility();
             bool rangedHunter = Profile?.Ranged == true || (Role == Role.Healer && Me.Class != CharClass.Paladin);
@@ -105,6 +119,17 @@ namespace EternalRealms.Server.AI
             _moveTarget = null;
             Me.AutoAttacking = !(Profile?.Ranged == true) || Me.Class == CharClass.Hunter;
             if (ab != null) _w.Combat.TryCast(Me, ab, _prey);
+        }
+
+        private void FightEvent(ZoneInstance zone)
+        {
+            var ev = _w.Events.ActiveFor(zone, Me);
+            if (ev == null) { _auto = AutoState.Hunt; _prey = null; return; }
+            if (Vec3.DistanceXZ(Me.Position, ev.Def.Position) > ev.Def.Radius) { MoveTo(ev.Def.Position, ev.Def.Radius * 0.5f); return; }
+            if (_prey == null || _prey.IsDead || _prey.Removed)
+                _prey = ev.Spawned.Where(c => c.IsAlive && !c.Removed).OrderBy(c => c.DistanceTo(Me)).FirstOrDefault();
+            if (_prey == null) { MoveTo(ev.Def.Position, 8); return; }
+            AttackPrey();
         }
 
         /// <summary>Weltbewohner mit Sammelberufen nehmen Vorkommen am Weg mit (bis 25 m, außerhalb des Kampfes).</summary>

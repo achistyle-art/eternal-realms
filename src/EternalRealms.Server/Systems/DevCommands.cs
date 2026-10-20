@@ -40,10 +40,22 @@ namespace EternalRealms.Server.Systems
                     break;
                 case "heal": p.Health = p.MaxHealth; p.Power = p.MaxPower; break;
                 case "kill":
-                    if (p.Target != null && p.Target != p) _w.Combat.DealDamage(p, p.Target, p.Target.Health + 1000, School.Physical, null, "dev", false, false);
+                    if (p.Target != null && p.Target != p) _w.Combat.DealDamage(p, p.Target, (p.Target.Health + 1000) * 100f, School.Holy, null, "dev", false, false); // Rüstung und Widerstand sicher übertreffen
                     break;
                 case "spawn":
                     if (_w.Content.Creatures.ContainsKey(Arg(1))) p.Zone!.SpawnCreature(Arg(1), p.Position + new Vec3(5, 0, 0));
+                    break;
+                case "event":
+                    if (Arg(1) == "") { p.Notice("Ereignisse: " + string.Join(", ", _w.Content.WorldEvents.Keys)); break; }
+                    p.Notice(_w.Events.Start(Arg(1), skipWarmup: true) ?? "Ereignis gestartet.");
+                    break;
+                case "time":
+                    if (float.TryParse(Arg(1), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var hour)) _w.SetGameHour(hour);
+                    p.Notice($"Es ist {_w.GameHour:0.0} Uhr.");
+                    break;
+                case "weather":
+                    if (Enum.TryParse<Weather>(Arg(1), true, out var wth)) { p.Zone!.SetWeather(wth, 1f); p.Notice("Wetter: " + wth); }
+                    else p.Notice("Wetter: Clear, Rain, Snow, Fog, Storm");
                     break;
                 case "perf":
                     var ts = _w.TickStats;

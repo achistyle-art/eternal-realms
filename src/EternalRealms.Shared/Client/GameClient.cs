@@ -79,6 +79,8 @@ namespace EternalRealms.Shared.Client
         public S_TradeClosed? LastTradeResult { get; private set; }
         /// <summary>Betretene öffentliche Kanäle (Gebiet, Handel, Gruppensuche).</summary>
         public HashSet<ChatChannel> JoinedChannels { get; } = new HashSet<ChatChannel>();
+        /// <summary>Laufende und kürzlich beendete Weltereignisse der Region (Kapitel 37).</summary>
+        public Dictionary<string, S_WorldEvent> WorldEvents { get; } = new Dictionary<string, S_WorldEvent>();
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -184,7 +186,7 @@ namespace EternalRealms.Shared.Client
                 case S_CharacterList cl: Characters = cl.Characters; InWorld = false; break;
                 case S_CreateCharacterResult cr: Notices.Add(cr.Message); break;
                 case S_EnterWorld ew:
-                    if (ew.ZoneId != ZoneId || !InWorld) State.Clear();
+                    if (ew.ZoneId != ZoneId || !InWorld) { State.Clear(); WorldEvents.Clear(); }
                     InWorld = true;
                     ZoneId = ew.ZoneId;
                     CharacterId = ew.CharacterId;
@@ -257,6 +259,7 @@ namespace EternalRealms.Shared.Client
                 case S_VoteKick vk: VoteKick = vk; break;
                 case S_InstanceInfo ii: InstanceInfo = ii; break;
                 case S_Professions pf: Professions = pf.Professions; break;
+                case S_WorldEvent we: WorldEvents[we.EventId] = we; break;
                 case S_TradeRequest treq: TradeRequest = treq; break;
                 case S_TradeState tst: Trade = tst; TradeRequest = null; break;
                 case S_TradeClosed tc: Trade = null; LastTradeResult = tc; break;

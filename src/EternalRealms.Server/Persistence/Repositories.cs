@@ -45,7 +45,7 @@ namespace EternalRealms.Server.Persistence
     }
 
     /// <summary>Speicher im Arbeitsspeicher – für Tests und Einzelspieler ohne Datenbank.</summary>
-    public sealed class InMemoryStore : IAccountRepository, ICharacterRepository, IEconomyRepository, ISocialRepository
+    public sealed class InMemoryStore : IAccountRepository, ICharacterRepository, IEconomyRepository, ISocialRepository, IWorldRepository
     {
         private readonly ConcurrentDictionary<long, Account> _accounts = new();
         private readonly ConcurrentDictionary<long, CharacterData> _chars = new();
@@ -147,5 +147,13 @@ namespace EternalRealms.Server.Persistence
         public Task SaveGuildAsync(GuildData guild) { lock (_economyLock) _guilds[guild.Id] = guild.Clone(); return Task.CompletedTask; }
         public Task DeleteGuildAsync(long guildId) { lock (_economyLock) _guilds.Remove(guildId); return Task.CompletedTask; }
         public Task SaveReportAsync(PlayerReport report) { lock (_economyLock) _reports.Add(report); return Task.CompletedTask; }
+
+        private readonly Dictionary<string, DateTime> _spawnTimers = new();
+        public Task<Dictionary<string, DateTime>> LoadSpawnTimersAsync() { lock (_spawnTimers) return Task.FromResult(new Dictionary<string, DateTime>(_spawnTimers)); }
+        public Task SaveSpawnTimerAsync(string key, DateTime? respawnAt)
+        {
+            lock (_spawnTimers) { if (respawnAt == null) _spawnTimers.Remove(key); else _spawnTimers[key] = respawnAt.Value; }
+            return Task.CompletedTask;
+        }
     }
 }

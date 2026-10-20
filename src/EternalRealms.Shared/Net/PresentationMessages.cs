@@ -21,4 +21,33 @@ namespace EternalRealms.Shared.Net
         public override void Write(NetDataWriter w) { w.Put(SourceId); w.Put(TargetId); w.Put(EmoteId); }
         public override void Read(NetDataReader r) { SourceId = r.GetInt(); TargetId = r.GetInt(); EmoteId = r.GetString(); }
     }
+
+    public enum WorldEventState : byte { Announced = 0, Running = 1, Success = 2, Failed = 3 }
+
+    /// <summary>Stand eines Weltereignisses in der Region (Kapitel 37): für Tracker, Karte und Ansage.</summary>
+    public sealed class S_WorldEvent : Message
+    {
+        public override Opcode Op => Opcode.S_WorldEvent;
+        public string EventId = "";
+        public string Name = "";
+        public WorldEventState State;
+        public string Text = "";
+        public int Progress, Goal;
+        public float SecondsLeft;
+        public Vec3 Position;
+        public float Radius;
+        public int Participants;
+        /// <summary>Gehört der Empfänger zu den Beteiligten (bekommt die Belohnung)?</summary>
+        public bool Participating;
+        public override void Write(NetDataWriter w)
+        {
+            w.Put(EventId); w.Put(Name); w.Put((byte)State); w.Put(Text); w.Put(Progress); w.Put(Goal); w.Put(SecondsLeft);
+            w.Put(Position.X); w.Put(Position.Y); w.Put(Position.Z); w.Put(Radius); w.Put(Participants); w.Put(Participating);
+        }
+        public override void Read(NetDataReader r)
+        {
+            EventId = r.GetString(); Name = r.GetString(); State = (WorldEventState)r.GetByte(); Text = r.GetString(); Progress = r.GetInt(); Goal = r.GetInt(); SecondsLeft = r.GetFloat();
+            Position = new Vec3(r.GetFloat(), r.GetFloat(), r.GetFloat()); Radius = r.GetFloat(); Participants = r.GetInt(); Participating = r.GetBool();
+        }
+    }
 }

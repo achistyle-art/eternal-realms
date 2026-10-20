@@ -8,7 +8,7 @@ namespace EternalRealms.Shared.Client.Ui
     public enum MapMarkerKind : byte
     {
         Player, GroupMember, QuestAvailable, QuestTurnIn, QuestIncomplete, Vendor, Trainer, FlightMaster, Innkeeper, Banker, Auctioneer,
-        Mailbox, Herb, Ore, FishPool, Station, DungeonEntrance, Graveyard, Corpse, QuestArea,
+        Mailbox, Herb, Ore, FishPool, Station, DungeonEntrance, Graveyard, Corpse, QuestArea, WorldEvent,
     }
 
     public struct MapMarker
@@ -47,6 +47,9 @@ namespace EternalRealms.Shared.Client.Ui
             }
             if (client.State.DeathState == DeathState.Ghost)
                 list.Add(new MapMarker { Kind = MapMarkerKind.Corpse, Label = "Leichnam", X = client.State.CorpsePosition.X, Z = client.State.CorpsePosition.Z });
+            foreach (var ev in client.WorldEvents.Values)
+                if (ev.State <= Net.WorldEventState.Running)
+                    list.Add(new MapMarker { Kind = MapMarkerKind.WorldEvent, Label = ev.Name + ": " + ev.Text, X = ev.Position.X, Z = ev.Position.Z });
             list.Add(new MapMarker { Kind = MapMarkerKind.Player, Label = me.Name, X = me.Position.X, Z = me.Position.Z, EntityId = me.Id });
             return list;
         }

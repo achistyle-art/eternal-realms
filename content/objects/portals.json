@@ -1,0 +1,106 @@
+[
+ {
+  "id": "obj_portal_sf_heim",
+  "name": "Portal: Morgentauwald",
+  "model": "portal_city",
+  "teleportZone": "zone_morgentauwald",
+  "teleportPosition": [
+   395,
+   0,
+   440
+  ],
+  "requiredFaction": "Sonnenbuendnis",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_portal_nach_sf",
+  "name": "Portal: Sonnenfeste",
+  "model": "portal_city",
+  "teleportZone": "zone_sonnenfeste",
+  "teleportPosition": [
+   256,
+   0,
+   451
+  ],
+  "requiredFaction": "Sonnenbuendnis",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_portal_sm_heim",
+  "name": "Portal: Morgentauwald",
+  "model": "portal_city",
+  "teleportZone": "zone_morgentauwald",
+  "teleportPosition": [
+   395,
+   0,
+   440
+  ],
+  "requiredFaction": "Sonnenbuendnis",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_portal_nach_sm",
+  "name": "Portal: Silbermond",
+  "model": "portal_city",
+  "teleportZone": "zone_silbermond",
+  "teleportPosition": [
+   256,
+   0,
+   451
+  ],
+  "requiredFaction": "Sonnenbuendnis",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_portal_kz_heim",
+  "name": "Portal: Aschensteppe",
+  "model": "portal_city",
+  "teleportZone": "zone_aschensteppe",
+  "teleportPosition": [
+   415,
+   0,
+   460
+  ],
+  "requiredFaction": "Schattenpakt",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_portal_nach_kz",
+  "name": "Portal: Kharzul",
+  "model": "portal_city",
+  "teleportZone": "zone_kharzul",
+  "teleportPosition": [
+   256,
+   0,
+   451
+  ],
+  "requiredFaction": "Schattenpakt",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_portal_nw_heim",
+  "name": "Portal: Aschensteppe",
+  "model": "portal_city",
+  "teleportZone": "zone_aschensteppe",
+  "teleportPosition": [
+   415,
+   0,
+   460
+  ],
+  "requiredFaction": "Schattenpakt",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_portal_nach_nw",
+  "name": "Portal: Nachtwacht",
+  "model": "portal_city",
+  "teleportZone": "zone_nachtwacht",
+  "teleportPosition": [
+   256,
+   0,
+   451
+  ],
+  "requiredFaction": "Schattenpakt",
+  "interactTime": 0.5
+ }
+]

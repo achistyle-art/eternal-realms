@@ -1,0 +1,206 @@
+[
+ {
+  "id": "ev_mt_wolfsnacht",
+  "name": "Die Nacht der hungrigen Wölfe",
+  "zone": "zone_morgentauwald",
+  "position": [
+   560,
+   0,
+   320
+  ],
+  "radius": 55,
+  "minLevel": 4,
+  "maxLevel": 9,
+  "intervalMinutes": [
+   25,
+   50
+  ],
+  "timeOfDay": "night",
+  "warmup": 45,
+  "duration": 600,
+  "announce": "Im Wolfshain heulen hungrige Wölfe – gleich fallen sie über die Höfe her!",
+  "successText": "Das Rudel ist zerschlagen. Die Bauern von Morgentau danken Euch!",
+  "failureText": "Die Wölfe ziehen sich mit ihrer Beute zurück …",
+  "phases": [
+   {
+    "type": "Kill",
+    "text": "Besiegt die ausgehungerten Wölfe",
+    "creature": "mob_ev_hungerwolf",
+    "count": 12,
+    "perWave": 4,
+    "waveSeconds": 25
+   },
+   {
+    "type": "Boss",
+    "text": "Die Rudelführerin greift selbst an!",
+    "creature": "mob_ev_rudelfuehrerin",
+    "yell": "Aaaauuuuuu!"
+   }
+  ],
+  "rewards": {
+   "xp": 900,
+   "money": 350,
+   "reputation": [
+    {
+     "faction": "rep_morgentau",
+     "amount": 150
+    }
+   ],
+   "items": [
+    {
+     "item": "item_minor_healing_potion",
+     "chance": 0.8,
+     "min": 2,
+     "max": 3
+    }
+   ]
+  }
+ },
+ {
+  "id": "ev_mt_karren",
+  "name": "Der Karren der Familie Lenz",
+  "zone": "zone_morgentauwald",
+  "position": [
+   700,
+   0,
+   470
+  ],
+  "radius": 45,
+  "minLevel": 5,
+  "maxLevel": 10,
+  "intervalMinutes": [
+   35,
+   70
+  ],
+  "timeOfDay": "day",
+  "warmup": 40,
+  "duration": 400,
+  "announce": "Rotbach-Räuber haben den Händlerkarren der Familie Lenz umstellt! Verteidigt ihn!",
+  "successText": "Der Karren ist gerettet – die Räuber fliehen in die Wälder.",
+  "failureText": "Der Karren ist zerstört. Die Räuber feiern im Rotbach-Lager.",
+  "phases": [
+   {
+    "type": "Defend",
+    "text": "Schützt den Händlerkarren",
+    "creature": "mob_ev_raeuber",
+    "defend": "npc_ev_karren",
+    "perWave": 3,
+    "waveSeconds": 30,
+    "seconds": 150
+   }
+  ],
+  "rewards": {
+   "xp": 800,
+   "money": 400,
+   "reputation": [
+    {
+     "faction": "rep_morgentau",
+     "amount": 200
+    }
+   ],
+   "items": []
+  }
+ },
+ {
+  "id": "ev_as_flutboten",
+  "name": "Ruf der Hohlen Flut",
+  "zone": "zone_aschensteppe",
+  "position": [
+   760,
+   0,
+   480
+  ],
+  "radius": 55,
+  "minLevel": 5,
+  "maxLevel": 10,
+  "intervalMinutes": [
+   30,
+   60
+  ],
+  "timeOfDay": "",
+  "warmup": 45,
+  "duration": 600,
+  "announce": "Die Kultisten in der Kultschlucht beschwören einen Boten der Hohlen Flut! Haltet sie auf!",
+  "successText": "Der Bote ist vernichtet, das Ritual gebrochen. Kargrak ist Euch dankbar!",
+  "failureText": "Das Ritual ist vollendet – der Bote verschwindet in den Schatten …",
+  "phases": [
+   {
+    "type": "Kill",
+    "text": "Besiegt die Ascheprediger",
+    "creature": "mob_ev_kultist",
+    "count": 10,
+    "perWave": 3,
+    "waveSeconds": 25
+   },
+   {
+    "type": "Boss",
+    "text": "Der Bote der Hohlen Flut ist erschienen!",
+    "creature": "mob_ev_flutbote",
+    "yell": "Die Flut verschlingt alles!"
+   }
+  ],
+  "rewards": {
+   "xp": 900,
+   "money": 350,
+   "reputation": [
+    {
+     "faction": "rep_kargrak",
+     "amount": 150
+    }
+   ],
+   "items": [
+    {
+     "item": "item_minor_healing_potion",
+     "chance": 0.8,
+     "min": 2,
+     "max": 3
+    }
+   ]
+  }
+ },
+ {
+  "id": "ev_as_oase",
+  "name": "Die Oase in Gefahr",
+  "zone": "zone_aschensteppe",
+  "position": [
+   720,
+   0,
+   690
+  ],
+  "radius": 45,
+  "minLevel": 5,
+  "maxLevel": 10,
+  "intervalMinutes": [
+   35,
+   70
+  ],
+  "timeOfDay": "night",
+  "warmup": 40,
+  "duration": 400,
+  "announce": "Aschegeister umkreisen den Wasserstein der Oase Zharim! Ohne ihn verdurstet die Oase!",
+  "successText": "Der Wasserstein ist sicher. Die Oase lebt weiter.",
+  "failureText": "Der Wasserstein ist zerbrochen – die Oase trocknet aus, bis die Schamanen ihn erneuern.",
+  "phases": [
+   {
+    "type": "Defend",
+    "text": "Schützt den Wasserstein",
+    "creature": "mob_aschegeist",
+    "defend": "npc_ev_brunnen",
+    "perWave": 3,
+    "waveSeconds": 30,
+    "seconds": 150
+   }
+  ],
+  "rewards": {
+   "xp": 800,
+   "money": 400,
+   "reputation": [
+    {
+     "faction": "rep_kargrak",
+     "amount": 200
+    }
+   ],
+   "items": []
+  }
+ }
+]

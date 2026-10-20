@@ -442,8 +442,10 @@ namespace EternalRealms.Server.Systems
             if (source != null)
             {
                 amount *= 1 + source.Mod(ModType.DamageDonePercent, school, abilityBase) / 100f;
-                if (source is Creature sc) amount *= sc.DamageMultiplier;
+                if (source is Creature sc) amount *= sc.DamageMultiplier * EnvironmentRules.NightCreatureDamage(sc.Template.Family, _w.GameHour);
             }
+            // Wetter (Kapitel 36): z. B. Regen dämpft Feuer, Schnee stärkt Frost
+            if (target.Zone != null) amount *= EnvironmentRules.SchoolDamage(target.Zone.Weather, target.Zone.WeatherIntensity, school);
             if (crit) amount *= (school == School.Physical ? 2f : 1.5f) + (source?.Mod(ModType.CritDamagePercent, school, abilityBase) ?? 0) / 100f;
             if (glancing) amount *= 0.75f;
             if (blocked) amount *= 0.7f;
@@ -805,6 +807,7 @@ namespace EternalRealms.Server.Systems
                     return;
                 }
                 if (c.IsBoss) _w.Instances.OnBossKilled(c);
+                _w.Events.OnCreatureDied(c, attackers);
                 var tapper = c.TappedBy ?? killerPlayer;
                 if (tapper != null && !tapper.Removed)
                 {

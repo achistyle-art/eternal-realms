@@ -240,7 +240,9 @@
     "count": 14,
     "radius": 60,
     "respawnSeconds": 45,
-    "wanderRadius": 10
+    "wanderRadius": 10,
+    "rareCreature": "mob_graumaehne",
+    "rareChance": 0.05
    },
    {
     "creature": "mob_graumaehne",
@@ -274,7 +276,9 @@
       0,
       280
      ]
-    ]
+    ],
+    "timeOfDay": "night",
+    "respawnMaxSeconds": 5400
    },
    {
     "creature": "mob_moss_spider",
@@ -392,7 +396,23 @@
     "count": 1,
     "radius": 0,
     "respawnSeconds": 7200,
-    "wanderRadius": 0
+    "wanderRadius": 0,
+    "persistent": true,
+    "respawnMaxSeconds": 14400,
+    "announce": "Die Erde bebt auf der Dornenhöhe – {name} ist erwacht!"
+   },
+   {
+    "creature": "mob_irrlicht",
+    "position": [
+     840,
+     0,
+     230
+    ],
+    "count": 6,
+    "radius": 35,
+    "respawnSeconds": 90,
+    "wanderRadius": 10,
+    "timeOfDay": "night"
    }
   ],
   "npcs": [
@@ -1053,6 +1073,28 @@
     "count": 3,
     "radius": 70,
     "respawnSeconds": 240
+   },
+   {
+    "object": "obj_portal_nach_sf",
+    "position": [
+     385,
+     0,
+     455
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_portal_nach_sm",
+    "position": [
+     405,
+     0,
+     455
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
    }
   ],
   "mapRect": [

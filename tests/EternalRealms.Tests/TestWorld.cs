@@ -11,11 +11,13 @@ namespace EternalRealms.Tests
     public sealed class TestWorld
     {
         public GameWorld World { get; }
-        public InMemoryStore Store { get; } = new();
+        public InMemoryStore Store { get; }
         public List<string> Log { get; } = new();
 
-        public TestWorld(int seed = 1234, bool ambientBots = false, bool zoneLod = true)
+        /// <param name="store">Gemeinsamer Speicher, um einen Serverneustart nachzustellen.</param>
+        public TestWorld(int seed = 1234, bool ambientBots = false, bool zoneLod = true, InMemoryStore? store = null)
         {
+            Store = store ?? new InMemoryStore();
             var config = new ServerConfig { AmbientBots = ambientBots, DevCommands = true, ZoneLod = zoneLod };
             World = new GameWorld(TestContent.Db, config, Store, new GameRandom(seed)) { Log = s => { lock (Log) Log.Add(s); } };
             World.Bots.LoadOffline(Array.Empty<CharacterData>());

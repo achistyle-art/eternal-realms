@@ -240,7 +240,9 @@
     "count": 14,
     "radius": 60,
     "respawnSeconds": 45,
-    "wanderRadius": 10
+    "wanderRadius": 10,
+    "rareCreature": "mob_dunestalker",
+    "rareChance": 0.05
    },
    {
     "creature": "mob_dunestalker",
@@ -274,7 +276,9 @@
       0,
       270
      ]
-    ]
+    ],
+    "timeOfDay": "day",
+    "respawnMaxSeconds": 5400
    },
    {
     "creature": "mob_ember_lizard",
@@ -346,7 +350,23 @@
     "count": 1,
     "radius": 0,
     "respawnSeconds": 7200,
-    "wanderRadius": 0
+    "wanderRadius": 0,
+    "persistent": true,
+    "respawnMaxSeconds": 14400,
+    "announce": "Der Aschenkrater speit Glut – {name} ist erwacht!"
+   },
+   {
+    "creature": "mob_aschegeist",
+    "position": [
+     850,
+     0,
+     230
+    ],
+    "count": 6,
+    "radius": 35,
+    "respawnSeconds": 90,
+    "wanderRadius": 10,
+    "timeOfDay": "night"
    }
   ],
   "npcs": [
@@ -996,6 +1016,28 @@
     "count": 3,
     "radius": 60,
     "respawnSeconds": 240
+   },
+   {
+    "object": "obj_portal_nach_kz",
+    "position": [
+     405,
+     0,
+     475
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_portal_nach_nw",
+    "position": [
+     425,
+     0,
+     475
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
    }
   ],
   "mapRect": [

@@ -22,6 +22,7 @@ namespace EternalRealms.Client
         private string _zone = "";
         private Light _sun = null!;
         private ParticleSystem? _rain;
+        private float _flash;
         private GameObject _selection = null!;
         public readonly List<FloatingText> FloatingTexts = new List<FloatingText>();
 
@@ -199,6 +200,12 @@ namespace EternalRealms.Client
             RenderSettings.fogDensity = weather == Weather.Fog ? 0.02f * Mathf.Max(0.3f, intensity) : 0.002f;
             RenderSettings.fogColor = Color.Lerp(new Color(0.05f, 0.05f, 0.1f), new Color(0.7f, 0.75f, 0.8f), day);
             if (Camera.main != null) Camera.main.backgroundColor = RenderSettings.fogColor;
+            // Gewitter: gelegentliche Blitze (abschaltbar über „Blitz- und Pulseffekte reduzieren“)
+            if (weather == Weather.Storm && !Client.Settings.ReduceFlashes)
+            {
+                if (_flash <= 0 && Random.value < Time.deltaTime * 0.08f * Mathf.Max(0.3f, intensity)) { _flash = 0.15f; AudioManager.Instance?.PlayUi("thunder", 0.6f); }
+                if (_flash > 0) { _flash -= Time.deltaTime; _sun.intensity += 1.5f * (_flash / 0.15f); }
+            }
             if (_rain != null && Client.Me != null)
             {
                 _rain.transform.position = Client.Me.Position.ToUnity() + Vector3.up * 20;

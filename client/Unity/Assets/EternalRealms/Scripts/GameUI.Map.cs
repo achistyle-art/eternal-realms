@@ -3,6 +3,7 @@ using System.Linq;
 using EternalRealms.Shared;
 using EternalRealms.Shared.Client.Ui;
 using EternalRealms.Shared.Content;
+using EternalRealms.Shared.Net;
 using UnityEngine;
 
 namespace EternalRealms.Client
@@ -28,6 +29,7 @@ namespace EternalRealms.Client
             MapMarkerKind.DungeonEntrance => new Color(0.9f, 0.4f, 1f),
             MapMarkerKind.Graveyard => new Color(0.7f, 0.7f, 0.9f),
             MapMarkerKind.Corpse => new Color(1f, 0.3f, 0.3f),
+            MapMarkerKind.WorldEvent => new Color(1f, 0.55f, 0.1f),
             _ => new Color(0.9f, 0.9f, 0.7f),
         };
 
@@ -38,7 +40,7 @@ namespace EternalRealms.Client
             MapMarkerKind.QuestArea => "◎", MapMarkerKind.Vendor => "H", MapMarkerKind.Trainer => "L", MapMarkerKind.FlightMaster => "F",
             MapMarkerKind.Innkeeper => "G", MapMarkerKind.Banker => "B", MapMarkerKind.Auctioneer => "A", MapMarkerKind.Mailbox => "P",
             MapMarkerKind.Herb => "♣", MapMarkerKind.Ore => "◆", MapMarkerKind.FishPool => "~", MapMarkerKind.Station => "W",
-            MapMarkerKind.DungeonEntrance => "D", MapMarkerKind.Graveyard => "†", MapMarkerKind.Corpse => "✝", _ => "•",
+            MapMarkerKind.DungeonEntrance => "D", MapMarkerKind.Graveyard => "†", MapMarkerKind.Corpse => "✝", MapMarkerKind.WorldEvent => "⚔", _ => "•",
         };
 
         private void DrawMarker(Vector2 center, MapMarker m)
@@ -152,6 +154,9 @@ namespace EternalRealms.Client
             var questIds = Client.State.QuestLog?.Quests.Select(q => q.QuestId).ToList() ?? new List<string>();
             foreach (var m in Map.ZoneMarkers(zone, Client.DiscoveredAreas, Client.KnownFlightNodes, questIds)) DrawMarker(ToMap(m.X, m.Z), m);
             if (zone.Id == Client.ZoneId)
+                foreach (var ev in Client.WorldEvents.Values.Where(e => e.State <= WorldEventState.Running))
+                    DrawMarker(ToMap(ev.Position.X, ev.Position.Z), new MapMarker { Kind = MapMarkerKind.WorldEvent, Label = $"{ev.Name}: {ev.Text}" });
+            if (zone.Id == Client.ZoneId)
             {
                 var groupIds = new HashSet<int>(Client.Group.Select(g => g.EntityId));
                 foreach (var e in Client.State.Entities.Values.Where(e => groupIds.Contains(e.Id) && e.Id != Client.State.MyId))
@@ -166,9 +171,17 @@ namespace EternalRealms.Client
         private void DrawQuestTracker()
         {
             var log = Client.State.QuestLog;
-            if (!Settings.ShowQuestTracker || log == null || log.Quests.Count == 0) return;
+            if (!Settings.ShowQuestTracker) return;
             float x = ScreenW - 260, y = (Settings.ShowMinimap ? 210 : 10) + 70;
             var text = "";
+            // Weltereignisse der Region zuerst (Kapitel 37); beendete verschwinden nach kurzer Zeit
+            foreach (var ev in Client.WorldEvents.Values)
+            {
+                if (ev.State > WorldEventState.Running) continue;
+                string bar = ev.Goal > 0 ? $" {ev.Progress}/{ev.Goal}" : "";
+                text += $"<color=#ffa040><b>⚔ {ev.Name}</b></color>{(ev.Participating ? " <color=#9f9>(dabei)</color>" : "")}\n  {ev.Text}{bar} · {ev.SecondsLeft:0} s\n";
+            }
+            if (log == null) { if (text != "") DrawTrackerBox(x, y, text); return; }
             foreach (var q in log.Quests.Take(8))
             {
                 if (!Content.Quests.TryGetValue(q.QuestId, out var def)) continue;
@@ -183,6 +196,11 @@ namespace EternalRealms.Client
                 }
             }
             if (text == "") return;
+            DrawTrackerBox(x, y, text);
+        }
+
+        private void DrawTrackerBox(float x, float y, string text)
+        {
             float h = _wrap!.CalcHeight(new GUIContent(text), 246) + 6;
             var r = Box(new Rect(x, y, 250, h));
             var old = GUI.color;

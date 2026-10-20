@@ -1,6 +1,7 @@
 using EternalRealms.Shared;
 using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
+using EternalRealms.Shared.Rules;
 
 namespace EternalRealms.Server.World
 {
@@ -66,9 +67,9 @@ namespace EternalRealms.Server.World
                         double ang = rng.NextDouble() * Math.PI * 2, dist = Math.Sqrt(rng.NextDouble()) * s.Radius;
                         pos = new Vec3(pos.X + (float)(Math.Cos(ang) * dist), pos.Y, pos.Z + (float)(Math.Sin(ang) * dist));
                     }
-                    var sp = new SpawnPoint(s, pos, s.Facing + (float)rng.NextDouble() * 0.5f, SpawnPoints.Count);
+                    var sp = new SpawnPoint(s, pos, s.Facing + (float)rng.NextDouble() * 0.5f, SpawnPoints.Count, Def.Id);
                     SpawnPoints.Add(sp);
-                    SpawnCreatureAt(sp);
+                    if (EnvironmentRules.TimeMatches(s.TimeOfDay, World.GameHour)) SpawnCreatureAt(sp, initial: true);
                 }
             }
             foreach (var n in Def.Npcs)
@@ -96,16 +97,41 @@ namespace EternalRealms.Server.World
             }
         }
 
-        public Creature SpawnCreatureAt(SpawnPoint sp)
+        /// <param name="initial">Erstbesetzung beim Start: gespeicherte Wiederkehrzeiten bleiben unangetastet (ApplySpawnTimers prüft sie danach).</param>
+        public Creature SpawnCreatureAt(SpawnPoint sp, bool initial = false)
         {
-            var def = World.Content.Creatures[sp.Def.Creature];
+            // Platzhalter: gelegentlich erscheint stattdessen der Seltene – aber nie zweimal zugleich
+            string id = SpawnRules.PickCreature(sp.Def, World.Random,
+                sp.Def.RareCreature != null && Entities.Values.OfType<Creature>().Any(c => c.Template.Id == sp.Def.RareCreature && c.IsAlive));
+            var def = World.Content.Creatures[id];
             int level = World.Random.Range(def.MinLevel, def.MaxLevel);
             var c = new Creature(def, level) { Home = sp.Position, HomeFacing = sp.Facing, Position = sp.Position, Facing = sp.Facing, Spawn = sp };
             if (sp.Def.Patrol.Count > 0) c.AI.Patrol = sp.Def.Patrol;
             c.AI.WanderRadius = sp.Def.WanderRadius;
             sp.Current = c;
             Add(c);
+            if (sp.Def.Persistent && !initial) World.SaveSpawnTimer(sp.Key, null);
+            if (sp.Def.Announce.Length > 0 && !initial) BroadcastAll(new S_Chat { Channel = ChatChannel.System, Text = sp.Def.Announce.Replace("{name}", def.Name) });
             return c;
+        }
+
+        /// <summary>Kreatur eines Spawnpunkts ist gestorben oder verschwunden: Wiederkehr nach den Spawnregeln planen.</summary>
+        public void OnSpawnDied(SpawnPoint sp, Creature c)
+        {
+            bool special = c.Template.Rare || c.Template.Boss || c.Template.WorldBoss || sp.Def.Persistent;
+            sp.RespawnTimer = SpawnRules.RespawnDelay(sp.Def, World.Random, PlayersInRange(sp.Position, 60).Count(p => !p.IsBot || p.Group != null), special);
+            sp.Current = null;
+            if (sp.Def.Persistent) World.SaveSpawnTimer(sp.Key, DateTime.UtcNow.AddSeconds(sp.RespawnTimer));
+        }
+
+        /// <summary>Tag- oder Nachtkreaturen ohne Kampf verschwinden, wenn ihre Zeit vorbei ist, und kehren zur richtigen Zeit zurück.</summary>
+        private void CheckTimeOfDay(SpawnPoint sp)
+        {
+            if (sp.Def.TimeOfDay.Length == 0 || sp.Current == null || sp.Current.Removed) return;
+            if (EnvironmentRules.TimeMatches(sp.Def.TimeOfDay, World.GameHour) || sp.Current.InCombat || sp.Current.IsDead) return;
+            Remove(sp.Current);
+            sp.Current = null;
+            sp.RespawnTimer = 0;
         }
 
         /// <summary>Erzeugt eine Kreatur außerhalb fester Spawnpunkte (Boss-Adds, Hinterhalte, Begleiter).</summary>
@@ -267,10 +293,13 @@ namespace EternalRealms.Server.World
         {
             foreach (var sp in SpawnPoints)
             {
+                CheckTimeOfDay(sp);
                 if (sp.Current != null && !sp.Current.Removed) continue;
+                // Leiche anderweitig entfernt (gehäutet, Zone geleert): Wiederkehr trotzdem nach den Regeln
+                if (sp.Current != null && sp.Current.IsDead) OnSpawnDied(sp, sp.Current);
                 sp.Current = null;
                 sp.RespawnTimer -= elapsed;
-                if (sp.RespawnTimer <= 0) SpawnCreatureAt(sp);
+                if (sp.RespawnTimer <= 0 && EnvironmentRules.TimeMatches(sp.Def.TimeOfDay, World.GameHour)) SpawnCreatureAt(sp);
             }
             foreach (var go in Objects.Where(o => !o.Available))
             {
@@ -307,10 +336,13 @@ namespace EternalRealms.Server.World
             }
             foreach (var sp in SpawnPoints)
             {
+                if (_tick % 20 == sp.Index % 20) CheckTimeOfDay(sp);
                 if (sp.Current != null && !sp.Current.Removed) continue;
+                // Leiche anderweitig entfernt (gehäutet, Zone geleert): Wiederkehr trotzdem nach den Regeln
+                if (sp.Current != null && sp.Current.IsDead) OnSpawnDied(sp, sp.Current);
                 sp.Current = null;
                 sp.RespawnTimer -= dt;
-                if (sp.RespawnTimer <= 0)
+                if (sp.RespawnTimer <= 0 && EnvironmentRules.TimeMatches(sp.Def.TimeOfDay, World.GameHour))
                 {
                     // Nicht vor den Augen eines Spielers in direkter Nähe erscheinen.
                     if (PlayersInRange(sp.Position, 8).Any(p => p.IsAlive)) { sp.RespawnTimer = 2; continue; }
@@ -330,6 +362,14 @@ namespace EternalRealms.Server.World
                     u.AurasChanged = false;
                     BroadcastFrom(u, new S_AuraUpdate { TargetId = u.Id, Auras = u.Auras.Select(a => a.ToNet()).ToList() });
                 }
+        }
+
+        public void SetWeather(Weather w, float intensity)
+        {
+            Weather = w;
+            WeatherIntensity = w == Weather.Clear ? 0 : intensity;
+            WeatherTimer = 600;
+            BroadcastAll(World.BuildWorldState(this));
         }
 
         private void UpdateWeather(float dt)

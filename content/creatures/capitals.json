@@ -1,0 +1,2878 @@
+[
+ {
+  "id": "npc_sf_herrscher",
+  "name": "Aldwin",
+  "title": "Herrschaft von Sonnenfeste",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 63,
+  "maxLevel": 63,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 20,
+  "gossip": "Willkommen in Sonnenfeste. Solange diese Mauern stehen, steht auch unser Volk."
+ },
+ {
+  "id": "npc_sf_bank1",
+  "name": "Bertha",
+  "title": "Bank von Sonnenfeste",
+  "faction": "Sonnenbuendnis",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Euer Hab und Gut ist hier sicher."
+ },
+ {
+  "id": "npc_sf_bank2",
+  "name": "Cedric",
+  "title": "Bank von Sonnenfeste",
+  "faction": "Sonnenbuendnis",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Einzahlen, abheben – ganz wie Ihr wünscht."
+ },
+ {
+  "id": "npc_sf_auktion1",
+  "name": "Dorothea",
+  "title": "Auktionshaus",
+  "faction": "Sonnenbuendnis",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Das größte Auktionshaus der Fraktion – kaufen, verkaufen, bieten."
+ },
+ {
+  "id": "npc_sf_auktion2",
+  "name": "Edmund",
+  "title": "Auktionshaus",
+  "faction": "Sonnenbuendnis",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Heute schon geboten?"
+ },
+ {
+  "id": "npc_sf_ruestung",
+  "name": "Frieda",
+  "title": "Waffen und Rüstungen",
+  "faction": "Sonnenbuendnis",
+  "roles": "Vendor, Repair",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ],
+  "gossip": "Gute Klingen, feste Rüstungen – und Reparaturen."
+ },
+ {
+  "id": "npc_sf_wirt",
+  "name": "Gunther",
+  "title": "Gasthaus von Sonnenfeste",
+  "faction": "Sonnenbuendnis",
+  "roles": "Innkeeper, Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_minor_healing_potion",
+   "item_bag_linen",
+   "item_bag_leather"
+  ],
+  "gossip": "Ein Bett für die Nacht? Bei uns wacht Ihr ausgeruht auf.",
+  "barks": [
+   "Frisches Brot!",
+   "Noch ein Krug?"
+  ]
+ },
+ {
+  "id": "npc_sf_werkzeug",
+  "name": "Hilde",
+  "title": "Werkzeug und Zubehör",
+  "faction": "Sonnenbuendnis",
+  "roles": "Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tool_mining_pick",
+   "item_tool_skinning_knife",
+   "item_tool_blacksmith_hammer",
+   "item_tool_fishing_pole",
+   "item_empty_vial",
+   "item_coarse_thread",
+   "item_fine_thread",
+   "item_salt",
+   "item_mild_spices",
+   "item_flux"
+  ],
+  "gossip": "Alles, was Handwerker brauchen."
+ },
+ {
+  "id": "npc_sf_stall",
+  "name": "Ingram",
+  "title": "Stallmeisterei",
+  "faction": "Sonnenbuendnis",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 40,
+  "maxLevel": 40,
+  "model": "npc",
+  "vendorItems": [
+   "item_mount_grey_steed",
+   "item_mount_chestnut_steed",
+   "item_mount_mountain_ram",
+   "item_mount_moon_stag",
+   "item_mount_swift_white_steed"
+  ],
+  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+ },
+ {
+  "id": "npc_sf_flug",
+  "name": "Jolanda",
+  "title": "Flugmeisterei",
+  "faction": "Sonnenbuendnis",
+  "roles": "FlightMaster",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Von hier aus erreicht Ihr die Siedlungen Eurer Fraktion."
+ },
+ {
+  "id": "npc_sf_lehrer_druid",
+  "name": "Konrad",
+  "title": "Druide-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Druid",
+  "gossip": "Ich lehre die Künste der Druide bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_lehrer_hunter",
+  "name": "Liesel",
+  "title": "Jäger-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Hunter",
+  "gossip": "Ich lehre die Künste der Jäger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_lehrer_mage",
+  "name": "Magnus",
+  "title": "Magier-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Mage",
+  "gossip": "Ich lehre die Künste der Magier bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_lehrer_paladin",
+  "name": "Notburga",
+  "title": "Paladin-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Paladin",
+  "gossip": "Ich lehre die Künste der Paladin bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_lehrer_priest",
+  "name": "Oswald",
+  "title": "Priester-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Priest",
+  "gossip": "Ich lehre die Künste der Priester bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_lehrer_rogue",
+  "name": "Petra",
+  "title": "Schurke-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Rogue",
+  "gossip": "Ich lehre die Künste der Schurke bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_lehrer_warlock",
+  "name": "Quirin",
+  "title": "Hexenmeister-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warlock",
+  "gossip": "Ich lehre die Künste der Hexenmeister bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_lehrer_warrior",
+  "name": "Rosalind",
+  "title": "Krieger-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warrior",
+  "gossip": "Ich lehre die Künste der Krieger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sf_beruf_mining",
+  "name": "Siegbert",
+  "title": "Meister: Bergbau",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "mining",
+  "gossip": "Bergbau – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_herbalism",
+  "name": "Theda",
+  "title": "Meister: Kräuterkunde",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "herbalism",
+  "gossip": "Kräuterkunde – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_skinning",
+  "name": "Ulrich",
+  "title": "Meister: Kürschnerei",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "skinning",
+  "gossip": "Kürschnerei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_blacksmithing",
+  "name": "Veronika",
+  "title": "Meister: Schmiedekunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "blacksmithing",
+  "gossip": "Schmiedekunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_leatherworking",
+  "name": "Walram",
+  "title": "Meister: Lederverarbeitung",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "leatherworking",
+  "gossip": "Lederverarbeitung – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_tailoring",
+  "name": "Yvette",
+  "title": "Meister: Schneiderei",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "tailoring",
+  "gossip": "Schneiderei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_alchemy",
+  "name": "Arnulf",
+  "title": "Meister: Alchemie",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "alchemy",
+  "gossip": "Alchemie – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_engineering",
+  "name": "Brunhild",
+  "title": "Meister: Ingenieurskunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "engineering",
+  "gossip": "Ingenieurskunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_enchanting",
+  "name": "Dietmar",
+  "title": "Meister: Verzauberkunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "enchanting",
+  "gossip": "Verzauberkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_fishing",
+  "name": "Elfriede",
+  "title": "Meister: Angeln",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "fishing",
+  "gossip": "Angeln – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_cooking",
+  "name": "Folkmar",
+  "title": "Meister: Kochkunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "cooking",
+  "gossip": "Kochkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_beruf_first_aid",
+  "name": "Gisela",
+  "title": "Meister: Erste Hilfe",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "first_aid",
+  "gossip": "Erste Hilfe – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sf_wache",
+  "name": "Wache von Sonnenfeste",
+  "title": "Königsgarde der Sonnenfeste",
+  "faction": "Sonnenbuendnis",
+  "roles": "Guard",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 6,
+  "damageMultiplier": 3,
+  "aggroRadius": 22,
+  "barks": [
+   "Für die Stadt!",
+   "Alles ruhig.",
+   "Haltet Ordnung, Bürger."
+  ]
+ },
+ {
+  "id": "npc_sf_buerger1",
+  "name": "Hartmut",
+  "title": "Bürger",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     246,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     156,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sf_buerger2",
+  "name": "Irmgard",
+  "title": "Bürgerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     250,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     196,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sf_buerger3",
+  "name": "Kunibert",
+  "title": "Bürger",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     254,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     236,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sf_buerger4",
+  "name": "Luitgard",
+  "title": "Bürgerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     258,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     276,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sf_buerger5",
+  "name": "Meinrad",
+  "title": "Bürger",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     262,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     316,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sf_buerger6",
+  "name": "Odila",
+  "title": "Bürgerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     266,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     356,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sf_geisterheiler",
+  "name": "Geisterheiler",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Kehrt zurück, Wanderer – die Stadt braucht Euch."
+ },
+ {
+  "id": "npc_sm_herrscher",
+  "name": "Aelthas",
+  "title": "Herrschaft von Silbermond",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 63,
+  "maxLevel": 63,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 20,
+  "gossip": "Willkommen in Silbermond. Solange diese Mauern stehen, steht auch unser Volk."
+ },
+ {
+  "id": "npc_sm_bank1",
+  "name": "Brynja",
+  "title": "Bank von Silbermond",
+  "faction": "Sonnenbuendnis",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Euer Hab und Gut ist hier sicher."
+ },
+ {
+  "id": "npc_sm_bank2",
+  "name": "Caelith",
+  "title": "Bank von Silbermond",
+  "faction": "Sonnenbuendnis",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Einzahlen, abheben – ganz wie Ihr wünscht."
+ },
+ {
+  "id": "npc_sm_auktion1",
+  "name": "Dorin",
+  "title": "Auktionshaus",
+  "faction": "Sonnenbuendnis",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Das größte Auktionshaus der Fraktion – kaufen, verkaufen, bieten."
+ },
+ {
+  "id": "npc_sm_auktion2",
+  "name": "Elowen",
+  "title": "Auktionshaus",
+  "faction": "Sonnenbuendnis",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Heute schon geboten?"
+ },
+ {
+  "id": "npc_sm_ruestung",
+  "name": "Faelar",
+  "title": "Waffen und Rüstungen",
+  "faction": "Sonnenbuendnis",
+  "roles": "Vendor, Repair",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ],
+  "gossip": "Gute Klingen, feste Rüstungen – und Reparaturen."
+ },
+ {
+  "id": "npc_sm_wirt",
+  "name": "Grimbald",
+  "title": "Gasthaus von Silbermond",
+  "faction": "Sonnenbuendnis",
+  "roles": "Innkeeper, Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_minor_healing_potion",
+   "item_bag_linen",
+   "item_bag_leather"
+  ],
+  "gossip": "Ein Bett für die Nacht? Bei uns wacht Ihr ausgeruht auf.",
+  "barks": [
+   "Frisches Brot!",
+   "Noch ein Krug?"
+  ]
+ },
+ {
+  "id": "npc_sm_werkzeug",
+  "name": "Hyldra",
+  "title": "Werkzeug und Zubehör",
+  "faction": "Sonnenbuendnis",
+  "roles": "Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tool_mining_pick",
+   "item_tool_skinning_knife",
+   "item_tool_blacksmith_hammer",
+   "item_tool_fishing_pole",
+   "item_empty_vial",
+   "item_coarse_thread",
+   "item_fine_thread",
+   "item_salt",
+   "item_mild_spices",
+   "item_flux"
+  ],
+  "gossip": "Alles, was Handwerker brauchen."
+ },
+ {
+  "id": "npc_sm_stall",
+  "name": "Isilwen",
+  "title": "Stallmeisterei",
+  "faction": "Sonnenbuendnis",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 40,
+  "maxLevel": 40,
+  "model": "npc",
+  "vendorItems": [
+   "item_mount_grey_steed",
+   "item_mount_chestnut_steed",
+   "item_mount_mountain_ram",
+   "item_mount_moon_stag",
+   "item_mount_swift_white_steed"
+  ],
+  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+ },
+ {
+  "id": "npc_sm_flug",
+  "name": "Jorund",
+  "title": "Flugmeisterei",
+  "faction": "Sonnenbuendnis",
+  "roles": "FlightMaster",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Von hier aus erreicht Ihr die Siedlungen Eurer Fraktion."
+ },
+ {
+  "id": "npc_sm_lehrer_druid",
+  "name": "Kaelis",
+  "title": "Druide-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Druid",
+  "gossip": "Ich lehre die Künste der Druide bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_lehrer_hunter",
+  "name": "Lunara",
+  "title": "Jäger-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Hunter",
+  "gossip": "Ich lehre die Künste der Jäger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_lehrer_mage",
+  "name": "Mithrandel",
+  "title": "Magier-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Mage",
+  "gossip": "Ich lehre die Künste der Magier bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_lehrer_paladin",
+  "name": "Nimue",
+  "title": "Paladin-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Paladin",
+  "gossip": "Ich lehre die Künste der Paladin bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_lehrer_priest",
+  "name": "Orrin",
+  "title": "Priester-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Priest",
+  "gossip": "Ich lehre die Künste der Priester bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_lehrer_rogue",
+  "name": "Pyria",
+  "title": "Schurke-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Rogue",
+  "gossip": "Ich lehre die Künste der Schurke bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_lehrer_warlock",
+  "name": "Quelin",
+  "title": "Hexenmeister-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warlock",
+  "gossip": "Ich lehre die Künste der Hexenmeister bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_lehrer_warrior",
+  "name": "Rhovan",
+  "title": "Krieger-Lehrmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warrior",
+  "gossip": "Ich lehre die Künste der Krieger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_sm_beruf_mining",
+  "name": "Sylvaine",
+  "title": "Meister: Bergbau",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "mining",
+  "gossip": "Bergbau – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_herbalism",
+  "name": "Thrain",
+  "title": "Meister: Kräuterkunde",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "herbalism",
+  "gossip": "Kräuterkunde – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_skinning",
+  "name": "Ulva",
+  "title": "Meister: Kürschnerei",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "skinning",
+  "gossip": "Kürschnerei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_blacksmithing",
+  "name": "Vaelor",
+  "title": "Meister: Schmiedekunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "blacksmithing",
+  "gossip": "Schmiedekunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_leatherworking",
+  "name": "Wyndra",
+  "title": "Meister: Lederverarbeitung",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "leatherworking",
+  "gossip": "Lederverarbeitung – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_tailoring",
+  "name": "Ysolde",
+  "title": "Meister: Schneiderei",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "tailoring",
+  "gossip": "Schneiderei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_alchemy",
+  "name": "Arwen",
+  "title": "Meister: Alchemie",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "alchemy",
+  "gossip": "Alchemie – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_engineering",
+  "name": "Balin",
+  "title": "Meister: Ingenieurskunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "engineering",
+  "gossip": "Ingenieurskunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_enchanting",
+  "name": "Celebrin",
+  "title": "Meister: Verzauberkunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "enchanting",
+  "gossip": "Verzauberkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_fishing",
+  "name": "Durlin",
+  "title": "Meister: Angeln",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "fishing",
+  "gossip": "Angeln – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_cooking",
+  "name": "Eldarion",
+  "title": "Meister: Kochkunst",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "cooking",
+  "gossip": "Kochkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_beruf_first_aid",
+  "name": "Fjola",
+  "title": "Meister: Erste Hilfe",
+  "faction": "Sonnenbuendnis",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "first_aid",
+  "gossip": "Erste Hilfe – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_sm_wache",
+  "name": "Wache von Silbermond",
+  "title": "Mondhüter von Silbermond",
+  "faction": "Sonnenbuendnis",
+  "roles": "Guard",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 6,
+  "damageMultiplier": 3,
+  "aggroRadius": 22,
+  "barks": [
+   "Für die Stadt!",
+   "Alles ruhig.",
+   "Haltet Ordnung, Bürger."
+  ]
+ },
+ {
+  "id": "npc_sm_buerger1",
+  "name": "Galadhor",
+  "title": "Bürger",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     246,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     156,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sm_buerger2",
+  "name": "Hrafna",
+  "title": "Bürgerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     250,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     196,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sm_buerger3",
+  "name": "Ithil",
+  "title": "Bürger",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     254,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     236,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sm_buerger4",
+  "name": "Keldor",
+  "title": "Bürgerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     258,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     276,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sm_buerger5",
+  "name": "Lothiel",
+  "title": "Bürger",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     262,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     316,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sm_buerger6",
+  "name": "Morwyn",
+  "title": "Bürgerin",
+  "faction": "Sonnenbuendnis",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     266,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     356,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_sm_geisterheiler",
+  "name": "Geisterheiler",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Kehrt zurück, Wanderer – die Stadt braucht Euch."
+ },
+ {
+  "id": "npc_kz_herrscher",
+  "name": "Azgul",
+  "title": "Herrschaft von Kharzul",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 63,
+  "maxLevel": 63,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 20,
+  "gossip": "Willkommen in Kharzul. Solange diese Mauern stehen, steht auch unser Volk."
+ },
+ {
+  "id": "npc_kz_bank1",
+  "name": "Brakka",
+  "title": "Bank von Kharzul",
+  "faction": "Schattenpakt",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Euer Hab und Gut ist hier sicher."
+ },
+ {
+  "id": "npc_kz_bank2",
+  "name": "Drogg",
+  "title": "Bank von Kharzul",
+  "faction": "Schattenpakt",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Einzahlen, abheben – ganz wie Ihr wünscht."
+ },
+ {
+  "id": "npc_kz_auktion1",
+  "name": "Gharza",
+  "title": "Auktionshaus",
+  "faction": "Schattenpakt",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Das größte Auktionshaus der Fraktion – kaufen, verkaufen, bieten."
+ },
+ {
+  "id": "npc_kz_auktion2",
+  "name": "Hruk",
+  "title": "Auktionshaus",
+  "faction": "Schattenpakt",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Heute schon geboten?"
+ },
+ {
+  "id": "npc_kz_ruestung",
+  "name": "Izzik",
+  "title": "Waffen und Rüstungen",
+  "faction": "Schattenpakt",
+  "roles": "Vendor, Repair",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ],
+  "gossip": "Gute Klingen, feste Rüstungen – und Reparaturen."
+ },
+ {
+  "id": "npc_kz_wirt",
+  "name": "Jarnok",
+  "title": "Gasthaus von Kharzul",
+  "faction": "Schattenpakt",
+  "roles": "Innkeeper, Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_minor_healing_potion",
+   "item_bag_linen",
+   "item_bag_leather"
+  ],
+  "gossip": "Ein Bett für die Nacht? Bei uns wacht Ihr ausgeruht auf.",
+  "barks": [
+   "Frisches Brot!",
+   "Noch ein Krug?"
+  ]
+ },
+ {
+  "id": "npc_kz_werkzeug",
+  "name": "Krasha",
+  "title": "Werkzeug und Zubehör",
+  "faction": "Schattenpakt",
+  "roles": "Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tool_mining_pick",
+   "item_tool_skinning_knife",
+   "item_tool_blacksmith_hammer",
+   "item_tool_fishing_pole",
+   "item_empty_vial",
+   "item_coarse_thread",
+   "item_fine_thread",
+   "item_salt",
+   "item_mild_spices",
+   "item_flux"
+  ],
+  "gossip": "Alles, was Handwerker brauchen."
+ },
+ {
+  "id": "npc_kz_stall",
+  "name": "Lugdar",
+  "title": "Stallmeisterei",
+  "faction": "Schattenpakt",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 40,
+  "maxLevel": 40,
+  "model": "npc",
+  "vendorItems": [
+   "item_mount_dune_wolf",
+   "item_mount_bone_mare",
+   "item_mount_plains_strider",
+   "item_mount_marsh_raptor",
+   "item_mount_swift_war_wolf"
+  ],
+  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+ },
+ {
+  "id": "npc_kz_flug",
+  "name": "Mogra",
+  "title": "Flugmeisterei",
+  "faction": "Schattenpakt",
+  "roles": "FlightMaster",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Von hier aus erreicht Ihr die Siedlungen Eurer Fraktion."
+ },
+ {
+  "id": "npc_kz_lehrer_druid",
+  "name": "Nazgrak",
+  "title": "Druide-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Druid",
+  "gossip": "Ich lehre die Künste der Druide bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_lehrer_hunter",
+  "name": "Orzha",
+  "title": "Jäger-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Hunter",
+  "gossip": "Ich lehre die Künste der Jäger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_lehrer_mage",
+  "name": "Rakhul",
+  "title": "Magier-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Mage",
+  "gossip": "Ich lehre die Künste der Magier bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_lehrer_priest",
+  "name": "Sszeth",
+  "title": "Priester-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Priest",
+  "gossip": "Ich lehre die Künste der Priester bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_lehrer_rogue",
+  "name": "Tharga",
+  "title": "Schurke-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Rogue",
+  "gossip": "Ich lehre die Künste der Schurke bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_lehrer_shaman",
+  "name": "Ugrok",
+  "title": "Schamane-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Shaman",
+  "gossip": "Ich lehre die Künste der Schamane bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_lehrer_warlock",
+  "name": "Vrasha",
+  "title": "Hexenmeister-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warlock",
+  "gossip": "Ich lehre die Künste der Hexenmeister bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_lehrer_warrior",
+  "name": "Xelok",
+  "title": "Krieger-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warrior",
+  "gossip": "Ich lehre die Künste der Krieger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_kz_beruf_mining",
+  "name": "Yazgul",
+  "title": "Meister: Bergbau",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "mining",
+  "gossip": "Bergbau – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_herbalism",
+  "name": "Zharra",
+  "title": "Meister: Kräuterkunde",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "herbalism",
+  "gossip": "Kräuterkunde – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_skinning",
+  "name": "Karvesh",
+  "title": "Meister: Kürschnerei",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "skinning",
+  "gossip": "Kürschnerei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_blacksmithing",
+  "name": "Mazrok",
+  "title": "Meister: Schmiedekunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "blacksmithing",
+  "gossip": "Schmiedekunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_leatherworking",
+  "name": "Thessa",
+  "title": "Meister: Lederverarbeitung",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "leatherworking",
+  "gossip": "Lederverarbeitung – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_tailoring",
+  "name": "Gorbag",
+  "title": "Meister: Schneiderei",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "tailoring",
+  "gossip": "Schneiderei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_alchemy",
+  "name": "Agra",
+  "title": "Meister: Alchemie",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "alchemy",
+  "gossip": "Alchemie – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_engineering",
+  "name": "Bolgar",
+  "title": "Meister: Ingenieurskunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "engineering",
+  "gossip": "Ingenieurskunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_enchanting",
+  "name": "Durza",
+  "title": "Meister: Verzauberkunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "enchanting",
+  "gossip": "Verzauberkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_fishing",
+  "name": "Ghorak",
+  "title": "Meister: Angeln",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "fishing",
+  "gossip": "Angeln – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_cooking",
+  "name": "Hessa",
+  "title": "Meister: Kochkunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "cooking",
+  "gossip": "Kochkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_beruf_first_aid",
+  "name": "Ishka",
+  "title": "Meister: Erste Hilfe",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "first_aid",
+  "gossip": "Erste Hilfe – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_kz_wache",
+  "name": "Wache von Kharzul",
+  "title": "Kriegswache von Kharzul",
+  "faction": "Schattenpakt",
+  "roles": "Guard",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 6,
+  "damageMultiplier": 3,
+  "aggroRadius": 22,
+  "barks": [
+   "Für die Stadt!",
+   "Alles ruhig.",
+   "Haltet Ordnung, Bürger."
+  ]
+ },
+ {
+  "id": "npc_kz_buerger1",
+  "name": "Krogg",
+  "title": "Bürger",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     246,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     156,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_kz_buerger2",
+  "name": "Lurtz",
+  "title": "Bürgerin",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     250,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     196,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_kz_buerger3",
+  "name": "Mukka",
+  "title": "Bürger",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     254,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     236,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_kz_buerger4",
+  "name": "Nargul",
+  "title": "Bürgerin",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     258,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     276,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_kz_buerger5",
+  "name": "Oshka",
+  "title": "Bürger",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     262,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     316,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_kz_buerger6",
+  "name": "Razgar",
+  "title": "Bürgerin",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     266,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     356,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_kz_geisterheiler",
+  "name": "Geisterheiler",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Kehrt zurück, Wanderer – die Stadt braucht Euch."
+ },
+ {
+  "id": "npc_nw_herrscher",
+  "name": "Morwen",
+  "title": "Herrschaft von Nachtwacht",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 63,
+  "maxLevel": 63,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 20,
+  "gossip": "Willkommen in Nachtwacht. Solange diese Mauern stehen, steht auch unser Volk."
+ },
+ {
+  "id": "npc_nw_bank1",
+  "name": "Asgaroth",
+  "title": "Bank von Nachtwacht",
+  "faction": "Schattenpakt",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Euer Hab und Gut ist hier sicher."
+ },
+ {
+  "id": "npc_nw_bank2",
+  "name": "Belisande",
+  "title": "Bank von Nachtwacht",
+  "faction": "Schattenpakt",
+  "roles": "Banker",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Einzahlen, abheben – ganz wie Ihr wünscht."
+ },
+ {
+  "id": "npc_nw_auktion1",
+  "name": "Corvin",
+  "title": "Auktionshaus",
+  "faction": "Schattenpakt",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Das größte Auktionshaus der Fraktion – kaufen, verkaufen, bieten."
+ },
+ {
+  "id": "npc_nw_auktion2",
+  "name": "Drusilla",
+  "title": "Auktionshaus",
+  "faction": "Schattenpakt",
+  "roles": "Auctioneer",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Heute schon geboten?"
+ },
+ {
+  "id": "npc_nw_ruestung",
+  "name": "Erebos",
+  "title": "Waffen und Rüstungen",
+  "faction": "Schattenpakt",
+  "roles": "Vendor, Repair",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ],
+  "gossip": "Gute Klingen, feste Rüstungen – und Reparaturen."
+ },
+ {
+  "id": "npc_nw_wirt",
+  "name": "Fenrik",
+  "title": "Gasthaus von Nachtwacht",
+  "faction": "Schattenpakt",
+  "roles": "Innkeeper, Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_minor_healing_potion",
+   "item_bag_linen",
+   "item_bag_leather"
+  ],
+  "gossip": "Ein Bett für die Nacht? Bei uns wacht Ihr ausgeruht auf.",
+  "barks": [
+   "Frisches Brot!",
+   "Noch ein Krug?"
+  ]
+ },
+ {
+  "id": "npc_nw_werkzeug",
+  "name": "Grimhild",
+  "title": "Werkzeug und Zubehör",
+  "faction": "Schattenpakt",
+  "roles": "Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "vendorItems": [
+   "item_tool_mining_pick",
+   "item_tool_skinning_knife",
+   "item_tool_blacksmith_hammer",
+   "item_tool_fishing_pole",
+   "item_empty_vial",
+   "item_coarse_thread",
+   "item_fine_thread",
+   "item_salt",
+   "item_mild_spices",
+   "item_flux"
+  ],
+  "gossip": "Alles, was Handwerker brauchen."
+ },
+ {
+  "id": "npc_nw_stall",
+  "name": "Hadrian",
+  "title": "Stallmeisterei",
+  "faction": "Schattenpakt",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 40,
+  "maxLevel": 40,
+  "model": "npc",
+  "vendorItems": [
+   "item_mount_dune_wolf",
+   "item_mount_bone_mare",
+   "item_mount_plains_strider",
+   "item_mount_marsh_raptor",
+   "item_mount_swift_war_wolf"
+  ],
+  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+ },
+ {
+  "id": "npc_nw_flug",
+  "name": "Isolde",
+  "title": "Flugmeisterei",
+  "faction": "Schattenpakt",
+  "roles": "FlightMaster",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "gossip": "Von hier aus erreicht Ihr die Siedlungen Eurer Fraktion."
+ },
+ {
+  "id": "npc_nw_lehrer_druid",
+  "name": "Kaspar",
+  "title": "Druide-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Druid",
+  "gossip": "Ich lehre die Künste der Druide bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_lehrer_hunter",
+  "name": "Lenore",
+  "title": "Jäger-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Hunter",
+  "gossip": "Ich lehre die Künste der Jäger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_lehrer_mage",
+  "name": "Malvina",
+  "title": "Magier-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Mage",
+  "gossip": "Ich lehre die Künste der Magier bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_lehrer_priest",
+  "name": "Nocturn",
+  "title": "Priester-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Priest",
+  "gossip": "Ich lehre die Künste der Priester bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_lehrer_rogue",
+  "name": "Ophira",
+  "title": "Schurke-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Rogue",
+  "gossip": "Ich lehre die Künste der Schurke bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_lehrer_shaman",
+  "name": "Raven",
+  "title": "Schamane-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Shaman",
+  "gossip": "Ich lehre die Künste der Schamane bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_lehrer_warlock",
+  "name": "Selvara",
+  "title": "Hexenmeister-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warlock",
+  "gossip": "Ich lehre die Künste der Hexenmeister bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_lehrer_warrior",
+  "name": "Tamsin",
+  "title": "Krieger-Lehrmeister",
+  "faction": "Schattenpakt",
+  "roles": "ClassTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerClass": "Warrior",
+  "gossip": "Ich lehre die Künste der Krieger bis zur höchsten Meisterschaft."
+ },
+ {
+  "id": "npc_nw_beruf_mining",
+  "name": "Umbra",
+  "title": "Meister: Bergbau",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "mining",
+  "gossip": "Bergbau – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_herbalism",
+  "name": "Vesper",
+  "title": "Meister: Kräuterkunde",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "herbalism",
+  "gossip": "Kräuterkunde – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_skinning",
+  "name": "Wolfram",
+  "title": "Meister: Kürschnerei",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "skinning",
+  "gossip": "Kürschnerei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_blacksmithing",
+  "name": "Xanthe",
+  "title": "Meister: Schmiedekunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "blacksmithing",
+  "gossip": "Schmiedekunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_leatherworking",
+  "name": "Ymir",
+  "title": "Meister: Lederverarbeitung",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "leatherworking",
+  "gossip": "Lederverarbeitung – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_tailoring",
+  "name": "Zelda",
+  "title": "Meister: Schneiderei",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "tailoring",
+  "gossip": "Schneiderei – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_alchemy",
+  "name": "Aldaric",
+  "title": "Meister: Alchemie",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "alchemy",
+  "gossip": "Alchemie – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_engineering",
+  "name": "Brannoc",
+  "title": "Meister: Ingenieurskunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "engineering",
+  "gossip": "Ingenieurskunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_enchanting",
+  "name": "Cyrene",
+  "title": "Meister: Verzauberkunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "enchanting",
+  "gossip": "Verzauberkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_fishing",
+  "name": "Dagmar",
+  "title": "Meister: Angeln",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "fishing",
+  "gossip": "Angeln – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_cooking",
+  "name": "Elvira",
+  "title": "Meister: Kochkunst",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "cooking",
+  "gossip": "Kochkunst – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_beruf_first_aid",
+  "name": "Gideon",
+  "title": "Meister: Erste Hilfe",
+  "faction": "Schattenpakt",
+  "roles": "ProfessionTrainer",
+  "minLevel": 50,
+  "maxLevel": 50,
+  "model": "npc",
+  "trainerProfession": "first_aid",
+  "gossip": "Erste Hilfe – bei mir lernt Ihr bis zum Meistergrad."
+ },
+ {
+  "id": "npc_nw_wache",
+  "name": "Wache von Nachtwacht",
+  "title": "Totenwache von Nachtwacht",
+  "faction": "Schattenpakt",
+  "roles": "Guard",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "elite": true,
+  "healthMultiplier": 6,
+  "damageMultiplier": 3,
+  "aggroRadius": 22,
+  "barks": [
+   "Für die Stadt!",
+   "Alles ruhig.",
+   "Haltet Ordnung, Bürger."
+  ]
+ },
+ {
+  "id": "npc_nw_buerger1",
+  "name": "Hekate",
+  "title": "Bürger",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     226,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     246,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     156,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_nw_buerger2",
+  "name": "Ignatius",
+  "title": "Bürgerin",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     238,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     250,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     196,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_nw_buerger3",
+  "name": "Lilith",
+  "title": "Bürger",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     250,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     254,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     236,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_nw_buerger4",
+  "name": "Mordecai",
+  "title": "Bürgerin",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     262,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     258,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     276,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_nw_buerger5",
+  "name": "Nerys",
+  "title": "Bürger",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     274,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     262,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     316,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_nw_buerger6",
+  "name": "Oberon",
+  "title": "Bürgerin",
+  "faction": "Schattenpakt",
+  "roles": "None",
+  "minLevel": 10,
+  "maxLevel": 10,
+  "model": "npc",
+  "gossip": "Habt Ihr schon die Neuigkeiten gehört?",
+  "barks": [
+   "Schöner Tag heute.",
+   "Die Preise steigen schon wieder.",
+   "Habt Ihr den neuen Händler gesehen?"
+  ],
+  "schedule": [
+   {
+    "hour": 7,
+    "position": [
+     286,
+     0,
+     276
+    ],
+    "activity": "Markt"
+   },
+   {
+    "hour": 19,
+    "position": [
+     266,
+     0,
+     344
+    ],
+    "activity": "Gasthaus"
+   },
+   {
+    "hour": 23,
+    "position": [
+     356,
+     0,
+     386
+    ],
+    "activity": "Zuhause"
+   }
+  ]
+ },
+ {
+  "id": "npc_nw_geisterheiler",
+  "name": "Geisterheiler",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Kehrt zurück, Wanderer – die Stadt braucht Euch."
+ }
+]
