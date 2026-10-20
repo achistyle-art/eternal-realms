@@ -368,6 +368,18 @@ namespace EternalRealms.Server.Net
                 case C_InviteFavorite ifv: err = _w.Bots.InviteFavorite(p, ifv.CharacterId); if (err == null) p.Send(_w.Social.BuildList(p)); break;
                 case C_ResetInstances: err = _w.Instances.Reset(p); break;
                 case C_InstanceInfo: p.Send(_w.Instances.BuildInfo(p)); return;
+                case C_FinderActivities: p.Send(_w.Finder.BuildActivityList()); return;
+                case C_FinderJoin fj: err = _w.Finder.Join(p, fj.Activities, fj.Roles.Where(r => r <= 3).Select(r => (Role)r), fj.Mode); break;
+                case C_FinderLeave: _w.Finder.Leave(p); return;
+                case C_FinderAccept fac: err = _w.Finder.Answer(p, fac.ProposalId, fac.Accept); break;
+                case C_ReadyCheck: err = _w.Groups.StartReadyCheck(p); break;
+                case C_ReadyResponse rr: _w.Groups.ReadyResponse(p, rr.Ready); return;
+                case C_VoteKick vk: err = _w.Groups.StartKickVote(p, vk.TargetId, vk.Reason ?? ""); break;
+                case C_VoteKickResponse vkr: _w.Groups.VoteResponse(p, vkr.VoteId, vkr.Yes); return;
+                case C_SetRole sr: err = _w.Groups.SetRole(p, sr.Role); break;
+                case C_SetBotRole sbr: err = _w.Groups.SetBotRole(p, sbr.BotEntityId, sbr.Role); break;
+                case C_ConvertToRaid: err = _w.Groups.ConvertToRaid(p); break;
+                case C_SetSubgroup ssg: err = _w.Groups.SetSubgroup(p, ssg.EntityId, ssg.Subgroup); break;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);

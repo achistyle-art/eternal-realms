@@ -52,6 +52,15 @@ client.MessageReceived += m =>
             Print(ii.Binds.Count == 0 ? "Keine Instanzbindungen." : "Instanzbindungen:");
             foreach (var b in ii.Binds) Print($"  {b.Name} #{b.InstanceId}: {b.BossesKilled}/{b.BossesTotal} Bosse{(b.HoursLeft >= 0 ? $", Reset in {b.HoursLeft:0} h" : "")}");
             break;
+        case S_FinderActivities fa2:
+            Print("Aktivitäten (lfg <id> [rollen] [nurmenschen|bevorzugt|ki]):");
+            foreach (var x in fa2.Activities) Print($"  {x.Id} – {x.Name} ({x.Kind}, Stufe {x.MinLevel}–{x.MaxLevel}, {x.Size} Spieler)");
+            break;
+        case S_FinderStatus fs2: Print($"Gruppensuche: {fs2.Text}{(fs2.Queued ? $" ({fs2.WaitSeconds:0} s)" : "")}"); break;
+        case S_FinderProposal fp2: Print($"Gruppe für {fp2.Activity} gefunden{(fp2.IsReplacement ? " (Ersatz für einen KI-Mitspieler)" : "")}: {string.Join(", ", fp2.Members)} – Eure Rolle: {RoleName(fp2.Role)}. accept-group / decline-group ({fp2.Seconds:0} s)"); break;
+        case S_ReadyCheck rc2: Print($"{rc2.From} fragt: Seid Ihr bereit? (ready / ready nein)"); break;
+        case S_ReadyCheckResult rcr: Print($"Bereit: {string.Join(", ", rcr.Ready)}{(rcr.NotReady.Count > 0 ? " – nicht bereit: " + string.Join(", ", rcr.NotReady) : "")}"); break;
+        case S_VoteKick vk2: Print($"Abstimmung: {vk2.TargetName} entfernen? Grund: {vk2.Reason} (vote / vote nein)"); break;
         case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
         case S_MailList ml:
             Print(ml.Mails.Count == 0 ? "Keine Post." : "Post:");
@@ -331,6 +340,30 @@ void Command(string line)
         case "summon": client.Send(new C_InviteFavorite { CharacterId = client.Friends.Companions.FirstOrDefault(f => f.Name.Equals(rest, StringComparison.OrdinalIgnoreCase))?.CharacterId ?? 0 }); break;
         case "instances": client.Send(new C_InstanceInfo()); break;
         case "resetinstances": client.Send(new C_ResetInstances()); break;
+        // ---- Gruppenfinder und Gruppenwerkzeuge
+        case "lfg":
+        {
+            // lfg <aktivität|liste> [tank,heiler,dd,fern] [nurmenschen|bevorzugt|ki]
+            if (a.Length == 0 || a[0] == "liste") { client.Send(new C_FinderActivities()); break; }
+            var join = new C_FinderJoin { Activities = a[0].Split(',').ToList() };
+            if (a.Length > 1)
+                foreach (var r in a[1].Split(','))
+                    join.Roles.Add(r switch { "tank" => (byte)0, "heiler" => (byte)1, "fern" => (byte)3, _ => (byte)2 });
+            if (a.Length > 2) join.Mode = a[2] switch { "nurmenschen" => FinderAiMode.HumansOnly, "ki" => FinderAiMode.FillWithAi, _ => FinderAiMode.PreferHumans };
+            client.Send(join);
+            break;
+        }
+        case "lfgleave": client.Send(new C_FinderLeave()); break;
+        case "accept-group": if (client.FinderProposal != null) client.Send(new C_FinderAccept { ProposalId = client.FinderProposal.ProposalId, Accept = true }); break;
+        case "decline-group": if (client.FinderProposal != null) client.Send(new C_FinderAccept { ProposalId = client.FinderProposal.ProposalId, Accept = false }); break;
+        case "readycheck": client.Send(new C_ReadyCheck()); break;
+        case "ready": client.Send(new C_ReadyResponse { Ready = !(a.Length > 0 && a[0] == "nein") }); break;
+        case "votekick": client.Send(new C_VoteKick { TargetId = Int(0), Reason = rest.Length > a[0].Length ? rest.Substring(a[0].Length).Trim() : "" }); break;
+        case "vote": if (client.VoteKick != null) client.Send(new C_VoteKickResponse { VoteId = client.VoteKick.VoteId, Yes = !(a.Length > 0 && a[0] == "nein") }); break;
+        case "role": client.Send(new C_SetRole { Role = (a.Length > 0 ? a[0] : "") switch { "tank" => Role.Tank, "heiler" => Role.Healer, "fern" => Role.RangedDps, _ => Role.MeleeDps } }); break;
+        case "botrole": client.Send(new C_SetBotRole { BotEntityId = Int(0), Role = (a.Length > 1 ? a[1] : "") switch { "tank" => Role.Tank, "heiler" => Role.Healer, "fern" => Role.RangedDps, _ => Role.MeleeDps } }); break;
+        case "raid": client.Send(new C_ConvertToRaid()); break;
+        case "subgroup": client.Send(new C_SetSubgroup { EntityId = Int(0), Subgroup = (byte)Int(1, 1) }); break;
         case "mark": client.Send(new C_SetMarker { Marker = (byte)Int(0, 8), TargetId = a.Length > 1 ? Int(1) : me?.TargetId ?? 0 }); break;
         case "bot": client.Send(new C_BotInvite { CandidateId = client.BotCandidates[Int(0) - 1].CandidateId }); break;
         case "dismiss": client.Send(new C_BotDismiss { EntityId = Int(0) }); break;
@@ -522,6 +555,8 @@ void Help() => Print(@"Befehle:
   ah [Suchtext] | ahmine [gebote] | ahsell <Platz> <Anzahl> <Gebot> [Sofortkauf] [12|24|48] | ahbid <Nr> <Betrag> | ahbuy <Nr> | ahcancel <Nr>
   gcreate <Name> | ginvite <Name> | gjoin | gdecline | gleave | gkick <Name> | grank <Name> <0-4> | gmotd <Text> | guild | gu <Text> | gdisband
   friends | friend <Name> | unfriend <Name> | ignore <Name> | unignore <Name> | report <Name> <Text> | share [aus] | summon <KI-Begleiter>
+  lfg liste | lfg <id> [tank,heiler,dd,fern] [nurmenschen|bevorzugt|ki] | lfgleave | accept-group | decline-group
+  readycheck | ready [nein] | votekick <id> <Grund> | vote [nein] | role <tank|heiler|dd|fern> | botrole <id> <rolle> | raid | subgroup <id> <1-8>
   instances | resetinstances
   riding (beim Stallmeister) | mounts | mount [id] | dismount
   need | greed | pass | lootrule [frei|reihum|gruppe|bedarf|meister] | resettalents [ja] | /würfeln

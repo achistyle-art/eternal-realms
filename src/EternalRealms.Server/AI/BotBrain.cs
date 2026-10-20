@@ -24,7 +24,21 @@ namespace EternalRealms.Server.AI
         public Player Me { get; }
         public BotData Data { get; }
         public Role Role => Data.Role;
-        public BotProfileDef? Profile { get; }
+        public BotProfileDef? Profile { get; private set; }
+
+        /// <summary>Rolle wechseln (Gruppenfinder, Anführerbefehl) – nur wenn die Klasse dafür ein Kampfprofil hat.</summary>
+        public string? ChangeRole(Role role)
+        {
+            if (role == Data.Role) return null;
+            var profile = _w.Content.GetBotProfile(Me.Class, role);
+            if (profile == null) return $"{Me.Name} kann als {Me.Class} diese Rolle nicht übernehmen.";
+            Data.Role = role;
+            Profile = profile;
+            Me.Data.Talents.Clear();
+            _w.Progression.AutoSpendTalents(Me, profile.TalentTree);
+            Me.MarkStatsDirty();
+            return null;
+        }
         public bool Following { get; set; } = true;
         public Vec3 StayPosition { get; set; }
         public BotStance Stance { get; set; } = BotStance.Assist;

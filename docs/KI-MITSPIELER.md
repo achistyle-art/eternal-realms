@@ -119,6 +119,20 @@ Dieser Ausschnitt stammt aus einer echten Testsitzung über das Netzwerk. Weiter
 
 Eingeladene Bots kommen angelaufen und grüßen. Beim Entlassen verabschieden sie sich und werden gespeichert.
 
+## Gruppenfinder „Abenteurer suchen“ (9.5)
+
+Spieler (allein oder als Gruppe) melden sich für Dungeons, Schlachtzüge oder „Quests in …“ an und wählen ihre Rollen
+sowie einen KI-Modus: **Nur Menschen**, **Menschen bevorzugt** (KI füllt nach 45 s auf) oder **Sofort mit KI**.
+Zuerst werden echte Spieler zusammengebracht. Jeder Vorschlag muss von allen Menschen innerhalb von 30 s bestätigt
+werden; wer ablehnt, verlässt die Suche, die anderen behalten ihren Platz. Fehlende Rollen besetzt der Finder mit
+Lieblingsbegleitern, Bekannten oder neuen KI-Abenteurern passender Stufe; die Gruppe erhält Gruppenbeute und wird
+direkt in die Instanz gebracht. Meldet sich später ein Mensch für dieselbe Aktivität, übernimmt er geordnet den Platz
+eines KI-Mitspielers seiner Rolle – **nie während eines Bosskampfs**; der Bot verabschiedet sich.
+
+Weitere Gruppenwerkzeuge: Bereitschaftscheck (Bots antworten ehrlich nach Leben/Mana), Abstimmung zum Entfernen
+(Mehrheit der anderen Menschen; KI-Mitspieler entlässt der Anführer direkt), Rollenwahl für Menschen und Bots
+(nur Rollen, für die die Klasse ein Kampfprofil hat), Schlachtzug mit acht Untergruppen.
+
 ## Eigenständige Bewohner
 
 Jede Zone hat eine konfigurierbare Zahl eigenständiger Bots (`ambientBots` in der Zonendefinition). Sie jagen Gegner ihrer Stufe, plündern, rasten, kehren nach einer Weile ins Dorf zurück, verkaufen Plunder und rufen im Zonenchat („Suche Gruppe für die Wurzelkrypta!“). Dabei steigen sie selbst auf. Spieler können sie per `/inv Name` einladen; ob sie zusagen, entscheidet der Bot nach Persönlichkeit und Stufenabstand.

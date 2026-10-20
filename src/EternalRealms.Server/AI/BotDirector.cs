@@ -142,6 +142,24 @@ namespace EternalRealms.Server.AI
             return list;
         }
 
+        /// <summary>
+        /// KI-Mitspieler für eine Rolle in die Gruppe holen (Gruppenfinder): erst Lieblingsbegleiter, dann Bekannte,
+        /// dann ein neuer Charakter passender Stufe.
+        /// </summary>
+        public Player? SummonForRole(Player leader, Role role, int level, int minLevel, int maxLevel)
+        {
+            long account = leader.Data.AccountId ?? -1;
+            int lo = Math.Max(minLevel, level - 3), hi = Math.Min(Math.Max(maxLevel, minLevel), level + 3);
+            CharacterData? data = _offline.Values.Where(b => b.Bot != null && b.Bot.Role == role && !b.Bot.Ambient && _w.Content.Races[b.Race].Faction == leader.Faction)
+                .OrderByDescending(b => b.Bot!.FavoriteOf.Contains(account)).ThenByDescending(b => b.Bot!.KnownAccounts.Contains(account))
+                .FirstOrDefault(b => (b.Bot!.FavoriteOf.Contains(account) || b.Bot.KnownAccounts.Contains(account)) && b.Level >= lo - 2 && b.Level <= hi + 2);
+            if (data != null) CatchUp(data, level);
+            data ??= CreateBotData(leader.Faction, role, Math.Clamp(level, lo, Math.Max(lo, hi)), null, leader.Zone!.Def.Id);
+            if (data == null) return null;
+            Summon(leader, data);
+            return leader.Group?.Members.LastOrDefault(m => m.Data == data);
+        }
+
         private void Summon(Player p, CharacterData data)
         {
             data.Bot!.KnownAccounts.Add(p.Data.AccountId ?? -1);

@@ -316,6 +316,7 @@ namespace EternalRealms.Client
             if (_showMounts) DrawMountJournal();
             if (_showSocial) DrawSocial();
             if (Client.PendingGuildInvite != null) DrawGuildInvite();
+            DrawFinderPopups();
         }
 
         private void DrawUnitFrame(Rect r, ClientEntity e, bool me)
@@ -740,11 +741,14 @@ namespace EternalRealms.Client
             foreach (var m in Client.Group)
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label($"{m.Name} – Stufe {m.Level} {Content.Classes[m.Class].Name}{(m.IsBot ? $" <color=cyan>(KI, {RoleName(m.Role)})</color>" : "")}{(m.EntityId == Client.GroupLeaderId ? " ★" : "")}", _wrap, GUILayout.Width(420));
+                GUILayout.Label($"{m.Name} – Stufe {m.Level} {Content.Classes[m.Class].Name}{(m.IsBot ? $" <color=cyan>(KI, {RoleName(m.Role)})</color>" : $" ({RoleName(m.Role)})")}{(m.Subgroup > 1 ? $" [Gr. {m.Subgroup}]" : "")}{(m.EntityId == Client.GroupLeaderId ? " ★" : "")}", _wrap, GUILayout.Width(380));
+                if (!m.IsBot && m.EntityId != Client.State.MyId && GUILayout.Button(new GUIContent("✕", "Abstimmung: entfernen"), GUILayout.Width(28))) Client.Send(new C_VoteKick { TargetId = m.EntityId, Reason = "Abstimmung" });
                 if (m.IsBot && GUILayout.Button(new GUIContent("★", "Als bevorzugten Begleiter merken"), GUILayout.Width(30))) Client.Send(new C_BotFavorite { EntityId = m.EntityId, Favorite = true });
                 if (m.IsBot && GUILayout.Button("Entlassen")) Client.Send(new C_BotDismiss { EntityId = m.EntityId });
                 GUILayout.EndHorizontal();
             }
+            DrawFinder();
+            if (Client.Group.Count > 0) DrawGroupTools();
             if (Client.Group.Count > 0) DrawLootRule();
             if (Client.Group.Count > 0 && GUILayout.Button("Gruppe verlassen")) Client.Send(new C_GroupLeave());
             GUILayout.Space(8);

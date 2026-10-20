@@ -101,5 +101,9 @@
   {"event": "guild_accept", "lines": ["Eine Gilde? Mit dir? Sehr gerne, {target}!", "Ich bin dabei. Auf viele gemeinsame Abenteuer!", "Endlich ein Ort, wo man hingehört. Danke!"]},
   {"event": "guild_accept", "personality": "wortkarg", "lines": ["Hm. Ja.", "Gut. Ich trete bei."]},
   {"event": "guild_decline", "lines": ["Danke, aber ich kenne dich noch kaum. Lass uns erst einmal zusammen losziehen.", "Vielleicht später, wenn wir uns besser kennen.", "Ich bleibe lieber ungebunden – noch."]},
-  {"event": "guild_levelup", "lines": ["Stufe {level} erreicht! Danke an alle, die mir geholfen haben.", "Wieder ein Stück stärker – Stufe {level}!", "Stufe {level}. Weiter geht's!"]}
+  {"event": "guild_levelup", "lines": ["Stufe {level} erreicht! Danke an alle, die mir geholfen haben.", "Wieder ein Stück stärker – Stufe {level}!", "Stufe {level}. Weiter geht's!"]},
+  {"event": "ready_yes", "lines": ["Bereit!", "Bin bereit.", "Kann losgehen."]},
+  {"event": "ready_no", "lines": ["Moment, ich trinke noch kurz.", "Noch nicht – mir fehlt Leben.", "Gleich, noch ein paar Sekunden."]},
+  {"event": "replaced", "lines": ["Ein echter Abenteurer übernimmt – viel Erfolg euch!", "Ich mache Platz. Passt auf euch auf!", "Gute Reise, ihr Lieben. Ruft mich, wenn ihr mich braucht."]},
+  {"event": "role_change", "lines": ["Verstanden, ich wechsle die Rolle.", "Neue Rolle, neues Glück.", "Alles klar, ich passe mich an."]}
 ]

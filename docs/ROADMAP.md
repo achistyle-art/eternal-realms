@@ -34,11 +34,16 @@ Stand: in Arbeit. Erledigt (implementiert und getestet):
 
 Offen in diesem Meilenstein:
 
-- [ ] Reittiere (Stufe 40: +60 %, Stufe 60: +100 %), Gilden und Freunde, Gruppenfinder, Instanz-IDs und Sperren
+- [x] Reittiere (Stufe 40: +60 %, Stufe 60: +100 %), Sammlung, Bots reiten mit
+- [x] Gilden mit Rängen und Gildenchat, Freundesliste, Ignorieren, Melden, KI-Freundesliste
+- [x] Gruppenfinder mit KI-Modi, Bereitschaftscheck, Abstimmung, Rollenwahl, Untergruppen, Ersatz ohne Bosskampf-Unterbrechung
+- [x] Instanz-IDs, Bindungen, Schlachtzugsperren, Zurücksetzen, Wiederverbindung
+
+Offen in diesem Meilenstein:
+
 - [ ] Berufe
 
 - [ ] Berufe: Kräuterkunde, Bergbau, Kürschnerei, Schmiedekunst, Alchemie, Schneiderei, Lederverarbeitung, Kochen, Erste Hilfe (Schema und Objekt-Felder vorhanden)
-- [ ] Gilden mit Rängen und Gildenchat, Freundeslisten (Tabellen vorhanden)
 - [ ] Regionen 10–30 mit Inhalten: Westmark, Rotsandwüste, Nebelmoor, Splitterküste, Goldene Ebene
 - [ ] Hauptstädte Sonnenfeste und Kharzul
 
@@ -48,7 +53,7 @@ Offen in diesem Meilenstein:
 - [ ] UI Toolkit statt IMGUI, Minikarte, Weltkarte
 - [ ] Musik und Umgebungsgeräusche (Felder `music`/`ambience` pro Zone vorhanden)
 - [ ] Navmesh (Recast/Detour) aus Unity exportiert, serverseitige Wegfindung und Höhen
-- [ ] Reittiere ab Stufe 40 (Gegenstand angelegt), Schiffe zwischen Kontinenten, Flüge zwischen Regionen
+- [ ] Schiffe zwischen Kontinenten, Flüge zwischen Regionen
 - [ ] Bots: eigenständiges Questen, Gruppenbildung untereinander
 
 ## Meilenstein 4 – Endgame

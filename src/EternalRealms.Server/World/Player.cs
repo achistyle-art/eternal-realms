@@ -90,6 +90,8 @@ namespace EternalRealms.Server.World
 
         /// <summary>Aktives Reittier (leer = zu Fuß). Wird nicht gespeichert: Nach dem Einloggen ist man abgesessen.</summary>
         public string ActiveMount { get; set; } = "";
+        /// <summary>Rolle, die ein menschlicher Spieler in der Gruppe übernimmt (Gruppenfinder, Anzeige).</summary>
+        public Role SelectedRole { get; set; } = Role.MeleeDps;
         /// <summary>Reittier, das gerade gerufen wird (während der Zauberzeit).</summary>
         public string PendingMount { get; set; } = "";
         public bool IsMounted => Auras.Any(a => a.Def.Mounted);

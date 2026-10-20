@@ -4,7 +4,7 @@ using EternalRealms.Shared.Net;
 
 namespace EternalRealms.Server.Systems
 {
-    public sealed class GroupSystem
+    public sealed partial class GroupSystem
     {
         private readonly GameWorld _w;
         private float _updateTimer;
@@ -94,6 +94,7 @@ namespace EternalRealms.Server.Systems
 
         public void Update(float dt)
         {
+            UpdateTools();
             _updateTimer -= dt;
             if (_updateTimer > 0) return;
             _updateTimer = 1f;

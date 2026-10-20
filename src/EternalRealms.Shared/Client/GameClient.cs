@@ -53,6 +53,12 @@ namespace EternalRealms.Shared.Client
         public S_GuildRoster Guild { get; private set; } = new S_GuildRoster();
         public S_FriendList Friends { get; private set; } = new S_FriendList();
         public S_GuildInvite? PendingGuildInvite { get; set; }
+        public List<FinderActivityData> FinderActivities { get; private set; } = new List<FinderActivityData>();
+        public S_FinderStatus FinderStatus { get; private set; } = new S_FinderStatus();
+        public S_FinderProposal? FinderProposal { get; set; }
+        public S_ReadyCheck? ReadyCheck { get; set; }
+        public S_VoteKick? VoteKick { get; set; }
+        public S_InstanceInfo InstanceInfo { get; private set; } = new S_InstanceInfo();
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -215,6 +221,13 @@ namespace EternalRealms.Shared.Client
                 case S_GuildRoster gro: Guild = gro; break;
                 case S_FriendList fl: Friends = fl; break;
                 case S_GuildInvite ginv: PendingGuildInvite = ginv; break;
+                case S_FinderActivities fa: FinderActivities = fa.Activities; break;
+                case S_FinderStatus fs: FinderStatus = fs; if (!fs.Queued) FinderProposal = null; break;
+                case S_FinderProposal fp: FinderProposal = fp; break;
+                case S_ReadyCheck rc: ReadyCheck = rc; break;
+                case S_ReadyCheckResult: ReadyCheck = null; break;
+                case S_VoteKick vk: VoteKick = vk; break;
+                case S_InstanceInfo ii: InstanceInfo = ii; break;
                 case S_NpcInteraction ni: LastInteraction = ni; break;
                 case S_DeathState d: State.DeathState = d.State; State.CorpsePosition = d.CorpsePosition; break;
                 case S_WorldState w: State.World = w; break;

@@ -80,17 +80,19 @@ namespace EternalRealms.Shared.Net
         public bool IsBot;
         public Role Role;
         public bool Online = true;
+        /// <summary>Untergruppe im Schlachtzug (1–8).</summary>
+        public byte Subgroup = 1;
 
         public void Write(NetDataWriter w)
         {
             w.Put(EntityId); w.Put(Name); w.Put((byte)Class); w.Put(Level); w.Put(Health); w.Put(MaxHealth); w.Put(Power); w.Put(MaxPower);
-            w.Put((byte)PowerType); w.Put(IsBot); w.Put((byte)Role); w.Put(Online);
+            w.Put((byte)PowerType); w.Put(IsBot); w.Put((byte)Role); w.Put(Online); w.Put(Subgroup);
         }
 
         public static GroupMemberData Read(NetDataReader r) => new GroupMemberData
         {
             EntityId = r.GetInt(), Name = r.GetString(), Class = (CharClass)r.GetByte(), Level = r.GetInt(), Health = r.GetInt(), MaxHealth = r.GetInt(),
-            Power = r.GetInt(), MaxPower = r.GetInt(), PowerType = (PowerType)r.GetByte(), IsBot = r.GetBool(), Role = (Role)r.GetByte(), Online = r.GetBool(),
+            Power = r.GetInt(), MaxPower = r.GetInt(), PowerType = (PowerType)r.GetByte(), IsBot = r.GetBool(), Role = (Role)r.GetByte(), Online = r.GetBool(), Subgroup = r.GetByte(),
         };
     }
 

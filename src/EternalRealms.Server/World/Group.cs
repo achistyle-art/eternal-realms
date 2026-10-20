@@ -17,6 +17,10 @@ namespace EternalRealms.Server.World
         /// <summary>Ab dieser Qualität wird gewürfelt bzw. vom Plündermeister verteilt.</summary>
         public ItemQuality LootThreshold { get; set; } = ItemQuality.Uncommon;
         public int MasterLooterId { get; set; }
+        /// <summary>Untergruppe (1–8) je Mitglied im Schlachtzug.</summary>
+        public Dictionary<int, byte> Subgroups { get; } = new();
+        /// <summary>Vom Gruppenfinder gebildet: Aktivität und ob KI-Plätze für Menschen frei werden dürfen.</summary>
+        public string? FinderActivity { get; set; }
         /// <summary>Instanzen der Gruppe je Instanzzone.</summary>
         public Dictionary<string, long> InstanceIds { get; } = new();
 
@@ -45,6 +49,7 @@ namespace EternalRealms.Server.World
             Leader = leader;
             Members.Add(leader);
             leader.Group = this;
+            Subgroups[leader.Id] = 1;
         }
 
         public bool IsFull => Members.Count >= MaxSize;
@@ -56,12 +61,20 @@ namespace EternalRealms.Server.World
             if (IsFull || Members.Contains(p)) return false;
             Members.Add(p);
             p.Group = this;
+            Subgroups[p.Id] = FreeSubgroup();
             return true;
+        }
+
+        public byte FreeSubgroup()
+        {
+            for (byte s = 1; s <= 8; s++) if (Subgroups.Values.Count(v => v == s) < 5) return s;
+            return 8;
         }
 
         public void Remove(Player p)
         {
             Members.Remove(p);
+            Subgroups.Remove(p.Id);
             if (p.Group == this) p.Group = null;
             if (Leader == p && Members.Count > 0)
                 Leader = Members.FirstOrDefault(m => !m.IsBot) ?? Members[0];
@@ -77,7 +90,8 @@ namespace EternalRealms.Server.World
             Members = Members.Select(m => new GroupMemberData
             {
                 EntityId = m.Id, Name = m.Name, Class = m.Class, Level = m.Level, Health = m.Health, MaxHealth = m.MaxHealth, Power = m.Power,
-                MaxPower = m.MaxPower, PowerType = m.PowerType, IsBot = m.IsBot, Role = m.Bot?.Role ?? Role.MeleeDps, Online = !m.Removed,
+                MaxPower = m.MaxPower, PowerType = m.PowerType, IsBot = m.IsBot, Role = m.Bot?.Role ?? m.SelectedRole, Online = !m.Removed,
+                Subgroup = Subgroups.TryGetValue(m.Id, out var sg) ? sg : (byte)1,
             }).ToList(),
         };
 

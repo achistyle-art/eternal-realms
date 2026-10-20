@@ -27,6 +27,7 @@ namespace EternalRealms.Server.World
         public MountSystem Mounts { get; }
         public GuildSystem Guilds { get; }
         public InstanceSystem Instances { get; }
+        public GroupFinderSystem Finder { get; }
         public SocialSystem Social { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
@@ -63,6 +64,7 @@ namespace EternalRealms.Server.World
             Mounts = new MountSystem(this);
             Guilds = new GuildSystem(this);
             Instances = new InstanceSystem(this);
+            Finder = new GroupFinderSystem(this);
             Social = new SocialSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
@@ -108,6 +110,7 @@ namespace EternalRealms.Server.World
             foreach (var z in _zones.Values) z.Tick(dt);
             Instances.Update(dt);
             Groups.Update(dt);
+            Finder.Update(dt);
             Bots.Update(dt);
             Mail.Update(dt);
             LootRolls.Update();
@@ -244,6 +247,7 @@ namespace EternalRealms.Server.World
             if (p.Removed && p.Zone == null) return;
             p.Data.LoggedOutInInn = p.CurrentArea != null && (p.CurrentArea.IsInn || p.CurrentArea.IsCity);
             p.Data.LastLogout = DateTime.UtcNow;
+            Finder.Leave(p);
             if (p.Group != null) Groups.Leave(p);
             Save(p);
             RemoveFromWorld(p);
