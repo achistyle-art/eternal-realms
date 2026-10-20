@@ -107,5 +107,6 @@
   {"event": "replaced", "lines": ["Ein echter Abenteurer übernimmt – viel Erfolg euch!", "Ich mache Platz. Passt auf euch auf!", "Gute Reise, ihr Lieben. Ruft mich, wenn ihr mich braucht."]},
   {"event": "role_change", "lines": ["Verstanden, ich wechsle die Rolle.", "Neue Rolle, neues Glück.", "Alles klar, ich passe mich an."]},
   {"event": "trade_thanks", "lines": ["Danke, {target}! Das kann ich gut gebrauchen.", "Oh, für mich? Vielen Dank!", "Sehr großzügig, danke dir."]},
+  {"event": "achievement_congrats", "lines": ["Glückwunsch, {target}!", "Gz! Gut gemacht, {target}.", "Stark, {target} – das muss gefeiert werden!"]},
   {"event": "trade_full", "lines": ["Meine Taschen sind leider voll.", "Dafür habe ich keinen Platz mehr, tut mir leid."]}
 ]

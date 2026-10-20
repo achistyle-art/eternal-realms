@@ -74,6 +74,7 @@ namespace EternalRealms.Server.Systems
                     p.Data.BindZone = p.Zone.Def.Id;
                     p.Data.BindPosition = npc.Position;
                     p.Notice($"{npc.Template.Name}: Euer Ruhestein ist jetzt an dieses Gasthaus gebunden.");
+                    _w.ReportProgress(p, ProgressEvent.Bind, p.Zone.Def.Id);
                 }
             }
             if (roles.HasFlag(NpcRole.Repair))

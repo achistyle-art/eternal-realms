@@ -15,10 +15,10 @@ namespace EternalRealms.Tests
         public List<string> Log { get; } = new();
 
         /// <param name="store">Gemeinsamer Speicher, um einen Serverneustart nachzustellen.</param>
-        public TestWorld(int seed = 1234, bool ambientBots = false, bool zoneLod = true, InMemoryStore? store = null)
+        public TestWorld(int seed = 1234, bool ambientBots = false, bool zoneLod = true, InMemoryStore? store = null, bool tutorial = false)
         {
             Store = store ?? new InMemoryStore();
-            var config = new ServerConfig { AmbientBots = ambientBots, DevCommands = true, ZoneLod = zoneLod };
+            var config = new ServerConfig { AmbientBots = ambientBots, DevCommands = true, ZoneLod = zoneLod, Tutorial = tutorial };
             World = new GameWorld(TestContent.Db, config, Store, new GameRandom(seed)) { Log = s => { lock (Log) Log.Add(s); } };
             World.Bots.LoadOffline(Array.Empty<CharacterData>());
         }

@@ -57,6 +57,16 @@ namespace EternalRealms.Server.World
         public TradeSystem Trades { get; }
         public EmoteSystem Emotes { get; }
         public WorldEventSystem Events { get; }
+        public AchievementSystem Achievements { get; }
+        public TutorialSystem Tutorial { get; }
+
+        /// <summary>Fortschrittsereignis an Erfolge und Tutorial (Kapitel 38/39).</summary>
+        public void ReportProgress(Player p, ProgressEvent ev, string target = "", int amount = 1)
+        {
+            if (p.Removed && p.Zone == null) return;
+            Achievements.Report(p, ev, target, amount);
+            Tutorial.Report(p, ev, target, amount);
+        }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
@@ -99,6 +109,8 @@ namespace EternalRealms.Server.World
             Trades = new TradeSystem(this);
             Emotes = new EmoteSystem(this);
             Events = new WorldEventSystem(this);
+            Achievements = new AchievementSystem(this);
+            Tutorial = new TutorialSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
             Combat = new CombatSystem(this);
@@ -173,6 +185,8 @@ namespace EternalRealms.Server.World
             Finder.Update(dt);
             Trades.Update();
             Events.Update(dt);
+            Tutorial.Update(dt);
+            Achievements.Flush();
             Bots.Update(dt);
             Mail.Update(dt);
             LootRolls.Update();
@@ -268,6 +282,7 @@ namespace EternalRealms.Server.World
             AddToZone(p, _zones[zoneId], pos);
             SendFullState(p);
             if (p.IsDead) p.Send(new S_DeathState { State = p.DeathState, CorpsePosition = p.Data.CorpsePosition });
+            Tutorial.OnEnterWorld(p);
             return p;
         }
 
@@ -280,6 +295,7 @@ namespace EternalRealms.Server.World
             p.CurrentArea = zone.AreaAt(pos);
             p.Data.ZoneId = zone.Def.Id;
             p.Data.CurrentInstanceId = zone.InstanceId;
+            ReportProgress(p, zone.Def.IsInstance ? ProgressEvent.EnterDungeon : ProgressEvent.VisitZone, zone.Def.Id);
         }
 
         public void SendFullState(Player p)
@@ -295,6 +311,7 @@ namespace EternalRealms.Server.World
                 Social.NotifyFriends(p, true);
                 p.Send(new S_Settings { Json = p.Data.ClientSettings });
                 p.Send(Chat.BuildChannels(p));
+                p.Send(Achievements.Build(p));
                 p.Send(new S_Exploration { Full = true, Areas = p.Data.DiscoveredAreas.OrderBy(a => a).ToList(), FlightNodes = p.Data.KnownTravelNodes.OrderBy(n => n).ToList() });
             }
             p.Send(p.BuildSpawn(p));
@@ -315,6 +332,7 @@ namespace EternalRealms.Server.World
             p.Data.LastLogout = DateTime.UtcNow;
             Finder.Leave(p);
             Trades.Cancel(p, $"{p.Name} hat sich abgemeldet.");
+            Tutorial.OnLogout(p);
             if (p.Group != null) Groups.Leave(p);
             Save(p);
             RemoveFromWorld(p);

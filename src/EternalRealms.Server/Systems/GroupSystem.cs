@@ -1,5 +1,6 @@
 using EternalRealms.Server.World;
 using EternalRealms.Shared;
+using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
 
 namespace EternalRealms.Server.Systems
@@ -27,6 +28,7 @@ namespace EternalRealms.Server.Systems
             if (!g.Add(p)) return false;
             g.Broadcast(g.BuildUpdate());
             g.Broadcast(new S_Chat { Channel = ChatChannel.System, Text = $"{p.Name} ist der Gruppe beigetreten." });
+            if (p.IsBot) foreach (var h in g.Members.Where(m => !m.IsBot)) _w.ReportProgress(h, ProgressEvent.GroupWithBot);
             return true;
         }
 

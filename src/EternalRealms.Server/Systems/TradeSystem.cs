@@ -1,6 +1,7 @@
 using EternalRealms.Server.Persistence;
 using EternalRealms.Server.World;
 using EternalRealms.Shared;
+using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
 
 namespace EternalRealms.Server.Systems
@@ -220,6 +221,8 @@ namespace EternalRealms.Server.Systems
                 p.Send(p.BuildPlayerState());
             }
             if (b.IsBot) b.Bot?.Say("trade_thanks", a, force: true);
+            _w.ReportProgress(a, ProgressEvent.Trade);
+            _w.ReportProgress(b, ProgressEvent.Trade);
             Close(t, true, "Handel abgeschlossen.");
         }
 

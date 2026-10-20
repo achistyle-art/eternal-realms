@@ -18,6 +18,7 @@ namespace EternalRealms.Server.Systems
 
         public void OnPlayerDied(Player p, Unit? killer)
         {
+            _w.ReportProgress(p, ProgressEvent.Die);
             p.Data.CorpseZone = p.Zone?.Def.Id ?? p.Data.ZoneId;
             p.Data.CorpsePosition = p.Position;
             p.LoseDurability(0.10f);

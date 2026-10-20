@@ -1,0 +1,14 @@
+[
+ {
+  "id": "npc_ki_erklaerer",
+  "name": "Lysa",
+  "title": "KI-Erklärerin",
+  "faction": "Friendly",
+  "roles": "None",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "moveSpeed": 8,
+  "gossip": "Ich bin eine KI-Erklärerin und helfe neuen Abenteurern."
+ }
+]

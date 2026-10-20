@@ -808,6 +808,7 @@ namespace EternalRealms.Server.Systems
                 }
                 if (c.IsBoss) _w.Instances.OnBossKilled(c);
                 _w.Events.OnCreatureDied(c, attackers);
+                CreditKill(c, c.TappedBy ?? killerPlayer);
                 var tapper = c.TappedBy ?? killerPlayer;
                 if (tapper != null && !tapper.Removed)
                 {
@@ -821,6 +822,20 @@ namespace EternalRealms.Server.Systems
                 return;
             }
             if (victim is Player vp) _w.Death.OnPlayerDied(vp, killer);
+        }
+
+        /// <summary>Erfolge für einen Sieg: der Erstschläger und seine Gruppe in der Nähe.</summary>
+        private void CreditKill(Creature c, Player? tapper)
+        {
+            if (tapper == null || tapper.Removed || c.IsPet || c.Owner != null) return;
+            var credited = tapper.Group != null ? _w.Quests.CreditMembers(tapper, c.Position) : new List<Player> { tapper };
+            foreach (var p in credited)
+            {
+                _w.ReportProgress(p, ProgressEvent.Kill, c.Template.Id);
+                if (c.Template.Family.Length > 0) _w.ReportProgress(p, ProgressEvent.KillFamily, c.Template.Family);
+                if (c.Template.Rare) _w.ReportProgress(p, ProgressEvent.KillRare, c.Template.Id);
+                if (c.IsBoss) _w.ReportProgress(p, ProgressEvent.KillBoss, c.Template.Id);
+            }
         }
     }
 }

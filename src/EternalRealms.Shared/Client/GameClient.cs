@@ -81,6 +81,8 @@ namespace EternalRealms.Shared.Client
         public HashSet<ChatChannel> JoinedChannels { get; } = new HashSet<ChatChannel>();
         /// <summary>Laufende und kürzlich beendete Weltereignisse der Region (Kapitel 37).</summary>
         public Dictionary<string, S_WorldEvent> WorldEvents { get; } = new Dictionary<string, S_WorldEvent>();
+        public S_Achievements Achievements { get; private set; } = new S_Achievements();
+        public S_Tutorial? Tutorial { get; private set; }
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -260,6 +262,8 @@ namespace EternalRealms.Shared.Client
                 case S_InstanceInfo ii: InstanceInfo = ii; break;
                 case S_Professions pf: Professions = pf.Professions; break;
                 case S_WorldEvent we: WorldEvents[we.EventId] = we; break;
+                case S_Achievements ach: Achievements = ach; break;
+                case S_Tutorial tut: Tutorial = tut; break;
                 case S_TradeRequest treq: TradeRequest = treq; break;
                 case S_TradeState tst: Trade = tst; TradeRequest = null; break;
                 case S_TradeClosed tc: Trade = null; LastTradeResult = tc; break;

@@ -38,6 +38,8 @@ namespace EternalRealms.Shared.Content
         public List<BotDialogDef> BotDialog { get; } = new List<BotDialogDef>();
         public Dictionary<string, EmoteDef> Emotes { get; } = new Dictionary<string, EmoteDef>();
         public Dictionary<string, WorldEventDef> WorldEvents { get; } = new Dictionary<string, WorldEventDef>();
+        public Dictionary<string, AchievementDef> Achievements { get; } = new Dictionary<string, AchievementDef>();
+        public List<TutorialStepDef> Tutorial { get; } = new List<TutorialStepDef>();
         /// <summary>Chatbefehl ohne Schrägstrich (klein) → Emote.</summary>
         public Dictionary<string, EmoteDef> EmoteCommands { get; } = new Dictionary<string, EmoteDef>();
         public List<BotProfileDef> BotProfiles { get; } = new List<BotProfileDef>();
@@ -88,6 +90,8 @@ namespace EternalRealms.Shared.Content
             db.BotDialog.AddRange(ReadList<BotDialogDef>(root, "bots/dialog"));
             db.BotProfiles.AddRange(ReadList<BotProfileDef>(root, "bots/profiles"));
             foreach (var ev in ReadList<WorldEventDef>(root, "events")) AddUnique(db.WorldEvents, ev.Id, ev, "Weltereignis");
+            foreach (var a in ReadList<AchievementDef>(root, "achievements")) AddUnique(db.Achievements, a.Id, a, "Erfolg");
+            db.Tutorial.AddRange(ReadList<TutorialStepDef>(root, "tutorial"));
             foreach (var e in ReadList<EmoteDef>(root, "emotes"))
             {
                 AddUnique(db.Emotes, e.Id, e, "Emote");
@@ -216,6 +220,34 @@ namespace EternalRealms.Shared.Content
             var errors = new List<string>();
             void Need(bool ok, string message) { if (!ok) errors.Add(message); }
             bool HasAbility(string id) => AbilityRanks.ContainsKey(id) || Abilities.ContainsKey(id);
+
+            var titles = new HashSet<string>();
+            foreach (var a in Achievements.Values)
+            {
+                Need(a.Criteria.Count > 0, $"Erfolg {a.Id}: keine Bedingungen");
+                Need(a.Points >= 0 && a.Points <= 100, $"Erfolg {a.Id}: Punkte 0–100");
+                if (a.Title != null) Need(titles.Add(a.Title), $"Erfolg {a.Id}: Titel '{a.Title}' doppelt");
+                foreach (var c in a.Criteria)
+                {
+                    Need(c.Count > 0, $"Erfolg {a.Id}: Anzahl muss positiv sein");
+                    if (c.Target.Length == 0) continue;
+                    bool ok = c.Event switch
+                    {
+                        ProgressEvent.Kill or ProgressEvent.KillBoss => Creatures.ContainsKey(c.Target),
+                        ProgressEvent.CompleteQuest or ProgressEvent.AcceptQuest => Quests.ContainsKey(c.Target),
+                        ProgressEvent.Discover => Zones.Values.Any(z => z.Areas.Any(ar => ar.Id == c.Target)),
+                        ProgressEvent.VisitZone or ProgressEvent.EnterDungeon => Zones.ContainsKey(c.Target),
+                        ProgressEvent.ProfessionSkill or ProgressEvent.LearnProfession or ProgressEvent.Craft or ProgressEvent.Gather => Professions.ContainsKey(c.Target),
+                        ProgressEvent.WorldEvent => WorldEvents.ContainsKey(c.Target),
+                        ProgressEvent.Emote => Emotes.ContainsKey(c.Target),
+                        ProgressEvent.Reputation => Reputations.ContainsKey(c.Target),
+                        _ => true,
+                    };
+                    Need(ok, $"Erfolg {a.Id}: Ziel '{c.Target}' für {c.Event} unbekannt");
+                }
+            }
+            Need(Tutorial.Count == 0 || Tutorial.Select(t => t.Id).Distinct().Count() == Tutorial.Count, "Tutorial: doppelte Schritt-IDs");
+            foreach (var t in Tutorial) Need(t.Trigger != null || t.AutoSeconds > 0, $"Tutorial {t.Id}: braucht Auslöser oder AutoSeconds");
 
             foreach (var ev in WorldEvents.Values)
             {

@@ -19,6 +19,7 @@ int lastNotice = 0, lastChat = 0;
 double nextMoveSend = 0;
 
 var lastEventState = new Dictionary<string, string>();
+var lastTutorial = "";
 client.MessageReceived += m =>
 {
     switch (m)
@@ -83,6 +84,11 @@ client.MessageReceived += m =>
             lastEventState[we2.EventId] = $"{we2.State}{we2.Text}{we2.Progress}";
             Print($"[Weltereignis] {we2.Name}: {we2.Text}{(we2.State == WorldEventState.Running ? $" ({we2.Progress}/{we2.Goal}, noch {we2.SecondsLeft:0} s, bei {we2.Position.X:0}/{we2.Position.Z:0})" : "")}{(we2.Participating ? " – Ihr seid dabei" : "")}");
             break;
+        case S_Tutorial tu when !tu.Done && tu.Title != lastTutorial:
+            lastTutorial = tu.Title;
+            Print($"[Tutorial {tu.Step + 1}/{tu.Steps}] {tu.Title} (tutorial skip zum Überspringen)");
+            break;
+        case S_AchievementEarned ae: Print($"★ Erfolg: {ae.Name} (+{ae.Points}){(ae.Title != "" ? $" – Titel „{ae.Title}“ (titel {ae.Title})" : "")}"); break;
         case S_ChatChannels cc2: Print("Kanäle: " + string.Join(", ", cc2.Joined.Select(j => ((ChatChannel)j) switch { ChatChannel.General => "Gebiet", ChatChannel.Trade => "Handel", _ => "Gruppensuche" }))); break;
         case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
         case S_MailList ml:
@@ -417,6 +423,31 @@ void Command(string line)
                 client.Send(new C_Emote { EmoteId = emo.Id, TargetId = client.Me?.TargetId ?? 0 });
             else client.Say(rest, ChatChannel.Emote);
             break;
+        case "erfolge":
+        {
+            var st = client.Achievements;
+            Print($"Erfolgspunkte: {st.Points} – Titel: {(st.Titles.Count == 0 ? "keine" : string.Join(", ", st.Titles))}{(st.ActiveTitle != "" ? $" (aktiv: {st.ActiveTitle})" : "")}");
+            foreach (var cat in content.Achievements.Values.GroupBy(x => x.Category))
+            {
+                Print($"  {cat.Key}:");
+                foreach (var ad in cat)
+                {
+                    var pr = st.Progress.FirstOrDefault(x => x.Id == ad.Id);
+                    bool done = pr != null && pr.CompletedAt > 0;
+                    if (ad.Hidden && !done) continue;
+                    string prog = string.Join(", ", ad.Criteria.Select((c, i) => $"{(pr != null && i < pr.Counts.Count ? pr.Counts[i] : 0)}/{c.Count}"));
+                    Print($"    {(done ? "✔" : " ")} {ad.Name} ({ad.Points}) – {ad.Description}{(done ? "" : " " + prog)}{(ad.Title != null ? $" [Titel: {ad.Title}]" : "")}");
+                }
+            }
+            break;
+        }
+        case "titel": client.Send(new C_SetTitle { Title = rest == "aus" ? "" : rest }); break;
+        case "tutorial":
+            if (rest == "skip") client.Send(new C_TutorialSkip());
+            else if (rest == "neu") client.Send(new C_TutorialRestart());
+            else if (client.Tutorial is { Done: false } tut) Print($"[Tutorial {tut.Step + 1}/{tut.Steps}] {tut.Title}: {tut.Text}{(tut.Hint != "" ? " Tipp: " + tut.Hint : "")}");
+            else Print("Kein Tutorial aktiv (tutorial neu startet es).");
+            break;
         case "events":
             if (client.WorldEvents.Count == 0) Print("Keine Weltereignisse in dieser Region.");
             foreach (var w in client.WorldEvents.Values) Print($"  {w.Name}: {w.State} – {w.Text} {w.Progress}/{w.Goal}, {w.Participants} Beteiligte");
@@ -667,6 +698,7 @@ void Help() => Print(@"Befehle:
   Chatbefehle: p Tank, greif den Boss an. | p Heiler, bitte Mana auffüllen. | p Magier, kontrolliere den linken Gegner. | p Alle zurückziehen.
   group | invite <Name> | join | leave
   g <Text> Gebiet | h <Text> Handel (nur in Städten) | suche <Text> Gruppensuche | kanal gebiet|handel|suche an|aus | #3 im Text verlinkt Taschenplatz 3
+  erfolge | titel <Titel|aus> | tutorial [skip|neu]
   events (laufende Weltereignisse) | #event <id>, #time <Stunde>, #weather <Wetter> (Entwicklermodus)
   e <Emote> [mit Ziel: zuerst 'target'] z. B. e winken | e <freier Text> | emotes | perf
   trade <id|Name> | tradeyes | tradeno | tput <1-6> <Taschenplatz> | tgold <Kupfer> | tok | tcancel

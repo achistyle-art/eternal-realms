@@ -50,6 +50,8 @@ namespace EternalRealms.Server.AI
             }
             if (_despawnAfter > 0 && (_despawnAfter -= dt) <= 0) { Despawn(); return; }
             if (_c.IsPet) { UpdatePet(dt); return; }
+            if (_c.DespawnAt > 0 && W.Time >= _c.DespawnAt) { _c.Zone?.Remove(_c); return; }
+            if (_c.GuideFor != null) { UpdateGuide(dt); return; }
             if (_c.Escort != null && State == CreatureState.Idle) { W.Quests.UpdateEscort(_c, dt); if (_c.Removed) return; ScanForAggro(dt); return; }
 
             switch (State)
@@ -350,6 +352,25 @@ namespace EternalRealms.Server.AI
             if (_fleeTimer <= 0 || from == null) { State = CreatureState.Combat; return; }
             var dir = (_c.Position - from.Position).NormalizedXZ();
             MoveTowards(_c.Position + dir * 5, dt, 0.8f);
+        }
+
+        // ------------------------------------------------------------ KI-Erklärerin
+
+        /// <summary>Folgt dem Schützling seitlich versetzt, wartet im Kampf am Rand und schaut ihn an.</summary>
+        private void UpdateGuide(float dt)
+        {
+            var p = _c.GuideFor!;
+            if (p.Removed || p.Zone != _c.Zone) { _c.Zone?.Remove(_c); return; }
+            float d = _c.DistanceTo(p);
+            if (d > 45) { _c.Zone!.SetPosition(_c, p.Position + new Vec3(2, 0, 2)); return; }
+            float keep = p.InCombat ? 10f : 3.5f;
+            if (d > keep + 1.5f)
+            {
+                var side = new Vec3((float)Math.Cos(p.Facing + Math.PI / 2), 0, (float)Math.Sin(p.Facing + Math.PI / 2)) * 2f;
+                MoveTowards(p.Position + side, dt, d > 15 ? 1.3f : 1f);
+                return;
+            }
+            _c.Facing = (float)Math.Atan2(p.Position.Z - _c.Position.Z, p.Position.X - _c.Position.X);
         }
 
         // ------------------------------------------------------------ Begleiter

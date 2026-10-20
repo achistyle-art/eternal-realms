@@ -36,6 +36,7 @@ namespace EternalRealms.Server.Systems
             if (p.Level < next.Level) return $"{next.Name} erfordert Stufe {next.Level}.";
             if (!_w.Economy.Debit(p, next.Cost, "riding", next.Name)) return $"{next.Name} kostet {LootSystem.Money(next.Cost)}.";
             p.Data.RidingSkill = next.Skill;
+            _w.ReportProgress(p, ProgressEvent.LearnRiding);
             p.Notice($"Ihr habt {next.Name} erlernt.");
             p.Send(p.BuildPlayerState());
             p.Send(BuildJournal(p));
@@ -54,6 +55,7 @@ namespace EternalRealms.Server.Systems
             if (p.Data.RidingSkill < SkillFor(m.Speed)) return m.Speed >= 100 ? "Dafür braucht Ihr „Reiten (Experte)“." : "Lernt zuerst beim Stallmeister das Reiten.";
             if (--stack.Count <= 0) p.Data.Bag[bagIndex] = null;
             p.Data.Mounts.Add(m.Id);
+            _w.ReportProgress(p, ProgressEvent.MountsOwned, "", p.Data.Mounts.Count);
             p.Notice($"Neues Reittier: {m.Name}");
             p.Send(p.BuildInventory());
             p.Send(BuildJournal(p));

@@ -16,6 +16,17 @@ namespace EternalRealms.Server.Systems
         private readonly Dictionary<int, double> _last = new();
         public EmoteSystem(GameWorld world) { _w = world; }
 
+        /// <summary>Emote eines NPCs (z. B. der KI-Erklärerin): gleicher Text und dieselbe Animation wie bei Spielern.</summary>
+        public void PerformBy(Creature c, string emoteId, Unit? target)
+        {
+            if (!_w.Content.Emotes.TryGetValue(emoteId, out var def) || c.Zone == null) return;
+            if (target == c) target = null;
+            string text = (target != null ? def.TextTarget : def.TextNoTarget).Replace("{me}", c.Name).Replace("{target}", target?.Name ?? "");
+            var chat = new S_Chat { Channel = ChatChannel.Emote, SenderId = c.Id, Text = text };
+            var emote = new S_Emote { SourceId = c.Id, TargetId = target?.Id ?? 0, EmoteId = def.Id };
+            foreach (var listener in c.Zone.PlayersInRange(c.Position, ChatSystem.SayRange)) { listener.Send(emote); listener.Send(chat); }
+        }
+
         public string? Perform(Player p, string emoteId, int targetId)
         {
             if (!_w.Content.Emotes.TryGetValue(emoteId, out var def)) return "Unbekanntes Emote.";
@@ -35,6 +46,7 @@ namespace EternalRealms.Server.Systems
                     listener.Send(chat);
                 }
             if (target is Player tp && tp.IsBot && !p.IsBot) tp.Bot?.OnEmote(p, def);
+            _w.ReportProgress(p, ProgressEvent.Emote, def.Id);
             return null;
         }
     }

@@ -79,7 +79,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | B ✅ | 31, 32, 46 | Chatkanäle (Handel, Gebiet, Raid, Gilde), Blockieren/Melden, Gegenstandslinks, Freundesliste inkl. KI-Freunde, direkter Spielerhandel (atomar) |
 | C ✅ | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
 | D ✅ | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
-| E | 38, 39, 58 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer, Lokalisierung Deutsch/Englisch |
+| E ✅ | 38, 39 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer – Lokalisierung (Kapitel 58) auf Wunsch gestrichen, das Spiel bleibt deutsch |
 | F | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
 | G | 43–45, 48 | KI-Ebenen ausbauen: Encounter-Manager für Dungeons/Raids, Tankwechsel, Flächen ausweichen, Raidkoordination bis 40, Bot-Balance |
 | H | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
@@ -146,3 +146,15 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 **Nur kompiliergeprüft** (Unity): Ereignis-Tracker über den Quests, Ereignismarker auf Minikarte und Karte, Blitze bei Gewitter (abschaltbar), Stadtgeräusche.
 
 **Unterwegs gefunden:** Die Erstbesetzung beim Serverstart hat gespeicherte Weltboss-Zeiten gelöscht, bevor sie geladen wurden – der Unit-Test nutzte einen frischen Speicher und sah es nicht. Behoben; der Test stellt den Neustart jetzt mit demselben Speicher nach. `#kill` traf gepanzerte Bosse nicht tödlich; behoben.
+
+### Block E – Stand
+
+Auf Wunsch ohne Übersetzung: Kapitel 58 (Lokalisierung) entfällt; alle Texte bleiben deutsch.
+
+**Umgesetzt und getestet** (`ProgressTests`, Live-Lauf mit Konsolenclient gegen PostgreSQL):
+- 49 Erfolge in 10 Kategorien (`content/achievements.json`), 21 Titel. Belohnt werden nur Punkte und frei wählbare Titel – die Datenstruktur kennt gar keine Gegenstände, Werte oder Gold. Fraktionsgebundene und verborgene Erfolge.
+- Ein Ereignisweg für alles (`GameWorld.ReportProgress`): Stufe, Siege (auch für die Gruppe in der Nähe), Familien, Seltene, Bosse, Quests, Gebiete, Regionen, Dungeons, Berufe (Fertigkeit, Herstellen, Sammeln), Weltereignisse, Emotes, Handel, Gilde, Freunde, KI-Mitspieler, Reiten, Reittiere, Ruf, Tode, Flüge.
+- Erfolgsmeldung an Spieler, Gruppe und Gilde; KI-Mitspieler gratulieren und erringen selbst Erfolge. Titel am Namensschild, bei Bots immer zusammen mit „KI-Mitspieler“.
+- Tutorial mit 11 Schritten (`content/tutorial.json`) und der KI-Erklärerin Lysa: folgt neuen Charakteren, flüstert jeden Schritt mit der eigenen Tastenbelegung, zeigt auf das nächste Ziel (Questgeber, passender Gegner, Leiche, Lehrer, Wirt), gibt nach 45 s einen Tipp, reagiert auf Tod und Stufenaufstieg. Schritte schließen sich nur durch echte Handlungen ab. Überspringen und Neustarten jederzeit; Veteranen und Bots bekommen kein Tutorial; der Stand wird gespeichert.
+
+**Nur kompiliergeprüft** (Unity): Erfolgsfenster (H) mit Kategorien, Fortschrittsbalken und Titelwahl, Erfolgseinblendung mit Klang, Tutorial-Leiste mit „Überspringen“, schwebender Hinweispfeil über dem Ziel der Erklärerin, Tutorial-Neustart im Spielmenü.

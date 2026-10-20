@@ -60,6 +60,7 @@ namespace EternalRealms.Client
                 if (m is S_Settings st) OnSettingsReceived(st);
                 if (m is S_SpellBook) OnSpellBook();
                 if (m is S_Chat chat) OnChat(chat);
+                OnProgressMessage(m);
                 if (m is S_NpcInteraction ni) { _npc = ni; _choice = -1; }
                 OnEconomyMessage(m);
                 if (m is S_LoginResult lr) _status = lr.Message;
@@ -338,6 +339,9 @@ namespace EternalRealms.Client
             if (_showOptions) DrawOptions();
             DrawTradeWindows();
             if (_showEmotes) DrawEmotes();
+            if (_showAchievements) DrawAchievements();
+            DrawTutorial();
+            DrawAchievementToasts();
             DrawPerformance();
             DrawPinnedLink();
             DrawDragGhost();
@@ -614,13 +618,14 @@ namespace EternalRealms.Client
                 ("Charakter", "character", () => _showCharacter = !_showCharacter), ("Taschen", "bags", () => _showBags = !_showBags),
                 ("Zauber", "spellbook", () => _showBook = !_showBook), ("Talente", "talents", () => _showTalents = !_showTalents),
                 ("Quests", "quest_log", () => _showQuests = !_showQuests), ("Karte", "world_map", () => _showMap = !_showMap),
-                ("Gruppe", "group", () => _showGroup = !_showGroup), ("Menü", "menu", () => { if (_showOptions) CloseOptions(); else OpenOptions(); }),
+                ("Gruppe", "group", () => _showGroup = !_showGroup), ("Erfolge", "achievements", () => _showAchievements = !_showAchievements),
+                ("Menü", "menu", () => { if (_showOptions) CloseOptions(); else OpenOptions(); }),
             };
             const float w = 80, h = 22;
-            float x0 = ScreenW - 4 * (w + 2) - 8, y0 = ScreenH - 2 * (h + 2) - 30;
+            float x0 = ScreenW - 5 * (w + 2) - 8, y0 = ScreenH - 2 * (h + 2) - 30;
             for (int i = 0; i < items.Length; i++)
             {
-                var r = Box(new Rect(x0 + i % 4 * (w + 2), y0 + i / 4 * (h + 2), w, h));
+                var r = Box(new Rect(x0 + i % 5 * (w + 2), y0 + i / 5 * (h + 2), w, h));
                 if (GUI.Button(r, new GUIContent(items[i].label, items[i].label + KeyHint(items[i].action)))) items[i].toggle();
             }
         }

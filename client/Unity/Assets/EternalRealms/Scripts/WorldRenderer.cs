@@ -23,6 +23,7 @@ namespace EternalRealms.Client
         private Light _sun = null!;
         private ParticleSystem? _rain;
         private float _flash;
+        private GameObject? _focusArrow;
         private GameObject _selection = null!;
         public readonly List<FloatingText> FloatingTexts = new List<FloatingText>();
 
@@ -127,6 +128,18 @@ namespace EternalRealms.Client
             var target = me != null ? ViewOf(me.TargetId) : null;
             _selection.SetActive(target != null);
             if (target != null) _selection.transform.position = target.transform.position + Vector3.up * 0.05f;
+            // Tutorial: die KI-Erklärerin zeigt auf ein Ziel – schwebender, pulsierender Pfeil darüber
+            var focus = Client.Tutorial is { Done: false, FocusEntityId: > 0 } tut ? ViewOf(tut.FocusEntityId) : null;
+            if (_focusArrow == null)
+            {
+                _focusArrow = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                _focusArrow.name = "Tutorial-Hinweis";
+                Destroy(_focusArrow.GetComponent<Collider>());
+                _focusArrow.transform.localScale = new Vector3(0.35f, 0.6f, 0.35f);
+                _focusArrow.GetComponent<Renderer>().material.color = new Color(0.4f, 0.9f, 1f);
+            }
+            _focusArrow.SetActive(focus != null);
+            if (focus != null) _focusArrow.transform.position = focus.transform.position + Vector3.up * (3.2f + 0.25f * Mathf.Sin(Time.time * 4));
 
             UpdateSky();
             FloatingTexts.RemoveAll(f => Time.time - f.Born > 1.6f);

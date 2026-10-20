@@ -1,6 +1,7 @@
 using EternalRealms.Server.Persistence;
 using EternalRealms.Server.World;
 using EternalRealms.Shared;
+using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
 
 namespace EternalRealms.Server.Systems
@@ -112,6 +113,7 @@ namespace EternalRealms.Server.Systems
         private void Join(GuildData g, Player p)
         {
             g.Members.Add(Entry(p, Recruit));
+            _w.ReportProgress(p, ProgressEvent.JoinGuild);
             _byMember[p.Data.Id] = g;
             Persist(g);
             Announce(g, $"{p.Name} ist der Gilde beigetreten.");

@@ -58,6 +58,11 @@ namespace EternalRealms.Server.Persistence
         public string ClientSettings { get; set; } = "";
         /// <summary>Verlassene öffentliche Kanäle (ChatChannel als Zahl); standardmäßig ist man in allen.</summary>
         public HashSet<int> LeftChannels { get; set; } = new();
+        /// <summary>Erfolge (Kapitel 38): Fortschritt je Erfolg und gewählter Titel.</summary>
+        public Dictionary<string, AchievementProgress> Achievements { get; set; } = new();
+        public string ActiveTitle { get; set; } = "";
+        /// <summary>Tutorial (Kapitel 39); null = noch nie gestartet.</summary>
+        public TutorialState? Tutorial { get; set; }
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();
@@ -86,6 +91,20 @@ namespace EternalRealms.Server.Persistence
         {
             Id = Id, Name = Name, Race = Race, Class = Class, Gender = Gender, Level = Level, ZoneId = ZoneId, Appearance = Appearance.ToNet(),
         };
+    }
+
+    public sealed class AchievementProgress
+    {
+        public List<int> Counts { get; set; } = new();
+        public DateTime? CompletedAt { get; set; }
+    }
+
+    public sealed class TutorialState
+    {
+        public int Step { get; set; }
+        public int Counter { get; set; }
+        public bool Done { get; set; }
+        public bool Skipped { get; set; }
     }
 
     public sealed class AppearanceDto

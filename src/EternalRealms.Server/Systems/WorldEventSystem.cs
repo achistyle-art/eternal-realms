@@ -219,6 +219,7 @@ namespace EternalRealms.Server.Systems
                 }
                 if (overflow.Count > 0 && p.Data.Id > 0) _w.Mail.SendSystem(p.Data.Id, run.Def.Name, "Belohnung", "Eure Taschen waren voll – hier ist Eure Belohnung.", 0, overflow, p);
                 p.Notice($"Belohnung für „{run.Def.Name}“ erhalten.");
+                _w.ReportProgress(p, ProgressEvent.WorldEvent, run.Def.Id);
                 p.Send(p.BuildInventory());
                 p.Send(p.BuildPlayerState());
                 p.Bot?.Gesture("cheer", chance: 0.7, delay: 1);

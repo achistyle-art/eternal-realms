@@ -60,6 +60,7 @@ namespace EternalRealms.Client
             if (GUILayout.Button("Zurück zum Spiel", GUILayout.Height(30))) CloseOptions();
             if (GUILayout.Button("Abmelden (zur Charakterauswahl)", GUILayout.Height(30))) { SaveSettingsNow(); Client.Send(new C_Logout()); CloseOptions(); }
             if (GUILayout.Button("Spiel beenden", GUILayout.Height(30))) { SaveSettingsNow(); Application.Quit(); }
+            if (GUILayout.Button("Tutorial mit der KI-Erklärerin neu starten", GUILayout.Height(30))) { Client.Send(new C_TutorialRestart()); CloseOptions(); }
             GUILayout.Space(8);
             GUILayout.Label("Einstellungen werden am Charakter auf dem Server gespeichert und gelten auf jedem Rechner.", _wrap);
         }

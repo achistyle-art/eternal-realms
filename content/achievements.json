@@ -1,0 +1,939 @@
+[
+ {
+  "id": "ach_tutorial",
+  "name": "Erste Schritte",
+  "description": "Schließt das Tutorial mit der KI-Erklärerin ab.",
+  "category": "Allgemein",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "TutorialDone",
+    "target": "",
+    "count": 1,
+    "description": "Tutorial abgeschlossen"
+   }
+  ]
+ },
+ {
+  "id": "ach_level_10",
+  "name": "Stufe 10",
+  "description": "Erreicht Stufe 10.",
+  "category": "Allgemein",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ReachLevel",
+    "target": "",
+    "count": 10,
+    "description": "Stufe 10"
+   }
+  ]
+ },
+ {
+  "id": "ach_level_20",
+  "name": "Stufe 20",
+  "description": "Erreicht Stufe 20.",
+  "category": "Allgemein",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ReachLevel",
+    "target": "",
+    "count": 20,
+    "description": "Stufe 20"
+   }
+  ]
+ },
+ {
+  "id": "ach_level_30",
+  "name": "Stufe 30",
+  "description": "Erreicht Stufe 30.",
+  "category": "Allgemein",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ReachLevel",
+    "target": "",
+    "count": 30,
+    "description": "Stufe 30"
+   }
+  ]
+ },
+ {
+  "id": "ach_level_40",
+  "name": "Stufe 40",
+  "description": "Erreicht Stufe 40.",
+  "category": "Allgemein",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ReachLevel",
+    "target": "",
+    "count": 40,
+    "description": "Stufe 40"
+   }
+  ]
+ },
+ {
+  "id": "ach_level_50",
+  "name": "Stufe 50",
+  "description": "Erreicht Stufe 50.",
+  "category": "Allgemein",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ReachLevel",
+    "target": "",
+    "count": 50,
+    "description": "Stufe 50"
+   }
+  ]
+ },
+ {
+  "id": "ach_level_60",
+  "name": "Stufe 60",
+  "description": "Erreicht Stufe 60.",
+  "category": "Allgemein",
+  "points": 25,
+  "criteria": [
+   {
+    "event": "ReachLevel",
+    "target": "",
+    "count": 60,
+    "description": "Stufe 60"
+   }
+  ],
+  "title": "der Unermüdliche"
+ },
+ {
+  "id": "ach_deaths_10",
+  "name": "Stammgast beim Geisterheiler",
+  "description": "Sterbt zehnmal. Es passiert den Besten.",
+  "category": "Allgemein",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "Die",
+    "target": "",
+    "count": 10,
+    "description": "10 Tode"
+   }
+  ],
+  "hidden": true
+ },
+ {
+  "id": "ach_explore_10",
+  "name": "Wanderlust",
+  "description": "Entdeckt 10 Gebiete.",
+  "category": "Erkundung",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Discover",
+    "target": "",
+    "count": 10,
+    "description": "10 Gebiete entdeckt"
+   }
+  ]
+ },
+ {
+  "id": "ach_explore_40",
+  "name": "Weitgereist",
+  "description": "Entdeckt 40 Gebiete.",
+  "category": "Erkundung",
+  "points": 20,
+  "criteria": [
+   {
+    "event": "Discover",
+    "target": "",
+    "count": 40,
+    "description": "40 Gebiete entdeckt"
+   }
+  ],
+  "title": "der Weitgereiste"
+ },
+ {
+  "id": "ach_explore_morgentau",
+  "name": "Kenner des Morgentauwalds",
+  "description": "Entdeckt alle Gebiete des Morgentauwalds.",
+  "category": "Erkundung",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Discover",
+    "target": "area_mt_lindenruh",
+    "count": 1,
+    "description": "Hof Lindenruh"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_grauklippe",
+    "count": 1,
+    "description": "Grauklippe"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_silberquell",
+    "count": 1,
+    "description": "Silberquell"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_tueftlerschuppen",
+    "count": 1,
+    "description": "Tüftlerschuppen"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_dorf",
+    "count": 1,
+    "description": "Dorf Morgentau"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_wolfshain",
+    "count": 1,
+    "description": "Wolfshain"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_spinnenmulde",
+    "count": 1,
+    "description": "Spinnenmulde"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_funkenloch",
+    "count": 1,
+    "description": "Funkenloch"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_wachturm",
+    "count": 1,
+    "description": "Wachturm"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_rotbach",
+    "count": 1,
+    "description": "Rotbach"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_hain",
+    "count": 1,
+    "description": "Hain"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_krypta",
+    "count": 1,
+    "description": "Krypta"
+   },
+   {
+    "event": "Discover",
+    "target": "area_mt_dornenhoehe",
+    "count": 1,
+    "description": "Dornenhöhe"
+   }
+  ]
+ },
+ {
+  "id": "ach_explore_aschensteppe",
+  "name": "Kenner der Aschensteppe",
+  "description": "Entdeckt alle Gebiete der Aschensteppe.",
+  "category": "Erkundung",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Discover",
+    "target": "area_as_grakar",
+    "count": 1,
+    "description": "Grakar-Lager"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_grabwacht",
+    "count": 1,
+    "description": "Grabwacht"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_hornweide",
+    "count": 1,
+    "description": "Hornweide-Lager"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_skarr",
+    "count": 1,
+    "description": "Schuppennest"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_lager",
+    "count": 1,
+    "description": "Lager Kargrak"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_hyaenenfelsen",
+    "count": 1,
+    "description": "Hyänenfelsen"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_glutsenke",
+    "count": 1,
+    "description": "Glutsenke"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_oase",
+    "count": 1,
+    "description": "Oase Zharim"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_sandschinder",
+    "count": 1,
+    "description": "Sandschinder-Lager"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_kultschlucht",
+    "count": 1,
+    "description": "Schlucht der Hohlen Flut"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_knochenschlucht",
+    "count": 1,
+    "description": "Knochenschlucht"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_krypta",
+    "count": 1,
+    "description": "Wurzelkrypta-Eingang"
+   },
+   {
+    "event": "Discover",
+    "target": "area_as_aschenkrater",
+    "count": 1,
+    "description": "Aschenkrater"
+   }
+  ]
+ },
+ {
+  "id": "ach_capitals_sb",
+  "name": "Bürger des Bündnisses",
+  "description": "Besucht Sonnenfeste und Silbermond.",
+  "category": "Erkundung",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "VisitZone",
+    "target": "zone_sonnenfeste",
+    "count": 1,
+    "description": "Sonnenfeste"
+   },
+   {
+    "event": "VisitZone",
+    "target": "zone_silbermond",
+    "count": 1,
+    "description": "Silbermond"
+   }
+  ],
+  "faction": "Sonnenbuendnis"
+ },
+ {
+  "id": "ach_capitals_sp",
+  "name": "Bürger des Pakts",
+  "description": "Besucht Kharzul und Nachtwacht.",
+  "category": "Erkundung",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "VisitZone",
+    "target": "zone_kharzul",
+    "count": 1,
+    "description": "Kharzul"
+   },
+   {
+    "event": "VisitZone",
+    "target": "zone_nachtwacht",
+    "count": 1,
+    "description": "Nachtwacht"
+   }
+  ],
+  "faction": "Schattenpakt"
+ },
+ {
+  "id": "ach_flight",
+  "name": "Über den Wolken",
+  "description": "Nehmt einen Flug beim Flugmeister.",
+  "category": "Erkundung",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "Flight",
+    "target": "",
+    "count": 1,
+    "description": "Ein Flug"
+   }
+  ]
+ },
+ {
+  "id": "ach_kills_100",
+  "name": "Kampferprobt",
+  "description": "Besiegt 100 Gegner.",
+  "category": "Kampf",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Kill",
+    "target": "",
+    "count": 100,
+    "description": "100 Siege"
+   }
+  ]
+ },
+ {
+  "id": "ach_kills_1000",
+  "name": "Schrecken der Wildnis",
+  "description": "Besiegt 1000 Gegner.",
+  "category": "Kampf",
+  "points": 20,
+  "criteria": [
+   {
+    "event": "Kill",
+    "target": "",
+    "count": 1000,
+    "description": "1000 Siege"
+   }
+  ],
+  "title": "Schrecken der Wildnis"
+ },
+ {
+  "id": "ach_wolves_50",
+  "name": "Wolfsjäger",
+  "description": "Besiegt 50 Wölfe.",
+  "category": "Kampf",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "KillFamily",
+    "target": "Wolf",
+    "count": 50,
+    "description": "50 Wölfe"
+   }
+  ],
+  "title": "Wolfsjäger"
+ },
+ {
+  "id": "ach_rare_graumaehne",
+  "name": "Die alte Graumähne",
+  "description": "Besiegt die seltene Alte Graumähne.",
+  "category": "Kampf",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Kill",
+    "target": "mob_graumaehne",
+    "count": 1,
+    "description": "Alte Graumähne"
+   }
+  ]
+ },
+ {
+  "id": "ach_rare_dunestalker",
+  "name": "Der Dünenpirscher",
+  "description": "Besiegt den seltenen Dünenpirscher.",
+  "category": "Kampf",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Kill",
+    "target": "mob_dunestalker",
+    "count": 1,
+    "description": "Dünenpirscher"
+   }
+  ]
+ },
+ {
+  "id": "ach_rares_10",
+  "name": "Seltenheitssammler",
+  "description": "Besiegt 10 seltene Gegner.",
+  "category": "Kampf",
+  "points": 20,
+  "criteria": [
+   {
+    "event": "KillRare",
+    "target": "",
+    "count": 10,
+    "description": "10 Seltene"
+   }
+  ],
+  "title": "der Fährtenleser"
+ },
+ {
+  "id": "ach_thornmaw",
+  "name": "Wurzelbrecher",
+  "description": "Besiegt den Weltboss Uralter Dornenschlund.",
+  "category": "Kampf",
+  "points": 25,
+  "criteria": [
+   {
+    "event": "KillBoss",
+    "target": "mob_thornmaw",
+    "count": 1,
+    "description": "Uralter Dornenschlund"
+   }
+  ],
+  "title": "Wurzelbrecher"
+ },
+ {
+  "id": "ach_kharox",
+  "name": "Glutbezwinger",
+  "description": "Besiegt den Weltboss Aschenwurm Kharox.",
+  "category": "Kampf",
+  "points": 25,
+  "criteria": [
+   {
+    "event": "KillBoss",
+    "target": "mob_kharox",
+    "count": 1,
+    "description": "Aschenwurm Kharox"
+   }
+  ],
+  "title": "Glutbezwinger"
+ },
+ {
+  "id": "ach_wurzelkrypta",
+  "name": "Wächter der Wurzelkrypta",
+  "description": "Besiegt alle Bosse der Wurzelkrypta.",
+  "category": "Dungeons",
+  "points": 20,
+  "criteria": [
+   {
+    "event": "KillBoss",
+    "target": "boss_moderkeim",
+    "count": 1,
+    "description": "Moderkeim"
+   },
+   {
+    "event": "KillBoss",
+    "target": "boss_elvaine",
+    "count": 1,
+    "description": "Elvaine"
+   },
+   {
+    "event": "KillBoss",
+    "target": "boss_morrak",
+    "count": 1,
+    "description": "Morrak"
+   }
+  ],
+  "title": "Kryptawächter"
+ },
+ {
+  "id": "ach_dungeon_first",
+  "name": "Hinab in die Tiefe",
+  "description": "Betretet zum ersten Mal einen Dungeon.",
+  "category": "Dungeons",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "EnterDungeon",
+    "target": "",
+    "count": 1,
+    "description": "Dungeon betreten"
+   }
+  ]
+ },
+ {
+  "id": "ach_quests_10",
+  "name": "10 Quests",
+  "description": "Schließt 10 Quests ab.",
+  "category": "Quests",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "CompleteQuest",
+    "target": "",
+    "count": 10,
+    "description": "10 Quests"
+   }
+  ]
+ },
+ {
+  "id": "ach_quests_50",
+  "name": "50 Quests",
+  "description": "Schließt 50 Quests ab.",
+  "category": "Quests",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "CompleteQuest",
+    "target": "",
+    "count": 50,
+    "description": "50 Quests"
+   }
+  ]
+ },
+ {
+  "id": "ach_quests_100",
+  "name": "100 Quests",
+  "description": "Schließt 100 Quests ab.",
+  "category": "Quests",
+  "points": 20,
+  "criteria": [
+   {
+    "event": "CompleteQuest",
+    "target": "",
+    "count": 100,
+    "description": "100 Quests"
+   }
+  ],
+  "title": "der Hilfsbereite"
+ },
+ {
+  "id": "ach_prof_75",
+  "name": "Geselle",
+  "description": "Erreicht Fertigkeit 75 in einem Beruf.",
+  "category": "Berufe",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ProfessionSkill",
+    "target": "",
+    "count": 75,
+    "description": "Fertigkeit 75"
+   }
+  ]
+ },
+ {
+  "id": "ach_prof_150",
+  "name": "Experte",
+  "description": "Erreicht Fertigkeit 150 in einem Beruf.",
+  "category": "Berufe",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ProfessionSkill",
+    "target": "",
+    "count": 150,
+    "description": "Fertigkeit 150"
+   }
+  ]
+ },
+ {
+  "id": "ach_prof_225",
+  "name": "Fachmann",
+  "description": "Erreicht Fertigkeit 225 in einem Beruf.",
+  "category": "Berufe",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "ProfessionSkill",
+    "target": "",
+    "count": 225,
+    "description": "Fertigkeit 225"
+   }
+  ]
+ },
+ {
+  "id": "ach_prof_300",
+  "name": "Meister des Handwerks",
+  "description": "Erreicht Fertigkeit 300 in einem Beruf.",
+  "category": "Berufe",
+  "points": 20,
+  "criteria": [
+   {
+    "event": "ProfessionSkill",
+    "target": "",
+    "count": 300,
+    "description": "Fertigkeit 300"
+   }
+  ],
+  "title": "Meister des Handwerks"
+ },
+ {
+  "id": "ach_craft_100",
+  "name": "Fleißige Hände",
+  "description": "Stellt 100 Gegenstände her.",
+  "category": "Berufe",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Craft",
+    "target": "",
+    "count": 100,
+    "description": "100 hergestellt"
+   }
+  ]
+ },
+ {
+  "id": "ach_gather_100",
+  "name": "Sammler",
+  "description": "Sammelt 100 Mal Rohstoffe.",
+  "category": "Berufe",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Gather",
+    "target": "",
+    "count": 100,
+    "description": "100 gesammelt"
+   }
+  ]
+ },
+ {
+  "id": "ach_two_professions",
+  "name": "Vielseitig",
+  "description": "Erlernt zwei Berufe.",
+  "category": "Berufe",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "LearnProfession",
+    "target": "",
+    "count": 2,
+    "description": "2 Berufe"
+   }
+  ]
+ },
+ {
+  "id": "ach_bot_group",
+  "name": "Nie allein",
+  "description": "Spielt mit einem KI-Mitspieler in einer Gruppe.",
+  "category": "Gesellschaft",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "GroupWithBot",
+    "target": "",
+    "count": 1,
+    "description": "KI-Mitspieler eingeladen"
+   }
+  ]
+ },
+ {
+  "id": "ach_guild",
+  "name": "Teil von etwas Größerem",
+  "description": "Tretet einer Gilde bei.",
+  "category": "Gesellschaft",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "JoinGuild",
+    "target": "",
+    "count": 1,
+    "description": "Gilde"
+   }
+  ]
+ },
+ {
+  "id": "ach_friends_5",
+  "name": "Gesellig",
+  "description": "Fügt 5 Freunde hinzu.",
+  "category": "Gesellschaft",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "AddFriend",
+    "target": "",
+    "count": 5,
+    "description": "5 Freunde"
+   }
+  ]
+ },
+ {
+  "id": "ach_trades_10",
+  "name": "Händlerseele",
+  "description": "Handelt zehnmal direkt mit anderen Spielern.",
+  "category": "Gesellschaft",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Trade",
+    "target": "",
+    "count": 10,
+    "description": "10 Handel"
+   }
+  ],
+  "title": "Händlerseele"
+ },
+ {
+  "id": "ach_dance",
+  "name": "Tanzbär",
+  "description": "Tanzt (/tanzen).",
+  "category": "Gesellschaft",
+  "points": 5,
+  "criteria": [
+   {
+    "event": "Emote",
+    "target": "dance",
+    "count": 1,
+    "description": "Getanzt"
+   }
+  ]
+ },
+ {
+  "id": "ach_emotes_50",
+  "name": "Ausdrucksstark",
+  "description": "Nutzt 50 Emotes.",
+  "category": "Gesellschaft",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "Emote",
+    "target": "",
+    "count": 50,
+    "description": "50 Emotes"
+   }
+  ]
+ },
+ {
+  "id": "ach_event_first",
+  "name": "Zur Stelle",
+  "description": "Nehmt erfolgreich an einem Weltereignis teil.",
+  "category": "Weltereignisse",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "WorldEvent",
+    "target": "",
+    "count": 1,
+    "description": "Ein Ereignis"
+   }
+  ]
+ },
+ {
+  "id": "ach_events_10",
+  "name": "Held der Stunde",
+  "description": "Nehmt erfolgreich an 10 Weltereignissen teil.",
+  "category": "Weltereignisse",
+  "points": 20,
+  "criteria": [
+   {
+    "event": "WorldEvent",
+    "target": "",
+    "count": 10,
+    "description": "10 Ereignisse"
+   }
+  ],
+  "title": "Held der Stunde"
+ },
+ {
+  "id": "ach_morgentau_retter",
+  "name": "Retter von Morgentau",
+  "description": "Besteht die Wolfsnacht und rettet den Händlerkarren.",
+  "category": "Weltereignisse",
+  "points": 15,
+  "criteria": [
+   {
+    "event": "WorldEvent",
+    "target": "ev_mt_wolfsnacht",
+    "count": 1,
+    "description": "Wolfsnacht"
+   },
+   {
+    "event": "WorldEvent",
+    "target": "ev_mt_karren",
+    "count": 1,
+    "description": "Händlerkarren"
+   }
+  ],
+  "title": "Retter von Morgentau",
+  "faction": "Sonnenbuendnis"
+ },
+ {
+  "id": "ach_steppe_retter",
+  "name": "Hüter der Steppe",
+  "description": "Brecht das Ritual der Hohlen Flut und rettet die Oase.",
+  "category": "Weltereignisse",
+  "points": 15,
+  "criteria": [
+   {
+    "event": "WorldEvent",
+    "target": "ev_as_flutboten",
+    "count": 1,
+    "description": "Ruf der Hohlen Flut"
+   },
+   {
+    "event": "WorldEvent",
+    "target": "ev_as_oase",
+    "count": 1,
+    "description": "Oase in Gefahr"
+   }
+  ],
+  "title": "Hüter der Steppe",
+  "faction": "Schattenpakt"
+ },
+ {
+  "id": "ach_riding",
+  "name": "Fest im Sattel",
+  "description": "Erlernt das Reiten.",
+  "category": "Reiten",
+  "points": 10,
+  "criteria": [
+   {
+    "event": "LearnRiding",
+    "target": "",
+    "count": 1,
+    "description": "Reiten gelernt"
+   }
+  ]
+ },
+ {
+  "id": "ach_mounts_5",
+  "name": "Stallbesitzer",
+  "description": "Besitzt 5 Reittiere.",
+  "category": "Reiten",
+  "points": 15,
+  "criteria": [
+   {
+    "event": "MountsOwned",
+    "target": "",
+    "count": 5,
+    "description": "5 Reittiere"
+   }
+  ],
+  "title": "Stallbesitzer"
+ },
+ {
+  "id": "ach_rep_respekt",
+  "name": "Angesehen",
+  "description": "Werdet bei einer Gruppierung respektvoll.",
+  "category": "Ruf",
+  "points": 15,
+  "criteria": [
+   {
+    "event": "Reputation",
+    "target": "",
+    "count": 21000,
+    "description": "Respektvoll"
+   }
+  ],
+  "title": "der Angesehene"
+ },
+ {
+  "id": "ach_rep_ehrfurcht",
+  "name": "Ehrfürchtig verehrt",
+  "description": "Werdet bei einer Gruppierung ehrfürchtig verehrt.",
+  "category": "Ruf",
+  "points": 25,
+  "criteria": [
+   {
+    "event": "Reputation",
+    "target": "",
+    "count": 42000,
+    "description": "Ehrfürchtig"
+   }
+  ],
+  "title": "der Verehrte"
+ }
+]

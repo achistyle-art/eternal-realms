@@ -104,6 +104,7 @@ namespace EternalRealms.Server.Systems
             foreach (var it in q.ProvidedItems) p.RemoveItem(it.Item, p.CountItem(it.Item));
             p.Data.Quests.Remove(q.Id);
             p.Data.CompletedQuests.Add(q.Id);
+            _w.ReportProgress(p, ProgressEvent.CompleteQuest, q.Id);
 
             foreach (var it in q.RewardItems) p.AddItem(it.Item, it.Count);
             if (q.RewardChoices.Count > 0) p.AddItem(q.RewardChoices[choice].Item, q.RewardChoices[choice].Count);

@@ -41,6 +41,7 @@ namespace EternalRealms.Server.Systems
             if (pr == null || pr.Skill >= pr.MaxSkill) return;
             if (!_w.Random.Chance(SkillUpChance(pr.Skill, required, yellow, green, gray))) return;
             pr.Skill++;
+            _w.ReportProgress(p, ProgressEvent.ProfessionSkill, prof, pr.Skill);
             p.Notice($"{_w.Content.Professions[prof].Name}: Fertigkeit {pr.Skill}/{pr.MaxSkill}");
             Refresh(p);
         }
@@ -82,6 +83,7 @@ namespace EternalRealms.Server.Systems
             if (!_w.Economy.Debit(p, rank.Cost, "profession", def.Id)) return $"Das kostet {LootSystem.Money(rank.Cost)}.";
             var pr = new ProfessionProgress { Skill = 1, MaxSkill = rank.MaxSkill };
             foreach (var r in _w.Content.Recipes.Values.Where(r => r.Profession == def.Id && r.SkillRequired <= 1)) pr.Recipes.Add(r.Id);
+            _w.ReportProgress(p, ProgressEvent.LearnProfession, def.Id);
             p.Data.Professions[def.Id] = pr;
             p.Notice($"Ihr habt {def.Name} ({rank.Name}) erlernt.");
             Refresh(p);
@@ -150,6 +152,7 @@ namespace EternalRealms.Server.Systems
         {
             int req = Math.Max(1, node.SkillRequired);
             SkillUp(p, node.Profession!, req, req + 25, req + 50, req + 100);
+            _w.ReportProgress(p, ProgressEvent.Gather, node.Profession!);
         }
 
         public static int SkinningRequired(int level) => level <= 10 ? 1 : (level - 10) * 10;
@@ -230,6 +233,7 @@ namespace EternalRealms.Server.Systems
             else
             {
                 p.AddItem(r.Creates!.Item, r.Creates.Count);
+                _w.ReportProgress(p, ProgressEvent.Craft, r.Profession);
                 p.Send(new S_LootResult { Items = { new ItemStackData { ItemId = r.Creates.Item, Count = r.Creates.Count } } });
                 _w.Quests.OnItemsChanged(p);
             }

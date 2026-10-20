@@ -431,7 +431,7 @@ namespace EternalRealms.Server.World
 
         public override S_EntitySpawn BuildSpawn(Player? viewer) => new()
         {
-            Id = Id, Kind = EntityKind.Player, TemplateId = "", Name = Name, Title = IsBot ? "KI-Mitspieler" : "", Race = Race, Class = Class, Gender = Data.Gender,
+            Id = Id, Kind = EntityKind.Player, TemplateId = "", Name = Name, Title = IsBot ? (Data.ActiveTitle.Length > 0 ? "KI-Mitspieler · " + Data.ActiveTitle : "KI-Mitspieler") : Data.ActiveTitle, Race = Race, Class = Class, Gender = Data.Gender,
             Level = Level, Faction = Faction, PowerType = PowerType, Appearance = Data.Appearance.ToNet(), State = BuildSnapshot(), MountId = ActiveMount,
         };
 

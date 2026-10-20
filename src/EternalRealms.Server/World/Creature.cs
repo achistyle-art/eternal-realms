@@ -91,6 +91,10 @@ namespace EternalRealms.Server.World
         public bool IsSummoned { get; set; }
         /// <summary>Gehört zu einem laufenden Weltereignis (Kapitel 37).</summary>
         public string? EventId { get; set; }
+        /// <summary>KI-Erklärerin des Tutorials: folgt diesem Spieler und kämpft nie (Kapitel 39).</summary>
+        public Player? GuideFor { get; set; }
+        /// <summary>Spielzeit, zu der die Kreatur still verschwindet (0 = nie).</summary>
+        public double DespawnAt { get; set; }
 
         public override EntityKind Kind => IsPet ? EntityKind.Pet : Template.IsNpc && Faction != Faction.Hostile && Faction != Faction.Neutral ? EntityKind.Npc : EntityKind.Creature;
         public override bool IsEvading => Evading;

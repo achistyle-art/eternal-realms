@@ -1,6 +1,7 @@
 using EternalRealms.Server.Persistence;
 using EternalRealms.Server.World;
 using EternalRealms.Shared;
+using EternalRealms.Shared.Content;
 using EternalRealms.Shared.Net;
 
 namespace EternalRealms.Server.Systems
@@ -55,6 +56,7 @@ namespace EternalRealms.Server.Systems
                     : _w.Content.Races.TryGetValue(r.Race, out var race) && race.Faction != p.Faction ? "Nur Charaktere der eigenen Fraktion." : null;
                 if (err != null) { p.Notice(err, true); return; }
                 p.Data.Friends.Add(new SocialEntry { CharacterId = r!.Id, Name = r.Name });
+                _w.ReportProgress(p, ProgressEvent.AddFriend);
                 p.Notice($"{r.Name} wurde Eurer Freundesliste hinzugefügt.");
                 _w.Save(p);
                 p.Send(BuildList(p));

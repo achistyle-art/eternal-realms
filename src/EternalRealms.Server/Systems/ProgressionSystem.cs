@@ -66,6 +66,7 @@ namespace EternalRealms.Server.Systems
             p.Data.Level = p.Level;
             p.MarkStatsDirty();
             p.EnsureStats();
+            _w.ReportProgress(p, ProgressEvent.ReachLevel, "", p.Level);
             if (p.IsAlive)
             {
                 p.Health = p.MaxHealth;
@@ -100,6 +101,7 @@ namespace EternalRealms.Server.Systems
         public void DiscoverArea(Player p, AreaDef area)
         {
             if (!p.Data.DiscoveredAreas.Add(area.Id)) return;
+            _w.ReportProgress(p, ProgressEvent.Discover, area.Id);
             p.Bot?.OnAreaDiscovered(area);
             if (!p.IsBot) p.Send(new S_Exploration { Areas = new List<string> { area.Id } });
             p.Notice($"Entdeckt: {area.Name}");
@@ -256,6 +258,7 @@ namespace EternalRealms.Server.Systems
             if (!_w.Content.Reputations.TryGetValue(factionId, out var rep) || now == old) return;
             p.Notice($"Ruf bei {rep.Name} um {Math.Abs(now - old)} {(now > old ? "gestiegen" : "gesunken")}.");
             if (Standing(now) != Standing(old)) p.Notice($"Ihr seid jetzt „{Standing(now)}“ bei {rep.Name}.");
+            _w.ReportProgress(p, ProgressEvent.Reputation, factionId, now);
         }
 
         public const int ReputationMin = -42000, ReputationMax = 42999;

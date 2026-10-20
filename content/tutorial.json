@@ -1,0 +1,93 @@
+[
+ {
+  "id": "t_welcome",
+  "title": "Willkommen",
+  "text": "Willkommen in Eternal Realms! Ich bin Lysa, Eure KI-Erklärerin. Ich begleite Euch durch die ersten Schritte – Ihr könnt mich jederzeit in den Optionen wegschicken.",
+  "autoSeconds": 8,
+  "emote": "wave"
+ },
+ {
+  "id": "t_move",
+  "title": "Bewegen",
+  "text": "Lauft ein paar Schritte: {key:move_forward} vorwärts, {key:move_back} zurück, {key:turn_left}/{key:turn_right} drehen, {key:strafe_left}/{key:strafe_right} seitwärts. Mit gedrückter rechter Maustaste dreht Ihr die Kamera.",
+  "hint": "Haltet {key:move_forward} gedrückt – ich laufe mit Euch.",
+  "trigger": "Move",
+  "count": 15
+ },
+ {
+  "id": "t_quest",
+  "title": "Eine Aufgabe",
+  "text": "Seht Ihr das gelbe Ausrufezeichen? Dort wartet jemand mit einer Aufgabe. Geht hin, sprecht ihn per Rechtsklick oder {key:interact} an und nehmt die Quest an.",
+  "hint": "Ich zeige Euch, wer eine Aufgabe hat – folgt meinem Finger und der Markierung auf der Minikarte.",
+  "trigger": "AcceptQuest",
+  "focus": "QuestGiver",
+  "emote": "point"
+ },
+ {
+  "id": "t_target",
+  "title": "Ein Ziel wählen",
+  "text": "Wählt einen Gegner als Ziel: Linksklick auf ihn oder {key:target_next} für den nächsten. Oben seht Ihr dann seine Lebenspunkte.",
+  "hint": "Dort drüben ist ein passender Gegner – ich zeige auf ihn.",
+  "trigger": "Target",
+  "focus": "Hostile",
+  "emote": "point"
+ },
+ {
+  "id": "t_attack",
+  "title": "Angreifen",
+  "text": "Greift an! Rechtsklick auf das Ziel startet den Nahkampf, und Eure Fähigkeiten liegen auf der Aktionsleiste – die erste auf {key:action_1_1}.",
+  "hint": "Drückt {key:action_1_1}, während der Gegner ausgewählt ist.",
+  "trigger": "CastAbility",
+  "focus": "Hostile"
+ },
+ {
+  "id": "t_kill",
+  "title": "Der erste Sieg",
+  "text": "Besiegt den Gegner. Achtet auf Eure Lebenspunkte oben links – wird es knapp, geht ein Stück zurück.",
+  "hint": "Bleibt dran und nutzt Eure Fähigkeiten, sobald sie bereit sind.",
+  "trigger": "Kill",
+  "focus": "Hostile"
+ },
+ {
+  "id": "t_loot",
+  "title": "Beute",
+  "text": "Gut gemacht! Plündert die Leiche: Rechtsklick auf sie. Beute landet in Euren Taschen ({key:bags}).",
+  "hint": "Die Leiche, auf die ich zeige, glitzert noch – Rechtsklick genügt.",
+  "trigger": "Loot",
+  "focus": "Corpse",
+  "emote": "cheer"
+ },
+ {
+  "id": "t_questlog",
+  "title": "Die Quest erfüllen",
+  "text": "Im Questlog ({key:quest_log}) und rechts im Quest-Tracker seht Ihr, was noch fehlt. Erfüllt die Aufgabe und bringt sie zum Fragezeichen zurück.",
+  "hint": "Das gelbe Fragezeichen zeigt, wo Ihr die Quest abgebt – ich führe Euch hin.",
+  "trigger": "CompleteQuest",
+  "focus": "QuestGiver"
+ },
+ {
+  "id": "t_trainer",
+  "title": "Neue Fähigkeiten",
+  "text": "Mit jeder Stufe lernt Ihr beim Lehrer Eurer Klasse Neues. Sprecht mit ihm und lernt eine Fähigkeit – sie landet automatisch auf der Aktionsleiste.",
+  "hint": "Euer Lehrer steht im Dorf – ich zeige ihn Euch.",
+  "trigger": "LearnAbility",
+  "focus": "Trainer",
+  "emote": "point"
+ },
+ {
+  "id": "t_bots",
+  "title": "Gemeinsam statt allein",
+  "text": "Ihr müsst nie allein spielen: Öffnet die Gruppe ({key:group}), sucht KI-Mitspieler und ladet einen ein. Sie sind immer als KI gekennzeichnet und verstehen Befehle wie „folgt mir“.",
+  "hint": "Im Gruppenfenster ({key:group}) unter „KI-Mitspieler suchen“ findet Ihr passende Begleiter.",
+  "trigger": "GroupWithBot"
+ },
+ {
+  "id": "t_inn",
+  "title": "Ein Zuhause",
+  "text": "Sprecht zum Schluss mit dem Wirt im Gasthaus. Dort bindet Ihr Euren Ruhestein und ruht Euch aus – Ruhe gibt Bonuserfahrung.",
+  "hint": "Das Gasthaus ist gleich dort – ich zeige Euch den Wirt.",
+  "trigger": "Bind",
+  "focus": "Innkeeper",
+  "emote": "point"
+ }
+]

@@ -236,11 +236,15 @@ namespace EternalRealms.Server.Net
             string? err = null;
             switch (m)
             {
-                case C_Move mv: _w.HandleMove(p, mv); return;
+                case C_Move mv:
+                    _w.HandleMove(p, mv);
+                    if (_w.Tutorial.IsActive(p)) _w.ReportProgress(p, ProgressEvent.Move);
+                    return;
                 case C_Ping ping: Pong(ping); return;
                 case C_SetTarget t:
                     p.Target = t.TargetId == 0 ? null : p.Zone?.GetUnit(t.TargetId);
                     if (p.Target != null && p.DistanceTo(p.Target) > ZoneInstance.ViewRange) p.Target = null;
+                    if (p.Target is Creature tc && p.CanAttack(tc)) _w.ReportProgress(p, ProgressEvent.Target, tc.Template.Id);
                     return;
                 case C_CastAbility c: err = CastAbility(p, c); break;
                 case C_CancelCast: _w.Combat.CancelCast(p, "Abgebrochen"); return;
@@ -398,6 +402,9 @@ namespace EternalRealms.Server.Net
                 case C_TradeSetMoney tsm: err = _w.Trades.SetMoney(p, tsm.Money); break;
                 case C_TradeAccept ta: err = _w.Trades.Accept(p, ta.Accept, ta.Version); break;
                 case C_TradeCancel: _w.Trades.Cancel(p); return;
+                case C_SetTitle st: err = _w.Achievements.SetTitle(p, st.Title ?? ""); break;
+                case C_TutorialSkip: _w.Tutorial.Skip(p); return;
+                case C_TutorialRestart: _w.Tutorial.Restart(p); return;
                 case C_Emote em: err = _w.Emotes.Perform(p, em.EmoteId, em.TargetId); break;
                 case C_ChatJoin cj: _w.Chat.SetChannel(p, cj.Channel, cj.Join); return;
                 case C_SaveSettings ss:
@@ -407,7 +414,23 @@ namespace EternalRealms.Server.Net
                     return;
                 case C_Logout: Logout(); return;
             }
-            if (err != null) p.Notice(err, true);
+            if (err != null) { p.Notice(err, true); return; }
+            ReportAction(p, m);
+        }
+
+        /// <summary>Gelungene Spielerhandlungen als Fortschritt (Tutorial, Erfolge).</summary>
+        private void ReportAction(Player p, Message m)
+        {
+            switch (m)
+            {
+                case C_AttackStart: _w.ReportProgress(p, ProgressEvent.AttackStart); break;
+                case C_CastAbility c: _w.ReportProgress(p, ProgressEvent.CastAbility, c.AbilityId.Split('#')[0]); break;
+                case C_QuestAccept qa: _w.ReportProgress(p, ProgressEvent.AcceptQuest, qa.QuestId); break;
+                case C_Loot: _w.ReportProgress(p, ProgressEvent.Loot); break;
+                case C_EquipItem: _w.ReportProgress(p, ProgressEvent.Equip); break;
+                case C_TrainAbility tr: _w.ReportProgress(p, ProgressEvent.LearnAbility, tr.AbilityId); break;
+                case C_TakeFlight tf: _w.ReportProgress(p, ProgressEvent.Flight, tf.Destination ?? ""); break;
+            }
         }
 
         /// <summary>Befehl aus der Kommandooberfläche – gleiche Logik wie ein Chatbefehl, aber ohne Textverständnis.</summary>

@@ -18,6 +18,8 @@ namespace EternalRealms.Server
         public double AutosaveSeconds { get; set; } = 60;
         /// <summary>Spielzeit läuft so viel schneller als Echtzeit (6 = ein Spieltag dauert 4 Stunden).</summary>
         public double TimeScale { get; set; } = 6;
+        /// <summary>Tutorial mit KI-Erklärerin für neue Charaktere (Kapitel 39).</summary>
+        public bool Tutorial { get; set; } = true;
         public int MaxCharactersPerAccount { get; set; } = 10;
         public int MaxMessagesPerSecond { get; set; } = 80;
 
@@ -34,6 +36,7 @@ namespace EternalRealms.Server
             if (bool.TryParse(Env("ER_DEV_COMMANDS"), out var dev)) c.DevCommands = dev;
             if (bool.TryParse(Env("ER_AMBIENT_BOTS"), out var ab)) c.AmbientBots = ab;
             if (bool.TryParse(Env("ER_ZONE_LOD"), out var lod)) c.ZoneLod = lod;
+            if (bool.TryParse(Env("ER_TUTORIAL"), out var tut)) c.Tutorial = tut;
             if (double.TryParse(Env("ER_AUTOSAVE_SECONDS"), out var ass)) c.AutosaveSeconds = Math.Max(5, ass);
             return c;
         }
