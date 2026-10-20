@@ -101,6 +101,7 @@ namespace EternalRealms.Server.Systems
         {
             if (!p.Data.DiscoveredAreas.Add(area.Id)) return;
             p.Bot?.OnAreaDiscovered(area);
+            if (!p.IsBot) p.Send(new S_Exploration { Areas = new List<string> { area.Id } });
             p.Notice($"Entdeckt: {area.Name}");
             int xp = Experience.DiscoveryXp(p.Level, area.DiscoveryXp);
             if (xp > 0) GiveXp(p, xp, "explore");

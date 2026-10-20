@@ -236,6 +236,12 @@
     "radius": 0,
     "respawnSeconds": 45
    }
+  ],
+  "mapRect": [
+   450,
+   450,
+   100,
+   100
   ]
  }
 ]

@@ -388,6 +388,11 @@ namespace EternalRealms.Server.Net
                 case C_Skin sk: err = _w.Professions.Skin(p, sk.CorpseId); break;
                 case C_Disenchant de: err = _w.Professions.Disenchant(p, de.BagIndex); break;
                 case C_ProfessionInfo: p.Send(_w.Professions.Build(p)); return;
+                case C_SaveSettings ss:
+                    // Nur Größe prüfen: Inhalt wertet allein der Client aus, Spielregeln hängen nicht davon ab.
+                    if (ss.Json.Length > C_SaveSettings.MaxLength) { err = "Einstellungen zu groß."; break; }
+                    p.Data.ClientSettings = ss.Json;
+                    return;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);

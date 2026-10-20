@@ -61,6 +61,11 @@ namespace EternalRealms.Shared.Client
         public S_InstanceInfo InstanceInfo { get; private set; } = new S_InstanceInfo();
         public List<ProfessionData> Professions { get; private set; } = new List<ProfessionData>();
         public S_ProfessionTrainer? ProfessionTrainer { get; set; }
+        /// <summary>Am Charakter gespeicherte Einstellungen; bis S_Settings eintrifft die Standardwerte.</summary>
+        public Ui.GameSettings Settings { get; private set; } = new Ui.GameSettings();
+        public bool SettingsLoaded { get; private set; }
+        /// <summary>Entdeckte Gebiete (Weltkarte, Nebel des Krieges).</summary>
+        public HashSet<string> DiscoveredAreas { get; } = new HashSet<string>();
 
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
@@ -150,6 +155,9 @@ namespace EternalRealms.Shared.Client
 
         // ------------------------------------------------------------ Empfang
 
+        /// <summary>Nachricht ohne Netzwerk verarbeiten (Tests, Wiedergabe aufgezeichneter Sitzungen).</summary>
+        public void Receive(Message m) => Handle(m);
+
         private void Handle(Message m)
         {
             double now = Now;
@@ -231,6 +239,11 @@ namespace EternalRealms.Shared.Client
                 case S_VoteKick vk: VoteKick = vk; break;
                 case S_InstanceInfo ii: InstanceInfo = ii; break;
                 case S_Professions pf: Professions = pf.Professions; break;
+                case S_Settings st: Settings = Ui.GameSettings.FromJson(st.Json); SettingsLoaded = true; break;
+                case S_Exploration ex:
+                    if (ex.Full) DiscoveredAreas.Clear();
+                    foreach (var a in ex.Areas) DiscoveredAreas.Add(a);
+                    break;
                 case S_ProfessionTrainer pt: ProfessionTrainer = pt; break;
                 case S_NpcInteraction ni: LastInteraction = ni; break;
                 case S_DeathState d: State.DeathState = d.State; State.CorpsePosition = d.CorpsePosition; break;
@@ -246,6 +259,14 @@ namespace EternalRealms.Shared.Client
         {
             Send(new C_LootRoll { RollId = rollId, Choice = choice });
             OpenRolls.Remove(rollId);
+        }
+
+        /// <summary>Einstellungen bereinigen und am Charakter speichern (z. B. nach dem Schließen des Optionsfensters).</summary>
+        public void SaveSettings()
+        {
+            Settings.Normalize();
+            var json = Settings.ToJson();
+            if (json.Length <= C_SaveSettings.MaxLength) Send(new C_SaveSettings { Json = json });
         }
 
         public void SendPing() => Send(new C_Ping { ClientTime = (long)(Now * 1000) });

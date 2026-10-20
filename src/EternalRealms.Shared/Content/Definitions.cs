@@ -617,6 +617,8 @@ namespace EternalRealms.Shared.Content
         public Vec3 ExitPosition { get; set; }
         /// <summary>Weltgröße (Kantenlänge in Metern), für Interessensbereiche.</summary>
         public float Size { get; set; } = 1024f;
+        /// <summary>Lage auf der Kontinentkarte: [x, y, Breite, Höhe] in Kartenpunkten (0–1000, y nach Süden).</summary>
+        public List<float> MapRect { get; set; } = new List<float>();
         /// <summary>False = Region existiert in der Weltkarte, hat aber noch keine Inhalte.</summary>
         public bool Playable { get; set; }
         public List<AreaDef> Areas { get; set; } = new List<AreaDef>();

@@ -31,6 +31,7 @@ namespace EternalRealms.Shared.Net
         C_FinderActivities, C_FinderJoin, C_FinderLeave, C_FinderAccept, C_ReadyCheck, C_ReadyResponse, C_VoteKick, C_VoteKickResponse,
         C_SetRole, C_SetBotRole, C_ConvertToRaid, C_SetSubgroup,
         C_LearnProfession, C_TrainProfessionRank, C_LearnRecipe, C_UnlearnProfession, C_Craft, C_Skin, C_Disenchant, C_ProfessionInfo,
+        C_SaveSettings,
 
         // Server -> Client (ab 1000)
         S_LoginResult = 1000, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,
@@ -42,6 +43,7 @@ namespace EternalRealms.Shared.Net
         S_MountJournal, S_GuildRoster, S_GuildInvite, S_FriendList, S_InstanceInfo,
         S_FinderActivities, S_FinderStatus, S_FinderProposal, S_ReadyCheck, S_ReadyCheckResult, S_VoteKick,
         S_Professions, S_ProfessionTrainer,
+        S_Settings, S_Exploration,
     }
 
     public abstract class Message

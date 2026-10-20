@@ -97,6 +97,7 @@ namespace EternalRealms.Server.Persistence
             public long CurrentInstanceId { get; set; }
             public List<DateTime> RecentInstances { get; set; } = new();
             public Dictionary<string, ProfessionProgress> Professions { get; set; } = new();
+            public string ClientSettings { get; set; } = "";
         }
 
         private const string CharColumns = "id, account_id, name, race, class, gender, appearance, level, xp, rested_xp, money, zone_id, pos_x, pos_y, pos_z, facing, " +
@@ -155,7 +156,7 @@ namespace EternalRealms.Server.Persistence
                     DeathState = (DeathState)r.GetInt16(18), IsBot = r.GetBoolean(19),
                     Bot = r.IsDBNull(20) ? null : JsonSerializer.Deserialize<BotData>(r.GetString(20), Json),
                     CorpseZone = ws.CorpseZone, CorpsePosition = ws.CorpsePosition, BindZone = ws.BindZone, BindPosition = ws.BindPosition,
-                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset, RidingSkill = ws.RidingSkill, Mounts = ws.Mounts, ShareLocation = ws.ShareLocation, InstanceBinds = ws.InstanceBinds, CurrentInstanceId = ws.CurrentInstanceId, RecentInstances = ws.RecentInstances, Professions = ws.Professions,
+                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset, RidingSkill = ws.RidingSkill, Mounts = ws.Mounts, ShareLocation = ws.ShareLocation, InstanceBinds = ws.InstanceBinds, CurrentInstanceId = ws.CurrentInstanceId, RecentInstances = ws.RecentInstances, Professions = ws.Professions, ClientSettings = ws.ClientSettings,
                     DiscoveredAreas = new HashSet<string>(r.GetFieldValue<string[]>(22)), KnownTravelNodes = new HashSet<string>(r.GetFieldValue<string[]>(23)),
                     CompletedQuests = new HashSet<string>(r.GetFieldValue<string[]>(24)), PlayedSeconds = r.GetInt64(25), LoggedOutInInn = r.GetBoolean(26),
                     CreatedAt = r.GetDateTime(27), LastLogout = r.GetDateTime(28),
@@ -260,7 +261,7 @@ namespace EternalRealms.Server.Persistence
             var ws = new WorldStateJson
             {
                 CorpseZone = d.CorpseZone, CorpsePosition = d.CorpsePosition, BindZone = d.BindZone, BindPosition = d.BindPosition,
-                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset, RidingSkill = d.RidingSkill, Mounts = d.Mounts, ShareLocation = d.ShareLocation, InstanceBinds = d.InstanceBinds, CurrentInstanceId = d.CurrentInstanceId, RecentInstances = d.RecentInstances, Professions = d.Professions,
+                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset, RidingSkill = d.RidingSkill, Mounts = d.Mounts, ShareLocation = d.ShareLocation, InstanceBinds = d.InstanceBinds, CurrentInstanceId = d.CurrentInstanceId, RecentInstances = d.RecentInstances, Professions = d.Professions, ClientSettings = d.ClientSettings,
             };
             await using (var cmd = new NpgsqlCommand(
                 "UPDATE characters SET level=@lv, xp=@xp, rested_xp=@rx, money=@m, zone_id=@z, pos_x=@x, pos_y=@y, pos_z=@zz, facing=@f, health=@h, mana=@mn, " +

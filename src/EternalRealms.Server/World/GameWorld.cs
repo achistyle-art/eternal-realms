@@ -233,6 +233,8 @@ namespace EternalRealms.Server.World
                 Guilds.OnLogin(p);
                 p.Send(Social.BuildList(p));
                 Social.NotifyFriends(p, true);
+                p.Send(new S_Settings { Json = p.Data.ClientSettings });
+                p.Send(new S_Exploration { Full = true, Areas = p.Data.DiscoveredAreas.OrderBy(a => a).ToList() });
             }
             p.Send(p.BuildSpawn(p));
             p.Send(p.BuildPlayerState());

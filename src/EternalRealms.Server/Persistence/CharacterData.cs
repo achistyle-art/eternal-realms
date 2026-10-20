@@ -54,6 +54,8 @@ namespace EternalRealms.Server.Persistence
         public List<DateTime> RecentInstances { get; set; } = new();
         /// <summary>Berufe (Beruf-ID → Fortschritt).</summary>
         public Dictionary<string, ProfessionProgress> Professions { get; set; } = new();
+        /// <summary>Clienteinstellungen (Tasten, Leisten, Fenster, Barrierefreiheit) als JSON; der Server prüft nur die Größe.</summary>
+        public string ClientSettings { get; set; } = "";
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();

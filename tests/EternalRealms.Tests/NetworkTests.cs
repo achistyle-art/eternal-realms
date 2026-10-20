@@ -197,6 +197,7 @@ namespace EternalRealms.Tests
             back.Bank.Add(null); back.Bank.Add(new ItemStack { ItemId = "item_wolf_fang", Count = 5 });
             back.BagContainers[1] = new ItemStack { ItemId = "item_bag_leather", Count = 1 };
             back.TalentResets = 2;
+            back.ClientSettings = "{\"UiScale\":1.25}";
             back.Professions["mining"] = new ProfessionProgress { Skill = 42, MaxSkill = 75, Recipes = { "smelt_copper" } };
             foreach (var eq in back.Equipment.Values.Take(1)) eq.Enchant = "ench_wrist_0";
             back.Bag[3] = null; // Gegenstand wandert in einen Brief
@@ -214,6 +215,7 @@ namespace EternalRealms.Tests
             Assert.Equal(5, again.Bank[1]!.Count);
             Assert.Equal("item_bag_leather", again.BagContainers[1].ItemId);
             Assert.Equal(2, again.TalentResets);
+            Assert.Equal("{\"UiScale\":1.25}", again.ClientSettings);
             Assert.Equal(42, again.Professions["mining"].Skill);
             Assert.Contains("smelt_copper", again.Professions["mining"].Recipes);
             if (again.Equipment.Count > 0) Assert.Contains(again.Equipment.Values, e => e.Enchant == "ench_wrist_0");

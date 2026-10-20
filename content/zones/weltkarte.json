@@ -12,7 +12,13 @@
    "Snow",
    "Clear"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   200,
+   520,
+   160,
+   140
+  ]
  },
  {
   "id": "zone_silbertau",
@@ -27,7 +33,13 @@
    "Fog",
    "Clear"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   560,
+   700,
+   150,
+   140
+  ]
  },
  {
   "id": "zone_sonnenfeste",
@@ -42,7 +54,13 @@
    "Clear",
    "Rain"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   430,
+   820,
+   120,
+   90
+  ]
  },
  {
   "id": "zone_westmark",
@@ -57,7 +75,13 @@
    "Clear",
    "Rain"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   230,
+   690,
+   140,
+   130
+  ]
  },
  {
   "id": "zone_nebelmoor",
@@ -72,7 +96,13 @@
    "Fog",
    "Rain"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   560,
+   540,
+   150,
+   140
+  ]
  },
  {
   "id": "zone_goldene_ebene",
@@ -87,7 +117,13 @@
    "Clear",
    "Storm"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   380,
+   500,
+   170,
+   140
+  ]
  },
  {
   "id": "zone_rabenforst",
@@ -102,7 +138,13 @@
    "Fog",
    "Rain"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   720,
+   560,
+   140,
+   150
+  ]
  },
  {
   "id": "zone_frostzinnen",
@@ -117,7 +159,13 @@
    "Snow",
    "Storm"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   240,
+   320,
+   180,
+   170
+  ]
  },
  {
   "id": "zone_thalor",
@@ -132,7 +180,13 @@
    "Rain",
    "Fog"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   450,
+   330,
+   170,
+   150
+  ]
  },
  {
   "id": "zone_glutsteinkamm",
@@ -147,7 +201,13 @@
    "Clear",
    "Storm"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   640,
+   330,
+   170,
+   170
+  ]
  },
  {
   "id": "zone_drachenschlund",
@@ -162,7 +222,13 @@
    "Storm",
    "Snow"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   470,
+   140,
+   200,
+   160
+  ]
  },
  {
   "id": "zone_grabesmoor",
@@ -177,7 +243,13 @@
    "Fog",
    "Rain"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   240,
+   560,
+   160,
+   140
+  ]
  },
  {
   "id": "zone_hornweiden",
@@ -192,7 +264,13 @@
    "Clear",
    "Rain"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   620,
+   660,
+   160,
+   150
+  ]
  },
  {
   "id": "zone_kharzul",
@@ -207,7 +285,13 @@
    "Clear",
    "Storm"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   460,
+   800,
+   130,
+   100
+  ]
  },
  {
   "id": "zone_rotsand",
@@ -222,7 +306,13 @@
    "Clear",
    "Storm"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   280,
+   720,
+   130,
+   130
+  ]
  },
  {
   "id": "zone_splitterkueste",
@@ -237,7 +327,13 @@
    "Rain",
    "Storm"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   790,
+   520,
+   150,
+   180
+  ]
  },
  {
   "id": "zone_tiefenhallen",
@@ -251,7 +347,13 @@
   "weather": [
    "Fog"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   440,
+   480,
+   170,
+   140
+  ]
  },
  {
   "id": "zone_schlangendschungel",
@@ -266,7 +368,13 @@
    "Rain",
    "Storm"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   230,
+   330,
+   180,
+   180
+  ]
  },
  {
   "id": "zone_sturmsee",
@@ -281,7 +389,13 @@
    "Storm",
    "Rain"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   500,
+   300,
+   200,
+   160
+  ]
  },
  {
   "id": "zone_weltenriss",
@@ -296,7 +410,13 @@
    "Storm",
    "Fog"
   ],
-  "playable": false
+  "playable": false,
+  "mapRect": [
+   480,
+   110,
+   220,
+   170
+  ]
  },
  {
   "id": "raid_zwielichtbastion",
@@ -312,7 +432,13 @@
   ],
   "playable": false,
   "isInstance": true,
-  "maxPlayers": 10
+  "maxPlayers": 10,
+  "mapRect": [
+   360,
+   200,
+   90,
+   80
+  ]
  },
  {
   "id": "raid_glutherz",
@@ -328,7 +454,13 @@
   ],
   "playable": false,
   "isInstance": true,
-  "maxPlayers": 40
+  "maxPlayers": 40,
+  "mapRect": [
+   700,
+   250,
+   90,
+   70
+  ]
  },
  {
   "id": "raid_hohle_flut",
@@ -344,6 +476,12 @@
   ],
   "playable": false,
   "isInstance": true,
-  "maxPlayers": 20
+  "maxPlayers": 20,
+  "mapRect": [
+   720,
+   200,
+   100,
+   90
+  ]
  }
 ]
