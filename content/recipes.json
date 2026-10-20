@@ -1,0 +1,2773 @@
+[
+ {
+  "id": "smelt_copper",
+  "profession": "mining",
+  "name": "Kupfer schmelzen",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_ore0",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_bar0",
+   "count": 1
+  },
+  "station": "forge"
+ },
+ {
+  "id": "smelt_tin",
+  "profession": "mining",
+  "name": "Zinn schmelzen",
+  "skillRequired": 65,
+  "yellow": 90,
+  "green": 105,
+  "gray": 120,
+  "reagents": [
+   {
+    "item": "item_ore1",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 1056,
+  "creates": {
+   "item": "item_tin_bar",
+   "count": 1
+  },
+  "station": "forge"
+ },
+ {
+  "id": "smelt_bronze",
+  "profession": "mining",
+  "name": "Bronze schmelzen",
+  "skillRequired": 65,
+  "yellow": 90,
+  "green": 105,
+  "gray": 120,
+  "reagents": [
+   {
+    "item": "item_bar0",
+    "count": 1
+   },
+   {
+    "item": "item_tin_bar",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 1056,
+  "creates": {
+   "item": "item_bar1",
+   "count": 2
+  },
+  "station": "forge"
+ },
+ {
+  "id": "smelt_iron",
+  "profession": "mining",
+  "name": "Eisen schmelzen",
+  "skillRequired": 125,
+  "yellow": 150,
+  "green": 165,
+  "gray": 180,
+  "reagents": [
+   {
+    "item": "item_ore2",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 3906,
+  "creates": {
+   "item": "item_bar2",
+   "count": 1
+  },
+  "station": "forge"
+ },
+ {
+  "id": "smelt_starsilver",
+  "profession": "mining",
+  "name": "Sternsilber schmelzen",
+  "skillRequired": 175,
+  "yellow": 200,
+  "green": 215,
+  "gray": 230,
+  "reagents": [
+   {
+    "item": "item_ore3",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 7656,
+  "creates": {
+   "item": "item_bar3",
+   "count": 1
+  },
+  "station": "forge"
+ },
+ {
+  "id": "bs_0_0",
+  "profession": "blacksmithing",
+  "name": "Kupferstreitkolben",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_bar0",
+    "count": 4
+   },
+   {
+    "item": "item_stone0",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_bs_0_0",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_0_1",
+  "profession": "blacksmithing",
+  "name": "Kupferkettenweste",
+  "skillRequired": 16,
+  "yellow": 41,
+  "green": 56,
+  "gray": 71,
+  "reagents": [
+   {
+    "item": "item_bar0",
+    "count": 6
+   },
+   {
+    "item": "item_stone0",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 64,
+  "creates": {
+   "item": "item_bs_0_1",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_0_2",
+  "profession": "blacksmithing",
+  "name": "Kupferarmschienen",
+  "skillRequired": 31,
+  "yellow": 56,
+  "green": 71,
+  "gray": 86,
+  "reagents": [
+   {
+    "item": "item_bar0",
+    "count": 8
+   },
+   {
+    "item": "item_stone0",
+    "count": 3
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 240,
+  "creates": {
+   "item": "item_bs_0_2",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_0_stone",
+  "profession": "blacksmithing",
+  "name": "Rauer Wetzstein",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_stone0",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_bs_0_whetstone",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_1_0",
+  "profession": "blacksmithing",
+  "name": "Bronzeschwert",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_bar1",
+    "count": 4
+   },
+   {
+    "item": "item_stone1",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 1406,
+  "creates": {
+   "item": "item_bs_1_0",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_1_1",
+  "profession": "blacksmithing",
+  "name": "Bronzekettenhose",
+  "skillRequired": 90,
+  "yellow": 115,
+  "green": 130,
+  "gray": 145,
+  "reagents": [
+   {
+    "item": "item_bar1",
+    "count": 6
+   },
+   {
+    "item": "item_stone1",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 2025,
+  "creates": {
+   "item": "item_bs_1_1",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_1_2",
+  "profession": "blacksmithing",
+  "name": "Bronzehelm",
+  "skillRequired": 105,
+  "yellow": 130,
+  "green": 145,
+  "gray": 160,
+  "reagents": [
+   {
+    "item": "item_bar1",
+    "count": 8
+   },
+   {
+    "item": "item_stone1",
+    "count": 3
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 2756,
+  "creates": {
+   "item": "item_bs_1_2",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_1_stone",
+  "profession": "blacksmithing",
+  "name": "Grober Wetzstein",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_stone1",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 60,
+  "creates": {
+   "item": "item_bs_1_whetstone",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_2_0",
+  "profession": "blacksmithing",
+  "name": "Eiserne Streitaxt",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_bar2",
+    "count": 4
+   },
+   {
+    "item": "item_stone2",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 5625,
+  "creates": {
+   "item": "item_bs_2_0",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_2_1",
+  "profession": "blacksmithing",
+  "name": "Eiserne Brustplatte",
+  "skillRequired": 165,
+  "yellow": 190,
+  "green": 205,
+  "gray": 220,
+  "reagents": [
+   {
+    "item": "item_bar2",
+    "count": 6
+   },
+   {
+    "item": "item_stone2",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 6806,
+  "creates": {
+   "item": "item_bs_2_1",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_2_2",
+  "profession": "blacksmithing",
+  "name": "Eisenbeschlagene Stiefel",
+  "skillRequired": 180,
+  "yellow": 205,
+  "green": 220,
+  "gray": 235,
+  "reagents": [
+   {
+    "item": "item_bar2",
+    "count": 8
+   },
+   {
+    "item": "item_stone2",
+    "count": 3
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 8100,
+  "creates": {
+   "item": "item_bs_2_2",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_2_stone",
+  "profession": "blacksmithing",
+  "name": "Schwerer Wetzstein",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_stone2",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 110,
+  "creates": {
+   "item": "item_bs_2_whetstone",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_3_0",
+  "profession": "blacksmithing",
+  "name": "Sternsilberklinge",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_bar3",
+    "count": 4
+   },
+   {
+    "item": "item_stone3",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 12656,
+  "creates": {
+   "item": "item_bs_3_0",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_3_1",
+  "profession": "blacksmithing",
+  "name": "Sternsilberbeinplatten",
+  "skillRequired": 240,
+  "yellow": 265,
+  "green": 280,
+  "gray": 295,
+  "reagents": [
+   {
+    "item": "item_bar3",
+    "count": 6
+   },
+   {
+    "item": "item_stone3",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 14400,
+  "creates": {
+   "item": "item_bs_3_1",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_3_2",
+  "profession": "blacksmithing",
+  "name": "Sternsilberhelm",
+  "skillRequired": 255,
+  "yellow": 280,
+  "green": 295,
+  "gray": 310,
+  "reagents": [
+   {
+    "item": "item_bar3",
+    "count": 8
+   },
+   {
+    "item": "item_stone3",
+    "count": 3
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 16256,
+  "creates": {
+   "item": "item_bs_3_2",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "bs_3_stone",
+  "profession": "blacksmithing",
+  "name": "Fester Wetzstein",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_stone3",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 160,
+  "creates": {
+   "item": "item_bs_3_whetstone",
+   "count": 1
+  },
+  "station": "anvil",
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "lw_0_0",
+  "profession": "leatherworking",
+  "name": "Leichte Lederweste",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_leather0",
+    "count": 3
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_lw_0_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_0_1",
+  "profession": "leatherworking",
+  "name": "Leichte Lederstiefel",
+  "skillRequired": 16,
+  "yellow": 41,
+  "green": 56,
+  "gray": 71,
+  "reagents": [
+   {
+    "item": "item_leather0",
+    "count": 5
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 64,
+  "creates": {
+   "item": "item_lw_0_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_0_2",
+  "profession": "leatherworking",
+  "name": "Leichte Lederhandschuhe",
+  "skillRequired": 31,
+  "yellow": 56,
+  "green": 71,
+  "gray": 86,
+  "reagents": [
+   {
+    "item": "item_leather0",
+    "count": 7
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 240,
+  "creates": {
+   "item": "item_lw_0_2",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_1_0",
+  "profession": "leatherworking",
+  "name": "Gerbergürtel",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_leather1",
+    "count": 3
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 1406,
+  "creates": {
+   "item": "item_lw_1_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_1_1",
+  "profession": "leatherworking",
+  "name": "Wildlederhose",
+  "skillRequired": 90,
+  "yellow": 115,
+  "green": 130,
+  "gray": 145,
+  "reagents": [
+   {
+    "item": "item_leather1",
+    "count": 5
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 2025,
+  "creates": {
+   "item": "item_lw_1_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_1_2",
+  "profession": "leatherworking",
+  "name": "Wildleder-Schulterpolster",
+  "skillRequired": 105,
+  "yellow": 130,
+  "green": 145,
+  "gray": 160,
+  "reagents": [
+   {
+    "item": "item_leather1",
+    "count": 7
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 2756,
+  "creates": {
+   "item": "item_lw_1_2",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_2_0",
+  "profession": "leatherworking",
+  "name": "Schwere Lederjacke",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_leather2",
+    "count": 3
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 5625,
+  "creates": {
+   "item": "item_lw_2_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_2_1",
+  "profession": "leatherworking",
+  "name": "Lederkappe des Fährtenlesers",
+  "skillRequired": 165,
+  "yellow": 190,
+  "green": 205,
+  "gray": 220,
+  "reagents": [
+   {
+    "item": "item_leather2",
+    "count": 5
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 6806,
+  "creates": {
+   "item": "item_lw_2_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_2_2",
+  "profession": "leatherworking",
+  "name": "Schwere Lederarmschienen",
+  "skillRequired": 180,
+  "yellow": 205,
+  "green": 220,
+  "gray": 235,
+  "reagents": [
+   {
+    "item": "item_leather2",
+    "count": 7
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 8100,
+  "creates": {
+   "item": "item_lw_2_2",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_3_0",
+  "profession": "leatherworking",
+  "name": "Dicke Waldläuferweste",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_leather3",
+    "count": 3
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 12656,
+  "creates": {
+   "item": "item_lw_3_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_3_1",
+  "profession": "leatherworking",
+  "name": "Dicke Lederhose",
+  "skillRequired": 240,
+  "yellow": 265,
+  "green": 280,
+  "gray": 295,
+  "reagents": [
+   {
+    "item": "item_leather3",
+    "count": 5
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 14400,
+  "creates": {
+   "item": "item_lw_3_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_3_2",
+  "profession": "leatherworking",
+  "name": "Dicke Lederhandschuhe",
+  "skillRequired": 255,
+  "yellow": 280,
+  "green": 295,
+  "gray": 310,
+  "reagents": [
+   {
+    "item": "item_leather3",
+    "count": 7
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 16256,
+  "creates": {
+   "item": "item_lw_3_2",
+   "count": 1
+  }
+ },
+ {
+  "id": "lw_bag",
+  "profession": "leatherworking",
+  "name": "Lederrucksack",
+  "skillRequired": 90,
+  "yellow": 115,
+  "green": 130,
+  "gray": 145,
+  "reagents": [
+   {
+    "item": "item_leather1",
+    "count": 6
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 2025,
+  "creates": {
+   "item": "item_bag_leather",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_0_bolt",
+  "profession": "tailoring",
+  "name": "Leinenballen",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_cloth0",
+    "count": 2
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_bolt0",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_0_0",
+  "profession": "tailoring",
+  "name": "Leinenrobe",
+  "skillRequired": 11,
+  "yellow": 36,
+  "green": 51,
+  "gray": 66,
+  "reagents": [
+   {
+    "item": "item_bolt0",
+    "count": 2
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 30,
+  "creates": {
+   "item": "item_tl_0_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_0_1",
+  "profession": "tailoring",
+  "name": "Leinenumhang",
+  "skillRequired": 26,
+  "yellow": 51,
+  "green": 66,
+  "gray": 81,
+  "reagents": [
+   {
+    "item": "item_bolt0",
+    "count": 3
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 169,
+  "creates": {
+   "item": "item_tl_0_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_1_bolt",
+  "profession": "tailoring",
+  "name": "Wollballen",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_cloth1",
+    "count": 2
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 50,
+  "creates": {
+   "item": "item_bolt1",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_1_0",
+  "profession": "tailoring",
+  "name": "Wollhose",
+  "skillRequired": 85,
+  "yellow": 110,
+  "green": 125,
+  "gray": 140,
+  "reagents": [
+   {
+    "item": "item_bolt1",
+    "count": 2
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 1806,
+  "creates": {
+   "item": "item_tl_1_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_1_1",
+  "profession": "tailoring",
+  "name": "Wollhandschuhe",
+  "skillRequired": 100,
+  "yellow": 125,
+  "green": 140,
+  "gray": 155,
+  "reagents": [
+   {
+    "item": "item_bolt1",
+    "count": 3
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 2500,
+  "creates": {
+   "item": "item_tl_1_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_2_bolt",
+  "profession": "tailoring",
+  "name": "Seidenballen",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_cloth2",
+    "count": 2
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 90,
+  "creates": {
+   "item": "item_bolt2",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_2_0",
+  "profession": "tailoring",
+  "name": "Seidenrobe",
+  "skillRequired": 160,
+  "yellow": 185,
+  "green": 200,
+  "gray": 215,
+  "reagents": [
+   {
+    "item": "item_bolt2",
+    "count": 2
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 6400,
+  "creates": {
+   "item": "item_tl_2_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_2_1",
+  "profession": "tailoring",
+  "name": "Seidenkapuze",
+  "skillRequired": 175,
+  "yellow": 200,
+  "green": 215,
+  "gray": 230,
+  "reagents": [
+   {
+    "item": "item_bolt2",
+    "count": 3
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 7656,
+  "creates": {
+   "item": "item_tl_2_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_3_bolt",
+  "profession": "tailoring",
+  "name": "Zauberstoffballen",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_cloth3",
+    "count": 2
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 130,
+  "creates": {
+   "item": "item_bolt3",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_3_0",
+  "profession": "tailoring",
+  "name": "Zauberstoffrobe",
+  "skillRequired": 235,
+  "yellow": 260,
+  "green": 275,
+  "gray": 290,
+  "reagents": [
+   {
+    "item": "item_bolt3",
+    "count": 2
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 13806,
+  "creates": {
+   "item": "item_tl_3_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_3_1",
+  "profession": "tailoring",
+  "name": "Zauberstoffschultern",
+  "skillRequired": 250,
+  "yellow": 275,
+  "green": 290,
+  "gray": 305,
+  "reagents": [
+   {
+    "item": "item_bolt3",
+    "count": 3
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 15625,
+  "creates": {
+   "item": "item_tl_3_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_bag_0",
+  "profession": "tailoring",
+  "name": "Leinenbeutel",
+  "skillRequired": 21,
+  "yellow": 46,
+  "green": 61,
+  "gray": 76,
+  "reagents": [
+   {
+    "item": "item_bolt0",
+    "count": 3
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 110,
+  "creates": {
+   "item": "item_bag_linen",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_bag_1",
+  "profession": "tailoring",
+  "name": "Wollbeutel",
+  "skillRequired": 95,
+  "yellow": 120,
+  "green": 135,
+  "gray": 150,
+  "reagents": [
+   {
+    "item": "item_bolt1",
+    "count": 3
+   },
+   {
+    "item": "item_coarse_thread",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 2256,
+  "creates": {
+   "item": "item_bag_wool",
+   "count": 1
+  }
+ },
+ {
+  "id": "tl_bag_3",
+  "profession": "tailoring",
+  "name": "Reisetasche aus Zauberstoff",
+  "skillRequired": 245,
+  "yellow": 270,
+  "green": 285,
+  "gray": 300,
+  "reagents": [
+   {
+    "item": "item_bolt3",
+    "count": 3
+   },
+   {
+    "item": "item_fine_thread",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 15006,
+  "creates": {
+   "item": "item_bag_mageweave",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_heal_0",
+  "profession": "alchemy",
+  "name": "Heiltrank brauen",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_herb0a",
+    "count": 1
+   },
+   {
+    "item": "item_herb0b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_minor_healing_potion",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_mana_0",
+  "profession": "alchemy",
+  "name": "Manatrank brauen",
+  "skillRequired": 11,
+  "yellow": 36,
+  "green": 51,
+  "gray": 66,
+  "reagents": [
+   {
+    "item": "item_herb0b",
+    "count": 2
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 30,
+  "creates": {
+   "item": "item_mana_potion_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_elixir_strength",
+  "profession": "alchemy",
+  "name": "Elixier der Löwenkraft",
+  "skillRequired": 26,
+  "yellow": 51,
+  "green": 66,
+  "gray": 81,
+  "reagents": [
+   {
+    "item": "item_herb0a",
+    "count": 2
+   },
+   {
+    "item": "item_herb0b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 169,
+  "creates": {
+   "item": "item_elixir_strength",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_heal_1",
+  "profession": "alchemy",
+  "name": "Heiltrank brauen",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_herb1a",
+    "count": 1
+   },
+   {
+    "item": "item_herb1b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 1406,
+  "creates": {
+   "item": "item_lesser_healing_potion",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_mana_1",
+  "profession": "alchemy",
+  "name": "Manatrank brauen",
+  "skillRequired": 85,
+  "yellow": 110,
+  "green": 125,
+  "gray": 140,
+  "reagents": [
+   {
+    "item": "item_herb1b",
+    "count": 2
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 1806,
+  "creates": {
+   "item": "item_mana_potion_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_elixir_agility",
+  "profession": "alchemy",
+  "name": "Elixier der Behändigkeit",
+  "skillRequired": 100,
+  "yellow": 125,
+  "green": 140,
+  "gray": 155,
+  "reagents": [
+   {
+    "item": "item_herb1a",
+    "count": 2
+   },
+   {
+    "item": "item_herb1b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 2500,
+  "creates": {
+   "item": "item_elixir_agility",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_heal_2",
+  "profession": "alchemy",
+  "name": "Heiltrank brauen",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_herb2a",
+    "count": 1
+   },
+   {
+    "item": "item_herb2b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 5625,
+  "creates": {
+   "item": "item_healing_potion",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_mana_2",
+  "profession": "alchemy",
+  "name": "Manatrank brauen",
+  "skillRequired": 160,
+  "yellow": 185,
+  "green": 200,
+  "gray": 215,
+  "reagents": [
+   {
+    "item": "item_herb2b",
+    "count": 2
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 6400,
+  "creates": {
+   "item": "item_mana_potion_2",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_elixir_intellect",
+  "profession": "alchemy",
+  "name": "Elixier der Weisheit",
+  "skillRequired": 175,
+  "yellow": 200,
+  "green": 215,
+  "gray": 230,
+  "reagents": [
+   {
+    "item": "item_herb2a",
+    "count": 2
+   },
+   {
+    "item": "item_herb2b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 7656,
+  "creates": {
+   "item": "item_elixir_intellect",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_heal_3",
+  "profession": "alchemy",
+  "name": "Heiltrank brauen",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_herb3a",
+    "count": 1
+   },
+   {
+    "item": "item_herb3b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 12656,
+  "creates": {
+   "item": "item_greater_healing_potion",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_mana_3",
+  "profession": "alchemy",
+  "name": "Manatrank brauen",
+  "skillRequired": 235,
+  "yellow": 260,
+  "green": 275,
+  "gray": 290,
+  "reagents": [
+   {
+    "item": "item_herb3b",
+    "count": 2
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 13806,
+  "creates": {
+   "item": "item_mana_potion_3",
+   "count": 1
+  }
+ },
+ {
+  "id": "al_elixir_stamina",
+  "profession": "alchemy",
+  "name": "Elixier der Standhaftigkeit",
+  "skillRequired": 250,
+  "yellow": 275,
+  "green": 290,
+  "gray": 305,
+  "reagents": [
+   {
+    "item": "item_herb3a",
+    "count": 2
+   },
+   {
+    "item": "item_herb3b",
+    "count": 1
+   },
+   {
+    "item": "item_empty_vial",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 15625,
+  "creates": {
+   "item": "item_elixir_stamina",
+   "count": 1
+  }
+ },
+ {
+  "id": "en_pipe_0",
+  "profession": "engineering",
+  "name": "Kupferrohr",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_bar0",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_pipe0",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_powder_0",
+  "profession": "engineering",
+  "name": "Grobes Schießpulver",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_stone0",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_powder0",
+   "count": 1
+  }
+ },
+ {
+  "id": "en_gun_0",
+  "profession": "engineering",
+  "name": "Handgemachte Kupferbüchse",
+  "skillRequired": 21,
+  "yellow": 46,
+  "green": 61,
+  "gray": 76,
+  "reagents": [
+   {
+    "item": "item_pipe0",
+    "count": 2
+   },
+   {
+    "item": "item_powder0",
+    "count": 2
+   },
+   {
+    "item": "item_bar0",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 110,
+  "creates": {
+   "item": "item_en_gun_0",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_goggles_0",
+  "profession": "engineering",
+  "name": "Tüftlerbrille",
+  "skillRequired": 36,
+  "yellow": 61,
+  "green": 76,
+  "gray": 91,
+  "reagents": [
+   {
+    "item": "item_leather0",
+    "count": 2
+   },
+   {
+    "item": "item_bar0",
+    "count": 2
+   },
+   {
+    "item": "item_powder0",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 324,
+  "creates": {
+   "item": "item_en_goggles_0",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_pipe_1",
+  "profession": "engineering",
+  "name": "Bronzerohr",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_bar1",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 50,
+  "creates": {
+   "item": "item_pipe1",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_powder_1",
+  "profession": "engineering",
+  "name": "Raues Schießpulver",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_stone1",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 50,
+  "creates": {
+   "item": "item_powder1",
+   "count": 1
+  }
+ },
+ {
+  "id": "en_gun_1",
+  "profession": "engineering",
+  "name": "Bronzene Donnerbüchse",
+  "skillRequired": 95,
+  "yellow": 120,
+  "green": 135,
+  "gray": 150,
+  "reagents": [
+   {
+    "item": "item_pipe1",
+    "count": 2
+   },
+   {
+    "item": "item_powder1",
+    "count": 2
+   },
+   {
+    "item": "item_bar1",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 2256,
+  "creates": {
+   "item": "item_en_gun_1",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_goggles_1",
+  "profession": "engineering",
+  "name": "Schweißbrille",
+  "skillRequired": 110,
+  "yellow": 135,
+  "green": 150,
+  "gray": 165,
+  "reagents": [
+   {
+    "item": "item_leather1",
+    "count": 2
+   },
+   {
+    "item": "item_bar1",
+    "count": 2
+   },
+   {
+    "item": "item_powder1",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 3025,
+  "creates": {
+   "item": "item_en_goggles_1",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_pipe_2",
+  "profession": "engineering",
+  "name": "Eisenrohr",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_bar2",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 90,
+  "creates": {
+   "item": "item_pipe2",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_powder_2",
+  "profession": "engineering",
+  "name": "Schweres Schießpulver",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_stone2",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 90,
+  "creates": {
+   "item": "item_powder2",
+   "count": 1
+  }
+ },
+ {
+  "id": "en_gun_2",
+  "profession": "engineering",
+  "name": "Eiserne Langbüchse",
+  "skillRequired": 170,
+  "yellow": 195,
+  "green": 210,
+  "gray": 225,
+  "reagents": [
+   {
+    "item": "item_pipe2",
+    "count": 2
+   },
+   {
+    "item": "item_powder2",
+    "count": 2
+   },
+   {
+    "item": "item_bar2",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 7225,
+  "creates": {
+   "item": "item_en_gun_2",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_goggles_2",
+  "profession": "engineering",
+  "name": "Fliegerbrille des Tüftlers",
+  "skillRequired": 185,
+  "yellow": 210,
+  "green": 225,
+  "gray": 240,
+  "reagents": [
+   {
+    "item": "item_leather2",
+    "count": 2
+   },
+   {
+    "item": "item_bar2",
+    "count": 2
+   },
+   {
+    "item": "item_powder2",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 8556,
+  "creates": {
+   "item": "item_en_goggles_2",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_pipe_3",
+  "profession": "engineering",
+  "name": "Sternsilberrohr",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_bar3",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 130,
+  "creates": {
+   "item": "item_pipe3",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_powder_3",
+  "profession": "engineering",
+  "name": "Festes Schießpulver",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_stone3",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 130,
+  "creates": {
+   "item": "item_powder3",
+   "count": 1
+  }
+ },
+ {
+  "id": "en_gun_3",
+  "profession": "engineering",
+  "name": "Sternsilber-Präzisionsbüchse",
+  "skillRequired": 245,
+  "yellow": 270,
+  "green": 285,
+  "gray": 300,
+  "reagents": [
+   {
+    "item": "item_pipe3",
+    "count": 2
+   },
+   {
+    "item": "item_powder3",
+    "count": 2
+   },
+   {
+    "item": "item_bar3",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 15006,
+  "creates": {
+   "item": "item_en_gun_3",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "en_goggles_3",
+  "profession": "engineering",
+  "name": "Sternsilberlinsen",
+  "skillRequired": 260,
+  "yellow": 285,
+  "green": 300,
+  "gray": 315,
+  "reagents": [
+   {
+    "item": "item_leather3",
+    "count": 2
+   },
+   {
+    "item": "item_bar3",
+    "count": 2
+   },
+   {
+    "item": "item_powder3",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 16900,
+  "creates": {
+   "item": "item_en_goggles_3",
+   "count": 1
+  },
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "ench_rod",
+  "profession": "enchanting",
+  "name": "Runenverzierte Kupferrute",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_bar0",
+    "count": 1
+   },
+   {
+    "item": "item_dust0",
+    "count": 1
+   }
+  ],
+  "castTime": 3,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_enchanting_rod",
+   "count": 1
+  }
+ },
+ {
+  "id": "ench_wrist_0",
+  "profession": "enchanting",
+  "name": "Armschienen verzaubern – Geringe Ausdauer",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_dust0",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 10,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Wrist",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Stamina",
+     "value": 1
+    }
+   ],
+   "name": "+1 Ausdauer"
+  }
+ },
+ {
+  "id": "ench_chest_0",
+  "profession": "enchanting",
+  "name": "Brust verzaubern – Geringe Willenskraft",
+  "skillRequired": 11,
+  "yellow": 36,
+  "green": 51,
+  "gray": 66,
+  "reagents": [
+   {
+    "item": "item_dust0",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 30,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Chest",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Spirit",
+     "value": 1
+    }
+   ],
+   "name": "+1 Willenskraft"
+  }
+ },
+ {
+  "id": "ench_feet_0",
+  "profession": "enchanting",
+  "name": "Stiefel verzaubern – Geringe Beweglichkeit",
+  "skillRequired": 21,
+  "yellow": 46,
+  "green": 61,
+  "gray": 76,
+  "reagents": [
+   {
+    "item": "item_dust0",
+    "count": 3
+   },
+   {
+    "item": "item_essence0",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 110,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Feet",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Agility",
+     "value": 1
+    }
+   ],
+   "name": "+1 Beweglichkeit"
+  }
+ },
+ {
+  "id": "ench_mainhand_0",
+  "profession": "enchanting",
+  "name": "Waffe verzaubern – Geringe Stärke",
+  "skillRequired": 31,
+  "yellow": 56,
+  "green": 71,
+  "gray": 86,
+  "reagents": [
+   {
+    "item": "item_dust0",
+    "count": 4
+   },
+   {
+    "item": "item_essence0",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 240,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "MainHand",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Strength",
+     "value": 2
+    }
+   ],
+   "name": "+2 Stärke"
+  }
+ },
+ {
+  "id": "ench_wrist_1",
+  "profession": "enchanting",
+  "name": "Armschienen verzaubern – Schwache Ausdauer",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_dust1",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 1406,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Wrist",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Stamina",
+     "value": 3
+    }
+   ],
+   "name": "+3 Ausdauer"
+  }
+ },
+ {
+  "id": "ench_chest_1",
+  "profession": "enchanting",
+  "name": "Brust verzaubern – Schwache Willenskraft",
+  "skillRequired": 85,
+  "yellow": 110,
+  "green": 125,
+  "gray": 140,
+  "reagents": [
+   {
+    "item": "item_dust1",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 1806,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Chest",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Spirit",
+     "value": 3
+    }
+   ],
+   "name": "+3 Willenskraft"
+  }
+ },
+ {
+  "id": "ench_feet_1",
+  "profession": "enchanting",
+  "name": "Stiefel verzaubern – Schwache Beweglichkeit",
+  "skillRequired": 95,
+  "yellow": 120,
+  "green": 135,
+  "gray": 150,
+  "reagents": [
+   {
+    "item": "item_dust1",
+    "count": 3
+   },
+   {
+    "item": "item_essence1",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 2256,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Feet",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Agility",
+     "value": 3
+    }
+   ],
+   "name": "+3 Beweglichkeit"
+  }
+ },
+ {
+  "id": "ench_mainhand_1",
+  "profession": "enchanting",
+  "name": "Waffe verzaubern – Schwache Stärke",
+  "skillRequired": 105,
+  "yellow": 130,
+  "green": 145,
+  "gray": 160,
+  "reagents": [
+   {
+    "item": "item_dust1",
+    "count": 4
+   },
+   {
+    "item": "item_essence1",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 2756,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "MainHand",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Strength",
+     "value": 4
+    }
+   ],
+   "name": "+4 Stärke"
+  }
+ },
+ {
+  "id": "ench_wrist_2",
+  "profession": "enchanting",
+  "name": "Armschienen verzaubern – Mittlere Ausdauer",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_dust2",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 5625,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Wrist",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Stamina",
+     "value": 5
+    }
+   ],
+   "name": "+5 Ausdauer"
+  }
+ },
+ {
+  "id": "ench_chest_2",
+  "profession": "enchanting",
+  "name": "Brust verzaubern – Mittlere Willenskraft",
+  "skillRequired": 160,
+  "yellow": 185,
+  "green": 200,
+  "gray": 215,
+  "reagents": [
+   {
+    "item": "item_dust2",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 6400,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Chest",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Spirit",
+     "value": 5
+    }
+   ],
+   "name": "+5 Willenskraft"
+  }
+ },
+ {
+  "id": "ench_feet_2",
+  "profession": "enchanting",
+  "name": "Stiefel verzaubern – Mittlere Beweglichkeit",
+  "skillRequired": 170,
+  "yellow": 195,
+  "green": 210,
+  "gray": 225,
+  "reagents": [
+   {
+    "item": "item_dust2",
+    "count": 3
+   },
+   {
+    "item": "item_essence2",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 7225,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Feet",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Agility",
+     "value": 5
+    }
+   ],
+   "name": "+5 Beweglichkeit"
+  }
+ },
+ {
+  "id": "ench_mainhand_2",
+  "profession": "enchanting",
+  "name": "Waffe verzaubern – Mittlere Stärke",
+  "skillRequired": 180,
+  "yellow": 205,
+  "green": 220,
+  "gray": 235,
+  "reagents": [
+   {
+    "item": "item_dust2",
+    "count": 4
+   },
+   {
+    "item": "item_essence2",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 8100,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "MainHand",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Strength",
+     "value": 6
+    }
+   ],
+   "name": "+6 Stärke"
+  }
+ },
+ {
+  "id": "ench_wrist_3",
+  "profession": "enchanting",
+  "name": "Armschienen verzaubern – Starke Ausdauer",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_dust3",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 12656,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Wrist",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Stamina",
+     "value": 7
+    }
+   ],
+   "name": "+7 Ausdauer"
+  }
+ },
+ {
+  "id": "ench_chest_3",
+  "profession": "enchanting",
+  "name": "Brust verzaubern – Starke Willenskraft",
+  "skillRequired": 235,
+  "yellow": 260,
+  "green": 275,
+  "gray": 290,
+  "reagents": [
+   {
+    "item": "item_dust3",
+    "count": 2
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 13806,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Chest",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Spirit",
+     "value": 7
+    }
+   ],
+   "name": "+7 Willenskraft"
+  }
+ },
+ {
+  "id": "ench_feet_3",
+  "profession": "enchanting",
+  "name": "Stiefel verzaubern – Starke Beweglichkeit",
+  "skillRequired": 245,
+  "yellow": 270,
+  "green": 285,
+  "gray": 300,
+  "reagents": [
+   {
+    "item": "item_dust3",
+    "count": 3
+   },
+   {
+    "item": "item_essence3",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 15006,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "Feet",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Agility",
+     "value": 7
+    }
+   ],
+   "name": "+7 Beweglichkeit"
+  }
+ },
+ {
+  "id": "ench_mainhand_3",
+  "profession": "enchanting",
+  "name": "Waffe verzaubern – Starke Stärke",
+  "skillRequired": 255,
+  "yellow": 280,
+  "green": 295,
+  "gray": 310,
+  "reagents": [
+   {
+    "item": "item_dust3",
+    "count": 4
+   },
+   {
+    "item": "item_essence3",
+    "count": 1
+   }
+  ],
+  "castTime": 4,
+  "trainerCost": 16256,
+  "tool": "item_enchanting_rod",
+  "enchant": {
+   "slot": "MainHand",
+   "modifiers": [
+    {
+     "type": "StatFlat",
+     "stat": "Strength",
+     "value": 8
+    }
+   ],
+   "name": "+8 Stärke"
+  }
+ },
+ {
+  "id": "cook_0_0",
+  "profession": "cooking",
+  "name": "Gebratenes Wildfleisch",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_meat0",
+    "count": 1
+   },
+   {
+    "item": "item_mild_spices",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_food_0_0",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "cook_0_1",
+  "profession": "cooking",
+  "name": "Gegrillter Bachbarsch",
+  "skillRequired": 11,
+  "yellow": 36,
+  "green": 51,
+  "gray": 66,
+  "reagents": [
+   {
+    "item": "item_fish0",
+    "count": 1
+   },
+   {
+    "item": "item_salt",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_food_0_1",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "fa_bandage_0",
+  "profession": "first_aid",
+  "name": "Leinenverband",
+  "skillRequired": 1,
+  "yellow": 26,
+  "green": 41,
+  "gray": 56,
+  "reagents": [
+   {
+    "item": "item_cloth0",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 10,
+  "creates": {
+   "item": "item_bandage_0",
+   "count": 1
+  }
+ },
+ {
+  "id": "cook_1_0",
+  "profession": "cooking",
+  "name": "Würziger Wildbreteintopf",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_meat1",
+    "count": 1
+   },
+   {
+    "item": "item_mild_spices",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 50,
+  "creates": {
+   "item": "item_food_1_0",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "cook_1_1",
+  "profession": "cooking",
+  "name": "Geräucherter Karpfen",
+  "skillRequired": 85,
+  "yellow": 110,
+  "green": 125,
+  "gray": 140,
+  "reagents": [
+   {
+    "item": "item_fish1",
+    "count": 1
+   },
+   {
+    "item": "item_salt",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 50,
+  "creates": {
+   "item": "item_food_1_1",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "fa_bandage_1",
+  "profession": "first_aid",
+  "name": "Wollverband",
+  "skillRequired": 75,
+  "yellow": 100,
+  "green": 115,
+  "gray": 130,
+  "reagents": [
+   {
+    "item": "item_cloth1",
+    "count": 2
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 50,
+  "creates": {
+   "item": "item_bandage_1",
+   "count": 1
+  }
+ },
+ {
+  "id": "cook_2_0",
+  "profession": "cooking",
+  "name": "Dunkler Fleischspieß",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_meat2",
+    "count": 1
+   },
+   {
+    "item": "item_mild_spices",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 90,
+  "creates": {
+   "item": "item_food_2_0",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "cook_2_1",
+  "profession": "cooking",
+  "name": "Forelle in Kräuterkruste",
+  "skillRequired": 160,
+  "yellow": 185,
+  "green": 200,
+  "gray": 215,
+  "reagents": [
+   {
+    "item": "item_fish2",
+    "count": 1
+   },
+   {
+    "item": "item_salt",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 90,
+  "creates": {
+   "item": "item_food_2_1",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "fa_bandage_2",
+  "profession": "first_aid",
+  "name": "Seidenverband",
+  "skillRequired": 150,
+  "yellow": 175,
+  "green": 190,
+  "gray": 205,
+  "reagents": [
+   {
+    "item": "item_cloth2",
+    "count": 2
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 90,
+  "creates": {
+   "item": "item_bandage_2",
+   "count": 1
+  }
+ },
+ {
+  "id": "cook_3_0",
+  "profession": "cooking",
+  "name": "Bärenbraten",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_meat3",
+    "count": 1
+   },
+   {
+    "item": "item_mild_spices",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 130,
+  "creates": {
+   "item": "item_food_3_0",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "cook_3_1",
+  "profession": "cooking",
+  "name": "Gedünsteter Silberlachs",
+  "skillRequired": 235,
+  "yellow": 260,
+  "green": 275,
+  "gray": 290,
+  "reagents": [
+   {
+    "item": "item_fish3",
+    "count": 1
+   },
+   {
+    "item": "item_salt",
+    "count": 1
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 130,
+  "creates": {
+   "item": "item_food_3_1",
+   "count": 1
+  },
+  "station": "fire"
+ },
+ {
+  "id": "fa_bandage_3",
+  "profession": "first_aid",
+  "name": "Zauberstoffverband",
+  "skillRequired": 225,
+  "yellow": 250,
+  "green": 265,
+  "gray": 280,
+  "reagents": [
+   {
+    "item": "item_cloth3",
+    "count": 2
+   }
+  ],
+  "castTime": 2,
+  "trainerCost": 130,
+  "creates": {
+   "item": "item_bandage_3",
+   "count": 1
+  }
+ }
+]

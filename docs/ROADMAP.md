@@ -39,11 +39,11 @@ Offen in diesem Meilenstein:
 - [x] Gruppenfinder mit KI-Modi, Bereitschaftscheck, Abstimmung, Rollenwahl, Untergruppen, Ersatz ohne Bosskampf-Unterbrechung
 - [x] Instanz-IDs, Bindungen, Schlachtzugsperren, Zurücksetzen, Wiederverbindung
 
-Offen in diesem Meilenstein:
+- [x] Berufe: 9 Hauptberufe (max. 2) + Angeln, Kochen, Erste Hilfe, Ränge bis Meister, 106 Rezepte, Abbau, Kürschnern,
+  Werkbänke, Verzaubern/Entzaubern, Stoff- und Fleischbeute, KI-Bewohner sammeln und stellen her
 
-- [ ] Berufe
+Meilenstein 2 ist damit abgeschlossen. Offen bleiben Inhalte höherer Stufen (Regionen 10–30, Hauptstädte).
 
-- [ ] Berufe: Kräuterkunde, Bergbau, Kürschnerei, Schmiedekunst, Alchemie, Schneiderei, Lederverarbeitung, Kochen, Erste Hilfe (Schema und Objekt-Felder vorhanden)
 - [ ] Regionen 10–30 mit Inhalten: Westmark, Rotsandwüste, Nebelmoor, Splitterküste, Goldene Ebene
 - [ ] Hauptstädte Sonnenfeste und Kharzul
 

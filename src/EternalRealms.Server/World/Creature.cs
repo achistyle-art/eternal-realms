@@ -78,6 +78,8 @@ namespace EternalRealms.Server.World
         public List<LootItem> Loot { get; } = new();
         public int LootMoney { get; set; }
         public bool Lootable { get; set; }
+        /// <summary>Bereits gehäutet (Kürschnerei).</summary>
+        public bool Skinned { get; set; }
         public float CorpseTimer { get; set; }
         /// <summary>Besitzer bei Begleitern und Eskorte-NPCs.</summary>
         public Player? Owner { get; set; }

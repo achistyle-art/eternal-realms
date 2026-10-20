@@ -14,7 +14,7 @@ namespace EternalRealms.Shared.Net
 
     public enum Opcode : ushort
     {
-        // Client -> Server
+        // Client -> Server (1–999)
         C_Login = 1, C_CharacterList, C_CreateCharacter, C_DeleteCharacter, C_EnterWorld, C_Logout,
         C_Move, C_SetTarget, C_CastAbility, C_CancelCast, C_AttackStart, C_AttackStop, C_Chat,
         C_Interact, C_QuestAccept, C_QuestTurnIn, C_QuestAbandon, C_Loot, C_UseItem, C_EquipItem, C_UnequipItem,
@@ -30,9 +30,10 @@ namespace EternalRealms.Shared.Net
         C_ResetInstances, C_InstanceInfo,
         C_FinderActivities, C_FinderJoin, C_FinderLeave, C_FinderAccept, C_ReadyCheck, C_ReadyResponse, C_VoteKick, C_VoteKickResponse,
         C_SetRole, C_SetBotRole, C_ConvertToRaid, C_SetSubgroup,
+        C_LearnProfession, C_TrainProfessionRank, C_LearnRecipe, C_UnlearnProfession, C_Craft, C_Skin, C_Disenchant, C_ProfessionInfo,
 
-        // Server -> Client
-        S_LoginResult = 100, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,
+        // Server -> Client (ab 1000)
+        S_LoginResult = 1000, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,
         S_Talents, S_Inventory, S_QuestLog, S_EntitySpawn, S_EntityDespawn, S_Snapshot, S_CombatEvent, S_CastStart,
         S_CastEnd, S_AuraUpdate, S_UnitDied, S_XpGain, S_LevelUp, S_NpcInteraction, S_LootResult, S_Chat, S_Notice,
         S_GroupUpdate, S_BotCandidates, S_DeathState, S_WorldState, S_Pong, S_Cooldown, S_GroupInviteRequest, S_QuestMarker,
@@ -40,6 +41,7 @@ namespace EternalRealms.Shared.Net
         S_Bank, S_LootMethod, S_LootRollStart, S_LootRollResult, S_MailList, S_NewMail, S_AuctionList, S_TalentResetCost,
         S_MountJournal, S_GuildRoster, S_GuildInvite, S_FriendList, S_InstanceInfo,
         S_FinderActivities, S_FinderStatus, S_FinderProposal, S_ReadyCheck, S_ReadyCheckResult, S_VoteKick,
+        S_Professions, S_ProfessionTrainer,
     }
 
     public abstract class Message

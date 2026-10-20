@@ -575,6 +575,28 @@ for name, lv, mn, mx in (("item_minor_healing_potion", 1, 70, 90), ("item_lesser
       triggersGcd=False, icon="potion_red", animation="drink", effects=[eff("Heal", min=mn, max=mx)])
 A(c, id="item_hearthstone", name="Ruhestein", description="Bringt Euch zum Gasthaus Eures Heimatortes zurück.", **{"class": "None"}, level=1, notTrainable=True,
   castTime=10, cooldown=1800, target="Self", outOfCombatOnly=True, icon="hearthstone", animation="cast_long", effects=[eff("Teleport", zone="@bind")])
+# Berufserzeugnisse (Kapitel 17): Manatränke, Elixiere, Essen mit „Satt“, Verbände
+A(c, id="item_greater_healing_potion", name="Großer Heiltrank", description="Stellt sofort Leben wieder her.", **{"class": "None"}, level=30, notTrainable=True, target="Self",
+  cooldown=120, triggersGcd=False, icon="potion_red", animation="drink", effects=[eff("Heal", min=455, max=585)])
+for r, (lv, mn, mx) in enumerate(((1, 140, 180), (10, 280, 360), (20, 455, 585), (30, 700, 900)), 1):
+    A(c, id=f"item_mana_potion_r{r}", name="Manatrank", description="Stellt sofort Mana wieder her.", **{"class": "None"}, level=lv, notTrainable=True, target="Self",
+      cooldown=120, triggersGcd=False, icon="potion_blue", animation="drink", effects=[eff("GainPower", min=mn, max=mx)])
+for eid, name, stat, val in (("elixir_strength", "Elixier der Löwenkraft", "Strength", 8), ("elixir_agility", "Elixier der Behändigkeit", "Agility", 8),
+                             ("elixir_intellect", "Elixier der Weisheit", "Intellect", 8), ("elixir_stamina", "Elixier der Standhaftigkeit", "Stamina", 10)):
+    AU(c, id=eid, name=name, description=f"{stat} erhöht.", duration=3600, modifiers=[{"type": "StatFlat", "stat": stat, "value": val}])
+    A(c, id="item_" + eid, name=name, description="Eine Stunde lang gestärkt.", **{"class": "None"}, level=1, notTrainable=True, target="Self",
+      triggersGcd=False, icon="potion_green", animation="drink", effects=[eff("ApplyAura", aura=eid)])
+for r in range(1, 5):
+    AU(c, id=f"well_fed_r{r}", name="Satt", description="Ausdauer und Willenskraft erhöht.", duration=900,
+       modifiers=[{"type": "StatFlat", "stat": "Stamina", "value": 2 + r * 2}, {"type": "StatFlat", "stat": "Spirit", "value": 2 + r * 2}])
+    A(c, id=f"item_cooked_food_r{r}", name="Gekochtes Essen", description="Stellt Leben wieder her und macht satt.", **{"class": "None"}, level=1, notTrainable=True,
+      target="Self", outOfCombatOnly=True, triggersGcd=False, icon="food", animation="eat",
+      effects=[eff("RestorePercent", min=100, max=100, aura="food_regen"), eff("ApplyAura", aura=f"well_fed_r{r}")])
+AU(c, id="first_aid_recent", name="Kürzlich verbunden", description="Kann noch nicht erneut verbunden werden.", isDebuff=True, duration=60, dispellable=False)
+for r, (lv, mn, mx) in enumerate(((1, 66, 66), (10, 114, 114), (20, 301, 301), (30, 640, 640)), 1):
+    A(c, id=f"item_bandage_r{r}", name="Verband", description="Heilt das Ziel über einige Sekunden. Danach eine Minute lang nicht erneut möglich.", **{"class": "None"},
+      level=lv, notTrainable=True, castTime=6, target="FriendlyOrSelf", maxRange=10, triggersGcd=False, icon="bandage", animation="bandage",
+      effects=[eff("Heal", min=mn, max=mx), eff("ApplyAura", aura="first_aid_recent")])
 # Reittiere (Kapitel 18): Aufsitzen dauert 1,5 Sekunden, Schaden oder eigene Angriffe werfen ab.
 for sp in (60, 100):
     AU(c, id=f"mount_{sp}", name="Beritten", description=f"Bewegungstempo um {sp} % erhöht.", permanent=True, mounted=True, breaksOnDamage=True, dispellable=False,

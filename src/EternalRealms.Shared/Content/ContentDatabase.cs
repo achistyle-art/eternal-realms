@@ -31,6 +31,8 @@ namespace EternalRealms.Shared.Content
         public Dictionary<string, QuestDef> Quests { get; } = new Dictionary<string, QuestDef>();
         public Dictionary<string, ReputationDef> Reputations { get; } = new Dictionary<string, ReputationDef>();
         public Dictionary<string, MountDef> Mounts { get; } = new Dictionary<string, MountDef>();
+        public Dictionary<string, ProfessionDef> Professions { get; } = new Dictionary<string, ProfessionDef>();
+        public Dictionary<string, RecipeDef> Recipes { get; } = new Dictionary<string, RecipeDef>();
         public Dictionary<string, TravelNodeDef> TravelNodes { get; } = new Dictionary<string, TravelNodeDef>();
         public List<FlightPathDef> FlightPaths { get; } = new List<FlightPathDef>();
         public List<BotDialogDef> BotDialog { get; } = new List<BotDialogDef>();
@@ -75,6 +77,8 @@ namespace EternalRealms.Shared.Content
             foreach (var q in ReadList<QuestDef>(root, "quests")) AddUnique(db.Quests, q.Id, q, "Quest");
             foreach (var r in ReadList<ReputationDef>(root, "reputations")) AddUnique(db.Reputations, r.Id, r, "Ruf");
             foreach (var m in ReadList<MountDef>(root, "mounts")) AddUnique(db.Mounts, m.Id, m, "Reittier");
+            foreach (var pr in ReadList<ProfessionDef>(root, "professions")) AddUnique(db.Professions, pr.Id, pr, "Beruf");
+            foreach (var r in ReadList<RecipeDef>(root, "recipes")) AddUnique(db.Recipes, r.Id, r, "Rezept");
             foreach (var n in ReadList<TravelNodeDef>(root, "travel/nodes")) AddUnique(db.TravelNodes, n.Id, n, "Reisepunkt");
             db.FlightPaths.AddRange(ReadList<FlightPathDef>(root, "travel/paths"));
             db.BotDialog.AddRange(ReadList<BotDialogDef>(root, "bots/dialog"));
@@ -345,6 +349,18 @@ namespace EternalRealms.Shared.Content
                 Need(Items.TryGetValue(m.Item, out var mi) && mi.TeachesMount == m.Id, $"Reittier {m.Id}: Zügel {m.Item} fehlt oder lehrt ein anderes Reittier");
                 Need(Abilities.ContainsKey("mount_ride_" + m.Speed) || AbilityRanks.ContainsKey("mount_ride_" + m.Speed), $"Reittier {m.Id}: Fähigkeit mount_ride_{m.Speed} fehlt");
             }
+            foreach (var r in Recipes.Values)
+            {
+                Need(Professions.ContainsKey(r.Profession), $"Rezept {r.Id}: unbekannter Beruf {r.Profession}");
+                Need(r.Creates != null ^ r.Enchant != null, $"Rezept {r.Id}: braucht genau ein Ergebnis (Gegenstand oder Verzauberung)");
+                if (r.Creates != null) Need(Items.ContainsKey(r.Creates.Item), $"Rezept {r.Id}: unbekanntes Ergebnis {r.Creates.Item}");
+                foreach (var g in r.Reagents) Need(Items.ContainsKey(g.Item) && g.Count > 0, $"Rezept {r.Id}: unbekannte Zutat {g.Item}");
+                if (r.Tool != null) Need(Items.ContainsKey(r.Tool), $"Rezept {r.Id}: unbekanntes Werkzeug {r.Tool}");
+                Need(r.SkillRequired < r.Yellow && r.Yellow <= r.Green && r.Green <= r.Gray, $"Rezept {r.Id}: Farbstufen ungültig");
+            }
+            foreach (var o in Objects.Values.Where(o => o.Profession != null)) Need(Professions.ContainsKey(o.Profession!), $"Objekt {o.Id}: unbekannter Beruf {o.Profession}");
+            foreach (var c in Creatures.Values.Where(c => c.TrainerProfession != null)) Need(Professions.ContainsKey(c.TrainerProfession!), $"NPC {c.Id}: unbekannter Beruf");
+            foreach (var pr in Professions.Values) if (pr.Tool != null) Need(Items.ContainsKey(pr.Tool), $"Beruf {pr.Id}: unbekanntes Werkzeug {pr.Tool}");
             foreach (var it in Items.Values.Where(i => i.TeachesMount != null))
                 Need(Mounts.ContainsKey(it.TeachesMount!), $"Gegenstand {it.Id}: unbekanntes Reittier {it.TeachesMount}");
             return errors;

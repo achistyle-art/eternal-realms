@@ -59,6 +59,138 @@
   ]
  },
  {
+  "id": "elixir_strength",
+  "name": "Elixier der Löwenkraft",
+  "description": "Strength erhöht.",
+  "duration": 3600,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 8
+   }
+  ]
+ },
+ {
+  "id": "elixir_agility",
+  "name": "Elixier der Behändigkeit",
+  "description": "Agility erhöht.",
+  "duration": 3600,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 8
+   }
+  ]
+ },
+ {
+  "id": "elixir_intellect",
+  "name": "Elixier der Weisheit",
+  "description": "Intellect erhöht.",
+  "duration": 3600,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 8
+   }
+  ]
+ },
+ {
+  "id": "elixir_stamina",
+  "name": "Elixier der Standhaftigkeit",
+  "description": "Stamina erhöht.",
+  "duration": 3600,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 10
+   }
+  ]
+ },
+ {
+  "id": "well_fed_r1",
+  "name": "Satt",
+  "description": "Ausdauer und Willenskraft erhöht.",
+  "duration": 900,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ]
+ },
+ {
+  "id": "well_fed_r2",
+  "name": "Satt",
+  "description": "Ausdauer und Willenskraft erhöht.",
+  "duration": 900,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 6
+   }
+  ]
+ },
+ {
+  "id": "well_fed_r3",
+  "name": "Satt",
+  "description": "Ausdauer und Willenskraft erhöht.",
+  "duration": 900,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 8
+   }
+  ]
+ },
+ {
+  "id": "well_fed_r4",
+  "name": "Satt",
+  "description": "Ausdauer und Willenskraft erhöht.",
+  "duration": 900,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 10
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 10
+   }
+  ]
+ },
+ {
+  "id": "first_aid_recent",
+  "name": "Kürzlich verbunden",
+  "description": "Kann noch nicht erneut verbunden werden.",
+  "isDebuff": true,
+  "duration": 60,
+  "dispellable": false
+ },
+ {
   "id": "mount_60",
   "name": "Beritten",
   "description": "Bewegungstempo um 60 % erhöht.",

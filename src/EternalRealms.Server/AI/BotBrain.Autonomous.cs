@@ -88,6 +88,7 @@ namespace EternalRealms.Server.AI
                 if (_prey.Lootable && _prey.TappedBy == Me) { MoveTo(_prey.Position, 3); return; }
                 _prey = null;
             }
+            if (_prey == null && TryGatherNearby(zone)) return;
             if (_prey == null || _prey.TappedBy != null && _prey.TappedBy != Me)
             {
                 _preySearchTimer -= ReactionTime;
@@ -104,6 +105,20 @@ namespace EternalRealms.Server.AI
             _moveTarget = null;
             Me.AutoAttacking = !(Profile?.Ranged == true) || Me.Class == CharClass.Hunter;
             if (ab != null) _w.Combat.TryCast(Me, ab, _prey);
+        }
+
+        /// <summary>Weltbewohner mit Sammelberufen nehmen Vorkommen am Weg mit (bis 25 m, außerhalb des Kampfes).</summary>
+        private bool TryGatherNearby(ZoneInstance zone)
+        {
+            if (Me.Data.Professions.Count == 0 || Me.Cast != null || Me.InCombat || Me.FreeBagSlots < 2) return false;
+            var node = zone.Objects.Where(o => o.Available && o.Def.Profession != null && Me.Data.Professions.ContainsKey(o.Def.Profession) && Vec3.DistanceXZ(o.Position, Me.Position) < 25
+                                               && _w.Professions.CanGather(Me, o.Def) == null)
+                .OrderBy(o => Vec3.DistanceXZ(o.Position, Me.Position)).FirstOrDefault();
+            if (node == null) return false;
+            if (Me.DistanceTo(node) > 3) { MoveTo(node.Position, 2); return true; }
+            _moveTarget = null;
+            _w.Interactions.Interact(Me, node.Id);
+            return true;
         }
 
         private bool HasCompletedQuest() => Me.Data.Quests.Values.Any(q => q.State == QuestState.Complete);
@@ -251,7 +266,7 @@ namespace EternalRealms.Server.AI
             }
             switch (kind)
             {
-                case "vendor": SellJunk(); return 3 + (float)_w.Random.NextDouble() * 4;
+                case "vendor": _w.Professions.BotCraft(Me); SellJunk(); return 3 + (float)_w.Random.NextDouble() * 4;
                 case "trainer": _w.Progression.AutoTrain(Me); return 4 + (float)_w.Random.NextDouble() * 4;
                 case "inn":
                     Resting = true;

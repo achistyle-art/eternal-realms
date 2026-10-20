@@ -96,6 +96,7 @@ namespace EternalRealms.Server.Persistence
             public Dictionary<string, InstanceBind> InstanceBinds { get; set; } = new();
             public long CurrentInstanceId { get; set; }
             public List<DateTime> RecentInstances { get; set; } = new();
+            public Dictionary<string, ProfessionProgress> Professions { get; set; } = new();
         }
 
         private const string CharColumns = "id, account_id, name, race, class, gender, appearance, level, xp, rested_xp, money, zone_id, pos_x, pos_y, pos_z, facing, " +
@@ -154,7 +155,7 @@ namespace EternalRealms.Server.Persistence
                     DeathState = (DeathState)r.GetInt16(18), IsBot = r.GetBoolean(19),
                     Bot = r.IsDBNull(20) ? null : JsonSerializer.Deserialize<BotData>(r.GetString(20), Json),
                     CorpseZone = ws.CorpseZone, CorpsePosition = ws.CorpsePosition, BindZone = ws.BindZone, BindPosition = ws.BindPosition,
-                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset, RidingSkill = ws.RidingSkill, Mounts = ws.Mounts, ShareLocation = ws.ShareLocation, InstanceBinds = ws.InstanceBinds, CurrentInstanceId = ws.CurrentInstanceId, RecentInstances = ws.RecentInstances,
+                    ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset, RidingSkill = ws.RidingSkill, Mounts = ws.Mounts, ShareLocation = ws.ShareLocation, InstanceBinds = ws.InstanceBinds, CurrentInstanceId = ws.CurrentInstanceId, RecentInstances = ws.RecentInstances, Professions = ws.Professions,
                     DiscoveredAreas = new HashSet<string>(r.GetFieldValue<string[]>(22)), KnownTravelNodes = new HashSet<string>(r.GetFieldValue<string[]>(23)),
                     CompletedQuests = new HashSet<string>(r.GetFieldValue<string[]>(24)), PlayedSeconds = r.GetInt64(25), LoggedOutInInn = r.GetBoolean(26),
                     CreatedAt = r.GetDateTime(27), LastLogout = r.GetDateTime(28),
@@ -184,13 +185,13 @@ namespace EternalRealms.Server.Persistence
                 await using var r = await cmd.ExecuteReaderAsync();
                 while (await r.ReadAsync()) c.Talents[r.GetString(0)] = r.GetInt32(1);
             }
-            await using (var cmd = new NpgsqlCommand("SELECT container, slot, item_id, count, durability FROM character_items WHERE character_id = @id ORDER BY container, slot", conn))
+            await using (var cmd = new NpgsqlCommand("SELECT container, slot, item_id, count, durability, enchant FROM character_items WHERE character_id = @id ORDER BY container, slot", conn))
             {
                 cmd.Parameters.AddWithValue("id", id);
                 await using var r = await cmd.ExecuteReaderAsync();
                 while (await r.ReadAsync())
                 {
-                    var stack = new ItemStack { ItemId = r.GetString(2), Count = r.GetInt32(3), Durability = r.GetInt32(4) };
+                    var stack = new ItemStack { ItemId = r.GetString(2), Count = r.GetInt32(3), Durability = r.GetInt32(4), Enchant = r.GetString(5) };
                     int slot = r.GetInt32(1);
                     short container = r.GetInt16(0);
                     if (container == 1) c.Equipment[(EquipSlot)slot] = stack;
@@ -259,7 +260,7 @@ namespace EternalRealms.Server.Persistence
             var ws = new WorldStateJson
             {
                 CorpseZone = d.CorpseZone, CorpsePosition = d.CorpsePosition, BindZone = d.BindZone, BindPosition = d.BindPosition,
-                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset, RidingSkill = d.RidingSkill, Mounts = d.Mounts, ShareLocation = d.ShareLocation, InstanceBinds = d.InstanceBinds, CurrentInstanceId = d.CurrentInstanceId, RecentInstances = d.RecentInstances,
+                ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset, RidingSkill = d.RidingSkill, Mounts = d.Mounts, ShareLocation = d.ShareLocation, InstanceBinds = d.InstanceBinds, CurrentInstanceId = d.CurrentInstanceId, RecentInstances = d.RecentInstances, Professions = d.Professions,
             };
             await using (var cmd = new NpgsqlCommand(
                 "UPDATE characters SET level=@lv, xp=@xp, rested_xp=@rx, money=@m, zone_id=@z, pos_x=@x, pos_y=@y, pos_z=@zz, facing=@f, health=@h, mana=@mn, " +
@@ -304,20 +305,21 @@ namespace EternalRealms.Server.Persistence
             await InsertKeyValues(conn, tx, "character_abilities", "ability_id", "rank", d.Id, d.Abilities);
             await InsertKeyValues(conn, tx, "character_talents", "talent_id", "rank", d.Id, d.Talents);
             await InsertKeyValues(conn, tx, "character_reputation", "faction_id", "value", d.Id, d.Reputation);
-            var containers = new List<short>(); var slots = new List<int>(); var items = new List<string>(); var counts = new List<int>(); var durs = new List<int>();
+            var containers = new List<short>(); var slots = new List<int>(); var items = new List<string>(); var counts = new List<int>(); var durs = new List<int>(); var enchs = new List<string>();
             for (int i = 0; i < d.Bag.Count; i++)
-                if (d.Bag[i] is { } s) { containers.Add(0); slots.Add(i); items.Add(s.ItemId); counts.Add(s.Count); durs.Add(s.Durability); }
-            foreach (var kv in d.Equipment) { containers.Add(1); slots.Add((int)kv.Key); items.Add(kv.Value.ItemId); counts.Add(kv.Value.Count); durs.Add(kv.Value.Durability); }
+                if (d.Bag[i] is { } s) { containers.Add(0); slots.Add(i); items.Add(s.ItemId); counts.Add(s.Count); durs.Add(s.Durability); enchs.Add(s.Enchant); }
+            foreach (var kv in d.Equipment) { containers.Add(1); slots.Add((int)kv.Key); items.Add(kv.Value.ItemId); counts.Add(kv.Value.Count); durs.Add(kv.Value.Durability); enchs.Add(kv.Value.Enchant); }
             for (int i = 0; i < d.Bank.Count; i++)
-                if (d.Bank[i] is { } b) { containers.Add(2); slots.Add(i); items.Add(b.ItemId); counts.Add(b.Count); durs.Add(b.Durability); }
-            foreach (var kv in d.BagContainers) { containers.Add(3); slots.Add(kv.Key); items.Add(kv.Value.ItemId); counts.Add(kv.Value.Count); durs.Add(kv.Value.Durability); }
+                if (d.Bank[i] is { } b) { containers.Add(2); slots.Add(i); items.Add(b.ItemId); counts.Add(b.Count); durs.Add(b.Durability); enchs.Add(b.Enchant); }
+            foreach (var kv in d.BagContainers) { containers.Add(3); slots.Add(kv.Key); items.Add(kv.Value.ItemId); counts.Add(kv.Value.Count); durs.Add(kv.Value.Durability); enchs.Add(kv.Value.Enchant); }
             if (items.Count > 0)
-                await using (var cmd = new NpgsqlCommand("INSERT INTO character_items (character_id, container, slot, item_id, count, durability) " +
-                                                         "SELECT @id, unnest(@c), unnest(@s), unnest(@i), unnest(@n), unnest(@d)", conn, tx))
+                await using (var cmd = new NpgsqlCommand("INSERT INTO character_items (character_id, container, slot, item_id, count, durability, enchant) " +
+                                                         "SELECT @id, unnest(@c), unnest(@s), unnest(@i), unnest(@n), unnest(@d), unnest(@e)", conn, tx))
                 {
                     cmd.Parameters.AddWithValue("id", d.Id);
                     cmd.Parameters.AddWithValue("c", containers.ToArray()); cmd.Parameters.AddWithValue("s", slots.ToArray());
                     cmd.Parameters.AddWithValue("i", items.ToArray()); cmd.Parameters.AddWithValue("n", counts.ToArray()); cmd.Parameters.AddWithValue("d", durs.ToArray());
+                    cmd.Parameters.AddWithValue("e", enchs.ToArray());
                     await cmd.ExecuteNonQueryAsync();
                 }
             foreach (var q in d.Quests.Values)
@@ -370,14 +372,14 @@ namespace EternalRealms.Server.Persistence
             foreach (var a in c.UpsertAuctions)
                 await using (var cmd = new NpgsqlCommand(
                     "INSERT INTO auctions (id, house, seller_id, seller_name, seller_is_bot, item_id, count, durability, start_bid, buyout, current_bid, bidder_id, bidder_name, " +
-                    "deposit, duration_hours, created_at, expires_at) VALUES (@id, @h, @s, @sn, @sb, @i, @n, @d, @sbid, @bo, @cb, @bid, @bn, @dep, @dh, @ca, @ea) " +
+                    "deposit, duration_hours, created_at, expires_at, enchant) VALUES (@id, @h, @s, @sn, @sb, @i, @n, @d, @sbid, @bo, @cb, @bid, @bn, @dep, @dh, @ca, @ea, @en) " +
                     "ON CONFLICT (id) DO UPDATE SET current_bid=EXCLUDED.current_bid, bidder_id=EXCLUDED.bidder_id, bidder_name=EXCLUDED.bidder_name, expires_at=EXCLUDED.expires_at", conn, tx))
                 {
                     var p = cmd.Parameters;
                     p.AddWithValue("id", a.Id); p.AddWithValue("h", (short)a.House); p.AddWithValue("s", a.SellerId); p.AddWithValue("sn", a.SellerName); p.AddWithValue("sb", a.SellerIsBot);
                     p.AddWithValue("i", a.ItemId); p.AddWithValue("n", a.Count); p.AddWithValue("d", a.Durability); p.AddWithValue("sbid", a.StartBid); p.AddWithValue("bo", a.Buyout);
                     p.AddWithValue("cb", a.CurrentBid); p.AddWithValue("bid", (object?)a.BidderId ?? DBNull.Value); p.AddWithValue("bn", a.BidderName); p.AddWithValue("dep", a.Deposit);
-                    p.AddWithValue("dh", (short)a.DurationHours); p.AddWithValue("ca", a.CreatedAt); p.AddWithValue("ea", a.ExpiresAt);
+                    p.AddWithValue("dh", (short)a.DurationHours); p.AddWithValue("ca", a.CreatedAt); p.AddWithValue("ea", a.ExpiresAt); p.AddWithValue("en", a.Enchant);
                     await cmd.ExecuteNonQueryAsync();
                 }
             if (c.DeleteAuctions.Count > 0)
@@ -420,7 +422,7 @@ namespace EternalRealms.Server.Persistence
         {
             var list = new List<AuctionData>();
             await using var cmd = _ds.CreateCommand("SELECT id, house, seller_id, seller_name, seller_is_bot, item_id, count, durability, start_bid, buyout, current_bid, bidder_id, " +
-                                                    "bidder_name, deposit, duration_hours, created_at, expires_at FROM auctions");
+                                                    "bidder_name, deposit, duration_hours, created_at, expires_at, enchant FROM auctions");
             await using var r = await cmd.ExecuteReaderAsync();
             while (await r.ReadAsync())
                 list.Add(new AuctionData
@@ -428,7 +430,7 @@ namespace EternalRealms.Server.Persistence
                     Id = r.GetInt64(0), House = (byte)r.GetInt16(1), SellerId = r.GetInt64(2), SellerName = r.GetString(3), SellerIsBot = r.GetBoolean(4), ItemId = r.GetString(5),
                     Count = r.GetInt32(6), Durability = r.GetInt32(7), StartBid = r.GetInt64(8), Buyout = r.GetInt64(9), CurrentBid = r.GetInt64(10),
                     BidderId = r.IsDBNull(11) ? null : r.GetInt64(11), BidderName = r.GetString(12), Deposit = r.GetInt64(13), DurationHours = r.GetInt16(14),
-                    CreatedAt = r.GetDateTime(15), ExpiresAt = r.GetDateTime(16),
+                    CreatedAt = r.GetDateTime(15), ExpiresAt = r.GetDateTime(16), Enchant = r.GetString(17),
                 });
             return list;
         }

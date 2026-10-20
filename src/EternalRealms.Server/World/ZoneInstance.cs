@@ -53,7 +53,8 @@ namespace EternalRealms.Server.World
 
         public void Populate()
         {
-            var rng = new Random(StableHash.Of(Def.Id) ^ StableHash.Of(InstanceKey));
+            // Jede Instanz derselben Zone hat dieselbe Aufstellung (reproduzierbar, unabhängig von der Instanz-ID).
+            var rng = new Random(StableHash.Of(Def.Id));
             foreach (var s in Def.Spawns)
             {
                 if (KilledBosses.Contains(s.Creature)) continue; // besiegte Bosse bleiben besiegt
@@ -365,7 +366,11 @@ namespace EternalRealms.Server.World
         }
 
         /// <summary>Höchstens so viele Einheiten pro Paket: unzuverlässige UDP-Pakete dürfen die MTU (~1400 Byte) nicht überschreiten.</summary>
-        private const int SnapshotChunk = 24;
+        /// <summary>
+        /// Einheiten je Snapshot-Paket: Kopf (Opcode, Tick, Bewegung, Anzahl ≈ 14 Byte) + 44 Byte je Einheit müssen unter
+        /// der kleinsten UDP-Nutzlast von LiteNetLib (1023 Byte vor der MTU-Erkennung) bleiben → 20 Einheiten ≈ 894 Byte.
+        /// </summary>
+        public const int SnapshotChunk = 20;
 
         private void SendSnapshots()
         {

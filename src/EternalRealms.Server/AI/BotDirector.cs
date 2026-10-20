@@ -345,6 +345,7 @@ namespace EternalRealms.Server.AI
                     int lvl = _w.Random.Range(zone.Def.MinLevel, Math.Max(zone.Def.MinLevel, zone.Def.MaxLevel - 4));
                     data = CreateBotData(zone.Def.Faction, roles[_w.Random.Range(0, 3)], lvl, null, zone.Def.Id, ambient: true);
                     if (data == null) continue;
+                    _w.Professions.AssignBotProfessions(data);
                     var town = zone.Def.Areas.FirstOrDefault(a => a.IsCity) ?? zone.Def.Areas.First();
                     data.Position = town.Center + new Vec3(_w.Random.Range(-10, 10), 0, _w.Random.Range(-10, 10));
                 }

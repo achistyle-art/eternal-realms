@@ -137,6 +137,7 @@ namespace EternalRealms.Server.World
                 if (!Content.Items.TryGetValue(kv.Value.ItemId, out var item)) continue;
                 if (item.MaxDurability > 0 && kv.Value.Durability <= 0) continue; // zerbrochen
                 into.AddRange(item.Modifiers);
+                if (kv.Value.Enchant != "" && Content.Recipes.TryGetValue(kv.Value.Enchant, out var ench) && ench.Enchant != null) into.AddRange(ench.Enchant.Modifiers);
             }
             if (Data.IsBot) BotGear.AddVirtualGear(this, into);
         }

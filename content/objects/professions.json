@@ -1,0 +1,303 @@
+[
+ {
+  "id": "obj_prof_vein0",
+  "name": "Kupfervorkommen",
+  "model": "ore_vein",
+  "profession": "mining",
+  "skillRequired": 1,
+  "interactTime": 2.5,
+  "loot": [
+   {
+    "item": "item_ore0",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   },
+   {
+    "item": "item_stone0",
+    "chance": 0.5,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb0a",
+  "name": "Sonnenblatt",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 1,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb0a",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb0b",
+  "name": "Wurzelkraut",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 1,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb0b",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_fishpool0",
+  "name": "Schwarm: Bachbarsch",
+  "model": "fish_pool",
+  "profession": "fishing",
+  "skillRequired": 1,
+  "interactTime": 4.0,
+  "loot": [
+   {
+    "item": "item_fish0",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_vein1",
+  "name": "Zinnvorkommen",
+  "model": "ore_vein",
+  "profession": "mining",
+  "skillRequired": 75,
+  "interactTime": 2.5,
+  "loot": [
+   {
+    "item": "item_ore1",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   },
+   {
+    "item": "item_stone1",
+    "chance": 0.5,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb1a",
+  "name": "Silbermoos",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 75,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb1a",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb1b",
+  "name": "Bachminze",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 75,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb1b",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_fishpool1",
+  "name": "Schwarm: Schlammkarpfen",
+  "model": "fish_pool",
+  "profession": "fishing",
+  "skillRequired": 75,
+  "interactTime": 4.0,
+  "loot": [
+   {
+    "item": "item_fish1",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_vein2",
+  "name": "Eisenvorkommen",
+  "model": "ore_vein",
+  "profession": "mining",
+  "skillRequired": 150,
+  "interactTime": 2.5,
+  "loot": [
+   {
+    "item": "item_ore2",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   },
+   {
+    "item": "item_stone2",
+    "chance": 0.5,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb2a",
+  "name": "Feuerdorn",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 150,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb2a",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb2b",
+  "name": "Grabmohn",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 150,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb2b",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_fishpool2",
+  "name": "Schwarm: Felsenforelle",
+  "model": "fish_pool",
+  "profession": "fishing",
+  "skillRequired": 150,
+  "interactTime": 4.0,
+  "loot": [
+   {
+    "item": "item_fish2",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_vein3",
+  "name": "Sternsilbervorkommen",
+  "model": "ore_vein",
+  "profession": "mining",
+  "skillRequired": 225,
+  "interactTime": 2.5,
+  "loot": [
+   {
+    "item": "item_ore3",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   },
+   {
+    "item": "item_stone3",
+    "chance": 0.5,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb3a",
+  "name": "Mondsichelkraut",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 225,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb3a",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_herb3b",
+  "name": "Sternenlilie",
+  "model": "herb",
+  "profession": "herbalism",
+  "skillRequired": 225,
+  "interactTime": 2.0,
+  "loot": [
+   {
+    "item": "item_herb3b",
+    "chance": 1.0,
+    "min": 1,
+    "max": 3
+   }
+  ]
+ },
+ {
+  "id": "obj_prof_fishpool3",
+  "name": "Schwarm: Silberlachs",
+  "model": "fish_pool",
+  "profession": "fishing",
+  "skillRequired": 225,
+  "interactTime": 4.0,
+  "loot": [
+   {
+    "item": "item_fish3",
+    "chance": 1.0,
+    "min": 1,
+    "max": 2
+   }
+  ]
+ },
+ {
+  "id": "obj_station_anvil",
+  "name": "Amboss",
+  "model": "anvil",
+  "station": "anvil",
+  "interactTime": 0
+ },
+ {
+  "id": "obj_station_forge",
+  "name": "Schmelzofen",
+  "model": "forge",
+  "station": "forge",
+  "interactTime": 0
+ },
+ {
+  "id": "obj_station_fire",
+  "name": "Kochfeuer",
+  "model": "campfire",
+  "station": "fire",
+  "interactTime": 0
+ }
+]

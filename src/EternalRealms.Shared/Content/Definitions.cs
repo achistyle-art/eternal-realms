@@ -408,6 +408,8 @@ namespace EternalRealms.Shared.Content
         public string Gossip { get; set; } = "";
         public List<string> VendorItems { get; set; } = new List<string>();
         public CharClass TrainerClass { get; set; }
+        /// <summary>Berufslehrer: welcher Beruf (Kapitel 17).</summary>
+        public string? TrainerProfession { get; set; }
         /// <summary>Sätze, die NPCs gelegentlich sagen (Ambiente).</summary>
         public List<string> Barks { get; set; } = new List<string>();
         /// <summary>Tagesablauf: Stunde (0-23) -> Ort.</summary>
@@ -425,6 +427,57 @@ namespace EternalRealms.Shared.Content
         public int Hour { get; set; }
         public Vec3 Position { get; set; }
         public string Activity { get; set; } = "";
+    }
+
+    public enum ProfessionKind : byte { Gathering = 0, Crafting = 1, Secondary = 2 }
+
+    public sealed class ProfessionRankDef
+    {
+        public string Name { get; set; } = "";
+        public int MaxSkill { get; set; }
+        public int RequiredLevel { get; set; }
+        public int Cost { get; set; }
+    }
+
+    /// <summary>Beruf (Kapitel 17): höchstens zwei Hauptberufe (Sammeln/Herstellen), beliebig viele Nebenberufe.</summary>
+    public sealed class ProfessionDef
+    {
+        public string Id { get; set; } = "";
+        public string Name { get; set; } = "";
+        public ProfessionKind Kind { get; set; }
+        public string Description { get; set; } = "";
+        public List<ProfessionRankDef> Ranks { get; set; } = new List<ProfessionRankDef>();
+        /// <summary>Werkzeug, das in der Tasche sein muss (Hacke, Messer, Angelrute).</summary>
+        public string? Tool { get; set; }
+        public bool IsPrimary => Kind != ProfessionKind.Secondary;
+    }
+
+    public sealed class RecipeEnchantDef
+    {
+        /// <summary>Ausrüstungsplatz (EquipSlot), der verzaubert wird.</summary>
+        public EquipSlot Slot { get; set; }
+        public string Name { get; set; } = "";
+        public List<ModifierDef> Modifiers { get; set; } = new List<ModifierDef>();
+    }
+
+    public sealed class RecipeDef
+    {
+        public string Id { get; set; } = "";
+        public string Profession { get; set; } = "";
+        public string Name { get; set; } = "";
+        /// <summary>Ab dieser Fertigkeit herstellbar (orange); gelb/grün/grau: weniger Fortschritt.</summary>
+        public int SkillRequired { get; set; }
+        public int Yellow { get; set; }
+        public int Green { get; set; }
+        public int Gray { get; set; }
+        public List<RewardItemDef> Reagents { get; set; } = new List<RewardItemDef>();
+        public RewardItemDef? Creates { get; set; }
+        public RecipeEnchantDef? Enchant { get; set; }
+        /// <summary>Erforderliche Werkbank in der Nähe: anvil, forge, fire.</summary>
+        public string? Station { get; set; }
+        public string? Tool { get; set; }
+        public float CastTime { get; set; } = 3f;
+        public int TrainerCost { get; set; }
     }
 
     /// <summary>Reittier (Kapitel 18): Tempo +60 % ab Stufe 40 oder +100 % ab Stufe 60, Seltenheit über die Qualität.</summary>
@@ -508,6 +561,8 @@ namespace EternalRealms.Shared.Content
         public int SkillRequired { get; set; }
         /// <summary>Briefkasten: öffnet das Postfach statt Beute.</summary>
         public bool IsMailbox { get; set; }
+        /// <summary>Werkbank für Berufe: anvil, forge, fire.</summary>
+        public string? Station { get; set; }
     }
 
     public sealed class FlightPathDef

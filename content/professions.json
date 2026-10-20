@@ -1,0 +1,391 @@
+[
+ {
+  "id": "mining",
+  "name": "Bergbau",
+  "kind": "Gathering",
+  "description": "Erz und Stein abbauen und in der Schmelze zu Barren verarbeiten.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ],
+  "tool": "item_tool_mining_pick"
+ },
+ {
+  "id": "herbalism",
+  "name": "Kräuterkunde",
+  "kind": "Gathering",
+  "description": "Kräuter sammeln – Grundlage aller Tränke.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ]
+ },
+ {
+  "id": "skinning",
+  "name": "Kürschnerei",
+  "kind": "Gathering",
+  "description": "Leder von erlegten Tieren gewinnen.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ],
+  "tool": "item_tool_skinning_knife"
+ },
+ {
+  "id": "blacksmithing",
+  "name": "Schmiedekunst",
+  "kind": "Crafting",
+  "description": "Waffen und schwere Rüstungen am Amboss schmieden.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ],
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "leatherworking",
+  "name": "Lederverarbeitung",
+  "kind": "Crafting",
+  "description": "Lederrüstungen und Taschen fertigen.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ]
+ },
+ {
+  "id": "tailoring",
+  "name": "Schneiderei",
+  "kind": "Crafting",
+  "description": "Stoffrüstungen, Umhänge und Taschen nähen.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ]
+ },
+ {
+  "id": "alchemy",
+  "name": "Alchemie",
+  "kind": "Crafting",
+  "description": "Tränke und Elixiere brauen.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ]
+ },
+ {
+  "id": "engineering",
+  "name": "Ingenieurskunst",
+  "kind": "Crafting",
+  "description": "Büchsen, Brillen und Bauteile tüfteln.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ],
+  "tool": "item_tool_blacksmith_hammer"
+ },
+ {
+  "id": "enchanting",
+  "name": "Verzauberkunst",
+  "kind": "Crafting",
+  "description": "Gegenstände entzaubern und Ausrüstung dauerhaft verbessern.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ]
+ },
+ {
+  "id": "fishing",
+  "name": "Angeln",
+  "kind": "Secondary",
+  "description": "In Fischschwärmen angeln.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ],
+  "tool": "item_tool_fishing_pole"
+ },
+ {
+  "id": "cooking",
+  "name": "Kochen",
+  "kind": "Secondary",
+  "description": "Am Feuer Speisen zubereiten, die satt machen.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ]
+ },
+ {
+  "id": "first_aid",
+  "name": "Erste Hilfe",
+  "kind": "Secondary",
+  "description": "Verbände aus Stoff anfertigen.",
+  "ranks": [
+   {
+    "name": "Lehrling",
+    "maxSkill": 75,
+    "requiredLevel": 5,
+    "cost": 1000
+   },
+   {
+    "name": "Geselle",
+    "maxSkill": 150,
+    "requiredLevel": 10,
+    "cost": 5000
+   },
+   {
+    "name": "Experte",
+    "maxSkill": 225,
+    "requiredLevel": 20,
+    "cost": 50000
+   },
+   {
+    "name": "Meister",
+    "maxSkill": 300,
+    "requiredLevel": 35,
+    "cost": 250000
+   }
+  ]
+ }
+]

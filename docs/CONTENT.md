@@ -44,3 +44,24 @@ Danach `python3 tools/gen_class_content.py` und `dotnet test`.
 ```
 
 `targetRule` einer Kreaturenfähigkeit: `Current`, `Self`, `Random`, `Farthest`, `LowestHealthAlly`, `Tank`.
+
+## Berufe (`content/professions.json`, `content/recipes.json`)
+
+Erzeugt von `tools/gen_professions.py` (aufgerufen aus `tools/gen_items.py`). Neun Hauptberufe – Bergbau, Kräuterkunde,
+Kürschnerei, Schmiedekunst, Lederverarbeitung, Schneiderei, Alchemie, Ingenieurskunst, Verzauberkunst –, davon höchstens
+zwei je Charakter, dazu die Nebenberufe Angeln, Kochen und Erste Hilfe. Ränge: Lehrling (75), Geselle (150, Stufe 10),
+Experte (225, Stufe 20), Meister (300, Stufe 35); der nächste Rang ist ab Fertigkeit „Obergrenze − 25“ lernbar.
+
+| Feld (Rezept) | Bedeutung |
+|---|---|
+| `skillRequired` / `yellow` / `green` / `gray` | Farbstufen: orange = sicher +1, gelb 75 %, grün 25 %, grau 0 % |
+| `reagents`, `creates` | Zutaten und Ergebnis; Verzauberungen haben stattdessen `enchant` (Ausrüstungsplatz + Modifikatoren) |
+| `station` | Werkbank in 8 m Umkreis: `anvil` (Amboss), `forge` (Schmelzofen), `fire` (Kochfeuer) |
+| `tool` | Werkzeug in der Tasche (Schmiedehammer, Runenverzierte Kupferrute …) |
+
+Rohstoffe gibt es in vier Stufen (Kupfer/Zinn/Eisen/Sternsilber, Sonnenblatt … Sternenlilie, Leinen … Zauberstoff).
+Abbaustellen (`content/objects/professions.json`) brauchen Beruf, Fertigkeit und ggf. Werkzeug. Kürschnern geht an
+geplünderten Tierleichen (Fertigkeit: Stufe ≤ 10 → 1, sonst (Stufe − 10) × 10). Humanoide lassen Stoff, Tiere Fleisch
+fallen. Entzaubern wandelt ungewöhnliche bis epische Ausrüstung in Staub und Essenzen. Verzauberungen werden am
+Gegenstand gespeichert (`character_items.enchant`) und wirken wie Gegenstandswerte. Jeder Startort hat ein
+Handwerksviertel mit zwölf Lehrern, einem Werkzeughändler, Amboss, Schmelzofen und Kochfeuer.

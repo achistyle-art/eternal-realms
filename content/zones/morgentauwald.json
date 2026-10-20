@@ -736,6 +736,123 @@
      410
     ],
     "facing": 4.2
+   },
+   {
+    "npc": "npc_mt_prof_mining",
+    "position": [
+     367,
+     0,
+     367.6
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_herbalism",
+    "position": [
+     373,
+     0,
+     368.4
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_skinning",
+    "position": [
+     379,
+     0,
+     369.2
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_blacksmithing",
+    "position": [
+     385,
+     0,
+     370.0
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_leatherworking",
+    "position": [
+     391,
+     0,
+     370.8
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_tailoring",
+    "position": [
+     397,
+     0,
+     371.6
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_alchemy",
+    "position": [
+     403,
+     0,
+     371.6
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_engineering",
+    "position": [
+     409,
+     0,
+     370.8
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_enchanting",
+    "position": [
+     415,
+     0,
+     370.0
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_fishing",
+    "position": [
+     421,
+     0,
+     369.2
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_cooking",
+    "position": [
+     427,
+     0,
+     368.4
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_prof_first_aid",
+    "position": [
+     433,
+     0,
+     367.6
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_mt_craftvendor",
+    "position": [
+     406,
+     0,
+     366
+    ],
+    "facing": 0.0
    }
   ],
   "objects": [
@@ -815,6 +932,127 @@
     "count": 1,
     "radius": 0,
     "respawnSeconds": 1
+   },
+   {
+    "object": "obj_station_anvil",
+    "position": [
+     394,
+     0,
+     380
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_station_forge",
+    "position": [
+     390,
+     0,
+     380
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_station_fire",
+    "position": [
+     410,
+     0,
+     380
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_prof_vein0",
+    "position": [
+     900,
+     0,
+     640
+    ],
+    "count": 8,
+    "radius": 70,
+    "respawnSeconds": 180
+   },
+   {
+    "object": "obj_prof_herb0a",
+    "position": [
+     205,
+     0,
+     200
+    ],
+    "count": 8,
+    "radius": 60,
+    "respawnSeconds": 180
+   },
+   {
+    "object": "obj_prof_herb0b",
+    "position": [
+     205,
+     0,
+     200
+    ],
+    "count": 8,
+    "radius": 60,
+    "respawnSeconds": 180
+   },
+   {
+    "object": "obj_prof_vein1",
+    "position": [
+     610,
+     0,
+     520
+    ],
+    "count": 4,
+    "radius": 80,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_prof_herb1a",
+    "position": [
+     340,
+     0,
+     660
+    ],
+    "count": 4,
+    "radius": 80,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_prof_herb1b",
+    "position": [
+     340,
+     0,
+     660
+    ],
+    "count": 4,
+    "radius": 80,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_prof_fishpool0",
+    "position": [
+     300,
+     0,
+     120
+    ],
+    "count": 3,
+    "radius": 35,
+    "respawnSeconds": 240
+   },
+   {
+    "object": "obj_prof_fishpool1",
+    "position": [
+     780,
+     0,
+     480
+    ],
+    "count": 3,
+    "radius": 70,
+    "respawnSeconds": 240
    }
   ]
  }

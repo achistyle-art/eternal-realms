@@ -107,8 +107,16 @@ namespace EternalRealms.Server
                 while (now >= next && catchUp++ < 5)
                 {
                     var t0 = sw.Elapsed.TotalMilliseconds;
-                    Network.Poll();
-                    World.Update((float)step);
+                    try
+                    {
+                        Network.Poll();
+                        World.Update((float)step);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Ein Fehler in einem Tick darf nie den ganzen Realm anhalten: protokollieren und weiterlaufen.
+                        World.Log("Fehler im Spieltakt: " + ex);
+                    }
                     AverageTickMs = AverageTickMs * 0.98 + (sw.Elapsed.TotalMilliseconds - t0) * 0.02;
                     next += step;
                 }

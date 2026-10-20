@@ -78,6 +78,7 @@ namespace EternalRealms.Server.Systems
                 if (cost > 0 && _w.Economy.Debit(p, cost, "repair")) { p.RepairAll(); p.Notice($"Ausrüstung repariert für {LootSystem.Money(cost)}."); p.Send(p.BuildInventory()); }
             }
             p.Send(msg);
+            if (roles.HasFlag(NpcRole.ProfessionTrainer) && _w.Professions.BuildTrainer(p, npc) is S_ProfessionTrainer pt) p.Send(pt);
             if (roles.HasFlag(NpcRole.Banker)) p.Send(p.BuildBank(npc.Id));
             return null;
         }
@@ -102,6 +103,8 @@ namespace EternalRealms.Server.Systems
             if (p.DistanceTo(go) > ObjectRange) return "Zu weit entfernt.";
             if (p.InCombat && go.Def.TeleportZone == null) return "Nicht im Kampf.";
             if (go.Def.Quest != null && !NeedsObject(p, go.Def)) return "Ihr habt dafür keine Verwendung.";
+            if (go.Def.Station != null) return null; // Werkbank: nur in der Nähe stehen
+            if (go.Def.Profession != null && _w.Professions.CanGather(p, go.Def) is string gatherErr) return gatherErr;
             if (go.Def.TeleportZone != null)
             {
                 _w.TeleportSpecial(p, go.Def.TeleportZone, go.Def.TeleportPosition);
@@ -144,6 +147,7 @@ namespace EternalRealms.Server.Systems
                 if (added > 0) result.Items.Add(new ItemStackData { ItemId = l.Item, Count = added });
             }
             _w.Quests.OnObjectUsed(p, go.Def);
+            if (go.Def.Profession != null) _w.Professions.OnGathered(p, go.Def);
             if (result.Items.Count > 0)
             {
                 p.Send(result);

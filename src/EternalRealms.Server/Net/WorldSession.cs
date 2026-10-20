@@ -380,6 +380,14 @@ namespace EternalRealms.Server.Net
                 case C_SetBotRole sbr: err = _w.Groups.SetBotRole(p, sbr.BotEntityId, sbr.Role); break;
                 case C_ConvertToRaid: err = _w.Groups.ConvertToRaid(p); break;
                 case C_SetSubgroup ssg: err = _w.Groups.SetSubgroup(p, ssg.EntityId, ssg.Subgroup); break;
+                case C_LearnProfession lpf: err = _w.Professions.Learn(p, lpf.NpcId); break;
+                case C_TrainProfessionRank tpr: err = _w.Professions.TrainRank(p, tpr.NpcId); break;
+                case C_LearnRecipe lrc: err = _w.Professions.LearnRecipe(p, lrc.NpcId, lrc.RecipeId ?? ""); break;
+                case C_UnlearnProfession upf: err = _w.Professions.Unlearn(p, upf.Profession ?? ""); break;
+                case C_Craft cr: err = _w.Professions.Craft(p, cr.RecipeId ?? "", cr.Count); break;
+                case C_Skin sk: err = _w.Professions.Skin(p, sk.CorpseId); break;
+                case C_Disenchant de: err = _w.Professions.Disenchant(p, de.BagIndex); break;
+                case C_ProfessionInfo: p.Send(_w.Professions.Build(p)); return;
                 case C_Logout: Logout(); return;
             }
             if (err != null) p.Notice(err, true);

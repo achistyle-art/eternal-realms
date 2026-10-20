@@ -3596,5 +3596,2325 @@
   "modifiers": [],
   "teachesMount": "mount_dawn_drake",
   "bindOnPickup": true
+ },
+ {
+  "id": "item_tool_mining_pick",
+  "name": "Bergbauhacke",
+  "description": "Werkzeug für den Bergbau.",
+  "quality": "Common",
+  "category": "Misc",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 1,
+  "sellPrice": 25,
+  "buyPrice": 100,
+  "modifiers": []
+ },
+ {
+  "id": "item_tool_skinning_knife",
+  "name": "Kürschnermesser",
+  "description": "Werkzeug für die Kürschnerei.",
+  "quality": "Common",
+  "category": "Misc",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 1,
+  "sellPrice": 25,
+  "buyPrice": 100,
+  "modifiers": []
+ },
+ {
+  "id": "item_tool_blacksmith_hammer",
+  "name": "Schmiedehammer",
+  "description": "Werkzeug für Schmiede und Ingenieure.",
+  "quality": "Common",
+  "category": "Misc",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 1,
+  "sellPrice": 30,
+  "buyPrice": 120,
+  "modifiers": []
+ },
+ {
+  "id": "item_tool_fishing_pole",
+  "name": "Angelrute",
+  "description": "Ohne Angelrute kein Fang.",
+  "quality": "Common",
+  "category": "Misc",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 1,
+  "sellPrice": 20,
+  "buyPrice": 80,
+  "modifiers": []
+ },
+ {
+  "id": "item_empty_vial",
+  "name": "Leere Phiole",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 1,
+  "buyPrice": 4,
+  "modifiers": []
+ },
+ {
+  "id": "item_coarse_thread",
+  "name": "Grobes Garn",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 10,
+  "modifiers": []
+ },
+ {
+  "id": "item_fine_thread",
+  "name": "Feines Garn",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 10,
+  "buyPrice": 40,
+  "modifiers": []
+ },
+ {
+  "id": "item_salt",
+  "name": "Salz",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 1,
+  "buyPrice": 5,
+  "modifiers": []
+ },
+ {
+  "id": "item_mild_spices",
+  "name": "Milde Gewürze",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 8,
+  "modifiers": []
+ },
+ {
+  "id": "item_flux",
+  "name": "Flussmittel",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 3,
+  "buyPrice": 15,
+  "modifiers": []
+ },
+ {
+  "id": "item_ore0",
+  "name": "Kupfererz",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bar0",
+  "name": "Kupferbarren",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_stone0",
+  "name": "Grober Stein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb0a",
+  "name": "Sonnenblatt",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb0b",
+  "name": "Wurzelkraut",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_leather0",
+  "name": "Leichtes Leder",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_cloth0",
+  "name": "Leinenstoff",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bolt0",
+  "name": "Leinenballen",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_meat0",
+  "name": "Zähes Wildfleisch",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_fish0",
+  "name": "Bachbarsch",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_dust0",
+  "name": "Seltsamer Staub",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_essence0",
+  "name": "Geringe Magieessenz",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_ore1",
+  "name": "Zinnerz",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bar1",
+  "name": "Bronzebarren",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_stone1",
+  "name": "Rauer Stein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb1a",
+  "name": "Silbermoos",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb1b",
+  "name": "Bachminze",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_leather1",
+  "name": "Mittleres Leder",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_cloth1",
+  "name": "Wollstoff",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bolt1",
+  "name": "Wollballen",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_meat1",
+  "name": "Wildbret",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_fish1",
+  "name": "Schlammkarpfen",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_dust1",
+  "name": "Seelenstaub",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_essence1",
+  "name": "Geringe Astralessenz",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_ore2",
+  "name": "Eisenerz",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bar2",
+  "name": "Eisenbarren",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_stone2",
+  "name": "Schwerer Stein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb2a",
+  "name": "Feuerdorn",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb2b",
+  "name": "Grabmohn",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_leather2",
+  "name": "Schweres Leder",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_cloth2",
+  "name": "Seidenstoff",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bolt2",
+  "name": "Seidenballen",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_meat2",
+  "name": "Dunkles Fleisch",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_fish2",
+  "name": "Felsenforelle",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_dust2",
+  "name": "Visionenstaub",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_essence2",
+  "name": "Geringe Mystikessenz",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_ore3",
+  "name": "Sternsilbererz",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bar3",
+  "name": "Sternsilberbarren",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_stone3",
+  "name": "Fester Stein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb3a",
+  "name": "Mondsichelkraut",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_herb3b",
+  "name": "Sternenlilie",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_leather3",
+  "name": "Dickes Leder",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_cloth3",
+  "name": "Zauberstoff",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bolt3",
+  "name": "Zauberstoffballen",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_meat3",
+  "name": "Bärenfleisch",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_fish3",
+  "name": "Silberlachs",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_dust3",
+  "name": "Traumstaub",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_essence3",
+  "name": "Geringe Netheressenz",
+  "description": "",
+  "quality": "Common",
+  "category": "Reagent",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_tin_bar",
+  "name": "Zinnbarren",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bs_0_0",
+  "name": "Kupferstreitkolben",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Mace1H",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "minDamage": 9,
+  "maxDamage": 15,
+  "speed": 2.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 1
+   }
+  ],
+  "maxDurability": 42,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_bs_0_1",
+  "name": "Kupferkettenweste",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Mail",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 50,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_bs_0_2",
+  "name": "Kupferarmschienen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Mail",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 20,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_bs_0_whetstone",
+  "name": "Rauer Wetzstein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 3,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bs_1_0",
+  "name": "Bronzeschwert",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "minDamage": 19,
+  "maxDamage": 32,
+  "speed": 2.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 67,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_bs_1_1",
+  "name": "Bronzekettenhose",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 83,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_bs_1_2",
+  "name": "Bronzehelm",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 73,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_bs_1_whetstone",
+  "name": "Grober Wetzstein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 11,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bs_2_0",
+  "name": "Eiserne Streitaxt",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Axe2H",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "minDamage": 50,
+  "maxDamage": 84,
+  "speed": 2.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 92,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_bs_2_1",
+  "name": "Eiserne Brustplatte",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Plate",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 235,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_bs_2_2",
+  "name": "Eisenbeschlagene Stiefel",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Plate",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 152,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_bs_2_whetstone",
+  "name": "Schwerer Wetzstein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 19,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_bs_3_0",
+  "name": "Sternsilberklinge",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "minDamage": 46,
+  "maxDamage": 78,
+  "speed": 2.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 117,
+  "sellPrice": 1084,
+  "buyPrice": 4338
+ },
+ {
+  "id": "item_bs_3_1",
+  "name": "Sternsilberbeinplatten",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Plate",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 277,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 806,
+  "buyPrice": 3224
+ },
+ {
+  "id": "item_bs_3_2",
+  "name": "Sternsilberhelm",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Plate",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 246,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 806,
+  "buyPrice": 3224
+ },
+ {
+  "id": "item_bs_3_whetstone",
+  "name": "Fester Wetzstein",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 27,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_lw_0_0",
+  "name": "Leichte Lederweste",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Leather",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 25,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_lw_0_1",
+  "name": "Leichte Lederstiefel",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 16,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_lw_0_2",
+  "name": "Leichte Lederhandschuhe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Leather",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 15,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_lw_1_0",
+  "name": "Gerbergürtel",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 20,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_lw_1_1",
+  "name": "Wildlederhose",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 41,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_lw_1_2",
+  "name": "Wildleder-Schulterpolster",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 34,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_lw_2_0",
+  "name": "Schwere Lederjacke",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Leather",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 67,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_lw_2_1",
+  "name": "Lederkappe des Fährtenlesers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Leather",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 53,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_lw_2_2",
+  "name": "Schwere Lederarmschienen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 26,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_lw_3_0",
+  "name": "Dicke Waldläuferweste",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Leather",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 91,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 1084,
+  "buyPrice": 4338
+ },
+ {
+  "id": "item_lw_3_1",
+  "name": "Dicke Lederhose",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Leather",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 79,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 806,
+  "buyPrice": 3224
+ },
+ {
+  "id": "item_lw_3_2",
+  "name": "Dicke Lederhandschuhe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Leather",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 52,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 806,
+  "buyPrice": 3224
+ },
+ {
+  "id": "item_tl_0_0",
+  "name": "Leinenrobe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Cloth",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 12,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_tl_0_1",
+  "name": "Leinenumhang",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Back",
+  "armorType": "Cloth",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_tl_1_0",
+  "name": "Wollhose",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 20,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_tl_1_1",
+  "name": "Wollhandschuhe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_tl_2_0",
+  "name": "Seidenrobe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Cloth",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 33,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 5
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_tl_2_1",
+  "name": "Seidenkapuze",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 26,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 5
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_tl_3_0",
+  "name": "Zauberstoffrobe",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Cloth",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 45,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 7
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 1084,
+  "buyPrice": 4338
+ },
+ {
+  "id": "item_tl_3_1",
+  "name": "Zauberstoffschultern",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Cloth",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 33,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 7
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 806,
+  "buyPrice": 3224
+ },
+ {
+  "id": "item_healing_potion",
+  "name": "Heiltrank",
+  "description": "Stellt sofort 280–360 Leben wieder her.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 25,
+  "requiredLevel": 20,
+  "maxStack": 5,
+  "sellPrice": 60,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_healing_potion"
+ },
+ {
+  "id": "item_greater_healing_potion",
+  "name": "Großer Heiltrank",
+  "description": "Stellt sofort 455–585 Leben wieder her.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 35,
+  "requiredLevel": 30,
+  "maxStack": 5,
+  "sellPrice": 150,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_greater_healing_potion"
+ },
+ {
+  "id": "item_mana_potion_0",
+  "name": "Schwacher Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 5,
+  "requiredLevel": 1,
+  "maxStack": 5,
+  "sellPrice": 5,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_mana_potion_r1"
+ },
+ {
+  "id": "item_elixir_strength",
+  "name": "Elixier der Löwenkraft",
+  "description": "Eine Stunde lang gestärkt.",
+  "quality": "Uncommon",
+  "category": "Consumable",
+  "itemLevel": 5,
+  "requiredLevel": 1,
+  "maxStack": 5,
+  "sellPrice": 20,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_elixir_strength"
+ },
+ {
+  "id": "item_mana_potion_1",
+  "name": "Geringer Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 15,
+  "requiredLevel": 10,
+  "maxStack": 5,
+  "sellPrice": 25,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_mana_potion_r2"
+ },
+ {
+  "id": "item_elixir_agility",
+  "name": "Elixier der Behändigkeit",
+  "description": "Eine Stunde lang gestärkt.",
+  "quality": "Uncommon",
+  "category": "Consumable",
+  "itemLevel": 15,
+  "requiredLevel": 10,
+  "maxStack": 5,
+  "sellPrice": 50,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_elixir_agility"
+ },
+ {
+  "id": "item_mana_potion_2",
+  "name": "Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 25,
+  "requiredLevel": 20,
+  "maxStack": 5,
+  "sellPrice": 85,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_mana_potion_r3"
+ },
+ {
+  "id": "item_elixir_intellect",
+  "name": "Elixier der Weisheit",
+  "description": "Eine Stunde lang gestärkt.",
+  "quality": "Uncommon",
+  "category": "Consumable",
+  "itemLevel": 25,
+  "requiredLevel": 20,
+  "maxStack": 5,
+  "sellPrice": 80,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_elixir_intellect"
+ },
+ {
+  "id": "item_mana_potion_3",
+  "name": "Großer Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 35,
+  "requiredLevel": 30,
+  "maxStack": 5,
+  "sellPrice": 185,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_mana_potion_r4"
+ },
+ {
+  "id": "item_elixir_stamina",
+  "name": "Elixier der Standhaftigkeit",
+  "description": "Eine Stunde lang gestärkt.",
+  "quality": "Uncommon",
+  "category": "Consumable",
+  "itemLevel": 35,
+  "requiredLevel": 30,
+  "maxStack": 5,
+  "sellPrice": 110,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_elixir_stamina"
+ },
+ {
+  "id": "item_pipe0",
+  "name": "Kupferrohr",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_powder0",
+  "name": "Grobes Schießpulver",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_en_gun_0",
+  "name": "Handgemachte Kupferbüchse",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Gun",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "minDamage": 11,
+  "maxDamage": 18,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 2
+   }
+  ],
+  "maxDurability": 42,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_en_goggles_0",
+  "name": "Tüftlerbrille",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 7,
+  "requiredLevel": 1,
+  "armor": 10,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 2
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 1
+   }
+  ],
+  "maxDurability": 34,
+  "sellPrice": 32,
+  "buyPrice": 130
+ },
+ {
+  "id": "item_pipe1",
+  "name": "Bronzerohr",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_powder1",
+  "name": "Raues Schießpulver",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 12,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_en_gun_1",
+  "name": "Bronzene Donnerbüchse",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Gun",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "minDamage": 23,
+  "maxDamage": 39,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   }
+  ],
+  "maxDurability": 67,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_en_goggles_1",
+  "name": "Schweißbrille",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 10,
+  "armor": 18,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 2
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_pipe2",
+  "name": "Eisenrohr",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_powder2",
+  "name": "Schweres Schießpulver",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 25,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 34,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_en_gun_2",
+  "name": "Eiserne Langbüchse",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Gun",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "minDamage": 36,
+  "maxDamage": 60,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 6
+   }
+  ],
+  "maxDurability": 92,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_en_goggles_2",
+  "name": "Fliegerbrille des Tüftlers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 27,
+  "requiredLevel": 20,
+  "armor": 26,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   }
+  ],
+  "maxDurability": 74,
+  "sellPrice": 431,
+  "buyPrice": 1724
+ },
+ {
+  "id": "item_pipe3",
+  "name": "Sternsilberrohr",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_powder3",
+  "name": "Festes Schießpulver",
+  "description": "",
+  "quality": "Common",
+  "category": "TradeGoods",
+  "itemLevel": 35,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 68,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_en_gun_3",
+  "name": "Sternsilber-Präzisionsbüchse",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Gun",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "minDamage": 56,
+  "maxDamage": 93,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 8
+   }
+  ],
+  "maxDurability": 117,
+  "sellPrice": 1084,
+  "buyPrice": 4338
+ },
+ {
+  "id": "item_en_goggles_3",
+  "name": "Sternsilberlinsen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 37,
+  "requiredLevel": 30,
+  "armor": 35,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 8
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   }
+  ],
+  "maxDurability": 94,
+  "sellPrice": 806,
+  "buyPrice": 3224
+ },
+ {
+  "id": "item_enchanting_rod",
+  "name": "Runenverzierte Kupferrute",
+  "description": "Werkzeug der Verzauberkunst.",
+  "quality": "Common",
+  "category": "Misc",
+  "itemLevel": 5,
+  "requiredLevel": 0,
+  "maxStack": 1,
+  "sellPrice": 20,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_food_0_0",
+  "name": "Gebratenes Wildfleisch",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 5,
+  "requiredLevel": 1,
+  "maxStack": 20,
+  "sellPrice": 3,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r1"
+ },
+ {
+  "id": "item_food_0_1",
+  "name": "Gegrillter Bachbarsch",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 5,
+  "requiredLevel": 1,
+  "maxStack": 20,
+  "sellPrice": 3,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r1"
+ },
+ {
+  "id": "item_bandage_0",
+  "name": "Leinenverband",
+  "description": "Heilt das Ziel. Danach eine Minute lang nicht erneut möglich.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 5,
+  "requiredLevel": 1,
+  "maxStack": 20,
+  "sellPrice": 2,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_bandage_r1"
+ },
+ {
+  "id": "item_food_1_0",
+  "name": "Würziger Wildbreteintopf",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 15,
+  "requiredLevel": 10,
+  "maxStack": 20,
+  "sellPrice": 13,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r2"
+ },
+ {
+  "id": "item_food_1_1",
+  "name": "Geräucherter Karpfen",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 15,
+  "requiredLevel": 10,
+  "maxStack": 20,
+  "sellPrice": 13,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r2"
+ },
+ {
+  "id": "item_bandage_1",
+  "name": "Wollverband",
+  "description": "Heilt das Ziel. Danach eine Minute lang nicht erneut möglich.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 15,
+  "requiredLevel": 10,
+  "maxStack": 20,
+  "sellPrice": 10,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_bandage_r2"
+ },
+ {
+  "id": "item_food_2_0",
+  "name": "Dunkler Fleischspieß",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 25,
+  "requiredLevel": 20,
+  "maxStack": 20,
+  "sellPrice": 23,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r3"
+ },
+ {
+  "id": "item_food_2_1",
+  "name": "Forelle in Kräuterkruste",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 25,
+  "requiredLevel": 20,
+  "maxStack": 20,
+  "sellPrice": 23,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r3"
+ },
+ {
+  "id": "item_bandage_2",
+  "name": "Seidenverband",
+  "description": "Heilt das Ziel. Danach eine Minute lang nicht erneut möglich.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 25,
+  "requiredLevel": 20,
+  "maxStack": 20,
+  "sellPrice": 18,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_bandage_r3"
+ },
+ {
+  "id": "item_food_3_0",
+  "name": "Bärenbraten",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 35,
+  "requiredLevel": 30,
+  "maxStack": 20,
+  "sellPrice": 33,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r4"
+ },
+ {
+  "id": "item_food_3_1",
+  "name": "Gedünsteter Silberlachs",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 35,
+  "requiredLevel": 30,
+  "maxStack": 20,
+  "sellPrice": 33,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_cooked_food_r4"
+ },
+ {
+  "id": "item_bandage_3",
+  "name": "Zauberstoffverband",
+  "description": "Heilt das Ziel. Danach eine Minute lang nicht erneut möglich.",
+  "quality": "Common",
+  "category": "Consumable",
+  "itemLevel": 35,
+  "requiredLevel": 30,
+  "maxStack": 20,
+  "sellPrice": 26,
+  "buyPrice": 0,
+  "modifiers": [],
+  "useAbility": "item_bandage_r4"
  }
 ]

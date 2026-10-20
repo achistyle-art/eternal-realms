@@ -157,7 +157,8 @@ namespace EternalRealms.Tests
             t.Run(3);
             p.AutoAttacking = true;
             t.Run(240, () => boss.IsDead || p.Group.Members.All(m => m.IsDead));
-            Assert.True(boss.IsDead, $"Moderkeim besiegt (Leben {boss.Health}/{boss.MaxHealth}, Phase {boss.AI.PhaseIndex})");
+            Assert.True(boss.IsDead, $"Moderkeim besiegt (Leben {boss.Health}/{boss.MaxHealth}, Phase {boss.AI.PhaseIndex}) – " +
+                string.Join("; ", p.Group.Members.Select(m => $"{m.Name} {m.Health}/{m.MaxHealth} {(m.Bot != null ? m.Bot.LastDecision : "")}")));
             Assert.True(boss.AI.PhaseIndex >= 1, "Der Boss hat seine zweite Phase erreicht");
             var conn = t.Conn(p);
             Assert.Contains(conn.Of<S_Chat>(), c => c.Channel == ChatChannel.Yell && c.SenderName == "Moderkeim");

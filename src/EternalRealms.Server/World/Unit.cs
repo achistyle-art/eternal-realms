@@ -25,6 +25,9 @@ namespace EternalRealms.Server.World
         /// <summary>Statt einer Fähigkeit: Interaktion mit einem Objekt (Kiste öffnen, Kraut pflücken).</summary>
         public GameObjectEntity? Object;
         public string? ItemId;
+        /// <summary>Statt einer Fähigkeit: Handwerk, Kürschnern, Entzaubern (wird bei Abschluss ausgeführt).</summary>
+        public Action? OnComplete;
+        public string Label = "";
     }
 
     /// <summary>

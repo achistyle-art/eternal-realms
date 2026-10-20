@@ -58,6 +58,15 @@ namespace EternalRealms.Tests
         }
 
         [Fact]
+        public void SnapshotChunksFitIntoTheSmallestUnreliablePacket()
+        {
+            var snap = new S_Snapshot { Tick = uint.MaxValue, LastProcessedMove = uint.MaxValue };
+            for (int i = 0; i < EternalRealms.Server.World.ZoneInstance.SnapshotChunk; i++)
+                snap.Entities.Add(new EntitySnapshotData { Id = int.MaxValue, Health = int.MaxValue, MaxHealth = int.MaxValue, Flags = uint.MaxValue });
+            Assert.True(Packets.Serialize(snap).Length <= 1000, "Snapshot-Paket zu groß für unzuverlässiges UDP");
+        }
+
+        [Fact]
         public void MalformedPacketsAreRejected()
         {
             Assert.ThrowsAny<Exception>(() => Packets.Deserialize(new byte[] { 0xff, 0xff, 1, 2 }));
@@ -73,6 +82,9 @@ namespace EternalRealms.Tests
             var config = new ServerConfig { Port = 0, AmbientBots = false, ContentPath = TestContent.ContentRoot };
             var store = new InMemoryStore();
             using var server = new GameServer(config, TestContent.Db, store, store);
+            var serverLog = new System.Collections.Concurrent.ConcurrentQueue<string>();
+            server.World.Log = l => serverLog.Enqueue(l);
+            _serverLog = serverLog;
             server.World.Bots.LoadOffline(Array.Empty<CharacterData>());
             Assert.True(server.Start()); // Port 0 = freier Port
             int port = server.Network.Port;
@@ -80,6 +92,9 @@ namespace EternalRealms.Tests
             var loop = Task.Run(() => server.Run(cts.Token));
 
             using var client = new GameClient();
+            var received = new System.Collections.Concurrent.ConcurrentDictionary<string, int>();
+            client.MessageReceived += m => received.AddOrUpdate(m.Op.ToString(), 1, (_, n) => n + 1);
+            _received = received;
             Assert.True(client.Connect("127.0.0.1", port));
             await WaitFor(client, () => client.Connected, "Verbindung");
             client.Login("testkonto", "geheim123", register: true);
@@ -110,17 +125,26 @@ namespace EternalRealms.Tests
             await WaitFor(client, () => Vec3.DistanceXZ(server.World.AllPlayers.First(p => !p.IsBot).Position, client.Me!.Position) < 0.5f, "Bewegung beim Server");
             cts.Cancel();
             await loop;
+            var tickErrors = serverLog.Where(l => l.StartsWith("Fehler")).ToList();
+            Assert.True(tickErrors.Count == 0, "Fehler im Server: " + string.Join("\n", tickErrors.Take(2)));
         }
+
+        private static System.Collections.Concurrent.ConcurrentQueue<string>? _serverLog;
+        private static System.Collections.Concurrent.ConcurrentDictionary<string, int>? _received;
 
         private static async Task WaitFor(GameClient c, Func<bool> cond, string what)
         {
-            for (int i = 0; i < 300; i++)
+            // Zeitbasiert statt nach Schleifendurchläufen: unter paralleler Testlast braucht der Server manchmal länger.
+            var until = DateTime.UtcNow.AddSeconds(20);
+            while (DateTime.UtcNow < until)
             {
                 c.Poll();
                 if (cond()) return;
                 await Task.Delay(20);
             }
-            Assert.Fail("Zeitüberschreitung: " + what + " – letzte Meldungen: " + string.Join(" | ", c.Notices.TakeLast(3)));
+            Assert.Fail("Zeitüberschreitung: " + what + " – letzte Meldungen: " + string.Join(" | ", c.Notices.TakeLast(3)) +
+                        " – Server: " + string.Join(" | ", (_serverLog ?? new()).TakeLast(5)) +
+                        " – empfangen: " + string.Join(", ", (_received ?? new()).Select(kv => kv.Key + "×" + kv.Value)));
         }
     }
 
@@ -173,6 +197,8 @@ namespace EternalRealms.Tests
             back.Bank.Add(null); back.Bank.Add(new ItemStack { ItemId = "item_wolf_fang", Count = 5 });
             back.BagContainers[1] = new ItemStack { ItemId = "item_bag_leather", Count = 1 };
             back.TalentResets = 2;
+            back.Professions["mining"] = new ProfessionProgress { Skill = 42, MaxSkill = 75, Recipes = { "smelt_copper" } };
+            foreach (var eq in back.Equipment.Values.Take(1)) eq.Enchant = "ench_wrist_0";
             back.Bag[3] = null; // Gegenstand wandert in einen Brief
             long mailId = DateTime.UtcNow.Ticks, auctionId = mailId + 1;
             var commit = new EconomyCommit();
@@ -188,6 +214,9 @@ namespace EternalRealms.Tests
             Assert.Equal(5, again.Bank[1]!.Count);
             Assert.Equal("item_bag_leather", again.BagContainers[1].ItemId);
             Assert.Equal(2, again.TalentResets);
+            Assert.Equal(42, again.Professions["mining"].Skill);
+            Assert.Contains("smelt_copper", again.Professions["mining"].Recipes);
+            if (again.Equipment.Count > 0) Assert.Contains(again.Equipment.Values, e => e.Enchant == "ench_wrist_0");
             var mail = (await store.LoadMailAsync()).Single(m => m.Id == mailId);
             Assert.Equal(4, mail.Items.Single().Count);
             Assert.Equal(77, mail.Money);

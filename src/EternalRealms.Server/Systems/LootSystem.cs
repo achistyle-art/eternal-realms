@@ -38,6 +38,7 @@ namespace EternalRealms.Server.Systems
                 }
                 if (_w.Random.Chance(entry.Chance)) c.Loot.Add(new LootItem { ItemId = entry.Item, Count = _w.Random.Range(entry.Min, entry.Max) });
             }
+            _w.Professions.AddGenericLoot(c);
             if (c.Template.MoneyMax > 0) c.LootMoney = _w.Random.Range(c.Template.MoneyMin, c.Template.MoneyMax);
             else if (c.Template.Family == "Humanoid") c.LootMoney = _w.Random.Range(c.Level, c.Level * 4);
             c.Lootable = c.Loot.Count > 0 || c.LootMoney > 0;

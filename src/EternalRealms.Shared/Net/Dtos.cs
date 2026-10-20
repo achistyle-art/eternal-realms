@@ -51,9 +51,10 @@ namespace EternalRealms.Shared.Net
         public string ItemId = "";
         public int Count = 1;
         public int Durability;
+        public string Enchant = "";
 
-        public void Write(NetDataWriter w) { w.Put(ItemId); w.Put(Count); w.Put(Durability); }
-        public static ItemStackData Read(NetDataReader r) => new ItemStackData { ItemId = r.GetString(), Count = r.GetInt(), Durability = r.GetInt() };
+        public void Write(NetDataWriter w) { w.Put(ItemId); w.Put(Count); w.Put(Durability); w.Put(Enchant); }
+        public static ItemStackData Read(NetDataReader r) => new ItemStackData { ItemId = r.GetString(), Count = r.GetInt(), Durability = r.GetInt(), Enchant = r.GetString() };
     }
 
     public sealed class QuestProgressData

@@ -56,7 +56,7 @@ namespace EternalRealms.Server.Systems
             var a = new AuctionData
             {
                 Id = _nextId++, House = House(p), SellerId = p.Data.Id, SellerName = p.Name, SellerIsBot = p.IsBot, ItemId = def.Id, Count = count,
-                Durability = stack.Durability, StartBid = startBid, Buyout = buyout, Deposit = deposit, DurationHours = hours, ExpiresAt = DateTime.UtcNow.AddHours(hours),
+                Durability = stack.Durability, Enchant = stack.Enchant, StartBid = startBid, Buyout = buyout, Deposit = deposit, DurationHours = hours, ExpiresAt = DateTime.UtcNow.AddHours(hours),
             };
             _all[a.Id] = a;
             var c = new EconomyCommit();
@@ -113,7 +113,7 @@ namespace EternalRealms.Server.Systems
             var def = _w.Content.Items[a.ItemId];
             long cut = (long)Math.Round(price * CutRate);
             c.UpsertMail.Add(_w.Mail.Create(buyerId, null, "Auktionshaus", $"Gewonnen: {def.Name}", $"Ihr habt {def.Name} für {LootSystem.Money(price)} erworben.", 0,
-                new[] { new ItemStack { ItemId = a.ItemId, Count = a.Count, Durability = a.Durability } }));
+                new[] { new ItemStack { ItemId = a.ItemId, Count = a.Count, Durability = a.Durability, Enchant = a.Enchant } }));
             c.UpsertMail.Add(_w.Mail.Create(a.SellerId, null, "Auktionshaus", $"Verkauft: {def.Name}",
                 $"Käufer: {buyerName}. Erlös {LootSystem.Money(price)}, Gebühr {LootSystem.Money(cut)}, Einstellgebühr zurück {LootSystem.Money(a.Deposit)}.",
                 price - cut + a.Deposit, Array.Empty<ItemStack>()));
@@ -142,7 +142,7 @@ namespace EternalRealms.Server.Systems
         {
             var def = _w.Content.Items[a.ItemId];
             c.UpsertMail.Add(_w.Mail.Create(a.SellerId, null, "Auktionshaus", $"{subject}: {def.Name}", "Die Einstellgebühr wird nicht erstattet.", 0,
-                new[] { new ItemStack { ItemId = a.ItemId, Count = a.Count, Durability = a.Durability } }));
+                new[] { new ItemStack { ItemId = a.ItemId, Count = a.Count, Durability = a.Durability, Enchant = a.Enchant } }));
             _all.Remove(a.Id);
             c.DeleteAuctions.Add(a.Id);
         }

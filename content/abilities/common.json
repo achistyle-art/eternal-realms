@@ -123,6 +123,378 @@
   ]
  },
  {
+  "id": "item_greater_healing_potion",
+  "name": "Großer Heiltrank",
+  "description": "Stellt sofort Leben wieder her.",
+  "class": "None",
+  "level": 30,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_red",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 455,
+    "max": 585
+   }
+  ]
+ },
+ {
+  "id": "item_mana_potion_r1",
+  "name": "Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_blue",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "GainPower",
+    "min": 140,
+    "max": 180
+   }
+  ]
+ },
+ {
+  "id": "item_mana_potion_r2",
+  "name": "Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "class": "None",
+  "level": 10,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_blue",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "GainPower",
+    "min": 280,
+    "max": 360
+   }
+  ]
+ },
+ {
+  "id": "item_mana_potion_r3",
+  "name": "Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "class": "None",
+  "level": 20,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_blue",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "GainPower",
+    "min": 455,
+    "max": 585
+   }
+  ]
+ },
+ {
+  "id": "item_mana_potion_r4",
+  "name": "Manatrank",
+  "description": "Stellt sofort Mana wieder her.",
+  "class": "None",
+  "level": 30,
+  "notTrainable": true,
+  "target": "Self",
+  "cooldown": 120,
+  "triggersGcd": false,
+  "icon": "potion_blue",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "GainPower",
+    "min": 700,
+    "max": 900
+   }
+  ]
+ },
+ {
+  "id": "item_elixir_strength",
+  "name": "Elixier der Löwenkraft",
+  "description": "Eine Stunde lang gestärkt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "potion_green",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "elixir_strength"
+   }
+  ]
+ },
+ {
+  "id": "item_elixir_agility",
+  "name": "Elixier der Behändigkeit",
+  "description": "Eine Stunde lang gestärkt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "potion_green",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "elixir_agility"
+   }
+  ]
+ },
+ {
+  "id": "item_elixir_intellect",
+  "name": "Elixier der Weisheit",
+  "description": "Eine Stunde lang gestärkt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "potion_green",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "elixir_intellect"
+   }
+  ]
+ },
+ {
+  "id": "item_elixir_stamina",
+  "name": "Elixier der Standhaftigkeit",
+  "description": "Eine Stunde lang gestärkt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "triggersGcd": false,
+  "icon": "potion_green",
+  "animation": "drink",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "elixir_stamina"
+   }
+  ]
+ },
+ {
+  "id": "item_cooked_food_r1",
+  "name": "Gekochtes Essen",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "food",
+  "animation": "eat",
+  "effects": [
+   {
+    "type": "RestorePercent",
+    "min": 100,
+    "max": 100,
+    "aura": "food_regen"
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "well_fed_r1"
+   }
+  ]
+ },
+ {
+  "id": "item_cooked_food_r2",
+  "name": "Gekochtes Essen",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "food",
+  "animation": "eat",
+  "effects": [
+   {
+    "type": "RestorePercent",
+    "min": 100,
+    "max": 100,
+    "aura": "food_regen"
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "well_fed_r2"
+   }
+  ]
+ },
+ {
+  "id": "item_cooked_food_r3",
+  "name": "Gekochtes Essen",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "food",
+  "animation": "eat",
+  "effects": [
+   {
+    "type": "RestorePercent",
+    "min": 100,
+    "max": 100,
+    "aura": "food_regen"
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "well_fed_r3"
+   }
+  ]
+ },
+ {
+  "id": "item_cooked_food_r4",
+  "name": "Gekochtes Essen",
+  "description": "Stellt Leben wieder her und macht satt.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "target": "Self",
+  "outOfCombatOnly": true,
+  "triggersGcd": false,
+  "icon": "food",
+  "animation": "eat",
+  "effects": [
+   {
+    "type": "RestorePercent",
+    "min": 100,
+    "max": 100,
+    "aura": "food_regen"
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "well_fed_r4"
+   }
+  ]
+ },
+ {
+  "id": "item_bandage_r1",
+  "name": "Verband",
+  "description": "Heilt das Ziel über einige Sekunden. Danach eine Minute lang nicht erneut möglich.",
+  "class": "None",
+  "level": 1,
+  "notTrainable": true,
+  "castTime": 6,
+  "target": "FriendlyOrSelf",
+  "maxRange": 10,
+  "triggersGcd": false,
+  "icon": "bandage",
+  "animation": "bandage",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 66,
+    "max": 66
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "first_aid_recent"
+   }
+  ]
+ },
+ {
+  "id": "item_bandage_r2",
+  "name": "Verband",
+  "description": "Heilt das Ziel über einige Sekunden. Danach eine Minute lang nicht erneut möglich.",
+  "class": "None",
+  "level": 10,
+  "notTrainable": true,
+  "castTime": 6,
+  "target": "FriendlyOrSelf",
+  "maxRange": 10,
+  "triggersGcd": false,
+  "icon": "bandage",
+  "animation": "bandage",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 114,
+    "max": 114
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "first_aid_recent"
+   }
+  ]
+ },
+ {
+  "id": "item_bandage_r3",
+  "name": "Verband",
+  "description": "Heilt das Ziel über einige Sekunden. Danach eine Minute lang nicht erneut möglich.",
+  "class": "None",
+  "level": 20,
+  "notTrainable": true,
+  "castTime": 6,
+  "target": "FriendlyOrSelf",
+  "maxRange": 10,
+  "triggersGcd": false,
+  "icon": "bandage",
+  "animation": "bandage",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 301,
+    "max": 301
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "first_aid_recent"
+   }
+  ]
+ },
+ {
+  "id": "item_bandage_r4",
+  "name": "Verband",
+  "description": "Heilt das Ziel über einige Sekunden. Danach eine Minute lang nicht erneut möglich.",
+  "class": "None",
+  "level": 30,
+  "notTrainable": true,
+  "castTime": 6,
+  "target": "FriendlyOrSelf",
+  "maxRange": 10,
+  "triggersGcd": false,
+  "icon": "bandage",
+  "animation": "bandage",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 640,
+    "max": 640
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "first_aid_recent"
+   }
+  ]
+ },
+ {
   "id": "mount_ride_60",
   "name": "Aufsitzen",
   "description": "Ruft Euer Reittier (+60 % Tempo).",

@@ -28,6 +28,7 @@ namespace EternalRealms.Server.World
         public GuildSystem Guilds { get; }
         public InstanceSystem Instances { get; }
         public GroupFinderSystem Finder { get; }
+        public ProfessionSystem Professions { get; }
         public SocialSystem Social { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
@@ -65,6 +66,7 @@ namespace EternalRealms.Server.World
             Guilds = new GuildSystem(this);
             Instances = new InstanceSystem(this);
             Finder = new GroupFinderSystem(this);
+            Professions = new ProfessionSystem(this);
             Social = new SocialSystem(this);
             LootRolls = new LootRollSystem(this);
             Auctions = new AuctionSystem(this);
@@ -225,6 +227,7 @@ namespace EternalRealms.Server.World
             if (p.Connection == null) return;
             p.Send(new S_EnterWorld { EntityId = p.Id, CharacterId = p.Data.Id, ZoneId = p.Zone!.Def.Id, Position = p.Position, Facing = p.Facing });
             p.Send(Mounts.BuildJournal(p));
+            p.Send(Professions.Build(p));
             if (!p.IsBot)
             {
                 Guilds.OnLogin(p);

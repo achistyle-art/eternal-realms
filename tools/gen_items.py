@@ -186,7 +186,11 @@ for m in _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file_
     d["teachesMount"] = m["id"]
     if m.get("bindOnPickup"): d["bindOnPickup"] = True
 
-import os
+import os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import gen_professions
+gen_professions.write(items, armor, weapon, misc)
+
 out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "content", "items.json")
 with open(out, "w", encoding="utf-8") as f:
     json.dump(items, f, ensure_ascii=False, indent=1)

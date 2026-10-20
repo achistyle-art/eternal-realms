@@ -58,6 +58,7 @@ namespace EternalRealms.Server.Systems
                 if (ab.TargetHealthBelow > 0 && target.HealthPct >= ab.TargetHealthBelow) return "Das Ziel ist noch zu stark.";
                 if (BlockedByAura(ab, target)) return "Das Ziel kann davon gerade nicht profitieren.";
             }
+            if (target == caster && BlockedByAura(ab, caster)) return "Ihr könnt davon gerade nicht profitieren.";
             int cost = EffectiveCost(caster, ab);
             if (cost > 0 && caster.Power < cost)
                 return caster.PowerType switch { PowerType.Rage => "Nicht genug Wut.", PowerType.Energy => "Nicht genug Energie.", _ => "Nicht genug Mana." };
@@ -158,6 +159,12 @@ namespace EternalRealms.Server.Systems
         {
             var cast = caster.Cast!;
             caster.Cast = null;
+            if (cast.OnComplete != null)
+            {
+                caster.Zone?.BroadcastFrom(caster, new S_CastEnd { CasterId = caster.Id, AbilityId = cast.Label, Success = true });
+                cast.OnComplete();
+                return;
+            }
             if (cast.Object != null && caster is Player op)
             {
                 _w.Interactions.CompleteObjectInteraction(op, cast.Object);

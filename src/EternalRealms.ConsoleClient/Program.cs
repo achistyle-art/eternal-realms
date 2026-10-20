@@ -61,6 +61,13 @@ client.MessageReceived += m =>
         case S_ReadyCheck rc2: Print($"{rc2.From} fragt: Seid Ihr bereit? (ready / ready nein)"); break;
         case S_ReadyCheckResult rcr: Print($"Bereit: {string.Join(", ", rcr.Ready)}{(rcr.NotReady.Count > 0 ? " – nicht bereit: " + string.Join(", ", rcr.NotReady) : "")}"); break;
         case S_VoteKick vk2: Print($"Abstimmung: {vk2.TargetName} entfernen? Grund: {vk2.Reason} (vote / vote nein)"); break;
+        case S_ProfessionTrainer pt2:
+            if (!content.Professions.TryGetValue(pt2.Profession, out var ptd)) break;
+            if (!pt2.Known) { Print($"{ptd.Name} erlernen für {Money(pt2.LearnCost)}: learnprof"); break; }
+            if (pt2.NextRank != "") Print($"Nächster Rang: {pt2.NextRank} für {Money(pt2.NextRankCost)} (rankprof)");
+            for (int i = 0; i < pt2.Recipes.Count; i++)
+                Print($"  {pt2.Recipes[i]} – {content.Recipes[pt2.Recipes[i]].Name} (ab {content.Recipes[pt2.Recipes[i]].SkillRequired}) – {Money(pt2.RecipeCosts[i])}");
+            break;
         case S_Bank: Print("Bank geöffnet (bank, deposit <Platz>, withdraw <Fach>)."); break;
         case S_MailList ml:
             Print(ml.Mails.Count == 0 ? "Keine Post." : "Post:");
@@ -364,6 +371,15 @@ void Command(string line)
         case "botrole": client.Send(new C_SetBotRole { BotEntityId = Int(0), Role = (a.Length > 1 ? a[1] : "") switch { "tank" => Role.Tank, "heiler" => Role.Healer, "fern" => Role.RangedDps, _ => Role.MeleeDps } }); break;
         case "raid": client.Send(new C_ConvertToRaid()); break;
         case "subgroup": client.Send(new C_SetSubgroup { EntityId = Int(0), Subgroup = (byte)Int(1, 1) }); break;
+        // ---- Berufe
+        case "profs": ShowProfessions(); break;
+        case "learnprof": client.Send(new C_LearnProfession { NpcId = client.LastInteraction?.NpcId ?? 0 }); break;
+        case "rankprof": client.Send(new C_TrainProfessionRank { NpcId = client.LastInteraction?.NpcId ?? 0 }); break;
+        case "learnrecipe": client.Send(new C_LearnRecipe { NpcId = client.LastInteraction?.NpcId ?? 0, RecipeId = a.Length > 0 ? a[0] : "" }); break;
+        case "unlearn": client.Send(new C_UnlearnProfession { Profession = a.Length > 0 ? a[0] : "" }); break;
+        case "craft": client.Send(new C_Craft { RecipeId = a.Length > 0 ? a[0] : "", Count = Int(1, 1) }); break;
+        case "skin": client.Send(new C_Skin { CorpseId = a.Length > 0 ? Int(0) : me?.TargetId ?? 0 }); break;
+        case "disenchant": client.Send(new C_Disenchant { BagIndex = Int(0) - 1 }); break;
         case "mark": client.Send(new C_SetMarker { Marker = (byte)Int(0, 8), TargetId = a.Length > 1 ? Int(1) : me?.TargetId ?? 0 }); break;
         case "bot": client.Send(new C_BotInvite { CandidateId = client.BotCandidates[Int(0) - 1].CandidateId }); break;
         case "dismiss": client.Send(new C_BotDismiss { EntityId = Int(0) }); break;
@@ -462,6 +478,21 @@ int Nearest(NpcRole role)
 
 long MemberId(string name) => client.Guild.Members.FirstOrDefault(m => m.Name.Equals(name, StringComparison.OrdinalIgnoreCase))?.CharacterId ?? 0;
 
+void ShowProfessions()
+{
+    if (client.Professions.Count == 0) { Print("Ihr beherrscht keinen Beruf."); return; }
+    foreach (var pr in client.Professions)
+    {
+        Print($"{content.Professions[pr.Id].Name}: {pr.Skill}/{pr.MaxSkill}");
+        foreach (var r in pr.Recipes)
+            if (content.Recipes.TryGetValue(r, out var rd))
+            {
+                string col = pr.Skill < rd.Yellow ? "orange" : pr.Skill < rd.Green ? "gelb" : pr.Skill < rd.Gray ? "grün" : "grau";
+                Print($"  {r} – {rd.Name} [{col}] – " + string.Join(", ", rd.Reagents.Select(g => $"{g.Count}× {ItemName(g.Item)}")) + (rd.Station != null ? $" (an: {rd.Station})" : ""));
+            }
+    }
+}
+
 int Mailbox()
 {
     var me = client.Me;
@@ -558,6 +589,7 @@ void Help() => Print(@"Befehle:
   lfg liste | lfg <id> [tank,heiler,dd,fern] [nurmenschen|bevorzugt|ki] | lfgleave | accept-group | decline-group
   readycheck | ready [nein] | votekick <id> <Grund> | vote [nein] | role <tank|heiler|dd|fern> | botrole <id> <rolle> | raid | subgroup <id> <1-8>
   instances | resetinstances
+  profs | learnprof | rankprof | learnrecipe <id> (beim Lehrer) | unlearn <beruf> | craft <rezept> [anzahl] | skin [id] | disenchant <Platz>
   riding (beim Stallmeister) | mounts | mount [id] | dismount
   need | greed | pass | lootrule [frei|reihum|gruppe|bedarf|meister] | resettalents [ja] | /würfeln
   cmd <befehl> [botId] | mark <1-8> [id]   (8 = Totenkopf, 7 = Kreuz, 5 = Mond/Kontrolle; 0 als Ziel löscht)

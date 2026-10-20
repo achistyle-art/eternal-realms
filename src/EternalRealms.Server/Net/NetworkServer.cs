@@ -93,7 +93,10 @@ namespace EternalRealms.Server.Net
             {
                 _writer.Reset();
                 Packets.Write(_writer, message);
-                _peer.Send(_writer, 1, DeliveryMethod.Unreliable); // Snapshots tragen ihre Tick-Nummer; der Client verwirft veraltete
+                // Snapshots tragen ihre Tick-Nummer; der Client verwirft veraltete. Zu große Pakete (sollte nicht vorkommen)
+                // gehen zuverlässig und damit fragmentiert raus, statt den Spieltakt mit einer Ausnahme abzubrechen.
+                if (_writer.Length > _peer.GetMaxSinglePacketSize(DeliveryMethod.Unreliable)) _peer.Send(_writer, 0, DeliveryMethod.ReliableOrdered);
+                else _peer.Send(_writer, 1, DeliveryMethod.Unreliable);
             }
 
             public void Disconnect(string reason) => _peer.Disconnect();

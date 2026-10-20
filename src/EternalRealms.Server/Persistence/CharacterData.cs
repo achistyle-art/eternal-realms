@@ -52,6 +52,8 @@ namespace EternalRealms.Server.Persistence
         public long CurrentInstanceId { get; set; }
         /// <summary>Zeitpunkte neu betretener Instanzen (Begrenzung je Stunde).</summary>
         public List<DateTime> RecentInstances { get; set; } = new();
+        /// <summary>Berufe (Beruf-ID → Fortschritt).</summary>
+        public Dictionary<string, ProfessionProgress> Professions { get; set; } = new();
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();
@@ -110,8 +112,18 @@ namespace EternalRealms.Server.Persistence
         public string ItemId { get; set; } = "";
         public int Count { get; set; } = 1;
         public int Durability { get; set; }
+        /// <summary>Dauerhafte Verzauberung (Rezept-ID), leer = keine.</summary>
+        public string Enchant { get; set; } = "";
 
-        public ItemStackData ToNet() => new() { ItemId = ItemId, Count = Count, Durability = Durability };
+        public ItemStackData ToNet() => new() { ItemId = ItemId, Count = Count, Durability = Durability, Enchant = Enchant };
+    }
+
+    /// <summary>Fortschritt in einem Beruf.</summary>
+    public sealed class ProfessionProgress
+    {
+        public int Skill { get; set; } = 1;
+        public int MaxSkill { get; set; } = 75;
+        public HashSet<string> Recipes { get; set; } = new();
     }
 
     public sealed class QuestProgress

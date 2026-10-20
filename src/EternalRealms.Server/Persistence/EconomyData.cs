@@ -23,7 +23,7 @@ namespace EternalRealms.Server.Persistence
         public MailData Clone() => new()
         {
             Id = Id, RecipientId = RecipientId, SenderId = SenderId, SenderName = SenderName, Subject = Subject, Body = Body, Money = Money, Cod = Cod,
-            Items = Items.Select(i => new ItemStack { ItemId = i.ItemId, Count = i.Count, Durability = i.Durability }).ToList(),
+            Items = Items.Select(i => new ItemStack { ItemId = i.ItemId, Count = i.Count, Durability = i.Durability, Enchant = i.Enchant }).ToList(),
             DeliverAt = DeliverAt, ExpiresAt = ExpiresAt, Read = Read, Returned = Returned, CreatedAt = CreatedAt,
         };
     }
@@ -40,6 +40,7 @@ namespace EternalRealms.Server.Persistence
         public string ItemId { get; set; } = "";
         public int Count { get; set; } = 1;
         public int Durability { get; set; }
+        public string Enchant { get; set; } = "";
         public long StartBid { get; set; }
         public long Buyout { get; set; }
         public long CurrentBid { get; set; }

@@ -82,6 +82,7 @@ namespace EternalRealms.Client
                 if (Input.GetKeyDown(KeyCode.K)) _showBook = !_showBook;
                 if (Input.GetKeyDown(KeyCode.Y)) Client.Send(new C_Mount());
                 if (Input.GetKeyDown(KeyCode.J)) _showMounts = !_showMounts;
+                if (Input.GetKeyDown(KeyCode.U)) _showProfessions = !_showProfessions;
                 if (Input.GetKeyDown(KeyCode.O)) { _showSocial = !_showSocial; if (_showSocial) { Client.Send(new C_FriendList()); Client.Send(new C_GuildRoster()); } }
                 if (Input.GetKeyDown(KeyCode.Escape)) { _npc = null; _showQuests = _showBags = _showTalents = _showGroup = _showBook = false; _bankOpen = _mailOpen = _ahOpen = false; }
             }
@@ -315,6 +316,7 @@ namespace EternalRealms.Client
             DrawEconomyWindows();
             if (_showMounts) DrawMountJournal();
             if (_showSocial) DrawSocial();
+            if (_showProfessions) DrawProfessions();
             if (Client.PendingGuildInvite != null) DrawGuildInvite();
             DrawFinderPopups();
         }
@@ -831,6 +833,7 @@ namespace EternalRealms.Client
             foreach (var dest in ni.FlightDestinations)
                 if (GUILayout.Button($"Flug nach {Content.TravelNodes[dest].Name}")) { Client.Send(new C_TakeFlight { NpcId = ni.NpcId, Destination = dest }); _npc = null; }
             if (ni.CanResurrect && GUILayout.Button("Wiederbeleben lassen (Haltbarkeitsverlust, Wiederbelebungsschwäche)")) Client.Send(new C_SpiritHealerResurrect { NpcId = ni.NpcId });
+            if ((npc.Roles & NpcRole.ProfessionTrainer) != 0 && Client.ProfessionTrainer is S_ProfessionTrainer pt && pt.NpcId == ni.NpcId) DrawProfessionTrainer(pt);
             if ((npc.Roles & NpcRole.RidingTrainer) != 0 && GUILayout.Button("Reiten lernen")) Client.Send(new C_LearnRiding { NpcId = ni.NpcId });
             if ((npc.Roles & NpcRole.Auctioneer) != 0 && GUILayout.Button("Auktionshaus öffnen")) { OpenAuctionHouse(ni.NpcId); _npc = null; }
             if ((npc.Roles & NpcRole.ClassTrainer) != 0 && npc.TrainerClass == (Client.Me?.Class ?? CharClass.None) && GUILayout.Button("Talente zurücksetzen …"))
