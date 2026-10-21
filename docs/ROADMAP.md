@@ -83,7 +83,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | F ✅ | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
 | G ✅ | 43–45, 48 | KI-Ebenen ausbauen – auf Wunsch zunächst nur für 5er-Dungeons: Encounter-Manager, Tankwechsel, Flächen ausweichen, Bot-Balance. Raids (10/20/40) folgen später |
 | H ✅ | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
-| I | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang 1–60, kosmetische Monetarisierung ohne Pay-to-Win, Endgame |
+| I (in Arbeit) | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang – auf Wunsch zunächst bis Stufe 20 –, kosmetische Monetarisierung ohne Pay-to-Win, Endgame auf Stufe 20 |
 
 ### Block A – Stand
 
@@ -277,3 +277,31 @@ Auf Wunsch zunächst nur für Gruppen bis 5 Spieler. Raids für 10, 20 und 40 Sp
 - `update.sh` geht von einem Server pro Datenbank aus.
 - Das Update-Skript ist für Linux mit systemd o. Ä. geschrieben.
 
+
+### Block I – Stand
+
+Auf Wunsch zunächst nur bis Stufe 20; die Stufen 21–60 folgen später.
+
+**Umgesetzt und getestet** (`LevelCapTests`, Content-Prüfung, Generatoren in beliebiger Reihenfolge identisch):
+- **Stufenobergrenze aus dem Content:** `levelCap` in `content/manifest.json` (1–60, derzeit 20).
+  - Erfahrung, Quest-EP, Entwicklerbefehle und KI-Mitspieler halten sich daran.
+  - Ab der Obergrenze werden Quest-EP in Gold ausgezahlt.
+  - Erfolge für höhere Stufen werden ausgeblendet.
+- **Westmark und Rotsandwüste (Stufe 12–20)** (`tools/gen_world_i.py`):
+  - Je Region:
+    - eine Siedlung mit Gasthaus, Händlern, Reparatur, Flugmeister, Briefkasten, Geisterheiler und Wachen;
+    - neun Gegnerarten, ein Seltener, ein Elitegegner und ein Abschlussgegner der Stufe 20;
+    - Flutsteine, Questobjekte und ein zweiter Eingang zur Wurzelkrypta.
+  - Je Region 27 Quests mit Text, darunter drei Wurzelkrypta-Quests und zwei Gruppenquests.
+  - Pro Quest gibt es drei Wahlbelohnungen (Stärke, Beweglichkeit, Intelligenz), dazu grüne Beute der Stufe 15 und 19.
+  - Neuer Ruf: Burg Weidenwacht und Zharas Rast.
+  - Ein Weg aus dem Startgebiet, der nur die eigene Fraktion durchlässt. Flugrouten zum Startgebiet und zur Hauptstadt.
+  - Die Platzhalter auf der Weltkarte wurden durch die echten Regionen ersetzt.
+- **EP-Haushalt:** Quests und ihre Pflichtkills decken mindestens 85 % der EP von Stufe 12 bis 20; der Rest kommt aus freien Kills, Entdeckungen und Ruhebonus (im Test nachgerechnet).
+
+**Nur kompiliergeprüft** (Unity): Erfolgsliste blendet unerreichbare Erfolge aus.
+
+**Grenzen:**
+- Reiten beginnt weiterhin mit Stufe 40 und ist damit derzeit nicht erreichbar.
+- Musik und Umgebungsklang der neuen Regionen erzeugt der Client wie überall prozedural aus der ID; eigens komponierte Stücke gibt es nicht.
+- Die neuen Regionen sind nur über Tests und den Prüflauf geprüft, nicht in einer langen Spielsitzung.

@@ -459,7 +459,7 @@ namespace EternalRealms.Server.World
             EnsureStats();
             return new S_PlayerState
             {
-                Level = Level, Xp = Data.Xp, XpToNext = Experience.XpToNextLevel(Level), RestedXp = Data.RestedXp, Money = Money,
+                Level = Level, Xp = Data.Xp, XpToNext = Level >= Content.LevelCap ? 0 : Experience.XpToNextLevel(Level), RestedXp = Data.RestedXp, Money = Money,
                 TalentPointsFree = TalentPointsFree, Strength = Stats.Strength, Agility = Stats.Agility, Stamina = Stats.Stamina, Intellect = Stats.Intellect,
                 Spirit = Stats.Spirit, Armor = Armor, AttackPower = AttackPower, SpellPower = SpellPower, MeleeCrit = MeleeCrit, SpellCrit = SpellCrit, Dodge = Dodge,
                 RangedAttackPower = RangedAttackPower, HealingPower = HealingPower, Parry = Parry, Block = Block, Hit = HitBonus, MoveSpeed = MoveSpeed,

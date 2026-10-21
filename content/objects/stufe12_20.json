@@ -1,0 +1,142 @@
+[
+ {
+  "id": "obj_wm_sack",
+  "name": "Gestohlener Getreidesack",
+  "model": "crate",
+  "quest": "q_wm_getreide",
+  "loot": [
+   {
+    "item": "item_q_wm_getreide",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_getreide"
+   }
+  ],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_wm_siegel",
+  "name": "Entweihtes Altarsiegel",
+  "model": "rune_stone",
+  "quest": "q_wm_siegel",
+  "loot": [],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_wm_flutstein",
+  "name": "Flutstein",
+  "model": "crystal",
+  "quest": "q_wm_flutsteine",
+  "loot": [],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_weg_nach_wm",
+  "name": "Weg nach Westmark",
+  "model": "signpost",
+  "teleportZone": "zone_westmark",
+  "teleportPosition": [
+   140,
+   0,
+   500
+  ],
+  "requiredFaction": "Sonnenbuendnis",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_weg_wm_heim",
+  "name": "Weg nach Morgentauwald",
+  "model": "signpost",
+  "teleportZone": "zone_morgentauwald",
+  "teleportPosition": [
+   870,
+   0,
+   470
+  ],
+  "requiredFaction": "Sonnenbuendnis",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_crypt_entrance_wm",
+  "name": "Eingang der Wurzelkrypta",
+  "model": "portal_roots",
+  "teleportZone": "dungeon_wurzelkrypta",
+  "teleportPosition": [
+   50,
+   0,
+   50
+  ],
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_rs_sack",
+  "name": "Gestohlenes Wasserfass",
+  "model": "crate",
+  "quest": "q_rs_wasser",
+  "loot": [
+   {
+    "item": "item_q_rs_wasser",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_wasser"
+   }
+  ],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_rs_siegel",
+  "name": "Entweihter Sonnenaltar",
+  "model": "rune_stone",
+  "quest": "q_rs_altar",
+  "loot": [],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_rs_flutstein",
+  "name": "Flutstein",
+  "model": "crystal",
+  "quest": "q_rs_flutsteine",
+  "loot": [],
+  "interactTime": 2.0
+ },
+ {
+  "id": "obj_weg_nach_rs",
+  "name": "Weg nach Rotsandwüste",
+  "model": "signpost",
+  "teleportZone": "zone_rotsand",
+  "teleportPosition": [
+   140,
+   0,
+   520
+  ],
+  "requiredFaction": "Schattenpakt",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_weg_rs_heim",
+  "name": "Weg nach Aschensteppe",
+  "model": "signpost",
+  "teleportZone": "zone_aschensteppe",
+  "teleportPosition": [
+   880,
+   0,
+   520
+  ],
+  "requiredFaction": "Schattenpakt",
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_crypt_entrance_rs",
+  "name": "Eingang der Wurzelkrypta",
+  "model": "portal_roots",
+  "teleportZone": "dungeon_wurzelkrypta",
+  "teleportPosition": [
+   50,
+   0,
+   50
+  ],
+  "interactTime": 0.5
+ }
+]

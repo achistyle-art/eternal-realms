@@ -1,0 +1,24 @@
+[
+ {
+  "id": "tn_wm_burg",
+  "name": "Burg Weidenwacht",
+  "zone": "zone_westmark",
+  "position": [
+   540,
+   0,
+   500
+  ],
+  "faction": "Sonnenbuendnis"
+ },
+ {
+  "id": "tn_rs_rast",
+  "name": "Zharas Rast",
+  "zone": "zone_rotsand",
+  "position": [
+   540,
+   0,
+   500
+  ],
+  "faction": "Schattenpakt"
+ }
+]

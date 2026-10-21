@@ -1,0 +1,466 @@
+[
+ {
+  "id": "zone_westmark",
+  "name": "Westmark",
+  "continent": "Aurelion",
+  "minLevel": 12,
+  "maxLevel": 20,
+  "faction": "Sonnenbuendnis",
+  "biome": "Ackerland",
+  "description": "Weite Kornfelder, Windmühlen und die Grenzburg Weidenwacht. Die Sensenbrüder plündern die Höfe, und aus einem Riss im Boden kriecht die Hohle Flut.",
+  "music": "music_westmark",
+  "ambience": "amb_fields_wind",
+  "weather": [
+   "Clear",
+   "Clear",
+   "Rain",
+   "Fog"
+  ],
+  "size": 1024,
+  "playable": true,
+  "ambientBots": 4,
+  "areas": [
+   {
+    "id": "area_wm_burg",
+    "name": "Burg Weidenwacht",
+    "center": [
+     500,
+     0,
+     500
+    ],
+    "radius": 60,
+    "discoveryXp": 120,
+    "isCity": true,
+    "isInn": true,
+    "music": "music_village"
+   },
+   {
+    "id": "area_wm_strasse",
+    "name": "Weidenstraße",
+    "center": [
+     160,
+     0,
+     500
+    ],
+    "radius": 40,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_wm_felder",
+    "name": "Goldfelder",
+    "center": [
+     300,
+     0,
+     340
+    ],
+    "radius": 80,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_wm_muehle",
+    "name": "Mühlenhügel",
+    "center": [
+     720,
+     0,
+     300
+    ],
+    "radius": 70,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_wm_schilf",
+    "name": "Schilfufer",
+    "center": [
+     260,
+     0,
+     720
+    ],
+    "radius": 70,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_wm_grauwald",
+    "name": "Grauwald",
+    "center": [
+     740,
+     0,
+     640
+    ],
+    "radius": 80,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_wm_riss",
+    "name": "Wurzelriss",
+    "center": [
+     200,
+     0,
+     180
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_wm_abtei",
+    "name": "Abtei Sankt Elmar",
+    "center": [
+     820,
+     0,
+     860
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   }
+  ],
+  "graveyards": [
+   [
+    470,
+    0,
+    570
+   ],
+   [
+    760,
+    0,
+    780
+   ]
+  ],
+  "spawns": [
+   {
+    "creature": "mob_wm_wuehler",
+    "position": [
+     300,
+     0,
+     340
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_brandschatzer",
+    "position": [
+     720,
+     0,
+     300
+    ],
+    "count": 12,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_schuetze",
+    "position": [
+     720,
+     0,
+     300
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_schnapper",
+    "position": [
+     260,
+     0,
+     720
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10,
+    "rareCreature": "mob_wm_knorrhaut",
+    "rareChance": 0.05
+   },
+   {
+    "creature": "mob_wm_wolf",
+    "position": [
+     740,
+     0,
+     640
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_baumhirt",
+    "position": [
+     810,
+     0,
+     710
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_kriecher",
+    "position": [
+     200,
+     0,
+     180
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_geweihter",
+    "position": [
+     820,
+     0,
+     860
+    ],
+    "count": 12,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_hexer",
+    "position": [
+     770,
+     0,
+     900
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_wm_rurik",
+    "position": [
+     780,
+     0,
+     260
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 300,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "mob_wm_malachias",
+    "position": [
+     860,
+     0,
+     900
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 600,
+    "wanderRadius": 0
+   }
+  ],
+  "npcs": [
+   {
+    "npc": "npc_wm_main",
+    "position": [
+     500,
+     0,
+     490
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_farm",
+    "position": [
+     340,
+     0,
+     380
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_mason",
+    "position": [
+     640,
+     0,
+     330
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_fisher",
+    "position": [
+     320,
+     0,
+     690
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_ranger",
+    "position": [
+     680,
+     0,
+     600
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_priest",
+    "position": [
+     515,
+     0,
+     515
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_inn",
+    "position": [
+     485,
+     0,
+     520
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_smith",
+    "position": [
+     520,
+     0,
+     480
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_flight",
+    "position": [
+     540,
+     0,
+     500
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_spirit",
+    "position": [
+     470,
+     0,
+     575
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_guard",
+    "position": [
+     470,
+     0,
+     470
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_guard",
+    "position": [
+     530,
+     0,
+     470
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_guard",
+    "position": [
+     470,
+     0,
+     530
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_guard",
+    "position": [
+     530,
+     0,
+     530
+    ],
+    "facing": 0.0
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_crypt_entrance_wm",
+    "position": [
+     170,
+     0,
+     150
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
+   },
+   {
+    "object": "obj_mailbox",
+    "position": [
+     494,
+     0,
+     492
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_weg_wm_heim",
+    "position": [
+     110,
+     0,
+     500
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   },
+   {
+    "object": "obj_wm_flutstein",
+    "position": [
+     210,
+     0,
+     190
+    ],
+    "count": 6,
+    "radius": 45,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_wm_sack",
+    "position": [
+     760,
+     0,
+     280
+    ],
+    "count": 8,
+    "radius": 40,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_wm_siegel",
+    "position": [
+     840,
+     0,
+     880
+    ],
+    "count": 4,
+    "radius": 20,
+    "respawnSeconds": 30
+   }
+  ],
+  "mapRect": [
+   230,
+   690,
+   140,
+   130
+  ]
+ }
+]

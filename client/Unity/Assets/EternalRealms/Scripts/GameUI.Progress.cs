@@ -41,7 +41,7 @@ namespace EternalRealms.Client
             var st = Client.Achievements;
             var area = Window($"Erfolge – {st.Points} Punkte", 680, 520);
             GUILayout.BeginArea(area);
-            var cats = Content.Achievements.Values.Select(a => a.Category).Distinct().ToList();
+            var cats = Content.Achievements.Values.Where(Content.IsReachable).Select(a => a.Category).Distinct().ToList();
             if (!cats.Contains(_achCategory)) _achCategory = cats.FirstOrDefault() ?? "";
             int sel = GUILayout.Toolbar(cats.IndexOf(_achCategory), cats.ToArray());
             if (sel >= 0) _achCategory = cats[sel];
@@ -52,7 +52,7 @@ namespace EternalRealms.Client
                 if (GUILayout.Toggle(st.ActiveTitle == t, t, GUI.skin.button, GUILayout.ExpandWidth(false)) && st.ActiveTitle != t) Client.Send(new C_SetTitle { Title = t });
             GUILayout.EndHorizontal();
             _scrollAch = GUILayout.BeginScrollView(_scrollAch);
-            foreach (var a in Content.Achievements.Values.Where(a => a.Category == _achCategory))
+            foreach (var a in Content.Achievements.Values.Where(a => a.Category == _achCategory && Content.IsReachable(a)))
             {
                 var pr = st.Progress.FirstOrDefault(x => x.Id == a.Id);
                 bool done = pr != null && pr.CompletedAt > 0;

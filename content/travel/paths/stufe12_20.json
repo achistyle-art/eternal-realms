@@ -1,0 +1,50 @@
+[
+ {
+  "from": "tn_wm_burg",
+  "to": "tn_mt_dorf",
+  "cost": 150,
+  "durationSeconds": 35
+ },
+ {
+  "from": "tn_mt_dorf",
+  "to": "tn_wm_burg",
+  "cost": 150,
+  "durationSeconds": 35
+ },
+ {
+  "from": "tn_wm_burg",
+  "to": "tn_sf",
+  "cost": 300,
+  "durationSeconds": 45
+ },
+ {
+  "from": "tn_sf",
+  "to": "tn_wm_burg",
+  "cost": 300,
+  "durationSeconds": 45
+ },
+ {
+  "from": "tn_rs_rast",
+  "to": "tn_as_oase",
+  "cost": 150,
+  "durationSeconds": 35
+ },
+ {
+  "from": "tn_as_oase",
+  "to": "tn_rs_rast",
+  "cost": 150,
+  "durationSeconds": 35
+ },
+ {
+  "from": "tn_rs_rast",
+  "to": "tn_kz",
+  "cost": 300,
+  "durationSeconds": 45
+ },
+ {
+  "from": "tn_kz",
+  "to": "tn_rs_rast",
+  "cost": 300,
+  "durationSeconds": 45
+ }
+]

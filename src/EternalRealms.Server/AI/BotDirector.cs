@@ -85,7 +85,7 @@ namespace EternalRealms.Server.AI
             foreach (var role in needed)
             {
                 if (result.Count >= 8) break;
-                var data = CreateBotData(p.Faction, role, Math.Clamp(p.Level - (_w.Random.Chance(0.3) ? 1 : 0), 1, Experience.MaxLevel), null, p.Zone!.Def.Id, difficulty: difficulty);
+                var data = CreateBotData(p.Faction, role, Math.Clamp(p.Level - (_w.Random.Chance(0.3) ? 1 : 0), 1, _w.Content.LevelCap), null, p.Zone!.Def.Id, difficulty: difficulty);
                 if (data != null) result.Add(Register(data, account, known: false));
             }
             return result;
@@ -463,7 +463,7 @@ namespace EternalRealms.Server.AI
             double expected = seconds / 45.0 * (0.6 + bd.Skill * 0.6);
             int kills = (int)expected + (_w.Random.Chance(expected - Math.Floor(expected)) ? 1 : 0);
             if (kills <= 0) return;
-            if (bot.Level < Experience.MaxLevel) _w.Progression.GiveXp(bot, kills * Experience.KillXp(bot.Level, bot.Level, false), "background");
+            if (bot.Level < _w.Content.LevelCap) _w.Progression.GiveXp(bot, kills * Experience.KillXp(bot.Level, bot.Level, false), "background");
             _w.Economy.Credit(bot, kills * (long)_w.Random.Range(bot.Level * 2, bot.Level * 5), "loot_background");
             if (bot.Level > bot.Zone.Def.MaxLevel + 2) MoveOn(bot);
         }

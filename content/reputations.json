@@ -30,6 +30,18 @@
   "description": "Ein uralter Druidenzirkel, der beiden Fraktionen hilft, solange sie den Wald achten."
  },
  {
+  "id": "rep_weidenwacht",
+  "name": "Burg Weidenwacht",
+  "faction": "Sonnenbuendnis",
+  "description": "Die Burgwache und die Bauern der Westmark."
+ },
+ {
+  "id": "rep_zharas_rast",
+  "name": "Zharas Rast",
+  "faction": "Schattenpakt",
+  "description": "Die Karawanen und Krieger der Rotsandwüste."
+ },
+ {
   "id": "rep_silbermond",
   "name": "Silbermond",
   "faction": "Sonnenbuendnis",

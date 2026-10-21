@@ -1,5 +1,6 @@
 {
  "name": "Eternal Realms",
  "version": "0.9.0",
- "minClientContent": ""
+ "minClientContent": "",
+ "levelCap": 20
 }

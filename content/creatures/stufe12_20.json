@@ -1,0 +1,2834 @@
+[
+ {
+  "id": "npc_wm_main",
+  "name": "Burgvogtin Irmela Weidenstein",
+  "title": "Herrin von Burg Weidenwacht",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Die Westmark ernährt das halbe Bündnis. Solange ich lebe, fällt kein Hof an Räuber oder Schlimmeres."
+ },
+ {
+  "id": "npc_wm_farm",
+  "name": "Bauer Hennig Krummacker",
+  "title": "Goldfelder",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Wenn die Ernte ausfällt, hungert die Sonnenfeste. So einfach ist das."
+ },
+ {
+  "id": "npc_wm_mason",
+  "name": "Mühlenmeister Ortwin Mahlstein",
+  "title": "Mühlenhügel",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Meine Mühlen mahlen nicht, solange die Sensenbrüder auf dem Hügel sitzen."
+ },
+ {
+  "id": "npc_wm_fisher",
+  "name": "Fischerin Wiebke Reuse",
+  "title": "Schilfufer",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Früher war das Schilf voller Fische. Jetzt ist es voller Zähne."
+ },
+ {
+  "id": "npc_wm_ranger",
+  "name": "Waldläuferin Svea Dornbusch",
+  "title": "Grauwald",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Der Grauwald war nie freundlich. Aber er war nie krank – bis jetzt."
+ },
+ {
+  "id": "npc_wm_priest",
+  "name": "Schwester Adelind",
+  "title": "Lichtpriesterin von Sankt Elmar",
+  "faction": "Sonnenbuendnis",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Die Abtei war ein Ort des Lichts. Was dort jetzt betet, betet nicht zum Licht."
+ },
+ {
+  "id": "npc_wm_inn",
+  "name": "Wirt Bodo Schankherz",
+  "title": "Gasthaus Zur Weide",
+  "faction": "Sonnenbuendnis",
+  "roles": "Innkeeper, Vendor, QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Ein Bett, ein Eintopf und die neuesten Gerüchte – alles im Preis inbegriffen.",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_lesser_healing_potion",
+   "item_bag_leather"
+  ],
+  "barks": [
+   "Frisch aus dem Topf!",
+   "Noch einen Krug?"
+  ]
+ },
+ {
+  "id": "npc_wm_smith",
+  "name": "Rüstmeister Gerwin",
+  "title": "Waffen und Rüstungen",
+  "faction": "Sonnenbuendnis",
+  "roles": "Vendor, Repair",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Was die Sensenbrüder zerbeulen, biege ich wieder gerade.",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ]
+ },
+ {
+  "id": "npc_wm_flight",
+  "name": "Greifenwärter Lutz",
+  "title": "Flugmeister",
+  "faction": "Sonnenbuendnis",
+  "roles": "FlightMaster",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Meine Greifen fliegen nach Morgentau und zur Sonnenfeste."
+ },
+ {
+  "id": "npc_wm_spirit",
+  "name": "Geisterheilerin",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Noch ist Eure Zeit nicht gekommen."
+ },
+ {
+  "id": "npc_wm_guard",
+  "name": "Wache von Weidenwacht",
+  "title": "",
+  "faction": "Sonnenbuendnis",
+  "roles": "Guard",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "healthMultiplier": 3,
+  "damageMultiplier": 2,
+  "aggroRadius": 20,
+  "barks": [
+   "Alles ruhig.",
+   "Augen offen halten."
+  ]
+ },
+ {
+  "id": "mob_wm_wuehler",
+  "name": "Feldwühler",
+  "minLevel": 12,
+  "maxLevel": 13,
+  "family": "Boar",
+  "faction": "Hostile",
+  "model": "boar",
+  "moneyMin": 48,
+  "moneyMax": 117,
+  "abilities": [
+   {
+    "ability": "mob_bite",
+    "interval": 7,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wm_wuehlerborste",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_saatgut",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_saatgut"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_wm_brandschatzer",
+  "name": "Sensenbruder-Brandschatzer",
+  "minLevel": 13,
+  "maxLevel": 14,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 52,
+  "moneyMax": 126,
+  "abilities": [
+   {
+    "ability": "mob_cleave",
+    "interval": 9,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wm_sensenlumpen",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_befehle",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_befehle"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_wm_schuetze",
+  "name": "Sensenbruder-Armbruster",
+  "minLevel": 13,
+  "maxLevel": 15,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 52,
+  "moneyMax": 135,
+  "abilities": [
+   {
+    "ability": "mob_throw",
+    "interval": 8,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wm_sensenlumpen",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_befehle",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_befehle"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_wm_schnapper",
+  "name": "Schilfschnapper",
+  "minLevel": 14,
+  "maxLevel": 15,
+  "family": "Lizard",
+  "faction": "Hostile",
+  "model": "lizard",
+  "moneyMin": 56,
+  "moneyMax": 135,
+  "abilities": [
+   {
+    "ability": "mob_rend",
+    "interval": 10,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wm_schnapperschuppe",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_panzer",
+    "chance": 0.55,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_panzer"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_wm_wolf",
+  "name": "Grauwald-Wolf",
+  "minLevel": 15,
+  "maxLevel": 16,
+  "family": "Wolf",
+  "faction": "Hostile",
+  "model": "wolf",
+  "moneyMin": 60,
+  "moneyMax": 144,
+  "abilities": [
+   {
+    "ability": "mob_bite",
+    "interval": 6,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_rend",
+    "interval": 12,
+    "initialDelay": 6,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wolf_fang",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_wildbret",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_wildbret"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_wm_baumhirt",
+  "name": "Verdorrter Baumhirt",
+  "minLevel": 16,
+  "maxLevel": 17,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "moneyMin": 64,
+  "moneyMax": 153,
+  "abilities": [
+   {
+    "ability": "mob_armor_crush",
+    "interval": 12,
+    "initialDelay": 5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_root_grip",
+    "interval": 16,
+    "initialDelay": 8,
+    "chance": 1.0,
+    "targetRule": "Random",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_moldy_root",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_harz",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_harz"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_wm_kriecher",
+  "name": "Wurzelkriecher",
+  "minLevel": 16,
+  "maxLevel": 17,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "moneyMin": 64,
+  "moneyMax": 153,
+  "abilities": [
+   {
+    "ability": "mob_root_grip",
+    "interval": 14,
+    "initialDelay": 5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_spore_burst",
+    "interval": 12,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_moldy_root",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_wm_geweihter",
+  "name": "Geweihter der Hohlen Flut",
+  "minLevel": 17,
+  "maxLevel": 18,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 68,
+  "moneyMax": 162,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 7,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_heal_ally",
+    "interval": 15,
+    "initialDelay": 8,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.6
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wm_kuttenfetzen",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_foliant",
+    "chance": 0.35,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_folianten"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_wm_hexer",
+  "name": "Abtei-Hexer",
+  "minLevel": 18,
+  "maxLevel": 19,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 72,
+  "moneyMax": 171,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 6,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_terrify",
+    "interval": 20,
+    "initialDelay": 10,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wm_kuttenfetzen",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_wm_foliant",
+    "chance": 0.35,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_folianten"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_wm_knorrhaut",
+  "name": "Knorrhaut",
+  "minLevel": 16,
+  "maxLevel": 16,
+  "family": "Lizard",
+  "faction": "Hostile",
+  "model": "lizard",
+  "rare": true,
+  "healthMultiplier": 1.8,
+  "damageMultiplier": 1.3,
+  "scale": 1.3,
+  "moneyMin": 400,
+  "moneyMax": 800,
+  "abilities": [
+   {
+    "ability": "mob_rend",
+    "interval": 9,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_armor_crush",
+    "interval": 14,
+    "initialDelay": 6,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_wm_rurik",
+  "name": "Rurik Schwarzsense",
+  "title": "Anführer der Sensenbrüder",
+  "minLevel": 16,
+  "maxLevel": 16,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "elite": true,
+  "healthMultiplier": 1.3,
+  "damageMultiplier": 1.0,
+  "callsForHelp": true,
+  "scale": 1.2,
+  "moneyMin": 500,
+  "moneyMax": 1000,
+  "abilities": [
+   {
+    "ability": "mob_cleave",
+    "interval": 8,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_shield_bash",
+    "interval": 12,
+    "initialDelay": 6,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_enrage",
+    "interval": 600,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.3
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_q_wm_sense",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_rurik"
+   },
+   {
+    "item": "item_wm_green_feet_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_wm_malachias",
+  "name": "Abt Malachias der Hohle",
+  "title": "Diener der Hohlen Flut",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "elite": true,
+  "healthMultiplier": 2.5,
+  "damageMultiplier": 1.1,
+  "scale": 1.4,
+  "aggroRadius": 18,
+  "moneyMin": 1500,
+  "moneyMax": 3000,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 6,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_shadow_ring",
+    "interval": 18,
+    "initialDelay": 8,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_terrify",
+    "interval": 24,
+    "initialDelay": 12,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_dark_mending",
+    "interval": 30,
+    "initialDelay": 15,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.5
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_q_wm_kette",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_wm_malachias"
+   },
+   {
+    "item": "item_wm_green_feet_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_hands_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_waist_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_wrist_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_sword1h_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wm_green_staff_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "npc_rs_main",
+  "name": "Zhara Sandklinge",
+  "title": "Herrin von Zharas Rast",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Diese Oase ist das einzige Wasser auf hundert Meilen. Wer sie hält, hält die Wüste. Und ich halte sie."
+ },
+ {
+  "id": "npc_rs_farm",
+  "name": "Karawanenmeister Orrak",
+  "title": "Dünenmeer",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Jede Karawane, die nicht ankommt, ist ein Dorf, das hungert."
+ },
+ {
+  "id": "npc_rs_mason",
+  "name": "Späherin Ishra",
+  "title": "Räuberklippen",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Von hier oben sehe ich jeden Räuber. Leider sehen sie mich auch."
+ },
+ {
+  "id": "npc_rs_fisher",
+  "name": "Brunnenhüterin Nehal",
+  "title": "Glassenke",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Unter dem Glas der Senke liegt Wasser – und Tote, die es bewachen."
+ },
+ {
+  "id": "npc_rs_ranger",
+  "name": "Totenrufer Vashkar",
+  "title": "Königsgräber",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Die alten Könige schlafen unruhig. Ich höre sie flüstern."
+ },
+ {
+  "id": "npc_rs_priest",
+  "name": "Seher Rakhim",
+  "title": "Hüter des Sonnenwissens",
+  "faction": "Schattenpakt",
+  "roles": "QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Der Tempel der Versunkenen Sonne war heilig. Jetzt ist er hohl."
+ },
+ {
+  "id": "npc_rs_inn",
+  "name": "Wirtin Shazra",
+  "title": "Rasthaus Zum Kühlen Krug",
+  "faction": "Schattenpakt",
+  "roles": "Innkeeper, Vendor, QuestGiver",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Wasser, Schatten und ein weiches Lager. Mehr braucht niemand in der Wüste.",
+  "vendorItems": [
+   "item_tough_jerky",
+   "item_fresh_bread",
+   "item_refreshing_water",
+   "item_ice_cold_milk",
+   "item_lesser_healing_potion",
+   "item_bag_leather"
+  ],
+  "barks": [
+   "Frisch aus dem Topf!",
+   "Noch einen Krug?"
+  ]
+ },
+ {
+  "id": "npc_rs_smith",
+  "name": "Waffenschmied Grothak",
+  "title": "Waffen und Rüstungen",
+  "faction": "Schattenpakt",
+  "roles": "Vendor, Repair",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Sand frisst jede Klinge. Ich mache sie wieder scharf.",
+  "vendorItems": [
+   "item_vendor_sword1h",
+   "item_vendor_mace1h",
+   "item_vendor_axe1h",
+   "item_vendor_dagger",
+   "item_vendor_staff",
+   "item_vendor_sword2h",
+   "item_vendor_bow",
+   "item_vendor_wand",
+   "item_vendor_shield",
+   "item_vendor_cloth_chest",
+   "item_vendor_cloth_legs",
+   "item_vendor_cloth_hands",
+   "item_vendor_cloth_feet",
+   "item_vendor_cloth_waist",
+   "item_vendor_cloth_wrist",
+   "item_vendor_cloth_shoulders",
+   "item_vendor_cloth_head",
+   "item_vendor_leather_chest",
+   "item_vendor_leather_legs",
+   "item_vendor_leather_hands",
+   "item_vendor_leather_feet",
+   "item_vendor_leather_waist",
+   "item_vendor_leather_wrist",
+   "item_vendor_leather_shoulders",
+   "item_vendor_leather_head",
+   "item_vendor_mail_chest",
+   "item_vendor_mail_legs",
+   "item_vendor_mail_hands",
+   "item_vendor_mail_feet",
+   "item_vendor_mail_waist",
+   "item_vendor_mail_wrist",
+   "item_vendor_mail_shoulders",
+   "item_vendor_mail_head"
+  ]
+ },
+ {
+  "id": "npc_rs_flight",
+  "name": "Windreiterin Kesra",
+  "title": "Flugmeisterin",
+  "faction": "Schattenpakt",
+  "roles": "FlightMaster",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Meine Windreiter fliegen zur Oase Zharim und nach Kharzul."
+ },
+ {
+  "id": "npc_rs_spirit",
+  "name": "Geisterheiler",
+  "title": "",
+  "faction": "Friendly",
+  "roles": "SpiritHealer",
+  "minLevel": 60,
+  "maxLevel": 60,
+  "model": "npc",
+  "gossip": "Die Wüste hat dich noch nicht verschluckt. Geh zurück."
+ },
+ {
+  "id": "npc_rs_guard",
+  "name": "Wache von Zharas Rast",
+  "title": "",
+  "faction": "Schattenpakt",
+  "roles": "Guard",
+  "minLevel": 30,
+  "maxLevel": 30,
+  "model": "npc",
+  "healthMultiplier": 3,
+  "damageMultiplier": 2,
+  "aggroRadius": 20,
+  "barks": [
+   "Alles ruhig.",
+   "Augen offen halten."
+  ]
+ },
+ {
+  "id": "mob_rs_schakal",
+  "name": "Rotsand-Schakal",
+  "minLevel": 12,
+  "maxLevel": 13,
+  "family": "Hyena",
+  "faction": "Hostile",
+  "model": "hyena",
+  "moneyMin": 48,
+  "moneyMax": 117,
+  "abilities": [
+   {
+    "ability": "mob_bite",
+    "interval": 7,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_schakalfell",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rs_skorpion",
+  "name": "Glutstachel-Skorpion",
+  "minLevel": 13,
+  "maxLevel": 14,
+  "family": "Beetle",
+  "faction": "Hostile",
+  "model": "beetle",
+  "moneyMin": 52,
+  "moneyMax": 126,
+  "abilities": [
+   {
+    "ability": "mob_poison_bite",
+    "interval": 10,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_chitinsplitter",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_stachel",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_stachel"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rs_raeuber",
+  "name": "Dünenräuber",
+  "minLevel": 13,
+  "maxLevel": 14,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 52,
+  "moneyMax": 126,
+  "abilities": [
+   {
+    "ability": "mob_cleave",
+    "interval": 9,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_staubtuch",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_karte",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_karte"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_rs_schleuderer",
+  "name": "Dünenräuber-Schleuderer",
+  "minLevel": 13,
+  "maxLevel": 15,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 52,
+  "moneyMax": 135,
+  "abilities": [
+   {
+    "ability": "mob_throw",
+    "interval": 8,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_staubtuch",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_karte",
+    "chance": 0.2,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_karte"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_rs_waechter",
+  "name": "Grabwächter",
+  "minLevel": 14,
+  "maxLevel": 15,
+  "family": "Undead",
+  "faction": "Hostile",
+  "model": "undead",
+  "moneyMin": 56,
+  "moneyMax": 135,
+  "abilities": [
+   {
+    "ability": "mob_armor_crush",
+    "interval": 11,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_grabbinde",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_skarabaeus",
+    "chance": 0.55,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_skarabaeus"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rs_wurm",
+  "name": "Sandwurm",
+  "minLevel": 15,
+  "maxLevel": 16,
+  "family": "Wyrm",
+  "faction": "Hostile",
+  "model": "wyrm",
+  "moneyMin": 60,
+  "moneyMax": 144,
+  "abilities": [
+   {
+    "ability": "mob_bite",
+    "interval": 6,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_ground_slam",
+    "interval": 16,
+    "initialDelay": 6,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_wurmzahn",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_wurmfleisch",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_wurmfleisch"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rs_kriecher",
+  "name": "Dürrwurzel-Kriecher",
+  "minLevel": 16,
+  "maxLevel": 17,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "moneyMin": 64,
+  "moneyMax": 153,
+  "abilities": [
+   {
+    "ability": "mob_root_grip",
+    "interval": 14,
+    "initialDelay": 5,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_spore_burst",
+    "interval": 12,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_moldy_root",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_harz",
+    "chance": 0.6,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_riss_harz"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rs_geweihter",
+  "name": "Geweihter der Hohlen Flut",
+  "minLevel": 17,
+  "maxLevel": 18,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 68,
+  "moneyMax": 162,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 7,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_heal_ally",
+    "interval": 15,
+    "initialDelay": 8,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.6
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_kultmaske",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_schriftrolle",
+    "chance": 0.35,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_schriftrollen"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_rs_seherin",
+  "name": "Seherin der Hohlen Flut",
+  "minLevel": 18,
+  "maxLevel": 19,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "moneyMin": 72,
+  "moneyMax": 171,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 6,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_terrify",
+    "interval": 20,
+    "initialDelay": 10,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_kultmaske",
+    "chance": 0.45,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_q_rs_schriftrolle",
+    "chance": 0.35,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_schriftrollen"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.003,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "callsForHelp": true
+ },
+ {
+  "id": "mob_rs_ussar",
+  "name": "Gräberkönig Ussar",
+  "minLevel": 16,
+  "maxLevel": 16,
+  "family": "Undead",
+  "faction": "Hostile",
+  "model": "undead",
+  "rare": true,
+  "healthMultiplier": 1.8,
+  "damageMultiplier": 1.3,
+  "scale": 1.3,
+  "moneyMin": 400,
+  "moneyMax": 800,
+  "abilities": [
+   {
+    "ability": "mob_armor_crush",
+    "interval": 9,
+    "initialDelay": 2,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_terrify",
+    "interval": 20,
+    "initialDelay": 8,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rs_mardra",
+  "name": "Mardra Klippenfürstin",
+  "title": "Anführerin der Dünenräuber",
+  "minLevel": 16,
+  "maxLevel": 16,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "elite": true,
+  "healthMultiplier": 1.3,
+  "damageMultiplier": 1.0,
+  "callsForHelp": true,
+  "scale": 1.2,
+  "moneyMin": 500,
+  "moneyMax": 1000,
+  "abilities": [
+   {
+    "ability": "mob_cleave",
+    "interval": 8,
+    "initialDelay": 4,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_net",
+    "interval": 14,
+    "initialDelay": 6,
+    "chance": 1.0,
+    "targetRule": "Random",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_enrage",
+    "interval": 600,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.3
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_q_rs_krone",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_mardra"
+   },
+   {
+    "item": "item_rs_green_feet_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_15",
+    "chance": 0.15,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ {
+  "id": "mob_rs_nethra",
+  "name": "Hohepriesterin Nethra",
+  "title": "Stimme der Hohlen Flut",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "family": "Humanoid",
+  "faction": "Hostile",
+  "model": "humanoid",
+  "elite": true,
+  "healthMultiplier": 2.5,
+  "damageMultiplier": 1.1,
+  "scale": 1.4,
+  "aggroRadius": 18,
+  "moneyMin": 1500,
+  "moneyMax": 3000,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 6,
+    "initialDelay": 0,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_shadow_ring",
+    "interval": 18,
+    "initialDelay": 8,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_terrify",
+    "interval": 24,
+    "initialDelay": 12,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_dark_mending",
+    "interval": 30,
+    "initialDelay": 15,
+    "chance": 1.0,
+    "targetRule": "Self",
+    "healthBelow": 0.5
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_q_rs_auge",
+    "chance": 1.0,
+    "min": 1,
+    "max": 1,
+    "quest": "q_rs_nethra"
+   },
+   {
+    "item": "item_rs_green_feet_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_hands_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_waist_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_wrist_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_sword1h_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_rs_green_staff_19",
+    "chance": 0.25,
+    "min": 1,
+    "max": 1
+   }
+  ]
+ }
+]

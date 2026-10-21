@@ -1,0 +1,4334 @@
+[
+ {
+  "id": "item_q_wm_saatgut",
+  "name": "Gerettetes Saatgut",
+  "description": "Aus dem Kropf eines Feldwühlers – noch keimfähig.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_getreide",
+  "name": "Sack Westmark-Korn",
+  "description": "Mit dem Brandzeichen der Weidenwacht.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_befehle",
+  "name": "Befehle der Sensenbrüder",
+  "description": "Unterzeichnet mit einer schwarzen Sense.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_sense",
+  "name": "Ruriks schwarze Sense",
+  "description": "Die Waffe des Anführers – Beweis seines Endes.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_panzer",
+  "name": "Schnapperpanzer",
+  "description": "Hart wie Stein, leicht wie Holz.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_wildbret",
+  "name": "Grauwald-Wildbret",
+  "description": "Zähes, aber nahrhaftes Wolfsfleisch.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_harz",
+  "name": "Verdorbenes Harz",
+  "description": "Schwarz und warm – es pulsiert.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_foliant",
+  "name": "Foliant der Hohlen Flut",
+  "description": "Die Tinte bewegt sich, wenn man nicht hinsieht.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_kette",
+  "name": "Gebetskette des Abts",
+  "description": "Jede Perle ist ein Splitter schwarzen Glases.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_wm_brief",
+  "name": "Brief an Mühlenmeister Ortwin",
+  "description": "Versiegelt von Bauer Hennig.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_wm_wuehlerborste",
+  "name": "Struppige Wühlerborste",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 14,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_wm_sensenlumpen",
+  "name": "Rußiger Lumpen",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 16,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_wm_schnapperschuppe",
+  "name": "Stumpfe Schnapperschuppe",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 18,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_wm_kuttenfetzen",
+  "name": "Schwarzer Kuttenfetzen",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 22,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_wm_green_feet_15",
+  "name": "Feldwacht-Pirschstiefel der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 27,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_green_hands_15",
+  "name": "Feldwacht-Seidenhandschuhe der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 12,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_green_waist_15",
+  "name": "Feldwacht-Kettengurt der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 37,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_green_wrist_15",
+  "name": "Feldwacht-Armbänder der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 16,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_green_sword1h_15",
+  "name": "Feldwacht-Säbel der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "minDamage": 21,
+  "maxDamage": 35,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_green_staff_15",
+  "name": "Feldwacht-Wanderstab der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "minDamage": 34,
+  "maxDamage": 57,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_green_feet_19",
+  "name": "Feldwacht-Pirschstiefel der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 32,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_green_hands_19",
+  "name": "Feldwacht-Seidenhandschuhe der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 15,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_green_waist_19",
+  "name": "Feldwacht-Kettengurt der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 45,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_green_wrist_19",
+  "name": "Feldwacht-Armbänder der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 20,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_green_sword1h_19",
+  "name": "Feldwacht-Säbel der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 26,
+  "maxDamage": 43,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_green_staff_19",
+  "name": "Feldwacht-Wanderstab der Westmark",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 42,
+  "maxDamage": 70,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_wuehler_str",
+  "name": "Beinschienen des Ackers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Mail",
+  "itemLevel": 14,
+  "requiredLevel": 10,
+  "armor": 71,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 48,
+  "sellPrice": 118,
+  "buyPrice": 475
+ },
+ {
+  "id": "item_wm_wuehler_agi",
+  "name": "Beinlinge des Ackers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Leather",
+  "itemLevel": 14,
+  "requiredLevel": 10,
+  "armor": 35,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 48,
+  "sellPrice": 118,
+  "buyPrice": 475
+ },
+ {
+  "id": "item_wm_wuehler_int",
+  "name": "Hose des Ackers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Cloth",
+  "itemLevel": 14,
+  "requiredLevel": 10,
+  "armor": 17,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 48,
+  "sellPrice": 118,
+  "buyPrice": 475
+ },
+ {
+  "id": "item_wm_brandschatzer_str",
+  "name": "Kettenhemd des Mühlenhügels",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Mail",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 84,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_brandschatzer_agi",
+  "name": "Lederwams des Mühlenhügels",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Leather",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 42,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_brandschatzer_int",
+  "name": "Robe des Mühlenhügels",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Cloth",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 21,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_wm_getreide_str",
+  "name": "Panzerhandschuhe des Müllers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Mail",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 52,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_wm_getreide_agi",
+  "name": "Handschuhe des Müllers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Leather",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 26,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_wm_getreide_int",
+  "name": "Handwickel des Müllers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_wm_rurik_str",
+  "name": "Schulterplatten der Weidenwacht",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Mail",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 75,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 260,
+  "buyPrice": 1042
+ },
+ {
+  "id": "item_wm_rurik_agi",
+  "name": "Schulterstücke der Weidenwacht",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Leather",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 37,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 260,
+  "buyPrice": 1042
+ },
+ {
+  "id": "item_wm_rurik_int",
+  "name": "Schulterumhang der Weidenwacht",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Cloth",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 18,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 5
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 260,
+  "buyPrice": 1042
+ },
+ {
+  "id": "item_wm_schnapper_str",
+  "name": "Schienenstiefel des Schilfs",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Mail",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 57,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_wm_schnapper_agi",
+  "name": "Stiefel des Schilfs",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 28,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_wm_schnapper_int",
+  "name": "Sandalen des Schilfs",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Cloth",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 14,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_wm_panzer_str",
+  "name": "Kettengurt der Fischerin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 41,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_panzer_agi",
+  "name": "Gürtel der Fischerin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 20,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_panzer_int",
+  "name": "Schärpe der Fischerin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 10,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_wildbret_str",
+  "name": "Armschienen des Gastwirts",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 36,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_wildbret_agi",
+  "name": "Armbänder des Gastwirts",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 18,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_wildbret_int",
+  "name": "Armwickel des Gastwirts",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 9,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_woelfe_str",
+  "name": "Helm des Waldläufers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 73,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_woelfe_agi",
+  "name": "Kappe des Waldläufers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 36,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_woelfe_int",
+  "name": "Kapuze des Waldläufers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 18,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_wm_baumhirten_str",
+  "name": "Streitaxt der Hirten",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Axe2H",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "minDamage": 45,
+  "maxDamage": 76,
+  "speed": 3.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 70,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_baumhirten_agi",
+  "name": "Bogen der Hirten",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Bow",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "minDamage": 27,
+  "maxDamage": 45,
+  "speed": 2.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 70,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_baumhirten_int",
+  "name": "Stab der Hirten",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "minDamage": 40,
+  "maxDamage": 67,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 70,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_harz_str",
+  "name": "Panzerhandschuhe der Läuterung",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Mail",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 57,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_harz_agi",
+  "name": "Handschuhe der Läuterung",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Leather",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 28,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_harz_int",
+  "name": "Handwickel der Läuterung",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 14,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_kriecher_str",
+  "name": "Klinge der Wurzeln",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 26,
+  "maxDamage": 43,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_kriecher_agi",
+  "name": "Dolch der Wurzeln",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Dagger",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 18,
+  "maxDamage": 30,
+  "speed": 1.7,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_kriecher_int",
+  "name": "Zauberstab der Wurzeln",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Wand",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 24,
+  "maxDamage": 40,
+  "speed": 1.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861,
+  "damageSchool": "Arcane"
+ },
+ {
+  "id": "item_wm_flutsteine_str",
+  "name": "Schienenstiefel des Lichts",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Mail",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 65,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_flutsteine_agi",
+  "name": "Stiefel des Lichts",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 32,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_flutsteine_int",
+  "name": "Sandalen des Lichts",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 16,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_wm_abtei_str",
+  "name": "Kettengurt von Sankt Elmar",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 47,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_wm_abtei_agi",
+  "name": "Gürtel von Sankt Elmar",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Leather",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 23,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_wm_abtei_int",
+  "name": "Schärpe von Sankt Elmar",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Cloth",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 11,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_wm_hexer_str",
+  "name": "Schulterplatten der Wachsamkeit",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Mail",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 78,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_wm_hexer_agi",
+  "name": "Schulterstücke der Wachsamkeit",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Leather",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 39,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_wm_hexer_int",
+  "name": "Schulterumhang der Wachsamkeit",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Cloth",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 19,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_wm_folianten_str",
+  "name": "Helm der Erkenntnis",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Mail",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 87,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_wm_folianten_agi",
+  "name": "Kappe der Erkenntnis",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Leather",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 43,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_wm_folianten_int",
+  "name": "Kapuze der Erkenntnis",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 21,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_wm_siegel_str",
+  "name": "Armschienen der Weihe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Mail",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 43,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_wm_siegel_agi",
+  "name": "Armbänder der Weihe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 21,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_wm_siegel_int",
+  "name": "Armwickel der Weihe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Cloth",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 10,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_wm_malachias_str",
+  "name": "Streitaxt des Abtbezwingers",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Axe2H",
+  "itemLevel": 22,
+  "requiredLevel": 18,
+  "minDamage": 63,
+  "maxDamage": 106,
+  "speed": 3.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 6
+   }
+  ],
+  "maxDurability": 80,
+  "sellPrice": 386,
+  "buyPrice": 1547
+ },
+ {
+  "id": "item_wm_malachias_agi",
+  "name": "Bogen des Abtbezwingers",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Bow",
+  "itemLevel": 22,
+  "requiredLevel": 18,
+  "minDamage": 37,
+  "maxDamage": 62,
+  "speed": 2.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 6
+   }
+  ],
+  "maxDurability": 80,
+  "sellPrice": 386,
+  "buyPrice": 1547
+ },
+ {
+  "id": "item_wm_malachias_int",
+  "name": "Stab des Abtbezwingers",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 22,
+  "requiredLevel": 18,
+  "minDamage": 56,
+  "maxDamage": 94,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 6
+   }
+  ],
+  "maxDurability": 80,
+  "sellPrice": 386,
+  "buyPrice": 1547
+ },
+ {
+  "id": "item_wm_wk_moderkeim_str",
+  "name": "Schienenstiefel der Krypta",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 62,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 233,
+  "buyPrice": 932
+ },
+ {
+  "id": "item_wm_wk_moderkeim_agi",
+  "name": "Stiefel der Krypta",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 31,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 233,
+  "buyPrice": 932
+ },
+ {
+  "id": "item_wm_wk_moderkeim_int",
+  "name": "Sandalen der Krypta",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 15,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 233,
+  "buyPrice": 932
+ },
+ {
+  "id": "item_wm_wk_untote_str",
+  "name": "Armschienen der Grenzwache",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Mail",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 38,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_wk_untote_agi",
+  "name": "Armbänder der Grenzwache",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 19,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_wk_untote_int",
+  "name": "Armwickel der Grenzwache",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Cloth",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 9,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_wm_wk_elvaine_str",
+  "name": "Umhang der Dryade",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Back",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 289,
+  "buyPrice": 1159
+ },
+ {
+  "id": "item_wm_wk_elvaine_agi",
+  "name": "Umhang der Dryade",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Back",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 289,
+  "buyPrice": 1159
+ },
+ {
+  "id": "item_wm_wk_elvaine_int",
+  "name": "Umhang der Dryade",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Back",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 5
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 289,
+  "buyPrice": 1159
+ },
+ {
+  "id": "item_q_rs_stachel",
+  "name": "Glutstachel",
+  "description": "Brennt noch Stunden nach dem Tod des Skorpions.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_wasser",
+  "name": "Fass mit Oasenwasser",
+  "description": "Mit dem Zeichen von Zharas Rast.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_karte",
+  "name": "Beuteplan der Dünenräuber",
+  "description": "Eine Karte der Karawanenwege, jede Route mit einem Kreuz.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_krone",
+  "name": "Mardras Kriegskrone",
+  "description": "Ein Reif aus Karawanengold.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_skarabaeus",
+  "name": "Grabskarabäus",
+  "description": "Ein Amulett aus blauem Glas, kalt wie Mondlicht.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_wurmfleisch",
+  "name": "Sandwurmfleisch",
+  "description": "Zäh, aber nahrhaft – wenn man es lange genug kocht.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_harz",
+  "name": "Dürrwurzel-Harz",
+  "description": "Schwarz und warm – es pulsiert.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_schriftrolle",
+  "name": "Schriftrolle der Hohlen Flut",
+  "description": "Die Zeichen kriechen über das Papier.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_auge",
+  "name": "Auge der Hohepriesterin",
+  "description": "Ein schwarzer Kristall, der in der Hand pocht.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_q_rs_botschaft",
+  "name": "Botschaft für Späherin Ishra",
+  "description": "Versiegelt von Karawanenmeister Orrak.",
+  "quality": "Common",
+  "category": "Quest",
+  "itemLevel": 1,
+  "requiredLevel": 0,
+  "maxStack": 20,
+  "sellPrice": 0,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_rs_schakalfell",
+  "name": "Räudiges Schakalfell",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 14,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_rs_chitinsplitter",
+  "name": "Chitinsplitter",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 15,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_rs_staubtuch",
+  "name": "Staubiges Kopftuch",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 16,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_rs_grabbinde",
+  "name": "Vergilbte Grabbinde",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 18,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_rs_wurmzahn",
+  "name": "Abgebrochener Wurmzahn",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 20,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_rs_kultmaske",
+  "name": "Gesprungene Kultmaske",
+  "description": "Kann bei Händlern verkauft werden.",
+  "quality": "Poor",
+  "category": "Misc",
+  "itemLevel": 15,
+  "requiredLevel": 0,
+  "maxStack": 10,
+  "sellPrice": 22,
+  "buyPrice": 0,
+  "modifiers": []
+ },
+ {
+  "id": "item_rs_green_feet_15",
+  "name": "Dünenwacht-Pirschstiefel des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 27,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_green_hands_15",
+  "name": "Dünenwacht-Seidenhandschuhe des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 12,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_green_waist_15",
+  "name": "Dünenwacht-Kettengurt des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 37,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_green_wrist_15",
+  "name": "Dünenwacht-Armbänder des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 16,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_green_sword1h_15",
+  "name": "Dünenwacht-Säbel des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "minDamage": 21,
+  "maxDamage": 35,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_green_staff_15",
+  "name": "Dünenwacht-Wanderstab des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "minDamage": 34,
+  "maxDamage": 57,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_green_feet_19",
+  "name": "Dünenwacht-Pirschstiefel des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 32,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_green_hands_19",
+  "name": "Dünenwacht-Seidenhandschuhe des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 15,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_green_waist_19",
+  "name": "Dünenwacht-Kettengurt des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 45,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_green_wrist_19",
+  "name": "Dünenwacht-Armbänder des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 20,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_green_sword1h_19",
+  "name": "Dünenwacht-Säbel des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 26,
+  "maxDamage": 43,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_green_staff_19",
+  "name": "Dünenwacht-Wanderstab des Rotsands",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 42,
+  "maxDamage": 70,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_schakale_str",
+  "name": "Beinschienen der Karawane",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Mail",
+  "itemLevel": 14,
+  "requiredLevel": 10,
+  "armor": 71,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 48,
+  "sellPrice": 118,
+  "buyPrice": 475
+ },
+ {
+  "id": "item_rs_schakale_agi",
+  "name": "Beinlinge der Karawane",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Leather",
+  "itemLevel": 14,
+  "requiredLevel": 10,
+  "armor": 35,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 48,
+  "sellPrice": 118,
+  "buyPrice": 475
+ },
+ {
+  "id": "item_rs_schakale_int",
+  "name": "Hose der Karawane",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Cloth",
+  "itemLevel": 14,
+  "requiredLevel": 10,
+  "armor": 17,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 48,
+  "sellPrice": 118,
+  "buyPrice": 475
+ },
+ {
+  "id": "item_rs_raeuber_str",
+  "name": "Kettenhemd der Klippen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Mail",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 84,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_raeuber_agi",
+  "name": "Lederwams der Klippen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Leather",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 42,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_raeuber_int",
+  "name": "Robe der Klippen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Chest",
+  "armorType": "Cloth",
+  "itemLevel": 15,
+  "requiredLevel": 11,
+  "armor": 21,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 3
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 50,
+  "sellPrice": 135,
+  "buyPrice": 542
+ },
+ {
+  "id": "item_rs_wasser_str",
+  "name": "Panzerhandschuhe der Wasserträger",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Mail",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 52,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_rs_wasser_agi",
+  "name": "Handschuhe der Wasserträger",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Leather",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 26,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_rs_wasser_int",
+  "name": "Handwickel der Wasserträger",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_rs_mardra_str",
+  "name": "Schulterplatten von Zharas Rast",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Mail",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 75,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 260,
+  "buyPrice": 1042
+ },
+ {
+  "id": "item_rs_mardra_agi",
+  "name": "Schulterstücke von Zharas Rast",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Leather",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 37,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 260,
+  "buyPrice": 1042
+ },
+ {
+  "id": "item_rs_mardra_int",
+  "name": "Schulterumhang von Zharas Rast",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Cloth",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 18,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 5
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 260,
+  "buyPrice": 1042
+ },
+ {
+  "id": "item_rs_waechter_str",
+  "name": "Schienenstiefel der Senke",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Mail",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 57,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_rs_waechter_agi",
+  "name": "Stiefel der Senke",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 28,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_rs_waechter_int",
+  "name": "Sandalen der Senke",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Cloth",
+  "itemLevel": 16,
+  "requiredLevel": 12,
+  "armor": 14,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 52,
+  "sellPrice": 153,
+  "buyPrice": 615
+ },
+ {
+  "id": "item_rs_skarabaeus_str",
+  "name": "Kettengurt der Brunnenhüterin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 41,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_skarabaeus_agi",
+  "name": "Gürtel der Brunnenhüterin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 20,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_skarabaeus_int",
+  "name": "Schärpe der Brunnenhüterin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 10,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_wurmfleisch_str",
+  "name": "Armschienen der Wirtin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 36,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_wurmfleisch_agi",
+  "name": "Armbänder der Wirtin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 18,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_wurmfleisch_int",
+  "name": "Armwickel der Wirtin",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 9,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_wuermer_str",
+  "name": "Helm des Totenrufers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 73,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_wuermer_agi",
+  "name": "Kappe des Totenrufers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 36,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_wuermer_int",
+  "name": "Kapuze des Totenrufers",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 18,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 3
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 173,
+  "buyPrice": 692
+ },
+ {
+  "id": "item_rs_koenige_str",
+  "name": "Streitaxt der Könige",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Axe2H",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "minDamage": 45,
+  "maxDamage": 76,
+  "speed": 3.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 70,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_koenige_agi",
+  "name": "Bogen der Könige",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Bow",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "minDamage": 27,
+  "maxDamage": 45,
+  "speed": 2.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 70,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_koenige_int",
+  "name": "Stab der Könige",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "minDamage": 40,
+  "maxDamage": 67,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 70,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_riss_harz_str",
+  "name": "Panzerhandschuhe der Läuterung",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Mail",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 57,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_riss_harz_agi",
+  "name": "Handschuhe der Läuterung",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Leather",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 28,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_riss_harz_int",
+  "name": "Handwickel der Läuterung",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Hands",
+  "armorType": "Cloth",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 14,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_kriecher_str",
+  "name": "Klinge der Dürrwurzel",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Sword1H",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 26,
+  "maxDamage": 43,
+  "speed": 2.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_kriecher_agi",
+  "name": "Dolch der Dürrwurzel",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "OneHand",
+  "weaponType": "Dagger",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 18,
+  "maxDamage": 30,
+  "speed": 1.7,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_kriecher_int",
+  "name": "Zauberstab der Dürrwurzel",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Wand",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "minDamage": 24,
+  "maxDamage": 40,
+  "speed": 1.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 215,
+  "buyPrice": 861,
+  "damageSchool": "Arcane"
+ },
+ {
+  "id": "item_rs_flutsteine_str",
+  "name": "Schienenstiefel der Sonne",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Mail",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 65,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_flutsteine_agi",
+  "name": "Stiefel der Sonne",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 32,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_flutsteine_int",
+  "name": "Sandalen der Sonne",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 16,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 215,
+  "buyPrice": 861
+ },
+ {
+  "id": "item_rs_tempel_str",
+  "name": "Kettengurt des Tempels",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Mail",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 47,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_rs_tempel_agi",
+  "name": "Gürtel des Tempels",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Leather",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 23,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_rs_tempel_int",
+  "name": "Schärpe des Tempels",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Waist",
+  "armorType": "Cloth",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 11,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_rs_seherinnen_str",
+  "name": "Schulterplatten der Wachsamkeit",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Mail",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 78,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_rs_seherinnen_agi",
+  "name": "Schulterstücke der Wachsamkeit",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Leather",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 39,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_rs_seherinnen_int",
+  "name": "Schulterumhang der Wachsamkeit",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Cloth",
+  "itemLevel": 20,
+  "requiredLevel": 16,
+  "armor": 19,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 60,
+  "sellPrice": 238,
+  "buyPrice": 953
+ },
+ {
+  "id": "item_rs_schriftrollen_str",
+  "name": "Helm der Erkenntnis",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Mail",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 87,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_rs_schriftrollen_agi",
+  "name": "Kappe der Erkenntnis",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Leather",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 43,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_rs_schriftrollen_int",
+  "name": "Kapuze der Erkenntnis",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Head",
+  "armorType": "Cloth",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 21,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_rs_altar_str",
+  "name": "Armschienen der Weihe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Mail",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 43,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_rs_altar_agi",
+  "name": "Armbänder der Weihe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 21,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_rs_altar_int",
+  "name": "Armwickel der Weihe",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Cloth",
+  "itemLevel": 21,
+  "requiredLevel": 17,
+  "armor": 10,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 62,
+  "sellPrice": 262,
+  "buyPrice": 1049
+ },
+ {
+  "id": "item_rs_nethra_str",
+  "name": "Streitaxt der Sonnenbezwinger",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Axe2H",
+  "itemLevel": 22,
+  "requiredLevel": 18,
+  "minDamage": 63,
+  "maxDamage": 106,
+  "speed": 3.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 6
+   }
+  ],
+  "maxDurability": 80,
+  "sellPrice": 386,
+  "buyPrice": 1547
+ },
+ {
+  "id": "item_rs_nethra_agi",
+  "name": "Bogen der Sonnenbezwinger",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Bow",
+  "itemLevel": 22,
+  "requiredLevel": 18,
+  "minDamage": 37,
+  "maxDamage": 62,
+  "speed": 2.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 6
+   }
+  ],
+  "maxDurability": 80,
+  "sellPrice": 386,
+  "buyPrice": 1547
+ },
+ {
+  "id": "item_rs_nethra_int",
+  "name": "Stab der Sonnenbezwinger",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 22,
+  "requiredLevel": 18,
+  "minDamage": 56,
+  "maxDamage": 94,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 6
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 6
+   }
+  ],
+  "maxDurability": 80,
+  "sellPrice": 386,
+  "buyPrice": 1547
+ },
+ {
+  "id": "item_rs_wk_moderkeim_str",
+  "name": "Schienenstiefel der Krypta",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Mail",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 62,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 233,
+  "buyPrice": 932
+ },
+ {
+  "id": "item_rs_wk_moderkeim_agi",
+  "name": "Stiefel der Krypta",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Leather",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 31,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 233,
+  "buyPrice": 932
+ },
+ {
+  "id": "item_rs_wk_moderkeim_int",
+  "name": "Sandalen der Krypta",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Feet",
+  "armorType": "Cloth",
+  "itemLevel": 17,
+  "requiredLevel": 13,
+  "armor": 15,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 54,
+  "sellPrice": 233,
+  "buyPrice": 932
+ },
+ {
+  "id": "item_rs_wk_untote_str",
+  "name": "Armschienen der Ahnen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Mail",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 38,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_wk_untote_agi",
+  "name": "Armbänder der Ahnen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Leather",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 19,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_wk_untote_int",
+  "name": "Armwickel der Ahnen",
+  "description": "",
+  "quality": "Uncommon",
+  "category": "Armor",
+  "inventoryType": "Wrist",
+  "armorType": "Cloth",
+  "itemLevel": 18,
+  "requiredLevel": 14,
+  "armor": 9,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 4
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 4
+   }
+  ],
+  "maxDurability": 56,
+  "sellPrice": 193,
+  "buyPrice": 775
+ },
+ {
+  "id": "item_rs_wk_elvaine_str",
+  "name": "Umhang der Dryade",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Back",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 289,
+  "buyPrice": 1159
+ },
+ {
+  "id": "item_rs_wk_elvaine_agi",
+  "name": "Umhang der Dryade",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Back",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 5
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 289,
+  "buyPrice": 1159
+ },
+ {
+  "id": "item_rs_wk_elvaine_int",
+  "name": "Umhang der Dryade",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Back",
+  "armorType": "Cloth",
+  "itemLevel": 19,
+  "requiredLevel": 15,
+  "armor": 13,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 5
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 5
+   }
+  ],
+  "maxDurability": 58,
+  "sellPrice": 289,
+  "buyPrice": 1159
+ }
+]

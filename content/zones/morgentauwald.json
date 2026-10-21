@@ -1095,6 +1095,17 @@
     "count": 5,
     "radius": 25,
     "respawnSeconds": 60
+   },
+   {
+    "object": "obj_weg_nach_wm",
+    "position": [
+     890,
+     0,
+     470
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
    }
   ],
   "mapRect": [

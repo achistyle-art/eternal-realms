@@ -484,7 +484,7 @@ void Command(string line)
         {
             var st = client.Achievements;
             Print($"Erfolgspunkte: {st.Points} – Titel: {(st.Titles.Count == 0 ? "keine" : string.Join(", ", st.Titles))}{(st.ActiveTitle != "" ? $" (aktiv: {st.ActiveTitle})" : "")}");
-            foreach (var cat in content.Achievements.Values.GroupBy(x => x.Category))
+            foreach (var cat in content.Achievements.Values.Where(content.IsReachable).GroupBy(x => x.Category))
             {
                 Print($"  {cat.Key}:");
                 foreach (var ad in cat)

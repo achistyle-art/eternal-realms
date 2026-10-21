@@ -13,3 +13,4 @@ client/Unity/Assets/StreamingAssets/content/
 build/
 releases/
 backups/
+__pycache__/

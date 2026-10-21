@@ -42,27 +42,6 @@
   ]
  },
  {
-  "id": "zone_westmark",
-  "name": "Westmark",
-  "continent": "Aurelion",
-  "minLevel": 10,
-  "maxLevel": 20,
-  "faction": "Sonnenbuendnis",
-  "biome": "Ackerland",
-  "description": "Weite Felder, Windmühlen und Grenzburgen gegen Banditen und Gnolle.",
-  "weather": [
-   "Clear",
-   "Rain"
-  ],
-  "playable": false,
-  "mapRect": [
-   230,
-   690,
-   140,
-   130
-  ]
- },
- {
   "id": "zone_nebelmoor",
   "name": "Nebelmoor",
   "continent": "Aurelion",
@@ -249,27 +228,6 @@
    660,
    160,
    150
-  ]
- },
- {
-  "id": "zone_rotsand",
-  "name": "Rotsandwüste",
-  "continent": "Kharvath",
-  "minLevel": 10,
-  "maxLevel": 25,
-  "faction": "Schattenpakt",
-  "biome": "Wüste",
-  "description": "Rote Dünen, vergrabene Tempel und Riesenskorpione.",
-  "weather": [
-   "Clear",
-   "Storm"
-  ],
-  "playable": false,
-  "mapRect": [
-   280,
-   720,
-   130,
-   130
   ]
  },
  {

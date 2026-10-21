@@ -22,7 +22,7 @@ namespace EternalRealms.Server.Systems
             switch (parts[0].ToLowerInvariant())
             {
                 case "level":
-                    int target = Math.Clamp(IntArg(1, p.Level + 1), 1, Experience.MaxLevel);
+                    int target = Math.Clamp(IntArg(1, p.Level + 1), 1, _w.Content.LevelCap);
                     while (p.Level < target) _w.Progression.LevelUp(p);
                     p.Data.Xp = 0;
                     p.Send(p.BuildPlayerState());

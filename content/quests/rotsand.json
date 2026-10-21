@@ -1,0 +1,1394 @@
+[
+ {
+  "id": "q_rs_ankunft",
+  "title": "Ruf aus der Rotsandwüste",
+  "category": "Main",
+  "zone": "zone_rotsand",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_as_chief",
+  "turnIn": "npc_rs_main",
+  "requires": [],
+  "text": "Eine Windreiterin aus dem Westen ist gestern gelandet – mit einem Pfeil in der Schulter. Zharas Rast braucht Krieger. Räuber, Bestien und ein Kult, über den niemand gerne spricht. Du hast dich hier bewiesen. Folge dem Karawanenpfad nach Westen und melde dich bei Zhara Sandklinge.",
+  "objectivesText": "Ziele: Zhara Sandklinge gesprochen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Der Kriegshäuptling schickt dich? Gut. Wasser haben wir genug – Klingen nicht. Willkommen in Zharas Rast.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_rs_main",
+    "count": 1,
+    "description": "Zhara Sandklinge gesprochen"
+   }
+  ],
+  "rewardXp": 650,
+  "rewardMoney": 115,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_felder",
+  "title": "Die Karawanen des Dünenmeers",
+  "category": "Main",
+  "zone": "zone_rotsand",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_main",
+  "turnIn": "npc_rs_farm",
+  "requires": [
+   "q_rs_ankunft"
+  ],
+  "text": "Die Karawanen sind unser Blut. Ohne sie verdurstet Kharzul langsam an Gold- und Getreidemangel. Karawanenmeister Orrak lagert am Rand des Dünenmeers. Hilf ihm.",
+  "objectivesText": "Ziele: Karawanenmeister Orrak gesprochen, Dünenmeer erreicht.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Zhara schickt Verstärkung? Endlich. Sieh dich um – die Schakale lauern hinter jeder Düne.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_rs_farm",
+    "count": 1,
+    "description": "Karawanenmeister Orrak gesprochen"
+   },
+   {
+    "type": "Explore",
+    "target": "area_rs_duenen",
+    "count": 1,
+    "description": "Dünenmeer erreicht"
+   }
+  ],
+  "rewardXp": 650,
+  "rewardMoney": 115,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_schakale",
+  "title": "Schakale der Dünen",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_farm",
+  "turnIn": "npc_rs_farm",
+  "requires": [
+   "q_rs_felder"
+  ],
+  "text": "Die Schakale jagen in Rudeln und reißen die Lasttiere, sobald sie zurückfallen. Zwölf Schakale. Dann können meine Tiere wieder in Ruhe trinken.",
+  "objectivesText": "Ziele: 12× Rotsand-Schakale.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Rudel sind kleiner geworden. Die Lasttiere spüren es schon.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rs_schakal",
+    "count": 12,
+    "description": "Rotsand-Schakale getötet"
+   }
+  ],
+  "rewardXp": 2000,
+  "rewardMoney": 360,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_schakale_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_schakale_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_schakale_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_stachel",
+  "title": "Gift gegen Gift",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_farm",
+  "turnIn": "npc_rs_farm",
+  "requires": [
+   "q_rs_felder"
+  ],
+  "text": "Die Glutstachel-Skorpionen haben drei meiner Treiber gestochen. Das einzige Gegengift wird aus ihren eigenen Stacheln gebraut. Bring mir acht.",
+  "objectivesText": "Ziele: 8× Glutstachel.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Damit brauen wir genug Gegengift für die nächsten drei Karawanen. Danke.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_stachel",
+    "count": 8,
+    "description": "Glutstachel"
+   }
+  ],
+  "rewardXp": 2000,
+  "rewardMoney": 360,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_botschaft",
+  "title": "Botschaft zu den Klippen",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 13,
+  "minLevel": 11,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_farm",
+  "turnIn": "npc_rs_mason",
+  "requires": [
+   "q_rs_schakale"
+  ],
+  "text": "Späherin Ishra beobachtet die Räuberklippen im Nordosten. Seit Tagen keine Nachricht. Bring ihr diese Botschaft und sieh nach, ob sie noch lebt.",
+  "objectivesText": "Ziele: Botschaft überbracht, Räuberklippen erreicht.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Orrak denkt also noch an mich. Ich lebe – aber nicht mehr lange, wenn das so weitergeht.",
+  "objectives": [
+   {
+    "type": "Deliver",
+    "target": "npc_rs_mason",
+    "count": 1,
+    "description": "Botschaft überbracht"
+   },
+   {
+    "type": "Explore",
+    "target": "area_rs_klippen",
+    "count": 1,
+    "description": "Räuberklippen erreicht"
+   }
+  ],
+  "rewardXp": 700,
+  "rewardMoney": 135,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [
+   {
+    "item": "item_q_rs_botschaft",
+    "count": 1
+   }
+  ],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_raeuber",
+  "title": "Die Dünenräuber",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 13,
+  "minLevel": 11,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_mason",
+  "turnIn": "npc_rs_mason",
+  "requires": [
+   "q_rs_botschaft"
+  ],
+  "text": "Die Dünenräuber haben sich in den Klippen eingenistet. Jede Karawane, die vorbeizieht, verliert Wasser, Waren und Leben. Zehn Räuber und sechs Schleuderer. Zeig ihnen, dass der Pakt zurückschlägt.",
+  "objectivesText": "Ziele: 10× Dünenräuber, 6× Schleuderer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Sie werden sich jetzt zweimal überlegen, ob sie angreifen. Das ist mehr, als ich allein geschafft habe.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rs_raeuber",
+    "count": 10,
+    "description": "Dünenräuber getötet"
+   },
+   {
+    "type": "Kill",
+    "target": "mob_rs_schleuderer",
+    "count": 6,
+    "description": "Schleuderer getötet"
+   }
+  ],
+  "rewardXp": 2300,
+  "rewardMoney": 422,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_raeuber_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_raeuber_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_raeuber_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_wasser",
+  "title": "Gestohlenes Wasser",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 14,
+  "minLevel": 12,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_mason",
+  "turnIn": "npc_rs_mason",
+  "requires": [
+   "q_rs_botschaft"
+  ],
+  "text": "Sie stehlen das Wasser nicht, um es zu trinken – sie verkaufen es zurück. Acht Fässer stehen überall in den Klippen. Hol sie zurück.",
+  "objectivesText": "Ziele: 8× Fässer mit Oasenwasser.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Acht Fässer! Ich schicke sie sofort zur Rast. Heute Nacht verdurstet niemand.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_wasser",
+    "count": 8,
+    "description": "Fässer mit Oasenwasser"
+   }
+  ],
+  "rewardXp": 2550,
+  "rewardMoney": 490,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_wasser_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wasser_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wasser_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_karte",
+  "title": "Wer führt die Räuber?",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 14,
+  "minLevel": 12,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_mason",
+  "turnIn": "npc_rs_mason",
+  "requires": [
+   "q_rs_raeuber"
+  ],
+  "text": "Räuber planen nicht so genau. Jemand kennt jede Karawanenroute. Durchsuche sie – einer trägt sicher einen Plan bei sich.",
+  "objectivesText": "Ziele: 1× Beuteplan der Dünenräuber.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Mardra. Die Klippenfürstin. Sie war einst Karawanenwache – sie kennt jeden Weg, weil sie ihn selbst bewacht hat.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_karte",
+    "count": 1,
+    "description": "Beuteplan der Dünenräuber"
+   }
+  ],
+  "rewardXp": 2550,
+  "rewardMoney": 490,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_mardra",
+  "title": "Mardra Klippenfürstin",
+  "category": "Main",
+  "zone": "zone_rotsand",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_mason",
+  "turnIn": "npc_rs_main",
+  "requires": [
+   "q_rs_karte"
+  ],
+  "text": "Mardra hält sich oben in den Klippen, umgeben von ihren besten Leuten. Allein schaffst du das nicht. Nimm Gefährten mit, bring mir ihre Krone und überbringe Zhara die Nachricht.",
+  "objectivesText": "Ziele: 1× Mardras Kriegskrone.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Mardra... Wir sind zusammen geritten, vor langer Zeit. Die Wüste verändert Menschen. Du hast der Rast einen großen Dienst erwiesen.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_krone",
+    "count": 1,
+    "description": "Mardras Kriegskrone"
+   }
+  ],
+  "rewardXp": 5400,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_mardra_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_mardra_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_mardra_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 500
+   }
+  ],
+  "suggestedPlayers": 3,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_waechter",
+  "title": "Die Wächter der Senke",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 14,
+  "minLevel": 12,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_fisher",
+  "turnIn": "npc_rs_fisher",
+  "requires": [
+   "q_rs_ankunft"
+  ],
+  "text": "Unter dem Glas der Senke liegt eine Quelle. Aber die Grabwächter erheben sich, sobald jemand sich nähert. Vernichte zehn, damit wir graben können.",
+  "objectivesText": "Ziele: 10× Grabwächter.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Endlich Ruhe. Die Grabungen können beginnen.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rs_waechter",
+    "count": 10,
+    "description": "Grabwächter vernichtet"
+   }
+  ],
+  "rewardXp": 2550,
+  "rewardMoney": 490,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_waechter_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_waechter_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_waechter_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_skarabaeus",
+  "title": "Blaue Skarabäen",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_fisher",
+  "turnIn": "npc_rs_fisher",
+  "requires": [
+   "q_rs_ankunft"
+  ],
+  "text": "Die Wächter tragen Skarabäen aus blauem Glas. Sie binden ihre Seelen an die Gräber. Bring mir sechs – ich zerbreche sie, damit die Toten endlich gehen können.",
+  "objectivesText": "Ziele: 6× Grabskarabäen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ich höre sie seufzen, wenn das Glas bricht. Danke.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_skarabaeus",
+    "count": 6,
+    "description": "Grabskarabäen"
+   }
+  ],
+  "rewardXp": 2850,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_skarabaeus_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_skarabaeus_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_skarabaeus_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_wurmfleisch",
+  "title": "Fleisch für die Rast",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_inn",
+  "turnIn": "npc_rs_inn",
+  "requires": [
+   "q_rs_ankunft"
+  ],
+  "text": "Die Rast ist voll mit Flüchtlingen aus den Karawanen, und mein Vorratsraum ist leer. Die Sandwürmer bei den Königsgräbern sind riesig. Bring mir acht Stück Fleisch.",
+  "objectivesText": "Ziele: 8× Sandwurmfleisch.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das gibt Eintopf für alle. Bei mir hast du immer ein Lager frei.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_wurmfleisch",
+    "count": 8,
+    "description": "Sandwurmfleisch"
+   }
+  ],
+  "rewardXp": 2850,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_wurmfleisch_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wurmfleisch_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wurmfleisch_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_graeber",
+  "title": "Unruhe in den Königsgräbern",
+  "category": "Main",
+  "zone": "zone_rotsand",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_main",
+  "turnIn": "npc_rs_ranger",
+  "requires": [
+   "q_rs_raeuber"
+  ],
+  "text": "Die Räuber sind ein Problem, das ich verstehe. Was in den Königsgräbern geschieht, verstehe ich nicht. Totenrufer Vashkar wacht dort. Geh zu ihm.",
+  "objectivesText": "Ziele: Totenrufer Vashkar gesprochen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Zhara schickt dich? Dann hör gut zu. Die Toten sprechen – und was sie sagen, gefällt mir nicht.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_rs_ranger",
+    "count": 1,
+    "description": "Totenrufer Vashkar gesprochen"
+   }
+  ],
+  "rewardXp": 900,
+  "rewardMoney": 180,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_wuermer",
+  "title": "Würmer unter den Gräbern",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_ranger",
+  "turnIn": "npc_rs_ranger",
+  "requires": [
+   "q_rs_graeber"
+  ],
+  "text": "Die Sandwürmer wühlen sich durch die Gräber und fressen, was sie finden. Etwas treibt sie aus der Tiefe herauf. Töte zwölf, bevor sie die Grabkammern ganz einstürzen lassen.",
+  "objectivesText": "Ziele: 12× Sandwürmer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Hast du bemerkt, wie sie geflohen sind? Nicht vor dir. Vor etwas unter ihnen.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rs_wurm",
+    "count": 12,
+    "description": "Sandwürmer getötet"
+   }
+  ],
+  "rewardXp": 2850,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_wuermer_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wuermer_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wuermer_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_koenige",
+  "title": "Die rastlosen Könige",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_ranger",
+  "turnIn": "npc_rs_ranger",
+  "requires": [
+   "q_rs_graeber"
+  ],
+  "text": "Die alten Könige rufen ihre Wächter aus der Glassenke zu sich – sie wollen sich erheben. Geh in die Gräber und sieh nach, dann vernichte zehn Wächter, bevor ein Heer daraus wird.",
+  "objectivesText": "Ziele: Königsgräber erkundet, 10× Grabwächter.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Könige schweigen wieder. Für eine Weile.",
+  "objectives": [
+   {
+    "type": "Explore",
+    "target": "area_rs_graeber",
+    "count": 1,
+    "description": "Königsgräber erkundet"
+   },
+   {
+    "type": "Kill",
+    "target": "mob_rs_waechter",
+    "count": 10,
+    "description": "Grabwächter vernichtet"
+   }
+  ],
+  "rewardXp": 3200,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_koenige_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_koenige_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_koenige_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_riss_harz",
+  "title": "Schwarzes Harz",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_ranger",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_graeber"
+  ],
+  "text": "Im Nordwesten brechen schwarze Wurzeln aus dem Sand. Aus den Kriechern dort tropft ein Harz, das nach Tod riecht. Seher Rakhim kann lesen, woher es kommt. Sammle acht Klumpen und bring sie ihm.",
+  "objectivesText": "Ziele: 8× Dürrwurzel-Harz.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Dieses Harz... es kommt aus der Wurzelkrypta. Die Wurzeln reichen bis hierher, unter dem ganzen Kontinent hindurch.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_harz",
+    "count": 8,
+    "description": "Dürrwurzel-Harz"
+   }
+  ],
+  "rewardXp": 3200,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_riss_harz_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_riss_harz_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_riss_harz_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_riss",
+  "title": "Der Dürrwurzelriss",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_riss_harz"
+  ],
+  "text": "Geh zum Dürrwurzelriss und sieh dir an, was dort wächst. Dann komm zurück.",
+  "objectivesText": "Ziele: Dürrwurzelriss erkundet.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Flutsteine. Kristalle, die die Hohle Flut nähren. Wenn sie hier wachsen, stirbt die Oase.",
+  "objectives": [
+   {
+    "type": "Explore",
+    "target": "area_rs_riss",
+    "count": 1,
+    "description": "Dürrwurzelriss erkundet"
+   }
+  ],
+  "rewardXp": 1100,
+  "rewardMoney": 231,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_kriecher",
+  "title": "Kriechende Wurzeln",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_riss"
+  ],
+  "text": "Die Kriecher schützen die Flutsteine. Lichte ihre Reihen – zwölf von ihnen.",
+  "objectivesText": "Ziele: 12× Dürrwurzel-Kriecher.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Der Riss ist ruhiger. Jetzt die Steine.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rs_kriecher",
+    "count": 12,
+    "description": "Dürrwurzel-Kriecher getötet"
+   }
+  ],
+  "rewardXp": 3550,
+  "rewardMoney": 722,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_kriecher_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_kriecher_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_kriecher_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_flutsteine",
+  "title": "Flutsteine zerschlagen",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_riss"
+  ],
+  "text": "Die Flutsteine müssen an Ort und Stelle zerschlagen werden. Ich habe meinen Segen auf deine Waffe gelegt. Zerschlage fünf von ihnen.",
+  "objectivesText": "Ziele: Flutsteine zerschlagen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ich habe es gespürt, als sie zersprungen sind – und eine Antwort. Aus dem Tempel der Versunkenen Sonne.",
+  "objectives": [
+   {
+    "type": "Interact",
+    "target": "obj_rs_flutstein",
+    "count": 5,
+    "description": "Flutsteine zerschlagen"
+   }
+  ],
+  "rewardXp": 3550,
+  "rewardMoney": 722,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_flutsteine_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_flutsteine_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_flutsteine_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_tempel",
+  "title": "Der hohle Tempel",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 18,
+  "minLevel": 16,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_flutsteine"
+  ],
+  "text": "Der Tempel war unser heiligster Ort. Hohepriesterin Nethra hat die Seher vertrieben und betet dort nun zur Flut. Geh hin und töte acht ihrer Geweihten.",
+  "objectivesText": "Ziele: Tempel der Versunkenen Sonne erreicht, 8× Geweihte.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Einige von ihnen waren meine Schüler. Möge die Sonne ihnen vergeben.",
+  "objectives": [
+   {
+    "type": "Explore",
+    "target": "area_rs_tempel",
+    "count": 1,
+    "description": "Tempel der Versunkenen Sonne erreicht"
+   },
+   {
+    "type": "Kill",
+    "target": "mob_rs_geweihter",
+    "count": 8,
+    "description": "Geweihte getötet"
+   }
+  ],
+  "rewardXp": 3900,
+  "rewardMoney": 810,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_tempel_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_tempel_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_tempel_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_seherinnen",
+  "title": "Die falschen Seherinnen",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 18,
+  "minLevel": 16,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_tempel"
+  ],
+  "text": "Die Seherinnen der Flut sind Nethras rechte Hand. Sie sehen nicht – sie befehlen. Töte acht von ihnen.",
+  "objectivesText": "Ziele: 8× Seherinnen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ohne ihre Seherinnen ist Nethra verwundbar.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rs_seherin",
+    "count": 8,
+    "description": "Seherinnen getötet"
+   }
+  ],
+  "rewardXp": 3900,
+  "rewardMoney": 810,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_seherinnen_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_seherinnen_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_seherinnen_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_schriftrollen",
+  "title": "Die schwarzen Schriftrollen",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 19,
+  "minLevel": 17,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_tempel"
+  ],
+  "text": "Nethras Anhänger tragen Abschriften ihrer Gebete. Bring mir sechs Schriftrollen. Ich muss wissen, was sie vorhat.",
+  "objectivesText": "Ziele: 6× Schriftrollen der Hohlen Flut.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Sie will den Tempel als Tor nutzen – für die Flut. Wir haben nicht mehr viel Zeit.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_rs_schriftrolle",
+    "count": 6,
+    "description": "Schriftrollen der Hohlen Flut"
+   }
+  ],
+  "rewardXp": 4250,
+  "rewardMoney": 902,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_schriftrollen_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_schriftrollen_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_schriftrollen_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_altar",
+  "title": "Die entweihten Altäre",
+  "category": "Side",
+  "zone": "zone_rotsand",
+  "level": 19,
+  "minLevel": 17,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_priest",
+  "requires": [
+   "q_rs_tempel"
+  ],
+  "text": "Vier Sonnenaltäre nähren Nethras Macht. Reinige sie mit diesem Sonnenöl, dann ist sie verwundbar.",
+  "objectivesText": "Ziele: Sonnenaltäre gereinigt.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Altäre leuchten wieder. Jetzt ist sie angreifbar.",
+  "objectives": [
+   {
+    "type": "Interact",
+    "target": "obj_rs_siegel",
+    "count": 4,
+    "description": "Sonnenaltäre gereinigt"
+   }
+  ],
+  "rewardXp": 4250,
+  "rewardMoney": 902,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_altar_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_altar_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_altar_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_nethra",
+  "title": "Hohepriesterin Nethra",
+  "category": "Main",
+  "zone": "zone_rotsand",
+  "level": 20,
+  "minLevel": 18,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_priest",
+  "turnIn": "npc_rs_main",
+  "requires": [
+   "q_rs_schriftrollen",
+   "q_rs_altar"
+  ],
+  "text": "Es ist Zeit. Nethra wartet im Allerheiligsten des Tempels. Nimm Gefährten mit. Bring ihr Auge zu Zhara, damit die Wüste erfährt, dass es vorbei ist.",
+  "objectivesText": "Ziele: 1× Hohepriesterin Nethra, 1× Auge der Hohepriesterin.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Es ist vorbei. Die Rotsandwüste wird sich erholen – dank dir. Zharas Rast steht in deiner Schuld.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_rs_nethra",
+    "count": 1,
+    "description": "Hohepriesterin Nethra besiegt"
+   },
+   {
+    "type": "Collect",
+    "target": "item_q_rs_auge",
+    "count": 1,
+    "description": "Auge der Hohepriesterin"
+   }
+  ],
+  "rewardXp": 7800,
+  "rewardMoney": 1000,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_nethra_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_nethra_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_nethra_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 1000
+   }
+  ],
+  "suggestedPlayers": 3,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_wk_moderkeim",
+  "title": "Fäulnis an der Wurzel",
+  "category": "Dungeon",
+  "zone": "zone_rotsand",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_ranger",
+  "turnIn": "npc_rs_ranger",
+  "requires": [
+   "q_rs_graeber"
+  ],
+  "text": "Unter dem Dürrwurzelriss beginnen die Gänge der Wurzelkrypta. Das Pilzwesen Moderkeim verbreitet dort die Sporen, die die Würmer aus der Tiefe treiben. Sammle eine Gruppe und vernichte es.",
+  "objectivesText": "Ziele: 1× Moderkeim.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Toten flüstern leiser. Du hast der Wüste einen Atemzug geschenkt.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "boss_moderkeim",
+    "count": 1,
+    "description": "Moderkeim besiegt"
+   }
+  ],
+  "rewardXp": 6050,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_wk_moderkeim_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wk_moderkeim_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wk_moderkeim_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   },
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_wk_untote",
+  "title": "Die Toten unter den Wurzeln",
+  "category": "Dungeon",
+  "zone": "zone_rotsand",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_ranger",
+  "turnIn": "npc_rs_ranger",
+  "requires": [
+   "q_rs_graeber"
+  ],
+  "text": "In der Krypta schlurfen die Toten, deren Gräber die Wurzeln gesprengt haben. Gib zwölf von ihnen die Ruhe zurück.",
+  "objectivesText": "Ziele: 12× Gruftschlurfer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Sie ruhen wieder. Die Ahnen danken dir.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "dmob_crypt_shambler",
+    "count": 12,
+    "description": "Gruftschlurfer vernichtet"
+   }
+  ],
+  "rewardXp": 6700,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_wk_untote_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wk_untote_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wk_untote_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   },
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_rs_wk_elvaine",
+  "title": "Die gefallene Dryade",
+  "category": "Dungeon",
+  "zone": "zone_rotsand",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Schattenpakt",
+  "class": "None",
+  "giver": "npc_rs_ranger",
+  "turnIn": "npc_rs_ranger",
+  "requires": [
+   "q_rs_graeber"
+  ],
+  "text": "Elvaine war einst eine Hüterin des Lebens. Jetzt dient sie Morrak in der Krypta. Erlöse sie.",
+  "objectivesText": "Ziele: 1× Elvaine.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ihr Geist ist frei. Die Toten sagen, sie habe gelächelt.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "boss_elvaine",
+    "count": 1,
+    "description": "Elvaine erlöst"
+   }
+  ],
+  "rewardXp": 7450,
+  "rewardMoney": 722,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_rs_wk_elvaine_str",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wk_elvaine_agi",
+    "count": 1
+   },
+   {
+    "item": "item_rs_wk_elvaine_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_zharas_rast",
+    "amount": 250
+   },
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ }
+]

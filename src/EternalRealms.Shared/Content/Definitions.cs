@@ -888,6 +888,11 @@ namespace EternalRealms.Shared.Content
         public string Version { get; set; } = "0.0.0";
         /// <summary>Älteste Clientversion, die mit diesem Content spielen darf (leer = jede).</summary>
         public string MinClientContent { get; set; } = "";
+        /// <summary>
+        /// Höchste erreichbare Stufe dieses Content-Stands (Kapitel 61). Die Regeln reichen bis 60; neue Inhalte heben die Grenze
+        /// später ohne Programmänderung an.
+        /// </summary>
+        public int LevelCap { get; set; } = 60;
     }
 
     /// <summary>

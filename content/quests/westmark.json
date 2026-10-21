@@ -1,0 +1,1388 @@
+[
+ {
+  "id": "q_wm_ankunft",
+  "title": "Hilferuf aus der Westmark",
+  "category": "Main",
+  "zone": "zone_westmark",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_mt_vogt",
+  "turnIn": "npc_wm_main",
+  "requires": [],
+  "text": "Ein Bote aus der Westmark ist heute Nacht halb erfroren in Morgentau angekommen. Die Grenzburg Weidenwacht bittet um jede Klinge, die sie bekommen kann – Räuber, Bestien und Schlimmeres. Ihr habt Euch hier bewährt. Folgt der Straße nach Westen und meldet Euch bei Burgvogtin Irmela Weidenstein.",
+  "objectivesText": "Ziele: Burgvogtin Weidenstein gesprochen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Aldric schickt Euch? Dann seid Ihr mehr wert als zehn Boten. Willkommen auf Weidenwacht – wir haben Arbeit für Euch.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_wm_main",
+    "count": 1,
+    "description": "Burgvogtin Weidenstein gesprochen"
+   }
+  ],
+  "rewardXp": 650,
+  "rewardMoney": 115,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_felder",
+  "title": "Die Goldfelder",
+  "category": "Main",
+  "zone": "zone_westmark",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_main",
+  "turnIn": "npc_wm_farm",
+  "requires": [
+   "q_wm_ankunft"
+  ],
+  "text": "Bevor ich Euch gegen Räuber schicke, müsst Ihr das Land verstehen. Reitet zu den Goldfeldern im Nordwesten. Bauer Hennig Krummacker spricht für alle Höfe dort – und er hat schon dreimal um Hilfe gebeten.",
+  "objectivesText": "Ziele: Bauer Hennig gesprochen, Goldfelder erreicht.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Burgvogtin hat also endlich jemanden geschickt. Gut. Seht Euch um – die Felder sind voller Löcher.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_wm_farm",
+    "count": 1,
+    "description": "Bauer Hennig gesprochen"
+   },
+   {
+    "type": "Explore",
+    "target": "area_wm_felder",
+    "count": 1,
+    "description": "Goldfelder erreicht"
+   }
+  ],
+  "rewardXp": 650,
+  "rewardMoney": 115,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_wuehler",
+  "title": "Löcher im Acker",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_farm",
+  "turnIn": "npc_wm_farm",
+  "requires": [
+   "q_wm_felder"
+  ],
+  "text": "Feldwühler. Früher ein paar im Jahr, jetzt ganze Rotten. Sie graben die Saat aus und brechen den Ochsen die Beine. Tötet zwölf von ihnen, sonst gibt es dieses Jahr keine Ernte.",
+  "objectivesText": "Ziele: 12× Feldwühler.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Zwölf weniger. Die Ochsen werden es Euch danken – und ich auch.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_wuehler",
+    "count": 12,
+    "description": "Feldwühler getötet"
+   }
+  ],
+  "rewardXp": 2000,
+  "rewardMoney": 360,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_wuehler_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wuehler_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wuehler_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_saatgut",
+  "title": "Saat für den Frühling",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 12,
+  "minLevel": 10,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_farm",
+  "turnIn": "npc_wm_farm",
+  "requires": [
+   "q_wm_felder"
+  ],
+  "text": "Die Biester fressen nicht nur, sie horten. In ihren Kröpfen steckt das Saatgut, das sie uns gestohlen haben – oft noch keimfähig. Bringt mir acht Beutel davon zurück. Unappetitlich, ich weiß.",
+  "objectivesText": "Ziele: 8× Gerettetes Saatgut.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das reicht für zwei Felder. Ihr habt keine Ahnung, wie viel das hier draußen bedeutet.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_saatgut",
+    "count": 8,
+    "description": "Gerettetes Saatgut"
+   }
+  ],
+  "rewardXp": 2000,
+  "rewardMoney": 360,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_sensen",
+  "title": "Ein Brief zum Mühlenhügel",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 13,
+  "minLevel": 11,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_farm",
+  "turnIn": "npc_wm_mason",
+  "requires": [
+   "q_wm_wuehler"
+  ],
+  "text": "Mühlenmeister Ortwin hat seit Tagen nichts von sich hören lassen. Seine Mühlen stehen still, und nachts sehen wir Feuer auf dem Hügel. Bringt ihm diesen Brief. Und passt auf – die Sensenbrüder schießen auf alles, was sich bewegt.",
+  "objectivesText": "Ziele: Brief überbracht, Mühlenhügel erreicht.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Hennig lebt noch? Den Lichtern sei Dank. Hier oben ist die Hölle los, das seht Ihr ja.",
+  "objectives": [
+   {
+    "type": "Deliver",
+    "target": "npc_wm_mason",
+    "count": 1,
+    "description": "Brief überbracht"
+   },
+   {
+    "type": "Explore",
+    "target": "area_wm_muehle",
+    "count": 1,
+    "description": "Mühlenhügel erreicht"
+   }
+  ],
+  "rewardXp": 700,
+  "rewardMoney": 135,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [
+   {
+    "item": "item_q_wm_brief",
+    "count": 1
+   }
+  ],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_brandschatzer",
+  "title": "Die Sensenbrüder",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 13,
+  "minLevel": 11,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_mason",
+  "turnIn": "npc_wm_mason",
+  "requires": [
+   "q_wm_sensen"
+  ],
+  "text": "Sie nennen sich Sensenbrüder. Deserteure, Tagelöhner, Diebe – jetzt eine Armee. Sie haben meine Mühlen besetzt und brennen jeden Hof nieder, der nicht zahlt. Zehn Brandschatzer und sechs Armbruster. Dann wissen sie, dass jemand zurückschlägt.",
+  "objectivesText": "Ziele: 10× Brandschatzer, 6× Armbruster.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das wird sie nicht aufhalten, aber es wird sie vorsichtig machen. Vorsichtige Räuber brennen weniger.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_brandschatzer",
+    "count": 10,
+    "description": "Brandschatzer getötet"
+   },
+   {
+    "type": "Kill",
+    "target": "mob_wm_schuetze",
+    "count": 6,
+    "description": "Armbruster getötet"
+   }
+  ],
+  "rewardXp": 2300,
+  "rewardMoney": 422,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_brandschatzer_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_brandschatzer_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_brandschatzer_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_getreide",
+  "title": "Gestohlenes Korn",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 14,
+  "minLevel": 12,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_mason",
+  "turnIn": "npc_wm_mason",
+  "requires": [
+   "q_wm_sensen"
+  ],
+  "text": "Das Korn, das sie gestohlen haben, liegt in Säcken überall auf dem Hügel – sie haben noch keinen Käufer gefunden. Holt acht Säcke zurück, bevor sie es tun. Jeder Sack ist ein Winter für eine Familie.",
+  "objectivesText": "Ziele: 8× Säcke Westmark-Korn.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Acht Säcke! Ich lasse sie sofort zur Burg bringen. Ihr habt heute mehr Menschen satt gemacht als jeder Bäcker.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_getreide",
+    "count": 8,
+    "description": "Säcke Westmark-Korn"
+   }
+  ],
+  "rewardXp": 2550,
+  "rewardMoney": 490,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_getreide_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_getreide_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_getreide_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_befehle",
+  "title": "Wer führt die Sensen?",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 14,
+  "minLevel": 12,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_mason",
+  "turnIn": "npc_wm_mason",
+  "requires": [
+   "q_wm_brandschatzer"
+  ],
+  "text": "Gewöhnliche Räuber kämpfen nicht so diszipliniert. Jemand gibt Befehle. Durchsucht die Sensenbrüder – irgendeiner trägt sicher Anweisungen bei sich.",
+  "objectivesText": "Ziele: 1× Befehle der Sensenbrüder.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "\"Rurik\". Ich kenne den Namen. Ein Hauptmann der Grenzwache – er ist vor einem Jahr verschwunden. Jetzt wissen wir, wohin.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_befehle",
+    "count": 1,
+    "description": "Befehle der Sensenbrüder"
+   }
+  ],
+  "rewardXp": 2550,
+  "rewardMoney": 490,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_rurik",
+  "title": "Rurik Schwarzsense",
+  "category": "Main",
+  "zone": "zone_westmark",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_mason",
+  "turnIn": "npc_wm_main",
+  "requires": [
+   "q_wm_befehle"
+  ],
+  "text": "Rurik hält sich im Lager oben auf dem Hügel, umgeben von seinen besten Leuten. Er war einer der Besten der Grenzwache – allein schafft Ihr das nicht. Nehmt Gefährten mit, bringt mir seine Sense und überbringt der Burgvogtin die Nachricht.",
+  "objectivesText": "Ziele: 1× Ruriks schwarze Sense.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Rurik... Er hat unter mir gedient. Ich hätte wissen müssen, wohin seine Verbitterung führt. Ihr habt der Westmark einen großen Dienst erwiesen.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_sense",
+    "count": 1,
+    "description": "Ruriks schwarze Sense"
+   }
+  ],
+  "rewardXp": 5400,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_rurik_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_rurik_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_rurik_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 500
+   }
+  ],
+  "suggestedPlayers": 3,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_schnapper",
+  "title": "Zähne im Schilf",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 14,
+  "minLevel": 12,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_fisher",
+  "turnIn": "npc_wm_fisher",
+  "requires": [
+   "q_wm_ankunft"
+  ],
+  "text": "Die Schnapper haben sich vermehrt wie nie. Sie zerreißen meine Netze und gestern beinahe meinen Neffen. Tötet zehn von ihnen, damit wir wieder ans Wasser können.",
+  "objectivesText": "Ziele: 10× Schilfschnapper.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Zehn! Heute Abend gehen wir wieder fischen. Danke, Fremde.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_schnapper",
+    "count": 10,
+    "description": "Schilfschnapper getötet"
+   }
+  ],
+  "rewardXp": 2550,
+  "rewardMoney": 490,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_schnapper_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_schnapper_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_schnapper_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_panzer",
+  "title": "Panzer für die Reusen",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_fisher",
+  "turnIn": "npc_wm_fisher",
+  "requires": [
+   "q_wm_ankunft"
+  ],
+  "text": "Aus Schnapperpanzern bauen wir die besten Reusen – sie verrotten nicht. Bringt mir sechs, und ich baue Euch dafür etwas Hübsches aus dem, was übrig bleibt.",
+  "objectivesText": "Ziele: 6× Schnapperpanzer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Gute, unbeschädigte Panzer. Ihr habt ein Auge dafür.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_panzer",
+    "count": 6,
+    "description": "Schnapperpanzer"
+   }
+  ],
+  "rewardXp": 2850,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_panzer_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_panzer_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_panzer_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_wildbret",
+  "title": "Wildbret für die Burg",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_inn",
+  "turnIn": "npc_wm_inn",
+  "requires": [
+   "q_wm_ankunft"
+  ],
+  "text": "Die Burg ist voll mit Flüchtlingen von den Höfen, und meine Kammer ist leer. Die Wölfe im Grauwald sind fett geworden – bringt mir acht Stück Wildbret, und niemand geht heute hungrig ins Bett.",
+  "objectivesText": "Ziele: 8× Grauwald-Wildbret.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Das gibt einen Eintopf für die ganze Burg. Ihr habt bei mir immer ein Bett frei.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_wildbret",
+    "count": 8,
+    "description": "Grauwald-Wildbret"
+   }
+  ],
+  "rewardXp": 2850,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_wildbret_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wildbret_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wildbret_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_grauwald",
+  "title": "Krankheit im Grauwald",
+  "category": "Main",
+  "zone": "zone_westmark",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_main",
+  "turnIn": "npc_wm_ranger",
+  "requires": [
+   "q_wm_brandschatzer"
+  ],
+  "text": "Die Räuber sind ein Problem, das wir verstehen. Was im Grauwald geschieht, verstehen wir nicht. Waldläuferin Svea Dornbusch hält dort Wache. Geht zu ihr – sie wird Euch erklären, was sie mir nicht in einen Brief schreiben wollte.",
+  "objectivesText": "Ziele: Waldläuferin Svea gesprochen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Irmela schickt Euch? Gut. Was ich gesehen habe, glaubt mir ohnehin niemand, der es nicht selbst sieht.",
+  "objectives": [
+   {
+    "type": "Talk",
+    "target": "npc_wm_ranger",
+    "count": 1,
+    "description": "Waldläuferin Svea gesprochen"
+   }
+  ],
+  "rewardXp": 900,
+  "rewardMoney": 180,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_woelfe",
+  "title": "Das Rudel des Grauwalds",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_ranger",
+  "turnIn": "npc_wm_ranger",
+  "requires": [
+   "q_wm_grauwald"
+  ],
+  "text": "Die Wölfe sind aus dem tiefen Wald geflohen, und jetzt jagen sie an den Straßen. Etwas hat sie vertrieben. Bevor ich herausfinde, was, müssen die Wege sicher sein. Zwölf Wölfe.",
+  "objectivesText": "Ziele: 12× Grauwald-Wölfe.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ihr seid schnell. Und Ihr habt bemerkt, wie dünn sie waren? Sie fliehen vor etwas.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_wolf",
+    "count": 12,
+    "description": "Grauwald-Wölfe getötet"
+   }
+  ],
+  "rewardXp": 2850,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_woelfe_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_woelfe_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_woelfe_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_baumhirten",
+  "title": "Verdorrte Hirten",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_ranger",
+  "turnIn": "npc_wm_ranger",
+  "requires": [
+   "q_wm_grauwald"
+  ],
+  "text": "Die Baumhirten haben diesen Wald seit tausend Jahren gehütet. Jetzt sind ihre Herzen schwarz, und sie greifen alles an, was atmet. Es bricht mir das Herz, aber erlöst acht von ihnen.",
+  "objectivesText": "Ziele: 8× Verdorrte Baumhirten.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ihr habt ihnen Frieden gegeben. Mehr konnten wir nicht für sie tun.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_baumhirt",
+    "count": 8,
+    "description": "Verdorrte Baumhirten getötet"
+   }
+  ],
+  "rewardXp": 3200,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_baumhirten_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_baumhirten_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_baumhirten_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_harz",
+  "title": "Schwarzes Harz",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_ranger",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_grauwald"
+  ],
+  "text": "Aus den Baumhirten tropft ein schwarzes Harz. Schwester Adelind auf der Burg sagt, sie könne erkennen, woher die Verderbnis kommt, wenn sie genug davon hat. Sammelt acht Klumpen und bringt sie ihr.",
+  "objectivesText": "Ziele: 8× Verdorbenes Harz.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Dieses Harz... es riecht nach der Wurzelkrypta. Und nach etwas noch Älterem. Es kommt aus dem Norden – aus dem Riss.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_harz",
+    "count": 8,
+    "description": "Verdorbenes Harz"
+   }
+  ],
+  "rewardXp": 3200,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_harz_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_harz_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_harz_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_wurzelriss",
+  "title": "Der Wurzelriss",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_harz"
+  ],
+  "text": "Im Nordwesten hat sich der Boden geöffnet – die Bauern nennen es den Wurzelriss. Dort treten die Wurzeln der Krypta an die Oberfläche. Seht nach, was dort wächst, und kommt zurück.",
+  "objectivesText": "Ziele: Wurzelriss erkundet.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Flutsteine. Kristalle, die die Hohle Flut nähren. Wenn sie dort wachsen, wird der ganze Westen sterben.",
+  "objectives": [
+   {
+    "type": "Explore",
+    "target": "area_wm_riss",
+    "count": 1,
+    "description": "Wurzelriss erkundet"
+   }
+  ],
+  "rewardXp": 1100,
+  "rewardMoney": 231,
+  "rewardItems": [],
+  "rewardChoices": [],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 75
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_kriecher",
+  "title": "Kriechende Wurzeln",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_wurzelriss"
+  ],
+  "text": "Die Wurzelkriecher schützen die Flutsteine wie Ameisen ihre Königin. Lichtet ihre Reihen – zwölf von ihnen –, damit wir an die Steine herankommen.",
+  "objectivesText": "Ziele: 12× Wurzelkriecher.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Der Riss ist ruhiger. Jetzt sind die Steine dran.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_kriecher",
+    "count": 12,
+    "description": "Wurzelkriecher getötet"
+   }
+  ],
+  "rewardXp": 3550,
+  "rewardMoney": 722,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_kriecher_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_kriecher_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_kriecher_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_flutsteine",
+  "title": "Flutsteine zerschlagen",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_wurzelriss"
+  ],
+  "text": "Die Flutsteine lassen sich nicht wegtragen – sie müssen an Ort und Stelle zerschlagen werden. Ich habe sie gesegnet... hoffentlich reicht das. Zerschlagt fünf von ihnen.",
+  "objectivesText": "Ziele: Flutsteine zerschlagen.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ich habe es gespürt, als sie zersprungen sind. Aber ich habe noch etwas gespürt – eine Antwort. Aus Sankt Elmar.",
+  "objectives": [
+   {
+    "type": "Interact",
+    "target": "obj_wm_flutstein",
+    "count": 5,
+    "description": "Flutsteine zerschlagen"
+   }
+  ],
+  "rewardXp": 3550,
+  "rewardMoney": 722,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_flutsteine_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_flutsteine_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_flutsteine_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_abtei",
+  "title": "Was in Sankt Elmar betet",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 18,
+  "minLevel": 16,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_flutsteine"
+  ],
+  "text": "Sankt Elmar war meine Abtei. Abt Malachias hat uns vor einem Jahr fortgeschickt – er wollte allein beten, sagte er. Jetzt weiß ich, zu wem. Geht hin und tötet acht der Geweihten, die jetzt dort hausen.",
+  "objectivesText": "Ziele: Abtei Sankt Elmar erreicht, 8× Geweihte.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ich kannte einige von ihnen. Ich bete für sie – ein letztes Mal.",
+  "objectives": [
+   {
+    "type": "Explore",
+    "target": "area_wm_abtei",
+    "count": 1,
+    "description": "Abtei Sankt Elmar erreicht"
+   },
+   {
+    "type": "Kill",
+    "target": "mob_wm_geweihter",
+    "count": 8,
+    "description": "Geweihte getötet"
+   }
+  ],
+  "rewardXp": 3900,
+  "rewardMoney": 810,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_abtei_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_abtei_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_abtei_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_hexer",
+  "title": "Die Hexer der Abtei",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 18,
+  "minLevel": 16,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_abtei"
+  ],
+  "text": "Die Hexer sind die gefährlichsten. Sie beten nicht – sie befehlen. Tötet acht von ihnen, bevor sie die Hohle Flut ganz in die Abtei rufen.",
+  "objectivesText": "Ziele: 8× Abtei-Hexer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ohne die Hexer ist Malachias verwundbar. Wir kommen ihm näher.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_hexer",
+    "count": 8,
+    "description": "Abtei-Hexer getötet"
+   }
+  ],
+  "rewardXp": 3900,
+  "rewardMoney": 810,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_hexer_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_hexer_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_hexer_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_folianten",
+  "title": "Die schwarzen Folianten",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 19,
+  "minLevel": 17,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_abtei"
+  ],
+  "text": "Malachias hat seine Gebete aufgeschrieben, und die Geweihten tragen Abschriften bei sich. Bringt mir sechs Folianten. Ich muss wissen, was er vorhat – und wie man es beendet.",
+  "objectivesText": "Ziele: 6× Folianten der Hohlen Flut.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Er will die Abtei als Tor benutzen. Für die Flut. Wir haben nicht mehr viel Zeit.",
+  "objectives": [
+   {
+    "type": "Collect",
+    "target": "item_q_wm_foliant",
+    "count": 6,
+    "description": "Folianten der Hohlen Flut"
+   }
+  ],
+  "rewardXp": 4250,
+  "rewardMoney": 902,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_folianten_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_folianten_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_folianten_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_siegel",
+  "title": "Die entweihten Siegel",
+  "category": "Side",
+  "zone": "zone_westmark",
+  "level": 19,
+  "minLevel": 17,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_priest",
+  "requires": [
+   "q_wm_abtei"
+  ],
+  "text": "Vier Siegel auf dem Altar halten den Abt in seiner Macht. Reinigt sie mit diesem Weihwasser – dann ist er nur noch ein alter Mann mit schwarzer Zunge.",
+  "objectivesText": "Ziele: Altarsiegel gereinigt.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die Siegel sind gebrochen. Jetzt ist er angreifbar.",
+  "objectives": [
+   {
+    "type": "Interact",
+    "target": "obj_wm_siegel",
+    "count": 4,
+    "description": "Altarsiegel gereinigt"
+   }
+  ],
+  "rewardXp": 4250,
+  "rewardMoney": 902,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_siegel_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_siegel_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_siegel_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 1,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_malachias",
+  "title": "Abt Malachias der Hohle",
+  "category": "Main",
+  "zone": "zone_westmark",
+  "level": 20,
+  "minLevel": 18,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_priest",
+  "turnIn": "npc_wm_main",
+  "requires": [
+   "q_wm_folianten",
+   "q_wm_siegel"
+  ],
+  "text": "Es ist Zeit. Malachias wartet in der Krypta unter der Abtei. Nehmt Gefährten mit – er ist stärker, als ein Mensch sein sollte. Bringt seine Gebetskette zur Burgvogtin, damit die Westmark erfährt, dass es vorbei ist.",
+  "objectivesText": "Ziele: 1× Abt Malachias, 1× Gebetskette des Abts.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Es ist vorbei. Die Westmark wird sich erholen – dank Euch. Diese Burg steht in Eurer Schuld, solange ihre Mauern stehen.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "mob_wm_malachias",
+    "count": 1,
+    "description": "Abt Malachias besiegt"
+   },
+   {
+    "type": "Collect",
+    "target": "item_q_wm_kette",
+    "count": 1,
+    "description": "Gebetskette des Abts"
+   }
+  ],
+  "rewardXp": 7800,
+  "rewardMoney": 1000,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_malachias_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_malachias_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_malachias_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 1000
+   }
+  ],
+  "suggestedPlayers": 3,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_wk_moderkeim",
+  "title": "Fäulnis an der Wurzel",
+  "category": "Dungeon",
+  "zone": "zone_westmark",
+  "level": 15,
+  "minLevel": 13,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_ranger",
+  "turnIn": "npc_wm_ranger",
+  "requires": [
+   "q_wm_grauwald"
+  ],
+  "text": "Unter dem Riss beginnen die Gänge der Wurzelkrypta. Ein Pilzwesen namens Moderkeim verbreitet dort die Sporen, die meine Baumhirten verdorben haben. Sammelt eine Gruppe und vernichtet es – der Eingang liegt am Wurzelriss.",
+  "objectivesText": "Ziele: 1× Moderkeim.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Ich spüre es schon: Die Sporen im Grauwald werden weniger. Ihr habt dem Wald seine Lunge zurückgegeben.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "boss_moderkeim",
+    "count": 1,
+    "description": "Moderkeim besiegt"
+   }
+  ],
+  "rewardXp": 6050,
+  "rewardMoney": 562,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_wk_moderkeim_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wk_moderkeim_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wk_moderkeim_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   },
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_wk_untote",
+  "title": "Die Toten unter den Wurzeln",
+  "category": "Dungeon",
+  "zone": "zone_westmark",
+  "level": 16,
+  "minLevel": 14,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_ranger",
+  "turnIn": "npc_wm_ranger",
+  "requires": [
+   "q_wm_grauwald"
+  ],
+  "text": "In der Krypta schlurfen die Toten – alte Ritter der Grenzwache, deren Gräber die Wurzeln gesprengt haben. Gebt zwölf von ihnen die Ruhe zurück.",
+  "objectivesText": "Ziele: 12× Gruftschlurfer.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Die alten Wächter ruhen wieder. Die Grenzwache dankt Euch, auch wenn keiner von ihnen es mehr sagen kann.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "dmob_crypt_shambler",
+    "count": 12,
+    "description": "Gruftschlurfer vernichtet"
+   }
+  ],
+  "rewardXp": 6700,
+  "rewardMoney": 640,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_wk_untote_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wk_untote_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wk_untote_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   },
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ },
+ {
+  "id": "q_wm_wk_elvaine",
+  "title": "Die gefallene Dryade",
+  "category": "Dungeon",
+  "zone": "zone_westmark",
+  "level": 17,
+  "minLevel": 15,
+  "faction": "Sonnenbuendnis",
+  "class": "None",
+  "giver": "npc_wm_ranger",
+  "turnIn": "npc_wm_ranger",
+  "requires": [
+   "q_wm_grauwald"
+  ],
+  "text": "Elvaine war die Hüterin des Grauwalds, bevor die Flut sie holte. Jetzt dient sie Morrak in der Krypta. Erlöst sie. Mehr Gnade bleibt uns nicht.",
+  "objectivesText": "Ziele: 1× Elvaine.",
+  "progressText": "Habt Ihr es schon erledigt?",
+  "completionText": "Elvaine ist frei. Vielleicht wird eines Tages wieder eine Dryade über diesen Wald wachen.",
+  "objectives": [
+   {
+    "type": "Kill",
+    "target": "boss_elvaine",
+    "count": 1,
+    "description": "Elvaine erlöst"
+   }
+  ],
+  "rewardXp": 7450,
+  "rewardMoney": 722,
+  "rewardItems": [],
+  "rewardChoices": [
+   {
+    "item": "item_wm_wk_elvaine_str",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wk_elvaine_agi",
+    "count": 1
+   },
+   {
+    "item": "item_wm_wk_elvaine_int",
+    "count": 1
+   }
+  ],
+  "providedItems": [],
+  "rewardReputation": [
+   {
+    "faction": "rep_weidenwacht",
+    "amount": 250
+   },
+   {
+    "faction": "rep_hueter_der_wurzeln",
+    "amount": 250
+   }
+  ],
+  "suggestedPlayers": 5,
+  "exclusiveWith": []
+ }
+]

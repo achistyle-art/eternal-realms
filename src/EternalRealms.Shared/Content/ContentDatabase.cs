@@ -18,6 +18,11 @@ namespace EternalRealms.Shared.Content
         /// <summary>SHA-256 über alle Content-Dateien (Zeilenenden vereinheitlicht), hexadezimal.</summary>
         public string Hash { get; private set; } = "";
         /// <summary>Versionskennung für Client/Server-Abgleich, z. B. „0.9.0+3fa2c1d0“.</summary>
+        /// <summary>Mit der aktuellen Stufengrenze erreichbar? Erfolge für höhere Stufen bleiben bis zu späteren Inhalten verborgen.</summary>
+        public bool IsReachable(AchievementDef a) => !a.Criteria.Any(c => c.Event == ProgressEvent.ReachLevel && c.Count > LevelCap);
+
+        /// <summary>Stufenobergrenze des Contents (1–60).</summary>
+        public int LevelCap => Math.Max(1, Math.Min(Rules.Experience.MaxLevel, Manifest.LevelCap));
         public string Version => Hash.Length >= 8 ? Manifest.Version + "+" + Hash.Substring(0, 8) : Manifest.Version;
         public Dictionary<Faction, FactionDef> Factions { get; } = new Dictionary<Faction, FactionDef>();
         public Dictionary<Race, RaceDef> Races { get; } = new Dictionary<Race, RaceDef>();
@@ -469,6 +474,7 @@ namespace EternalRealms.Shared.Content
                 Need(Mounts.ContainsKey(it.TeachesMount!), $"Gegenstand {it.Id}: unbekanntes Reittier {it.TeachesMount}");
             // Content-Migrationen (Kapitel 56): Ziele müssen existieren, entfernte/umbenannte Quellen dürfen es nicht mehr.
             var migIds = new HashSet<string>();
+            Need(Manifest.LevelCap >= 1 && Manifest.LevelCap <= Rules.Experience.MaxLevel, $"Manifest: levelCap {Manifest.LevelCap} muss zwischen 1 und {Rules.Experience.MaxLevel} liegen");
             Need(System.Text.RegularExpressions.Regex.IsMatch(Manifest.Version, @"^\d+\.\d+\.\d+$"), $"Manifest: Version '{Manifest.Version}' muss die Form 1.2.3 haben");
             foreach (var m in Migrations)
             {

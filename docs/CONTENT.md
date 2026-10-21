@@ -8,7 +8,9 @@ Alle Spielinhalte sind Daten in `content/`. Server und Client laden dieselben Da
 |---|---|
 | `factions.json`, `races.json`, `classes.json`, `reputations.json` | Fraktionen, Völker (Lore, Startpunkt, Volksfähigkeiten, Aussehensoptionen, Namenssilben), Klassen (Werte, Rüstung, Waffen, Startfähigkeiten) |
 | `abilities/*.json`, `auras/*.json`, `talents/*.json`, `bots/profiles.json` | **erzeugt** von `tools/gen_class_content.py` |
-| `items.json` | **erzeugt** von `tools/gen_items.py` |
+| `items.json` | **erzeugt** von `tools/gen_items.py` (Formeln in `tools/itemlib.py`) |
+| `zones/westmark.json`, `zones/rotsand.json`, `quests/westmark.json`, `quests/rotsand.json`, `*/stufe12_20.json` | **erzeugt** von `tools/gen_world_i.py` (Regionen für Stufe 12–20) |
+| `manifest.json` | Name, Content-Version, `levelCap` (derzeit 20, höchstens 60) |
 | `creatures/*.json` | Monster, NPCs, Begleiter – Stufen, Fähigkeiten mit Intervallen, Bossphasen, Beute, Händlerwaren, Tagesabläufe |
 | `objects.json` | Erzadern, Kisten, Portale |
 | `zones/*.json` | eine Datei pro Region: Gebiete, Friedhöfe, Spawns (Anzahl, Radius, Patrouille, Respawn), NPCs, Objekte, eigenständige Bots |

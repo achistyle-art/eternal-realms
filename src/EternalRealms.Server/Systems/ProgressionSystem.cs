@@ -41,7 +41,7 @@ namespace EternalRealms.Server.Systems
 
         public void GiveXp(Player p, int amount, string reason, int sourceId = 0, bool useRested = false)
         {
-            if (p.Level >= Experience.MaxLevel || amount <= 0) return;
+            if (p.Level >= _w.Content.LevelCap || amount <= 0) return;
             int rested = 0;
             if (useRested && p.Data.RestedXp > 0)
             {
@@ -50,12 +50,12 @@ namespace EternalRealms.Server.Systems
             }
             p.Data.Xp += amount + rested;
             p.Send(new S_XpGain { Amount = amount + rested, RestedBonus = rested, SourceId = sourceId, Reason = reason });
-            while (p.Level < Experience.MaxLevel && p.Data.Xp >= Experience.XpToNextLevel(p.Level))
+            while (p.Level < _w.Content.LevelCap && p.Data.Xp >= Experience.XpToNextLevel(p.Level))
             {
                 p.Data.Xp -= Experience.XpToNextLevel(p.Level);
                 LevelUp(p);
             }
-            if (p.Level >= Experience.MaxLevel) p.Data.Xp = 0;
+            if (p.Level >= _w.Content.LevelCap) p.Data.Xp = 0;
             p.Send(p.BuildPlayerState());
         }
 
@@ -111,7 +111,7 @@ namespace EternalRealms.Server.Systems
 
         public void AccrueRested(Player p, double seconds)
         {
-            if (p.Level >= Experience.MaxLevel) return;
+            if (p.Level >= _w.Content.LevelCap) return;
             bool inInn = p.CurrentArea != null && (p.CurrentArea.IsInn || p.CurrentArea.IsCity);
             int gain = Experience.RestedGain(p.Level, seconds, inInn);
             if (gain <= 0) return;

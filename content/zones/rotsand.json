@@ -1,0 +1,465 @@
+[
+ {
+  "id": "zone_rotsand",
+  "name": "Rotsandwüste",
+  "continent": "Kharvath",
+  "minLevel": 12,
+  "maxLevel": 20,
+  "faction": "Schattenpakt",
+  "biome": "Wüste",
+  "description": "Rote Dünen, Gräber vergessener Könige und die Festungsoase Zharas Rast. Dünenräuber überfallen die Karawanen, und in einem alten Sonnentempel betet man zur Hohlen Flut.",
+  "music": "music_rotsand",
+  "ambience": "amb_desert_wind",
+  "weather": [
+   "Clear",
+   "Clear",
+   "Storm"
+  ],
+  "size": 1024,
+  "playable": true,
+  "ambientBots": 4,
+  "areas": [
+   {
+    "id": "area_rs_rast",
+    "name": "Zharas Rast",
+    "center": [
+     500,
+     0,
+     500
+    ],
+    "radius": 60,
+    "discoveryXp": 120,
+    "isCity": true,
+    "isInn": true,
+    "music": "music_village"
+   },
+   {
+    "id": "area_rs_pfad",
+    "name": "Karawanenpfad",
+    "center": [
+     160,
+     0,
+     520
+    ],
+    "radius": 40,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_rs_duenen",
+    "name": "Dünenmeer",
+    "center": [
+     300,
+     0,
+     320
+    ],
+    "radius": 80,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_rs_klippen",
+    "name": "Räuberklippen",
+    "center": [
+     720,
+     0,
+     300
+    ],
+    "radius": 70,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_rs_senke",
+    "name": "Glassenke",
+    "center": [
+     260,
+     0,
+     720
+    ],
+    "radius": 70,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_rs_graeber",
+    "name": "Königsgräber",
+    "center": [
+     740,
+     0,
+     640
+    ],
+    "radius": 80,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_rs_riss",
+    "name": "Dürrwurzelriss",
+    "center": [
+     200,
+     0,
+     180
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   },
+   {
+    "id": "area_rs_tempel",
+    "name": "Tempel der Versunkenen Sonne",
+    "center": [
+     820,
+     0,
+     860
+    ],
+    "radius": 60,
+    "discoveryXp": 60
+   }
+  ],
+  "graveyards": [
+   [
+    470,
+    0,
+    570
+   ],
+   [
+    760,
+    0,
+    780
+   ]
+  ],
+  "spawns": [
+   {
+    "creature": "mob_rs_schakal",
+    "position": [
+     300,
+     0,
+     320
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_skorpion",
+    "position": [
+     360,
+     0,
+     270
+    ],
+    "count": 10,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_raeuber",
+    "position": [
+     720,
+     0,
+     300
+    ],
+    "count": 12,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_schleuderer",
+    "position": [
+     720,
+     0,
+     300
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_waechter",
+    "position": [
+     260,
+     0,
+     720
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10,
+    "rareCreature": "mob_rs_ussar",
+    "rareChance": 0.05
+   },
+   {
+    "creature": "mob_rs_wurm",
+    "position": [
+     740,
+     0,
+     640
+    ],
+    "count": 12,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_kriecher",
+    "position": [
+     200,
+     0,
+     180
+    ],
+    "count": 14,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_geweihter",
+    "position": [
+     820,
+     0,
+     860
+    ],
+    "count": 12,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_seherin",
+    "position": [
+     770,
+     0,
+     900
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 45,
+    "wanderRadius": 10
+   },
+   {
+    "creature": "mob_rs_mardra",
+    "position": [
+     780,
+     0,
+     260
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 300,
+    "wanderRadius": 0
+   },
+   {
+    "creature": "mob_rs_nethra",
+    "position": [
+     860,
+     0,
+     900
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 600,
+    "wanderRadius": 0
+   }
+  ],
+  "npcs": [
+   {
+    "npc": "npc_rs_main",
+    "position": [
+     500,
+     0,
+     490
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_farm",
+    "position": [
+     340,
+     0,
+     360
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_mason",
+    "position": [
+     640,
+     0,
+     330
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_fisher",
+    "position": [
+     320,
+     0,
+     690
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_ranger",
+    "position": [
+     680,
+     0,
+     600
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_priest",
+    "position": [
+     515,
+     0,
+     515
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_inn",
+    "position": [
+     485,
+     0,
+     520
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_smith",
+    "position": [
+     520,
+     0,
+     480
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_flight",
+    "position": [
+     540,
+     0,
+     500
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_spirit",
+    "position": [
+     470,
+     0,
+     575
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_guard",
+    "position": [
+     470,
+     0,
+     470
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_guard",
+    "position": [
+     530,
+     0,
+     470
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_guard",
+    "position": [
+     470,
+     0,
+     530
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_rs_guard",
+    "position": [
+     530,
+     0,
+     530
+    ],
+    "facing": 0.0
+   }
+  ],
+  "objects": [
+   {
+    "object": "obj_crypt_entrance_rs",
+    "position": [
+     170,
+     0,
+     150
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
+   },
+   {
+    "object": "obj_mailbox",
+    "position": [
+     494,
+     0,
+     492
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_rs_flutstein",
+    "position": [
+     210,
+     0,
+     190
+    ],
+    "count": 6,
+    "radius": 45,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_rs_sack",
+    "position": [
+     760,
+     0,
+     280
+    ],
+    "count": 8,
+    "radius": 40,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_rs_siegel",
+    "position": [
+     840,
+     0,
+     880
+    ],
+    "count": 4,
+    "radius": 20,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_weg_rs_heim",
+    "position": [
+     110,
+     0,
+     520
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 0
+   }
+  ],
+  "mapRect": [
+   280,
+   720,
+   130,
+   130
+  ]
+ }
+]
