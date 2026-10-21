@@ -254,6 +254,8 @@ def write_world(profs, objects, I):
         for t, aname in ((0, ("Silberquell", "Oase Zharim")), (1, ("Banditenlager am Rotbach", "Glutsenke"))):
             area = next((a for a in z["areas"] if a["name"] in aname), z["areas"][0])
             z["objects"].append({"object": f"obj_prof_fishpool{t}", "position": area["center"], "count": 3, "radius": area["radius"], "respawnSeconds": 240})
+        # Feste Reihenfolge: gen_world_d.py schreibt in dieselben Dateien – so ist das Ergebnis unabhängig von der Aufrufreihenfolge.
+        z["objects"].sort(key=lambda o: (o["object"], tuple(o["position"])))
         dump(zpath, zones)
     dump(npc_path, npcs)
 

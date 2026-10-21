@@ -831,6 +831,28 @@
   ],
   "objects": [
    {
+    "object": "obj_bone_totem",
+    "position": [
+     295,
+     0,
+     340
+    ],
+    "count": 6,
+    "radius": 25,
+    "respawnSeconds": 30
+   },
+   {
+    "object": "obj_crypt_entrance_as",
+    "position": [
+     880,
+     0,
+     820
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
+   },
+   {
     "object": "obj_ember_salt",
     "position": [
      330,
@@ -853,39 +875,6 @@
     "respawnSeconds": 60
    },
    {
-    "object": "obj_bone_totem",
-    "position": [
-     295,
-     0,
-     340
-    ],
-    "count": 6,
-    "radius": 25,
-    "respawnSeconds": 30
-   },
-   {
-    "object": "obj_ritual_brazier",
-    "position": [
-     800,
-     0,
-     480
-    ],
-    "count": 4,
-    "radius": 40,
-    "respawnSeconds": 60
-   },
-   {
-    "object": "obj_crypt_entrance_as",
-    "position": [
-     880,
-     0,
-     820
-    ],
-    "count": 1,
-    "radius": 0,
-    "respawnSeconds": 45
-   },
-   {
     "object": "obj_mailbox",
     "position": [
      414,
@@ -897,103 +886,26 @@
     "respawnSeconds": 1
    },
    {
-    "object": "obj_station_anvil",
+    "object": "obj_portal_nach_kz",
     "position": [
-     414,
+     405,
      0,
-     400
+     475
     ],
     "count": 1,
     "radius": 0,
-    "respawnSeconds": 1
+    "respawnSeconds": 0
    },
    {
-    "object": "obj_station_forge",
+    "object": "obj_portal_nach_nw",
     "position": [
-     410,
+     425,
      0,
-     400
+     475
     ],
     "count": 1,
     "radius": 0,
-    "respawnSeconds": 1
-   },
-   {
-    "object": "obj_station_fire",
-    "position": [
-     430,
-     0,
-     400
-    ],
-    "count": 1,
-    "radius": 0,
-    "respawnSeconds": 1
-   },
-   {
-    "object": "obj_prof_vein0",
-    "position": [
-     215,
-     0,
-     225
-    ],
-    "count": 8,
-    "radius": 55,
-    "respawnSeconds": 180
-   },
-   {
-    "object": "obj_prof_herb0a",
-    "position": [
-     320,
-     0,
-     140
-    ],
-    "count": 8,
-    "radius": 55,
-    "respawnSeconds": 180
-   },
-   {
-    "object": "obj_prof_herb0b",
-    "position": [
-     140,
-     0,
-     330
-    ],
-    "count": 8,
-    "radius": 55,
-    "respawnSeconds": 180
-   },
-   {
-    "object": "obj_prof_vein1",
-    "position": [
-     330,
-     0,
-     640
-    ],
-    "count": 4,
-    "radius": 80,
-    "respawnSeconds": 300
-   },
-   {
-    "object": "obj_prof_herb1a",
-    "position": [
-     720,
-     0,
-     690
-    ],
-    "count": 4,
-    "radius": 65,
-    "respawnSeconds": 300
-   },
-   {
-    "object": "obj_prof_herb1b",
-    "position": [
-     620,
-     0,
-     520
-    ],
-    "count": 4,
-    "radius": 80,
-    "respawnSeconds": 300
+    "respawnSeconds": 0
    },
    {
     "object": "obj_prof_fishpool0",
@@ -1018,26 +930,114 @@
     "respawnSeconds": 240
    },
    {
-    "object": "obj_portal_nach_kz",
+    "object": "obj_prof_herb0a",
     "position": [
-     405,
+     320,
      0,
-     475
+     140
     ],
-    "count": 1,
-    "radius": 0,
-    "respawnSeconds": 0
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 180
    },
    {
-    "object": "obj_portal_nach_nw",
+    "object": "obj_prof_herb0b",
     "position": [
-     425,
+     140,
      0,
-     475
+     330
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 180
+   },
+   {
+    "object": "obj_prof_herb1a",
+    "position": [
+     720,
+     0,
+     690
+    ],
+    "count": 4,
+    "radius": 65,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_prof_herb1b",
+    "position": [
+     620,
+     0,
+     520
+    ],
+    "count": 4,
+    "radius": 80,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_prof_vein0",
+    "position": [
+     215,
+     0,
+     225
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 180
+   },
+   {
+    "object": "obj_prof_vein1",
+    "position": [
+     330,
+     0,
+     640
+    ],
+    "count": 4,
+    "radius": 80,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_ritual_brazier",
+    "position": [
+     800,
+     0,
+     480
+    ],
+    "count": 4,
+    "radius": 40,
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_station_anvil",
+    "position": [
+     414,
+     0,
+     400
     ],
     "count": 1,
     "radius": 0,
-    "respawnSeconds": 0
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_station_fire",
+    "position": [
+     430,
+     0,
+     400
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_station_forge",
+    "position": [
+     410,
+     0,
+     400
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
    }
   ],
   "mapRect": [

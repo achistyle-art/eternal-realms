@@ -30,7 +30,7 @@ def save(rel, data):
     path = os.path.join(ROOT, rel)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
-        f.write(json.dumps(data, ensure_ascii=False, indent=1))
+        f.write(json.dumps(data, ensure_ascii=False, indent=1) + "\n")
 
 
 npcs_base = {x["id"]: x for x in load("creatures/npcs.json")}
@@ -295,6 +295,8 @@ def main():
         z["objects"] = [o for o in z["objects"] if not o["object"].startswith("obj_portal_nach_")]
         for i, ck in enumerate(caps):
             z["objects"].append({"object": f"obj_portal_nach_{ck}", "position": pos(hx - 10 + i * 20, hz + 15), "count": 1, "radius": 0, "respawnSeconds": 0})
+        # Feste Reihenfolge: gen_professions.py schreibt in dieselben Dateien – so ist das Ergebnis unabhängig von der Aufrufreihenfolge.
+        z["objects"].sort(key=lambda o: (o["object"], tuple(o["position"])))
         z["spawns"] = [s for s in z["spawns"] if s["creature"] != night_mob]
         z["spawns"].append({"creature": night_mob, "position": night_pos, "count": 6, "radius": 35, "respawnSeconds": 90, "wanderRadius": 10, "timeOfDay": "night"})
         for s in z["spawns"]:

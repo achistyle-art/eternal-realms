@@ -877,15 +877,15 @@
   ],
   "objects": [
    {
-    "object": "obj_iron_ore",
+    "object": "obj_crypt_entrance_mt",
     "position": [
-     110,
+     880,
      0,
-     345
+     820
     ],
-    "count": 8,
-    "radius": 30,
-    "respawnSeconds": 30
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
    },
    {
     "object": "obj_fennling_crate",
@@ -899,48 +899,15 @@
     "respawnSeconds": 30
    },
    {
-    "object": "obj_tainted_wellstone",
+    "object": "obj_iron_ore",
     "position": [
-     315,
+     110,
      0,
-     105
+     345
     ],
-    "count": 5,
-    "radius": 25,
-    "respawnSeconds": 60
-   },
-   {
-    "object": "obj_sparkstone_chest",
-    "position": [
-     325,
-     0,
-     705
-    ],
-    "count": 1,
-    "radius": 0,
-    "respawnSeconds": 60
-   },
-   {
-    "object": "obj_moonpetal",
-    "position": [
-     845,
-     0,
-     225
-    ],
-    "count": 4,
-    "radius": 15,
-    "respawnSeconds": 60
-   },
-   {
-    "object": "obj_crypt_entrance_mt",
-    "position": [
-     880,
-     0,
-     820
-    ],
-    "count": 1,
-    "radius": 0,
-    "respawnSeconds": 45
+    "count": 8,
+    "radius": 30,
+    "respawnSeconds": 30
    },
    {
     "object": "obj_mailbox",
@@ -954,103 +921,37 @@
     "respawnSeconds": 1
    },
    {
-    "object": "obj_station_anvil",
+    "object": "obj_moonpetal",
     "position": [
-     394,
+     845,
      0,
-     380
+     225
+    ],
+    "count": 4,
+    "radius": 15,
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_portal_nach_sf",
+    "position": [
+     385,
+     0,
+     455
     ],
     "count": 1,
     "radius": 0,
-    "respawnSeconds": 1
+    "respawnSeconds": 0
    },
    {
-    "object": "obj_station_forge",
+    "object": "obj_portal_nach_sm",
     "position": [
-     390,
+     405,
      0,
-     380
+     455
     ],
     "count": 1,
     "radius": 0,
-    "respawnSeconds": 1
-   },
-   {
-    "object": "obj_station_fire",
-    "position": [
-     410,
-     0,
-     380
-    ],
-    "count": 1,
-    "radius": 0,
-    "respawnSeconds": 1
-   },
-   {
-    "object": "obj_prof_vein0",
-    "position": [
-     205,
-     0,
-     200
-    ],
-    "count": 8,
-    "radius": 60,
-    "respawnSeconds": 180
-   },
-   {
-    "object": "obj_prof_herb0a",
-    "position": [
-     120,
-     0,
-     320
-    ],
-    "count": 8,
-    "radius": 55,
-    "respawnSeconds": 180
-   },
-   {
-    "object": "obj_prof_herb0b",
-    "position": [
-     300,
-     0,
-     120
-    ],
-    "count": 8,
-    "radius": 55,
-    "respawnSeconds": 180
-   },
-   {
-    "object": "obj_prof_vein1",
-    "position": [
-     610,
-     0,
-     520
-    ],
-    "count": 4,
-    "radius": 80,
-    "respawnSeconds": 300
-   },
-   {
-    "object": "obj_prof_herb1a",
-    "position": [
-     340,
-     0,
-     660
-    ],
-    "count": 4,
-    "radius": 80,
-    "respawnSeconds": 300
-   },
-   {
-    "object": "obj_prof_herb1b",
-    "position": [
-     700,
-     0,
-     700
-    ],
-    "count": 4,
-    "radius": 55,
-    "respawnSeconds": 300
+    "respawnSeconds": 0
    },
    {
     "object": "obj_prof_fishpool0",
@@ -1075,26 +976,125 @@
     "respawnSeconds": 240
    },
    {
-    "object": "obj_portal_nach_sf",
+    "object": "obj_prof_herb0a",
     "position": [
-     385,
+     120,
      0,
-     455
+     320
     ],
-    "count": 1,
-    "radius": 0,
-    "respawnSeconds": 0
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 180
    },
    {
-    "object": "obj_portal_nach_sm",
+    "object": "obj_prof_herb0b",
     "position": [
-     405,
+     300,
      0,
-     455
+     120
+    ],
+    "count": 8,
+    "radius": 55,
+    "respawnSeconds": 180
+   },
+   {
+    "object": "obj_prof_herb1a",
+    "position": [
+     340,
+     0,
+     660
+    ],
+    "count": 4,
+    "radius": 80,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_prof_herb1b",
+    "position": [
+     700,
+     0,
+     700
+    ],
+    "count": 4,
+    "radius": 55,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_prof_vein0",
+    "position": [
+     205,
+     0,
+     200
+    ],
+    "count": 8,
+    "radius": 60,
+    "respawnSeconds": 180
+   },
+   {
+    "object": "obj_prof_vein1",
+    "position": [
+     610,
+     0,
+     520
+    ],
+    "count": 4,
+    "radius": 80,
+    "respawnSeconds": 300
+   },
+   {
+    "object": "obj_sparkstone_chest",
+    "position": [
+     325,
+     0,
+     705
     ],
     "count": 1,
     "radius": 0,
-    "respawnSeconds": 0
+    "respawnSeconds": 60
+   },
+   {
+    "object": "obj_station_anvil",
+    "position": [
+     394,
+     0,
+     380
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_station_fire",
+    "position": [
+     410,
+     0,
+     380
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_station_forge",
+    "position": [
+     390,
+     0,
+     380
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 1
+   },
+   {
+    "object": "obj_tainted_wellstone",
+    "position": [
+     315,
+     0,
+     105
+    ],
+    "count": 5,
+    "radius": 25,
+    "respawnSeconds": 60
    }
   ],
   "mapRect": [
