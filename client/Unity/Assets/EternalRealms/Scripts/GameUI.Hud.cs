@@ -376,5 +376,39 @@ namespace EternalRealms.Client
             GUI.Box(r, "");
             GUI.Label(new Rect(r.x + 6, r.y + 4, w - 12, h - 6), text, _wrap);
         }
+    
+        /// <summary>
+        /// Bosskampf (Kapitel 43): Leiste oben mittig mit Phase, Kampfzeit und Countdown bis zur ungezügelten Wut;
+        /// darunter eine große Warnung, solange man in einem Bodeneffekt steht. Nach Sieg/Niederlage noch 8 s sichtbar.
+        /// </summary>
+        private void DrawEncounter()
+        {
+            var en = Client.Encounter;
+            double age = Client.Now - Client.EncounterReceivedAt;
+            if (en != null && (en.State == EncounterState.Running || age < 8))
+            {
+                var r = Box(new Rect(ScreenW / 2 - 170, 8, 340, 46));
+                GUI.Box(r, "");
+                float elapsed = en.Elapsed + (en.State == EncounterState.Running ? (float)age : 0);
+                string head = en.State switch
+                {
+                    EncounterState.Won => $"<color=lime>{en.Name} besiegt!</color>",
+                    EncounterState.Wiped => $"<color=red>Niederlage gegen {en.Name}</color>",
+                    _ => $"<b>{en.Name}</b>{(en.Phase.Length > 0 ? " – " + en.Phase : "")}",
+                };
+                GUI.Label(new Rect(r.x + 8, r.y + 3, r.width - 16, 20), head, _center);
+                string enrage = en.EnrageIn < 0 ? "" : en.EnrageIn - (float)age <= 0 && en.State == EncounterState.Running
+                    ? "  <color=red>WUT!</color>" : $"  Wut in {Mathf.Max(0, en.EnrageIn - (en.State == EncounterState.Running ? (float)age : 0)):0} s";
+                GUI.Label(new Rect(r.x + 8, r.y + 23, r.width - 16, 20), $"{(int)elapsed / 60}:{(int)elapsed % 60:00}  Tode {en.Deaths}{enrage}", _center);
+            }
+            var danger = Client.DangerUnderMe();
+            if (danger != null)
+            {
+                bool warn = danger.Warning(Client.Now);
+                var style = new GUIStyle(_center!) { fontSize = _center!.fontSize + 10 };
+                GUI.Label(new Rect(ScreenW / 2 - 300, ScreenH * 0.28f, 600, 40),
+                    warn ? $"<color=orange>Raus aus {danger.Data.Name}! ({danger.Remaining(Client.Now):0.0} s)</color>" : $"<color=red>Ihr steht in {danger.Data.Name}!</color>", style);
+            }
+        }
     }
 }

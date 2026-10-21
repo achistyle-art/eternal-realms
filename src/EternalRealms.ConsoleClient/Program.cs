@@ -20,6 +20,8 @@ double nextMoveSend = 0;
 
 var lastEventState = new Dictionary<string, string>();
 (string Account, string Password)? lastLogin = null;
+int warnedGround = 0;
+string lastEncounter = "";
 client.Reconnected += resumed => Print(resumed ? "Verbindung wiederhergestellt – Ihr seid wieder in der Welt." : "Wieder verbunden.");
 client.ReconnectFailed += why => Print("Wiederverbindung fehlgeschlagen: " + why + " Bitte erneut 'login'.");
 var lastTutorial = "";
@@ -136,6 +138,19 @@ client.MessageReceived += m =>
             if (sec.PendingSecret != "") Print($"Geheimnis für die Authenticator-App: {sec.PendingSecret}\n  Adresse: {sec.PendingUri}\n  Danach '2fa bestätigen <Code>'.");
             else Print($"Zwei-Faktor-Anmeldung: {(sec.TwoFactorEnabled ? "an" : "aus")}");
             break;
+        case S_Encounter en:
+        {
+            string key = $"{en.BossId}:{en.Phase}:{en.State}";
+            if (key == lastEncounter) break;
+            lastEncounter = key;
+            Print(en.State switch
+            {
+                EncounterState.Won => $"*** {en.Name} besiegt nach {en.Elapsed:0} s ({en.Deaths} Tode) ***",
+                EncounterState.Wiped => $"*** Niederlage gegen {en.Name} ***",
+                _ => $"*** Bosskampf: {en.Name}{(en.Phase != "" ? " – Phase „" + en.Phase + "“" : "")}{(en.EnrageIn > 0 ? $", Wut in {en.EnrageIn:0} s" : "")} ***",
+            });
+            break;
+        }
         case S_QueueStatus q when q.Position > 0: Print($"Warteschlange: Platz {q.Position} von {q.Length}."); break;
         case S_EnterWorld ew: Print($"Ihr betretet {content.Zones[ew.ZoneId].Name} bei {ew.Position}."); walkTarget = null; break;
     }
@@ -160,6 +175,7 @@ while (true)
         Print($"{ch}{who}{ChatLinks.Plain(c.Text, content)}");
     }
     UpdateWalking();
+    WarnGround();
     if (client.Connected && (DateTime.UtcNow - lastPing).TotalSeconds > 5) { lastPing = DateTime.UtcNow; client.SendPing(); }
     while (input.TryDequeue(out var line))
     {
@@ -167,6 +183,14 @@ while (true)
         try { Command(line.Trim()); } catch (Exception ex) { Print("Fehler: " + ex.Message); }
     }
     Thread.Sleep(30);
+}
+
+void WarnGround()
+{
+    var d = client.DangerUnderMe();
+    if (d == null || d.Data.Id == warnedGround) return;
+    warnedGround = d.Data.Id;
+    Print(d.Warning(client.Now) ? $"!!! Ihr steht in {d.Data.Name} – wirkt in {d.Remaining(client.Now):0.0} s! ('raus')" : $"!!! Ihr steht in {d.Data.Name}! ('raus')");
 }
 
 void UpdateWalking()
@@ -476,6 +500,29 @@ void Command(string line)
             else if (client.Tutorial is { Done: false } tut) Print($"[Tutorial {tut.Step + 1}/{tut.Steps}] {tut.Title}: {tut.Text}{(tut.Hint != "" ? " Tipp: " + tut.Hint : "")}");
             else Print("Kein Tutorial aktiv (tutorial neu startet es).");
             break;
+        case "boss":
+            if (client.Encounter is not { } enc) { Print("Kein Bosskampf."); break; }
+        {
+            double since = enc.State == EncounterState.Running ? client.Now - client.EncounterReceivedAt : 0;
+            string state = enc.State switch { EncounterState.Won => "besiegt", EncounterState.Wiped => "Niederlage", _ => "läuft" };
+            Print($"{enc.Name}: {state}, Phase „{enc.Phase}“, {enc.Elapsed + since:0} s, " +
+                  $"{(enc.EnrageIn < 0 || enc.State != EncounterState.Running ? "" : $"Wut in {Math.Max(0, enc.EnrageIn - since):0} s, ")}{enc.Deaths} Tode");
+        }
+            foreach (var g in client.GroundEffects.Values)
+                Print($"  {g.Data.Name} bei ({g.Data.Position.X:0}, {g.Data.Position.Z:0}), Radius {g.Data.Radius:0} m, {(g.Warning(client.Now) ? "wirkt in" : "noch")} {g.Remaining(client.Now):0.0} s");
+            break;
+        case "raus":
+        {
+            // Aus dem Bodeneffekt unter einem heraus: kürzester Weg zum Rand plus zwei Meter
+            var d = client.DangerUnderMe();
+            if (d == null || me == null) { Print("Ihr steht in keinem Bodeneffekt."); break; }
+            var away = (me.Position - d.Data.Position).NormalizedXZ();
+            if (away.LengthXZ < 0.1f) away = new Vec3(1, 0, 0);
+            walkTarget = d.Data.Position + away * (d.Data.Radius + 2);
+            followId = 0;
+            Print("Raus aus " + d.Data.Name + "!");
+            break;
+        }
         case "events":
             if (client.WorldEvents.Count == 0) Print("Keine Weltereignisse in dieser Region.");
             foreach (var w in client.WorldEvents.Values) Print($"  {w.Name}: {w.State} – {w.Text} {w.Progress}/{w.Goal}, {w.Participants} Beteiligte");
@@ -728,6 +775,7 @@ void Help() => Print(@"Befehle:
   group | invite <Name> | join | leave
   g <Text> Gebiet | h <Text> Handel (nur in Städten) | suche <Text> Gruppensuche | kanal gebiet|handel|suche an|aus | #3 im Text verlinkt Taschenplatz 3
   erfolge | titel <Titel|aus> | tutorial [skip|neu]
+  boss (Bosskampf, Wut, Bodeneffekte) | raus (aus dem Bodeneffekt laufen)
   events (laufende Weltereignisse) | #event <id>, #time <Stunde>, #weather <Wetter> (Entwicklermodus)
   e <Emote> [mit Ziel: zuerst 'target'] z. B. e winken | e <freier Text> | emotes | perf
   trade <id|Name> | tradeyes | tradeno | tput <1-6> <Taschenplatz> | tgold <Kupfer> | tok | tcancel

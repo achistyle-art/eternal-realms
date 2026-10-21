@@ -24,6 +24,8 @@ namespace EternalRealms.Client
         private ParticleSystem? _rain;
         private float _flash;
         private GameObject? _focusArrow;
+        /// <summary>Bodeneffekte der Bosse als flache Scheiben (Kapitel 43): orange pulsierend = Vorwarnung, rot = wirkt.</summary>
+        private readonly Dictionary<int, GameObject> _groundViews = new Dictionary<int, GameObject>();
         private GameObject _selection = null!;
         public readonly List<FloatingText> FloatingTexts = new List<FloatingText>();
 
@@ -141,8 +143,38 @@ namespace EternalRealms.Client
             _focusArrow.SetActive(focus != null);
             if (focus != null) _focusArrow.transform.position = focus.transform.position + Vector3.up * (3.2f + 0.25f * Mathf.Sin(Time.time * 4));
 
+            UpdateGroundEffects();
             UpdateSky();
             FloatingTexts.RemoveAll(f => Time.time - f.Born > 1.6f);
+        }
+
+        private void UpdateGroundEffects()
+        {
+            foreach (var id in new List<int>(_groundViews.Keys))
+                if (!Client.GroundEffects.ContainsKey(id)) { Destroy(_groundViews[id]); _groundViews.Remove(id); }
+            foreach (var g in Client.GroundEffects.Values)
+            {
+                if (!_groundViews.TryGetValue(g.Data.Id, out var go))
+                {
+                    go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    go.name = "Bodeneffekt " + g.Data.Name;
+                    Destroy(go.GetComponent<Collider>());
+                    var mat = go.GetComponent<Renderer>().material;
+                    mat.SetFloat("_Mode", 3); // durchsichtig (Standard-Shader)
+                    mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                    mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                    mat.SetInt("_ZWrite", 0);
+                    mat.EnableKeyword("_ALPHABLEND_ON");
+                    mat.renderQueue = 3000;
+                    _groundViews[g.Data.Id] = go;
+                }
+                float d = g.Data.Radius * 2;
+                go.transform.position = g.Data.Position.ToUnity() + Vector3.up * 0.06f;
+                go.transform.localScale = new Vector3(d, 0.02f, d);
+                bool warning = g.Warning(Client.Now);
+                float pulse = 0.5f + 0.5f * Mathf.Sin(Time.time * (warning ? 10 : 3));
+                go.GetComponent<Renderer>().material.color = warning ? new Color(1f, 0.55f, 0.1f, 0.25f + 0.25f * pulse) : new Color(0.9f, 0.1f, 0.1f, 0.45f + 0.15f * pulse);
+            }
         }
 
         private void BuildZone(string zoneId)
@@ -194,6 +226,8 @@ namespace EternalRealms.Client
         {
             foreach (var v in _views.Values) if (v != null) Destroy(v.gameObject);
             _views.Clear();
+            foreach (var g in _groundViews.Values) if (g != null) Destroy(g);
+            _groundViews.Clear();
             _zone = "";
         }
 

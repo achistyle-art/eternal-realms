@@ -54,22 +54,26 @@ Designer können diese Profile ändern, ohne den Code anzufassen.
 ## Entscheidungen pro Denkschritt
 
 1. **Tot?** Wenn ein Wiederbeleber in der Gruppe lebt, wartet der Bot. Sonst lässt er den Geist frei, läuft zur Leiche und belebt sich wieder.
-2. **Zaubert gerade?** Heilungen, die nicht mehr nötig sind, bricht er ab.
-3. **Anschluss an den Anführer:** Der Bot folgt über Zonen und Instanzen und holt auf, wenn er zu weit zurückliegt.
-4. **Notfall:** Heiltrank oder Volksfähigkeit.
-5. **Heilen:** Er wählt das Gruppenmitglied mit dem niedrigsten Lebensanteil, wobei für den Tank eine höhere Schwelle gilt. Danach wählt er den Zauber:
+2. **Bodeneffekt?** Steht der Bot in einer markierten Fläche, läuft er zum nächsten sicheren Punkt in Reichweite seines Ziels und bricht dafür auch einen Zauber ab. Wann er die Gefahr bemerkt, hängt von der Schwierigkeitsstufe ab (siehe „Bosskämpfe“).
+3. **Zaubert gerade?** Heilungen, die nicht mehr nötig sind, bricht er ab.
+4. **Anschluss an den Anführer:** Der Bot folgt über Zonen und Instanzen und holt auf, wenn er zu weit zurückliegt.
+5. **Notfall:** Heiltrank oder Volksfähigkeit.
+6. **Heilen:** Er wählt das Gruppenmitglied mit dem niedrigsten Lebensanteil, wobei für den Tank eine höhere Schwelle gilt. Danach wählt er den Zauber:
    * Schild für den Tank,
    * HoT vorbeugend,
    * die schnellste Heilung im Notfall,
    * sonst die passende Heilung, die möglichst wenig überheilt.
-6. **Unterbrechen:** Feindliche Zauber werden unterbrochen.
-7. **Kämpfen:**
+7. **Unterbrechen:** Feindliche Zauber werden unterbrochen. Angesagte Pflicht-Zauber eines Bosses haben Vorrang. Ob der Bot rechtzeitig reagiert, wird einmal pro Zauber nach seinem Können entschieden.
+8. **Kämpfen:**
    * **Tank:** Lose Gegner, die andere angreifen, holt er per Spott zurück, den Heiler zuerst. Danach greift er das Ziel des Anführers an.
-   * **Schadensverursacher:** Sie greifen das Ziel des Tanks an, sonst das des Anführers, sonst Gegner, die den Heiler angreifen. Gegner unter Kontrolleffekten (Verwandlung, Solarplexus) lassen sie in Ruhe. Im Dungeon warten sie, bis der Tank Bedrohung aufgebaut hat. Nahkämpfer stellen sich hinter das Ziel. Fernkämpfer halten Abstand und gehen auf Distanz, wenn ein Gegner festgehalten ist.
-8. **Wiederbeleben** toter Gruppenmitglieder nach dem Kampf.
-9. **Pflege:** Haltung oder Gestalt einnehmen, Begleiter rufen, Buffs erneuern.
-10. **Rasten:** Essen und Trinken, im Dungeon mit höheren Schwellen. Der Heiler sagt in der Gruppe Bescheid, wenn sein Mana knapp wird.
-11. **Folgen** in Formation hinter dem Anführer – oder **eigenständig spielen** (siehe unten).
+   * **Ersatz-Tank:** Fällt der Tank, übernimmt genau ein Bot.
+     * Bevorzugt sind Krieger, Paladin oder Druide, sonst der Schadensverursacher mit dem meisten Leben. Heiler übernehmen nie.
+     * Der Bot sagt es in der Gruppe an und spottet, wenn er es kann.
+   * **Schadensverursacher:** Sie greifen das Ziel des Tanks an, sonst das des Anführers, sonst Gegner, die den Heiler angreifen. Vorrangige Adds eines Bosses greifen sie zuerst an. Gegner unter Kontrolleffekten (Verwandlung, Solarplexus) lassen sie in Ruhe. Liegt ihr Kampfplatz in einer Fläche, suchen sie sich einen sicheren Platz am Ziel. Im Dungeon warten sie, bis der Tank Bedrohung aufgebaut hat. Nahkämpfer stellen sich hinter das Ziel. Fernkämpfer halten Abstand und gehen auf Distanz, wenn ein Gegner festgehalten ist.
+9. **Wiederbeleben** toter Gruppenmitglieder nach dem Kampf.
+10. **Pflege:** Haltung oder Gestalt einnehmen, Begleiter rufen, Buffs erneuern.
+11. **Rasten:** Essen und Trinken, im Dungeon mit höheren Schwellen. Der Heiler sagt in der Gruppe Bescheid, wenn sein Mana knapp wird.
+12. **Folgen** in Formation hinter dem Anführer – oder **eigenständig spielen** (siehe unten).
 
 ## Gruppenchat-Befehle
 
@@ -150,6 +154,52 @@ sondern alle 30 Sekunden ein Hintergrundschritt ausgeführt – Gegner und Vorko
 werden bei Bedarf an der Leiche wiederbelebt und erhalten pauschal Erfahrung und Beutegeld (≈ eine Beute je 45 s).
 Betritt ein Mensch die Zone, läuft sie sofort wieder voll. Abschaltbar mit `ER_ZONE_LOD=false`.
 
+## Bosskämpfe in 5er-Dungeons (Block G)
+
+Die Kampfsteuerung (`EncounterSystem`) führt jeden Bosskampf:
+
+- Start, Sieg oder Niederlage, Phase und Kampfzeit, die Wut nach `enrageAfter`.
+- Bodeneffekte mit Vorwarnung und Pflicht-Zauber.
+- Eine Auswertung je Kampf: Dauer, Tode, Treffer durch Bodeneffekte je Teilnehmer, Unterbrechungen.
+
+Raids mit mehr als 5 Spielern folgen später.
+
+Wie zuverlässig Bots die Mechaniken meistern, hängt von der Schwierigkeitsstufe ab (`BotBrain.Encounter.cs`):
+
+| Stufe | Bemerkt Bodeneffekt nach | übersieht ihn | Pflicht-Unterbrechung gelingt (wenn bereit) |
+|---|---|---|---|
+| Anfänger | 0,8–2,4 s | 25 % | ca. 46–57 % |
+| Normal | 0,35–1,3 s | 8 % | ca. 60–70 % |
+| Erfahren | 0,15–0,7 s | 2 % | ca. 74–85 % |
+| Veteran | 0–0,3 s | nie | ca. 88–95 % |
+
+### Abstimmung mit der Kampfsimulation
+
+`EncounterTests.BalanceAcrossDifficulties` simuliert jeden Boss der Wurzelkrypta (Stufe des Bosses + 1).
+
+- **Gruppe:** ein aufmerksamer Spieler (Krieger, weicht nach etwa 0,5 s aus) und vier KI-Mitspieler: Paladin als Tank, Priester als Heiler, Magier, Schurke.
+- **Mehr Durchläufe:** `ER_BALANCE_RUNS=5 dotnet test --filter BalanceAcrossDifficulties`.
+- **Messung:** je 5 Kämpfe. Die letzte Spalte zählt erfolgreiche von allen Pflicht-Unterbrechungen.
+
+| Boss | Bots | Siege | Dauer | Tode | Bodentreffer der Bots | Unterbrechungen |
+|---|---|---|---|---|---|---|
+| Moderkeim | Anfänger | 5/5 | 79 s | 0,8 | 35,8 | – |
+| Moderkeim | Normal | 5/5 | 60 s | 0,0 | 7,4 | – |
+| Moderkeim | Veteran | 5/5 | 66 s | 0,2 | 2,0 | – |
+| Schwester Elvaine | Anfänger | 5/5 | 53 s | 0,0 | 2,0 | 8/10 |
+| Schwester Elvaine | Normal | 5/5 | 53 s | 0,0 | 0,0 | 7/9 |
+| Schwester Elvaine | Veteran | 5/5 | 51 s | 0,0 | 0,0 | 8/9 |
+| Wurzelfürst Morrak | Anfänger | 3/5 | 83 s | 2,4 | 13,0 | – |
+| Wurzelfürst Morrak | Normal | 5/5 | 77 s | 0,2 | 3,4 | – |
+| Wurzelfürst Morrak | Veteran | 5/5 | 69 s | 0,0 | 2,0 | – |
+
+**Ergebnis der Abstimmung:**
+
+- Ab „Normal“ ist die Wurzelkrypta mit KI-Mitspielern zuverlässig schaffbar. Die Wut nach 180–240 s trifft nur deutlich zu langsame Gruppen.
+- Anfänger stehen vier- bis siebenmal öfter in Bodeneffekten und verlieren gegen Morrak manchmal.
+- Moderkeim als erster Boss bleibt nachsichtig.
+- Elvaines Heilung wird auch von Anfängern meist unterbrochen, weil Magier und Schurke beide unterbrechen können.
+
 ## Grundausrüstung
 
 Bots haben keine tausend handgefertigten Gegenstände. Deshalb tragen sie eine **virtuelle Grundausrüstung**, deren Werte etwa grüner Ausrüstung ihrer Stufe entsprechen (`BotGear`). Jeder echte Gegenstand, den ein Bot anlegt, ersetzt den virtuellen Anteil seines Platzes. Bots verbrauchen beim Rasten keine Nahrungsmittel.
@@ -160,6 +210,7 @@ Bots haben keine tausend handgefertigten Gegenstände. Deshalb tragen sie eine *
 
 * Alle 18 Profile gewinnen allein gegen einen Gegner ihrer Stufe.
 * Eine Gruppe aus Spieler und 4 Bots besiegt den ersten Dungeonboss mit Phasenwechsel.
+* `EncounterTests` prüft die Mechaniken (Vorwarnung, liegende Flächen, Wut, Niederlage), dass Veteranen besser ausweichen als Anfänger, Pflicht-Unterbrechungen, vorrangige Adds, den Ersatz-Tank und die Balance über alle Stufen.
 * Der Tank hält die Gegner, und der Heiler heilt.
 * Bots folgen, warten auf Befehl, reden in der richtigen Reihenfolge, steigen auf und lernen dabei Fähigkeiten.
 * Eigenständige Bots sammeln selbst Erfahrung.

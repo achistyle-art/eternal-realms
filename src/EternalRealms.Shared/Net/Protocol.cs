@@ -8,7 +8,7 @@ namespace EternalRealms.Shared.Net
     {
         /// <summary>Wird beim Verbinden geprüft; Client und Server müssen übereinstimmen.</summary>
         public const string ConnectionKey = "EternalRealms/1";
-        public const int ProtocolVersion = 2;
+        public const int ProtocolVersion = 3;
         public const int DefaultPort = 7777;
     }
 
@@ -50,6 +50,7 @@ namespace EternalRealms.Shared.Net
         S_TradeRequest, S_TradeState, S_TradeClosed, S_ChatChannels,
         S_Emote, S_WorldEvent, S_Achievements, S_AchievementEarned, S_Tutorial,
         S_AccountSecurity, S_QueueStatus, S_Goodbye,
+        S_GroundEffect, S_Encounter,
     }
 
     public abstract class Message

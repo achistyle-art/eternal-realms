@@ -95,6 +95,8 @@ namespace EternalRealms.Server.World
         public Player? GuideFor { get; set; }
         /// <summary>Spielzeit, zu der die Kreatur still verschwindet (0 = nie).</summary>
         public double DespawnAt { get; set; }
+        /// <summary>Vorrangiges Ziel eines Bosskampfs (Kapitel 44): KI-Mitspieler wechseln darauf.</summary>
+        public bool PriorityTarget { get; set; }
 
         public override EntityKind Kind => IsPet ? EntityKind.Pet : Template.IsNpc && Faction != Faction.Hostile && Faction != Faction.Neutral ? EntityKind.Npc : EntityKind.Creature;
         public override bool IsEvading => Evading;

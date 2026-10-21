@@ -294,6 +294,23 @@ namespace EternalRealms.Server.Systems
             return Rng.Chance(miss) ? CombatResult.Resist : CombatResult.Hit;
         }
 
+        /// <summary>
+        /// Wirkt eine Fähigkeit ohne Zauber, Kosten und Trefferwurf direkt auf ein Ziel – für Bodeneffekte und Kampfmechaniken,
+        /// denen man nur durch Ausweichen entgeht.
+        /// </summary>
+        public void ApplyAbilityAt(Unit caster, AbilityDef ab, Unit t)
+        {
+            if (t.IsDead || t.Removed) return;
+            if (ab.IsHarmful && t != caster)
+            {
+                if (!caster.CanAttack(t)) return;
+                caster.EnterCombatWith(t);
+                if (t is Creature tc) tc.AI.OnAttacked(caster);
+                if (t.IsEvading) return;
+            }
+            ApplyEffects(caster, ab, t);
+        }
+
         private void ApplyEffects(Unit caster, AbilityDef ab, Unit t)
         {
             foreach (var e in ab.Effects)
@@ -346,6 +363,7 @@ namespace EternalRealms.Server.Systems
                         if (victim.Cast != null && victim.Cast.Object == null)
                         {
                             var school = victim.Cast.Ability.School;
+                            _w.Encounters.OnInterrupted(victim, caster);
                             CancelCast(victim, "Unterbrochen");
                             if (e.Duration > 0) victim.SchoolLockouts[school] = e.Duration;
                             Event(caster, victim, ab.RankedId, CombatResult.Hit, school, 0);
@@ -787,6 +805,7 @@ namespace EternalRealms.Server.Systems
             victim.Target = null;
             victim.RemoveAuras(a => !a.Def.PersistsThroughDeath);
             victim.Zone?.BroadcastFrom(victim, new S_UnitDied { Id = victim.Id, KillerId = killer?.Id ?? 0 });
+            _w.Encounters.OnUnitDied(victim);
             var killerPlayer = killer as Player ?? (killer as Creature)?.Owner;
 
             if (victim is Creature c)

@@ -110,6 +110,8 @@ namespace EternalRealms.Server.AI
         {
             if (Me.IsDead) { ThinkDead(); return; }
             _deadTimer = 0;
+            // Bodeneffekte zuerst: lieber einen Zauber abbrechen als darin stehen bleiben.
+            if (!Me.IsRooted && DodgeGround()) return;
             if (Me.Cast != null)
             {
                 // Überflüssige Heilung abbrechen (Ziel inzwischen voll), wie es ein aufmerksamer Spieler tun würde.
@@ -244,12 +246,8 @@ namespace EternalRealms.Server.AI
 
         private void Fight(List<Creature> enemies)
         {
-            Unit? target = Role switch
-            {
-                Role.Tank => PickTankTarget(enemies),
-                Role.Healer => PickAssistTarget(enemies),
-                _ => PickAssistTarget(enemies),
-            };
+            bool tanking = Role == Role.Tank || IsStandInTank();
+            Unit? target = tanking ? PickTankTarget(enemies) : PickAssistTarget(enemies);
             if (target == null) { if (InGroup) FollowLeader(); return; }
             if (Me.Target != target) { Me.Target = target; Decide($"Ziel: {target.Name}"); }
 
@@ -294,7 +292,7 @@ namespace EternalRealms.Server.AI
                         float a = target.Facing + (float)Math.PI + spreadAngle;
                         spot = target.Position + new Vec3((float)Math.Sin(a), 0, (float)Math.Cos(a)) * 1.5f;
                     }
-                    MoveTo(spot, Me.MeleeReachTo(target) - 0.6f);
+                    MoveTo(SafeApproach(target, spot, Math.Max(1f, Me.MeleeReachTo(target) - 0.8f)), Me.MeleeReachTo(target) - 0.6f);
                 }
                 else { _moveTarget = null; Me.Facing = Vec3.FacingTowards(Me.Position, target.Position); }
             }
@@ -309,7 +307,7 @@ namespace EternalRealms.Server.AI
                                .OrderBy(e => e.Target is Player p && p.Bot?.Role == Role.Healer ? 0 : 1).ThenBy(e => e.DistanceTo(Me)).FirstOrDefault();
             if (loose != null)
             {
-                if (Profile?.Taunt != null && TryAbility(Profile.Taunt, loose)) { Say("taunt", loose); return loose; }
+                if (TauntAbility is string taunt && TryAbility(taunt, loose)) { Say("taunt", loose); return loose; }
                 return loose;
             }
             if (_forcedTarget != null && _forcedTarget.IsAlive && enemies.Contains(_forcedTarget)) return _forcedTarget;
@@ -325,6 +323,8 @@ namespace EternalRealms.Server.AI
             if (_forcedTarget is Creature f && usable.Contains(f)) return f;
             var marked = MarkedTarget(usable);
             if (marked != null) return marked;
+            // Bosskampf: vorrangige Adds zuerst (Heiler bleiben beim Heilen)
+            if (Role != Role.Healer && PriorityAdd(usable) is Creature prio) return prio;
             // Mutige Nahkämpfer beschützen schwächere Gruppenmitglieder (nur wenn der Tank gerade anderweitig bindet).
             if (Data.Archetype == BotPersonality.Mutig && !(Profile?.Ranged ?? false))
             {
@@ -403,6 +403,15 @@ namespace EternalRealms.Server.AI
             var id = Profile?.Interrupt;
             if (id == null || Me.KnownRank(id) <= 0) return false;
             var casters = enemies.Where(e => e.Cast != null && e.Cast.Remaining > 0.3f && e.Cast.Ability.IsSpell).ToList();
+            // Angesagte Pflicht-Zauber eines Bosses haben Vorrang vor allem anderen.
+            var must = casters.FirstOrDefault(e => _w.Encounters.IsMustInterrupt(e));
+            if (must != null)
+            {
+                if (Me.CooldownLeft(id) > 0) return false;
+                // Einmal je Zauber entscheiden, ob der Bot rechtzeitig reagiert (nicht bei jedem Denkschritt neu würfeln).
+                if (!ReferenceEquals(_mustCast, must.Cast)) { _mustCast = must.Cast; _mustReacts = _w.Random.Chance(MustInterruptChance(Data.Skill)); }
+                return _mustReacts && TryAbility(id, must);
+            }
             var caster = (_interruptPriority ? casters.FirstOrDefault(e => e == Leader?.Target) : null) ?? casters.FirstOrDefault();
             if (caster == null) return false;
             // Geübte Bots reagieren zuverlässiger, ungeübte verpassen manche Unterbrechung. Auf Befehl fast immer.

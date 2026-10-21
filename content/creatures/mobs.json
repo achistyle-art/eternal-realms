@@ -1958,6 +1958,23 @@
       "chance": 1.0,
       "targetRule": "Current",
       "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_spore_carpet",
+      "interval": 15,
+      "initialDelay": 8,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 5,
+       "warning": 2.5,
+       "duration": 8,
+       "tickInterval": 1,
+       "placement": "RandomPlayer",
+       "count": 2
+      },
+      "announce": "{boss} spuckt Sporenteppiche aus – raus da!"
      }
     ]
    },
@@ -1973,12 +1990,30 @@
       "chance": 1.0,
       "targetRule": "Current",
       "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_spore_carpet",
+      "interval": 12,
+      "initialDelay": 4,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 5,
+       "warning": 2.5,
+       "duration": 8,
+       "tickInterval": 1,
+       "placement": "RandomPlayer",
+       "count": 2
+      },
+      "announce": "{boss} spuckt Sporenteppiche aus – raus da!"
      }
     ],
     "summonAdds": [
      {
       "creature": "dmob_sporeling",
-      "count": 3
+      "count": 3,
+      "priority": true
      }
     ]
    }
@@ -2004,7 +2039,8 @@
    }
   ],
   "moneyMin": 300,
-  "moneyMax": 600
+  "moneyMax": 600,
+  "enrageAfter": 180
  },
  {
   "id": "boss_elvaine",
@@ -2038,12 +2074,30 @@
       "healthBelow": 1.01
      },
      {
-      "ability": "mob_heal_self",
-      "interval": 18,
-      "initialDelay": 12,
+      "ability": "mob_dark_mending",
+      "interval": 16,
+      "initialDelay": 10,
       "chance": 1.0,
       "targetRule": "Self",
-      "healthBelow": 0.7
+      "healthBelow": 0.85,
+      "mustInterrupt": true
+     },
+     {
+      "ability": "mob_shadow_ring",
+      "interval": 14,
+      "initialDelay": 6,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 6,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "Farthest",
+       "count": 1
+      },
+      "announce": "Ein Schattenkreis bildet sich um den Entferntesten!"
      }
     ]
    },
@@ -2067,12 +2121,39 @@
       "chance": 1.0,
       "targetRule": "Random",
       "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_dark_mending",
+      "interval": 16,
+      "initialDelay": 6,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 1.01,
+      "mustInterrupt": true
+     },
+     {
+      "ability": "mob_shadow_ring",
+      "interval": 12,
+      "initialDelay": 4,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 6,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "Farthest",
+       "count": 1
+      },
+      "announce": "Ein Schattenkreis bildet sich um den Entferntesten!"
      }
     ],
     "summonAdds": [
      {
       "creature": "dmob_blighted_dryad",
-      "count": 1
+      "count": 1,
+      "priority": true
      }
     ]
    }
@@ -2092,7 +2173,8 @@
    }
   ],
   "moneyMin": 400,
-  "moneyMax": 700
+  "moneyMax": 700,
+  "enrageAfter": 200
  },
  {
   "id": "boss_morrak",
@@ -2146,18 +2228,28 @@
       "healthBelow": 1.01
      },
      {
-      "ability": "mob_root_grip",
-      "interval": 12,
-      "initialDelay": 2,
+      "ability": "mob_root_eruption",
+      "interval": 16,
+      "initialDelay": 4,
       "chance": 1.0,
-      "targetRule": "Random",
-      "healthBelow": 1.01
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 4,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "EachPlayer",
+       "count": 1
+      },
+      "announce": "Wurzeln brechen unter Euren Füßen hervor!"
      }
     ],
     "summonAdds": [
      {
       "creature": "dmob_root_crawler",
-      "count": 2
+      "count": 2,
+      "priority": true
      }
     ]
    },
@@ -2181,6 +2273,23 @@
       "chance": 1.0,
       "targetRule": "Current",
       "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_root_eruption",
+      "interval": 12,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 4,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "EachPlayer",
+       "count": 1
+      },
+      "announce": "Wurzeln brechen unter Euren Füßen hervor!"
      }
     ]
    }
@@ -2226,6 +2335,7 @@
    }
   ],
   "moneyMin": 600,
-  "moneyMax": 1000
+  "moneyMax": 1000,
+  "enrageAfter": 240
  }
 ]

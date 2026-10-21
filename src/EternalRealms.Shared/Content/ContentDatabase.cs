@@ -327,7 +327,15 @@ namespace EternalRealms.Shared.Content
                     if (l.Quest != null) Need(Quests.ContainsKey(l.Quest), $"Kreatur {c.Id}: Beute-Quest '{l.Quest}' fehlt");
                 }
                 foreach (var a in c.Abilities.Concat(c.Phases.SelectMany(p => p.Abilities)))
+                {
                     Need(HasAbility(a.Ability), $"Kreatur {c.Id}: Fähigkeit '{a.Ability}' fehlt");
+                    if (a.Ground is GroundZoneDef g)
+                        Need(g.Radius > 0 && g.Radius <= 30 && g.Warning >= 1 && g.Duration >= 0 && g.TickInterval >= 0.5f && g.Count is >= 1 and <= 10,
+                             $"Kreatur {c.Id}: Bodeneffekt von '{a.Ability}' ungültig (Radius 0–30, Vorwarnung ≥ 1 s, Anzahl 1–10)");
+                    if (a.MustInterrupt && HasAbility(a.Ability))
+                        Need(GetAbilityRank(a.Ability, 1)!.CastTime >= 1.5f, $"Kreatur {c.Id}: Pflicht-Unterbrechung '{a.Ability}' braucht eine Zauberzeit ab 1,5 s");
+                }
+                if (c.EnrageAfter > 0) Need(HasAbility(c.EnrageAbility) && c.Boss, $"Kreatur {c.Id}: Wut nur für Bosse mit gültiger Fähigkeit '{c.EnrageAbility}'");
                 foreach (var add in c.Phases.SelectMany(p => p.SummonAdds)) Need(Creatures.ContainsKey(add.Creature), $"Kreatur {c.Id}: Add '{add.Creature}' fehlt");
                 foreach (var v in c.VendorItems) Need(Items.ContainsKey(v), $"Händler {c.Id}: Ware '{v}' fehlt");
                 if (c.Roles.HasFlag(NpcRole.ClassTrainer)) Need(c.TrainerClass != CharClass.None, $"Trainer {c.Id}: keine Klasse");

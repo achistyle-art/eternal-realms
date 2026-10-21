@@ -1,3 +1,4 @@
+using EternalRealms.Server.Persistence;
 using EternalRealms.Server.AI;
 using EternalRealms.Server.World;
 using EternalRealms.Shared;
@@ -128,40 +129,17 @@ namespace EternalRealms.Tests
             Assert.True(tankTargetTicks > total * 0.6, $"Der Tank hält die Gegner ({tankTargetTicks}/{total})");
         }
 
+        /// <summary>Spieler mit vier KI-Mitspielern („Normal“): in die Instanz folgen, buffen, ziehen, beide Phasen und Sieg (Ablauf in <see cref="EncounterSim"/>).</summary>
         [Fact]
         public void GroupWithBotsClearsTheFirstDungeonBoss()
         {
-            var t = new TestWorld(seed: 7);
-            var p = t.CreatePlayer(Race.Aldorer, CharClass.Warrior, 16, new Vec3(870, 0, 805));
-            t.World.Groups.Create(p);
-            var bots = new[]
-            {
-                t.CreateBot(p, Role.Tank, CharClass.Paladin), t.CreateBot(p, Role.Healer, CharClass.Priest),
-                t.CreateBot(p, Role.RangedDps, CharClass.Mage), t.CreateBot(p, Role.RangedDps, CharClass.Warlock),
-            };
-            foreach (var b in bots) t.World.Groups.Join(p.Group!, b);
-            t.Run(3);
-            t.World.TeleportSpecial(p, "dungeon_wurzelkrypta", new Vec3(50, 0, 50));
-            Assert.True(p.Zone!.IsInstance);
-            t.Run(3);
-            Assert.All(bots, b => Assert.Equal(p.Zone, b.Zone)); // Bots folgen in die Instanz
-            t.World.Chat.Handle(p, ChatChannel.Party, "Wir gehen in den Dungeon", "");
-            t.Run(15); // trinken, buffen
-            var boss = p.Zone.Entities.Values.OfType<Creature>().First(c => c.Template.Id == "boss_moderkeim");
-            foreach (var trash in p.Zone.Entities.Values.OfType<Creature>().Where(c => c != boss && c.DistanceTo(boss) < 60).ToList())
-                p.Zone.Remove(trash); // Fokus auf den Boss
-            t.World.MovePlayerWithinZone(p, boss.Position + new Vec3(14, 0, 14));
-            t.Run(6);
-            p.Target = boss;
-            t.World.Chat.Handle(p, ChatChannel.Party, "Zieh!", "");
-            t.Run(3);
-            p.AutoAttacking = true;
-            t.Run(240, () => boss.IsDead || p.Group.Members.All(m => m.IsDead));
-            Assert.True(boss.IsDead, $"Moderkeim besiegt (Leben {boss.Health}/{boss.MaxHealth}, Phase {boss.AI.PhaseIndex}) – " +
-                string.Join("; ", p.Group.Members.Select(m => $"{m.Name} {m.Health}/{m.MaxHealth} {(m.Bot != null ? m.Bot.LastDecision : "")}")));
-            Assert.True(boss.AI.PhaseIndex >= 1, "Der Boss hat seine zweite Phase erreicht");
-            var conn = t.Conn(p);
-            Assert.Contains(conn.Of<S_Chat>(), c => c.Channel == ChatChannel.Yell && c.SenderName == "Moderkeim");
+            var o = EncounterSim.Run("boss_moderkeim", 16, BotDifficulty.Normal, seed: 7);
+            Assert.All(o.Bots, b => Assert.Equal(o.Human.Zone, b.Zone)); // Bots folgen in die Instanz
+            Assert.True(o.Human.Zone!.IsInstance);
+            Assert.True(o.Won, $"Moderkeim besiegt (Leben {o.BossUnit.Health}/{o.BossUnit.MaxHealth}, Phase {o.BossUnit.AI.PhaseIndex}) – " +
+                string.Join("; ", o.Human.Group!.Members.Select(m => $"{m.Name} {m.Health}/{m.MaxHealth} {(m.Bot != null ? m.Bot.LastDecision : "")}")));
+            Assert.True(o.PhaseTwoReached, "Der Boss hat seine zweite Phase erreicht");
+            Assert.Contains(o.World.Conn(o.Human).Of<S_Chat>(), c => c.Channel == ChatChannel.Yell && c.SenderName == "Moderkeim");
         }
 
         [Fact]

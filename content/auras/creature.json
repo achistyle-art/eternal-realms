@@ -128,5 +128,45 @@
   "tickInterval": 3,
   "tickMin": 5,
   "tickMax": 7
+ },
+ {
+  "id": "mob_spore_slow",
+  "name": "Sporenschleim",
+  "description": "Bewegungstempo verringert.",
+  "isDebuff": true,
+  "duration": 3,
+  "school": "Nature",
+  "modifiers": [
+   {
+    "type": "MoveSpeedPercent",
+    "value": -30
+   }
+  ]
+ },
+ {
+  "id": "mob_root_snare",
+  "name": "Wurzelfessel",
+  "description": "Von Wurzeln gehalten.",
+  "isDebuff": true,
+  "duration": 3,
+  "root": true,
+  "school": "Nature"
+ },
+ {
+  "id": "mob_berserk",
+  "name": "Ungezügelte Wut",
+  "description": "Der Kampf dauert zu lange: Schaden und Tempo massiv erhöht.",
+  "duration": 600,
+  "dispellable": false,
+  "modifiers": [
+   {
+    "type": "DamageDonePercent",
+    "value": 150
+   },
+   {
+    "type": "AttackSpeedPercent",
+    "value": 50
+   }
+  ]
  }
 ]

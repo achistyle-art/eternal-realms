@@ -84,6 +84,24 @@ namespace EternalRealms.Shared.Client
         public S_Achievements Achievements { get; private set; } = new S_Achievements();
         public S_Tutorial? Tutorial { get; private set; }
 
+        // Bosskämpfe (Kapitel 43/44)
+        /// <summary>Sichtbare Bodeneffekte (Id → Effekt mit Empfangszeit für den Countdown).</summary>
+        public Dictionary<int, ClientGroundEffect> GroundEffects { get; } = new Dictionary<int, ClientGroundEffect>();
+        /// <summary>Laufender oder gerade beendeter Bosskampf (null = keiner).</summary>
+        public S_Encounter? Encounter { get; private set; }
+        public double EncounterReceivedAt { get; private set; }
+
+        /// <summary>Bodeneffekt unter der eigenen Figur (der zuerst wirkt), oder null.</summary>
+        public ClientGroundEffect? DangerUnderMe()
+        {
+            var me = Me;
+            if (me == null) return null;
+            ClientGroundEffect? best = null;
+            foreach (var g in GroundEffects.Values)
+                if (Vec3.DistanceXZ(me.Position, g.Data.Position) <= g.Data.Radius && (best == null || g.Remaining(Now) < best.Remaining(Now))) best = g;
+            return best;
+        }
+
         // Konto und Verbindung (Kapitel 40/41/54)
         /// <summary>Einmal-Token für die Wiederverbindung; liegt nur im Speicher, nie auf der Festplatte.</summary>
         public string Token { get; private set; } = "";
@@ -286,10 +304,19 @@ namespace EternalRealms.Shared.Client
                     if (q.Message.Length > 0) Notices.Add(q.Message);
                     break;
                 case S_Goodbye bye: LastGoodbye = bye; break;
+                case S_GroundEffect ge:
+                    if (ge.Removed) GroundEffects.Remove(ge.Id);
+                    else GroundEffects[ge.Id] = new ClientGroundEffect { Data = ge, ReceivedAt = now };
+                    break;
+                case S_Encounter en:
+                    Encounter = en;
+                    EncounterReceivedAt = now;
+                    if (en.State != EncounterState.Running) GroundEffects.Clear();
+                    break;
                 case S_CharacterList cl: Characters = cl.Characters; InWorld = false; break;
                 case S_CreateCharacterResult cr: Notices.Add(cr.Message); break;
                 case S_EnterWorld ew:
-                    if (ew.ZoneId != ZoneId || !InWorld) { State.Clear(); WorldEvents.Clear(); }
+                    if (ew.ZoneId != ZoneId || !InWorld) { State.Clear(); WorldEvents.Clear(); GroundEffects.Clear(); Encounter = null; }
                     InWorld = true;
                     ZoneId = ew.ZoneId;
                     CharacterId = ew.CharacterId;
@@ -455,5 +482,15 @@ namespace EternalRealms.Shared.Client
         void INetEventListener.OnNetworkReceiveUnconnected(IPEndPoint remoteEndPoint, NetPacketReader reader, UnconnectedMessageType messageType) { }
         void INetEventListener.OnNetworkLatencyUpdate(NetPeer peer, int latency) { Ping = latency; }
         void INetEventListener.OnConnectionRequest(ConnectionRequest request) => request.Reject();
+    }
+
+    /// <summary>Bodeneffekt auf dem Client: Nachricht plus Empfangszeit, damit Vorwarnung und Dauer herunterzählen.</summary>
+    public sealed class ClientGroundEffect
+    {
+        public S_GroundEffect Data = new S_GroundEffect();
+        public double ReceivedAt;
+        public float Remaining(double now) => Math.Max(0, Data.Remaining - (float)(now - ReceivedAt));
+        /// <summary>Noch in der Vorwarnung (rechtzeitig herausgehen!).</summary>
+        public bool Warning(double now) => !Data.Armed && Remaining(now) > 0;
     }
 }

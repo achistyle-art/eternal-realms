@@ -389,6 +389,112 @@
   ]
  },
  {
+  "id": "mob_spore_carpet",
+  "name": "Sporenteppich",
+  "description": "Ein Teppich aus Sporen, der jeden darin vergiftet.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_spore_carpet",
+  "animation": "attack",
+  "class": "None",
+  "maxRange": 200,
+  "school": "Nature",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Nature",
+    "min": 36,
+    "max": 42
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mob_spore_slow"
+   }
+  ]
+ },
+ {
+  "id": "mob_shadow_ring",
+  "name": "Schattenkreis",
+  "description": "Ein Kreis aus Schatten, der nach kurzer Zeit zerbirst.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_shadow_ring",
+  "animation": "attack",
+  "class": "None",
+  "maxRange": 200,
+  "school": "Shadow",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Shadow",
+    "min": 160,
+    "max": 185
+   }
+  ]
+ },
+ {
+  "id": "mob_root_eruption",
+  "name": "Wurzelbruch",
+  "description": "Wurzeln brechen dort aus dem Boden, wo eben noch jemand stand.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_root_eruption",
+  "animation": "attack",
+  "class": "None",
+  "maxRange": 200,
+  "school": "Nature",
+  "effects": [
+   {
+    "type": "SchoolDamage",
+    "school": "Nature",
+    "min": 200,
+    "max": 230
+   },
+   {
+    "type": "ApplyAura",
+    "aura": "mob_root_snare"
+   }
+  ]
+ },
+ {
+  "id": "mob_dark_mending",
+  "name": "Verderbte Genesung",
+  "description": "Lange Selbstheilung – muss unterbrochen werden.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_dark_mending",
+  "animation": "attack",
+  "class": "None",
+  "castTime": 3.0,
+  "cooldown": 1,
+  "target": "Self",
+  "school": "Shadow",
+  "effects": [
+   {
+    "type": "Heal",
+    "min": 700,
+    "max": 800
+   }
+  ]
+ },
+ {
+  "id": "mob_berserk",
+  "name": "Ungezügelte Wut",
+  "description": "Gerät nach zu langem Kampf in ungezügelte Wut.",
+  "level": 1,
+  "notTrainable": true,
+  "icon": "mob_berserk",
+  "animation": "attack",
+  "class": "None",
+  "target": "Self",
+  "effects": [
+   {
+    "type": "ApplyAura",
+    "aura": "mob_berserk"
+   }
+  ]
+ },
+ {
   "id": "mob_throw",
   "name": "Wurfaxt",
   "description": "Wirft eine Axt.",

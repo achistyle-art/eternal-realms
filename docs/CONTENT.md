@@ -45,6 +45,31 @@ Danach `python3 tools/gen_class_content.py` und `dotnet test`.
 
 `targetRule` einer Kreaturenfähigkeit: `Current`, `Self`, `Random`, `Farthest`, `LowestHealthAlly`, `Tank`.
 
+### Mechaniken für 5er-Dungeons (Block G)
+
+```json
+"enrageAfter": 240,
+"abilities": [
+  { "ability": "mob_root_eruption", "interval": 16, "initialDelay": 4, "announce": "Wurzeln brechen unter Euren Füßen hervor!",
+    "ground": { "placement": "EachPlayer", "radius": 4, "warning": 3, "duration": 0 } },
+  { "ability": "mob_dark_mending", "interval": 16, "targetRule": "Self", "healthBelow": 0.85, "mustInterrupt": true }
+],
+"summonAdds": [ { "creature": "dmob_root_crawler", "count": 2, "priority": true } ]
+```
+
+- **`ground` – Bodeneffekt statt direktem Zauber:**
+  - Ein Kreis erscheint mit Vorwarnung (`warning`, mindestens 1 s). Danach wendet er die Fähigkeit auf jeden Gegner des Bosses an, der noch darin steht.
+  - `duration` 0 heißt einmalige Explosion. Ein größerer Wert lässt die Fläche liegen; sie trifft dann alle `tickInterval` Sekunden.
+  - `placement`: `RandomPlayer` (mit `count` verschiedenen Zielen), `EachPlayer`, `Tank`, `Farthest`, `Self`.
+  - Die Nutzlast-Fähigkeiten (`mob_spore_carpet`, `mob_shadow_ring`, `mob_root_eruption`) entstehen in `tools/gen_class_content.py`.
+- **`mustInterrupt`:**
+  - Der Zauber wird angesagt, und die KI-Mitspieler unterbrechen ihn bevorzugt.
+  - Er braucht eine Zauberzeit von mindestens 1,5 s; die Prüfung erzwingt das.
+  - Die Auswertung zählt unterbrochene und durchgekommene Zauber.
+- **`announce`:** Warnung im Chat und als Einblendung. `{boss}` und `{ability}` werden ersetzt.
+- **`enrageAfter`:** Nach so vielen Sekunden Kampf wirkt der Boss `enrageAbility` (Standard `mob_berserk`: +150 % Schaden, +50 % Tempo).
+- **`priority`** an einem beschworenen Add: Die KI-Mitspieler wechseln darauf, der Spieler sieht es im Kampfgeschehen.
+
 ## Berufe (`content/professions.json`, `content/recipes.json`)
 
 Erzeugt von `tools/gen_professions.py` (aufgerufen aus `tools/gen_items.py`). Neun Hauptberufe – Bergbau, Kräuterkunde,

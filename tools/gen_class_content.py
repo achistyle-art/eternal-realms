@@ -669,6 +669,22 @@ mob_ability("mob_root_grip", "Wurzelgriff", "Wurzeln brechen aus dem Boden.", co
 mob_ability("mob_armor_crush", "Rüstungsbrecher", "Zerschmettert die Rüstung.", cooldown=6, maxRange=5, effects=[eff("WeaponDamage", weaponPercent=0.8), eff("ApplyAura", aura="mob_armor_crush")])
 mob_ability("mob_spore_burst", "Sporenausbruch", "Giftige Sporen um sich herum.", cooldown=12, target="AreaAroundSelf", radius=12, school="Nature", effects=[eff("ApplyAura", aura="mob_spore_cloud")])
 mob_ability("mob_scorch", "Versengen", "Setzt das Ziel in Brand.", cooldown=9, maxRange=25, school="Fire", effects=[eff("SchoolDamage", school="Fire", min=10, max=14), eff("ApplyAura", aura="mob_scorch")])
+# Dungeon-Mechaniken (Kapitel 43/44): Nutzlast von Bodeneffekten und Pflicht-Unterbrechungen. Bodeneffekte treffen jeden,
+# der nach der Vorwarnung noch im markierten Kreis steht – wer ausweicht, bleibt unverletzt.
+AU(c, id="mob_spore_slow", name="Sporenschleim", description="Bewegungstempo verringert.", isDebuff=True, duration=3, school="Nature",
+   modifiers=[{"type": "MoveSpeedPercent", "value": -30}])
+AU(c, id="mob_root_snare", name="Wurzelfessel", description="Von Wurzeln gehalten.", isDebuff=True, duration=3, root=True, school="Nature")
+AU(c, id="mob_berserk", name="Ungezügelte Wut", description="Der Kampf dauert zu lange: Schaden und Tempo massiv erhöht.", duration=600, dispellable=False,
+   modifiers=[{"type": "DamageDonePercent", "value": 150}, {"type": "AttackSpeedPercent", "value": 50}])
+mob_ability("mob_spore_carpet", "Sporenteppich", "Ein Teppich aus Sporen, der jeden darin vergiftet.", maxRange=200, school="Nature",
+            effects=[eff("SchoolDamage", school="Nature", min=36, max=42), eff("ApplyAura", aura="mob_spore_slow")])
+mob_ability("mob_shadow_ring", "Schattenkreis", "Ein Kreis aus Schatten, der nach kurzer Zeit zerbirst.", maxRange=200, school="Shadow",
+            effects=[eff("SchoolDamage", school="Shadow", min=160, max=185)])
+mob_ability("mob_root_eruption", "Wurzelbruch", "Wurzeln brechen dort aus dem Boden, wo eben noch jemand stand.", maxRange=200, school="Nature",
+            effects=[eff("SchoolDamage", school="Nature", min=200, max=230), eff("ApplyAura", aura="mob_root_snare")])
+mob_ability("mob_dark_mending", "Verderbte Genesung", "Lange Selbstheilung – muss unterbrochen werden.", castTime=3.0, cooldown=1, target="Self", school="Shadow",
+            effects=[eff("Heal", min=700, max=800)])
+mob_ability("mob_berserk", "Ungezügelte Wut", "Gerät nach zu langem Kampf in ungezügelte Wut.", target="Self", effects=[eff("ApplyAura", aura="mob_berserk")])
 mob_ability("mob_throw", "Wurfaxt", "Wirft eine Axt.", cooldown=6, minRange=5, maxRange=25, effects=[eff("SchoolDamage", school="Physical", min=12, max=18)])
 mob_ability("mob_net", "Netzwurf", "Hält das Ziel fest.", cooldown=20, maxRange=15, effects=[eff("ApplyAura", aura="mob_web")])
 mob_ability("pet_imp_firebolt", "Feuerblitz", "Der Wichtel schleudert einen Feuerblitz.", castTime=2.0, maxRange=30, school="Fire", effects=[eff("SchoolDamage", school="Fire", min=8, max=12, coefficient=0.1)])

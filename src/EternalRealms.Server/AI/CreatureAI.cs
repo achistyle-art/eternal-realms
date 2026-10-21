@@ -172,6 +172,7 @@ namespace EternalRealms.Server.AI
             _c.AutoAttacking = true;
             if (T.CallsForHelp) CallForHelp(target, 12f);
             if (_c.IsBoss && T.Phases.Count > 0 && PhaseIndex < 0) EnterPhase(0);
+            if (_c.IsBoss) W.Encounters.Start(_c);
         }
 
         private void CallForHelp(Unit target, float radius)
@@ -256,10 +257,23 @@ namespace EternalRealms.Server.AI
                 if (!W.Random.Chance(a.Chance)) { _timers[a] = a.Interval; continue; }
                 var def = W.Content.GetAbilityRank(a.Ability, 1);
                 if (def == null) continue;
+                if (a.Ground != null)
+                {
+                    // Bodeneffekt: kein Zauber, sondern eine markierte Fläche mit Vorwarnung (Kampf läuft weiter).
+                    W.Encounters.SpawnGround(_c, a, target);
+                    _timers[a] = a.Interval;
+                    continue;
+                }
                 var t = PickTarget(a.TargetRule, target, def);
                 if (t == null) { _timers[a] = 1; continue; }
                 var err = W.Combat.TryCast(_c, def, t);
-                if (err == null) { _timers[a] = a.Interval; return true; }
+                if (err == null)
+                {
+                    _timers[a] = a.Interval;
+                    if (a.MustInterrupt && _c.Cast != null) W.Encounters.OnMustInterruptCast(_c, a, def);
+                    else if (a.Announce != null) W.Chat.NpcSay(_c, a.Announce.Replace("{boss}", _c.Name).Replace("{ability}", def.Name), true);
+                    return true;
+                }
                 _abilityRetry = 0.5f;
             }
             return false;
@@ -300,6 +314,7 @@ namespace EternalRealms.Server.AI
             PhaseIndex = idx;
             var ph = T.Phases[idx];
             if (ph.Yell != null) W.Chat.NpcSay(_c, ph.Yell, true);
+            W.Encounters.OnPhase(_c, ph.Name);
             _c.DamageMultiplier = ph.DamageMultiplier;
             _c.MarkStatsDirty();
             foreach (var a in ph.Abilities) _timers[a] = a.InitialDelay;
@@ -309,6 +324,7 @@ namespace EternalRealms.Server.AI
                     double ang = W.Random.NextDouble() * Math.PI * 2;
                     var pos = _c.Position + new Vec3((float)Math.Cos(ang) * 6, 0, (float)Math.Sin(ang) * 6);
                     var c = _c.Zone!.SpawnCreature(add.Creature, pos);
+                    c.PriorityTarget = add.Priority;
                     var victim = PickTarget(AbilityTargetRule.Random, _c.Target ?? _c, W.Content.Abilities.Values.First());
                     if (victim != null && victim != _c) c.AI.Engage(victim);
                 }
@@ -316,6 +332,7 @@ namespace EternalRealms.Server.AI
 
         private void StartEvade()
         {
+            if (_c.IsBoss) W.Encounters.OnEvade(_c);
             State = CreatureState.Evade;
             _c.Evading = true;
             _c.Threat.Clear();

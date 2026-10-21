@@ -331,6 +331,7 @@ namespace EternalRealms.Client
             DrawActionBars();
             DrawBotCommandBar(me);
             DrawCastBar(me);
+            DrawEncounter();
             DrawXpBar();
             DrawChat();
             DrawMenuButtons();

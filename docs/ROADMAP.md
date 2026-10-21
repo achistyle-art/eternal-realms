@@ -81,7 +81,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | D ✅ | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
 | E ✅ | 38, 39 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer – Lokalisierung (Kapitel 58) auf Wunsch gestrichen, das Spiel bleibt deutsch |
 | F ✅ | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
-| G | 43–45, 48 | KI-Ebenen ausbauen: Encounter-Manager für Dungeons/Raids, Tankwechsel, Flächen ausweichen, Raidkoordination bis 40, Bot-Balance |
+| G ✅ | 43–45, 48 | KI-Ebenen ausbauen – auf Wunsch zunächst nur für 5er-Dungeons: Encounter-Manager, Tankwechsel, Flächen ausweichen, Bot-Balance. Raids (10/20/40) folgen später |
 | H | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
 | I | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang 1–60, kosmetische Monetarisierung ohne Pay-to-Win, Endgame |
 
@@ -200,4 +200,44 @@ Auf Wunsch ohne Übersetzung: Kapitel 58 (Lokalisierung) entfällt; alle Texte b
 - Die IP-Begrenzung gilt nur im Speicher eines Prozesses.
 - Die Kontosperre kann ein Angreifer gezielt auslösen (übliche Abwägung).
 - Wiederherstellungscodes für verlorene 2FA-Geräte gibt es nicht; das Abschalten erfolgt dann über die Spielleitung oder Datenbank.
+
+### Block G – Stand
+
+Auf Wunsch zunächst nur für Gruppen bis 5 Spieler. Raids für 10, 20 und 40 Spieler folgen später.
+
+**Umgesetzt und getestet** (`EncounterTests`, `BotTests`, Live-Lauf mit Konsolenclient und vier KI-Mitspielern gegen Moderkeim):
+- **Kampfsteuerung (43):** Jeder Bosskampf hat einen Start, Sieg oder Niederlage, Phase und Kampfzeit.
+  - Nach `enrageAfter` gerät der Boss in ungezügelte Wut.
+  - Bei einer Niederlage verschwinden alle Mechaniken, und der Boss setzt sich zurück.
+  - Je Kampf gibt es eine Auswertung: Dauer, Tode, Treffer durch Bodeneffekte je Teilnehmer, Unterbrechungen. Sie erscheint im Serverprotokoll.
+  - Die Clients bekommen Bossleiste und Bodeneffekte über eigene Nachrichten.
+- **Mechaniken (44):**
+  - Bodeneffekte mit Vorwarnung: einmalig oder liegend; unter zufälligen Spielern, unter jedem, unter dem Tank, beim Entferntesten oder am Boss.
+  - Pflicht-Unterbrechungen mit Ansage.
+  - Vorrangige Adds.
+  - Alles wird in den Content-Daten beschrieben und beim Laden geprüft.
+- **Bosse der Wurzelkrypta:**
+  - Moderkeim: Sporenteppiche, die liegen bleiben; vorrangige Sporlinge.
+  - Schwester Elvaine: Verderbte Genesung, die unterbrochen werden muss; Schattenkreis am Entferntesten; vorrangige Dryade.
+  - Wurzelfürst Morrak: Wurzelbruch unter jedem Spieler; vorrangige Wurzelkriecher.
+  - Wut nach 180, 200 bzw. 240 s.
+- **KI-Mitspieler (45):**
+  - Sie weichen Bodeneffekten aus (sicherer Punkt in Reichweite des Ziels, auch unter Abbruch eines Zaubers) und suchen sich Kampfplätze außerhalb liegender Flächen.
+  - Sie unterbrechen Pflicht-Zauber vorrangig und wechseln auf vorrangige Adds.
+  - Fällt der Tank, übernimmt genau ein geeigneter Bot und sagt es an.
+- **Bot-Balance (48):**
+  - Die Schwierigkeitsstufe bestimmt, wie schnell und wie zuverlässig Bots ausweichen und unterbrechen.
+  - Abgestimmt mit einer Kampfsimulation über alle Stufen (Tabelle in `docs/KI-MITSPIELER.md`). Ab „Normal“ ist der Dungeon zuverlässig schaffbar, Anfänger machen sichtbar mehr Fehler.
+- **Konsolenclient:** Warnung „Ihr steht in …“ mit Countdown, `raus` läuft aus dem Kreis, `boss` zeigt Phase, Wut und Flächen.
+
+**Nur kompiliergeprüft** (Unity):
+- Bodeneffekte als Scheiben in der Welt: orange pulsierend in der Vorwarnung, rot, solange sie wirken.
+- Bossleiste oben mit Phase, Kampfzeit, Toden und Countdown zur Wut.
+- Große Warnung, solange man in einem Bodeneffekt steht.
+
+**Grenzen:**
+- Die Simulation nutzt einen idealisierten Spieler und eine feste Gruppe (Paladin, Priester, Magier, Schurke).
+- Bodeneffekte sind Kreise ohne Sichtlinie oder Gelände.
+- Weitere Mechanikarten (Kegel, Linien, Positionswechsel des Bosses, „zusammenstellen/verteilen“) gibt es noch nicht.
+- Der Ersatz-Tank kann nur spotten, wenn seine Klasse eine Spottfähigkeit hat.
 

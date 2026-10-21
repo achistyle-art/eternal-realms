@@ -353,6 +353,32 @@ namespace EternalRealms.Shared.Content
         public float Chance { get; set; } = 1f;
         public AbilityTargetRule TargetRule { get; set; }
         public float HealthBelow { get; set; } = 1.01f;
+        /// <summary>Statt direkt zu wirken: markierte Bodenfläche, die nach der Vorwarnung <see cref="Ability"/> auf alle darin anwendet.</summary>
+        public GroundZoneDef? Ground { get; set; }
+        /// <summary>Kampfentscheidender Zauber: wird angesagt, KI-Mitspieler unterbrechen ihn bevorzugt.</summary>
+        public bool MustInterrupt { get; set; }
+        /// <summary>Warnung an die Gruppe, wenn die Fähigkeit beginnt ({boss} wird ersetzt).</summary>
+        public string? Announce { get; set; }
+    }
+
+    /// <summary>Wo eine Bodenfläche erscheint.</summary>
+    public enum GroundPlacement : byte { RandomPlayer = 0, EachPlayer, Tank, Farthest, Self }
+
+    /// <summary>
+    /// Bodeneffekt einer Bossfähigkeit (Kapitel 43/44): erst eine sichtbare Vorwarnung, dann Wirkung auf alle Gegner des Bosses,
+    /// die noch im Kreis stehen – einmalig (Dauer 0) oder als Fläche, die eine Weile liegen bleibt und regelmäßig trifft.
+    /// </summary>
+    public sealed class GroundZoneDef
+    {
+        public float Radius { get; set; } = 5f;
+        /// <summary>Sekunden zwischen Erscheinen und erster Wirkung.</summary>
+        public float Warning { get; set; } = 2.5f;
+        /// <summary>0 = einmalige Explosion; sonst bleibt die Fläche so lange liegen.</summary>
+        public float Duration { get; set; }
+        public float TickInterval { get; set; } = 1f;
+        public GroundPlacement Placement { get; set; }
+        /// <summary>Anzahl der Flächen (bei <see cref="GroundPlacement.EachPlayer"/> je Spieler eine).</summary>
+        public int Count { get; set; } = 1;
     }
 
     public sealed class BossPhaseDef
@@ -370,6 +396,8 @@ namespace EternalRealms.Shared.Content
     {
         public string Creature { get; set; } = "";
         public int Count { get; set; } = 1;
+        /// <summary>Vorrangiges Ziel: KI-Mitspieler wechseln auf dieses Add, der Tank sammelt es ein.</summary>
+        public bool Priority { get; set; }
     }
 
     /// <summary>Vorlage für Monster, NPCs und Begleiter.</summary>
@@ -402,6 +430,9 @@ namespace EternalRealms.Shared.Content
         public int ManaFactor { get; set; }
         public List<CreatureAbilityDef> Abilities { get; set; } = new List<CreatureAbilityDef>();
         public List<BossPhaseDef> Phases { get; set; } = new List<BossPhaseDef>();
+        /// <summary>Bosskampf: nach so vielen Sekunden gerät der Boss in ungezügelte Wut (0 = nie).</summary>
+        public float EnrageAfter { get; set; }
+        public string EnrageAbility { get; set; } = "mob_berserk";
         public List<LootEntryDef> Loot { get; set; } = new List<LootEntryDef>();
         public int MoneyMin { get; set; }
         public int MoneyMax { get; set; }

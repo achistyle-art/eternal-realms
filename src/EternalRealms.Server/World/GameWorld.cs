@@ -88,6 +88,8 @@ namespace EternalRealms.Server.World
         /// <summary>Konten (Spielleitung, Prüfprotokoll); standardmäßig derselbe Speicher wie die Charaktere.</summary>
         public IAccountRepository? Accounts { get; set; }
         public AntiCheatSystem AntiCheat { get; }
+        /// <summary>Bosskämpfe mit Mechaniken (Kapitel 43–45).</summary>
+        public EncounterSystem Encounters { get; }
         public GmCommands Gm { get; }
         /// <summary>Wartungsmodus: nur Spielleiter können sich anmelden und die Welt betreten.</summary>
         public bool Maintenance { get; set; }
@@ -145,6 +147,7 @@ namespace EternalRealms.Server.World
             DevCommands = new DevCommands(this);
             Accounts = characters as IAccountRepository;
             AntiCheat = new AntiCheatSystem(this);
+            Encounters = new EncounterSystem(this);
             Gm = new GmCommands(this);
             Maintenance = Config.Maintenance;
             foreach (var z in content.Zones.Values.Where(z => z.Playable && !z.IsInstance))
@@ -209,6 +212,7 @@ namespace EternalRealms.Server.World
             Finder.Update(dt);
             Trades.Update();
             Events.Update(dt);
+            Encounters.Update(dt);
             Tutorial.Update(dt);
             Achievements.Flush();
             Bots.Update(dt);
