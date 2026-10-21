@@ -35,6 +35,18 @@ var stopped = new ManualResetEventSlim(false);
 Console.CancelKeyPress += (_, e) => { e.Cancel = true; cts.Cancel(); };
 // SIGTERM (systemd, Docker): erst sauber speichern, dann beenden.
 AppDomain.CurrentDomain.ProcessExit += (_, _) => { cts.Cancel(); stopped.Wait(TimeSpan.FromSeconds(20)); };
+if (config.Console)
+{
+    // Serverkonsole (ER_CONSOLE=true): Spielleiter-Befehle ohne Punkt, z. B. „rechte meinkonto 2“, „ansage Neustart in 5 Minuten“.
+    Console.WriteLine("Konsole aktiv – „hilfe“ zeigt die Befehle.");
+    var consoleThread = new Thread(() =>
+    {
+        string? line;
+        while (!cts.IsCancellationRequested && (line = Console.ReadLine()) != null)
+            server.ConsoleCommand(line, text => Console.WriteLine("> " + text));
+    }) { IsBackground = true, Name = "Konsole" };
+    consoleThread.Start();
+}
 server.Run(cts.Token);
 Console.WriteLine("Speichere alle Charaktere …");
 server.Dispose();

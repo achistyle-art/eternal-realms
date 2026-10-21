@@ -66,7 +66,7 @@ Meilenstein 2 ist damit abgeschlossen. Offen bleiben Inhalte höherer Stufen (Re
 ## Meilenstein 5 – Betrieb
 
 - [ ] TLS-Anmeldegateway, Zonen-Sharding über mehrere Prozesse, Layer
-- [ ] Monitoring, Admin-Werkzeuge, Anti-Cheat-Auswertung
+- [ ] Monitoring (Admin-Werkzeuge und Anti-Cheat-Auswertung: Block F ✅)
 - [ ] Steam-Integration
 
 ## Spezifikation Kapitel 28–68 (nachgereicht, nach Meilenstein 2)
@@ -80,7 +80,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | C ✅ | 33, 34, 51, 52 | Animationen und Emotes (auch für Bots), Musik/Soundeffekte/Audioeinstellungen, Grafikstufen und Performancemessung |
 | D ✅ | 35, 36, 37, 47 | Hauptstädte (je Fraktion zwei), Tag-Nacht-Zyklus und Wetter mit Auswirkungen, dynamische Weltereignisse, Spawnregeln für Seltene und Weltbosse |
 | E ✅ | 38, 39 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer – Lokalisierung (Kapitel 58) auf Wunsch gestrichen, das Spiel bleibt deutsch |
-| F | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
+| F ✅ | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
 | G | 43–45, 48 | KI-Ebenen ausbauen: Encounter-Manager für Dungeons/Raids, Tankwechsel, Flächen ausweichen, Raidkoordination bis 40, Bot-Balance |
 | H | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
 | I | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang 1–60, kosmetische Monetarisierung ohne Pay-to-Win, Endgame |
@@ -158,3 +158,46 @@ Auf Wunsch ohne Übersetzung: Kapitel 58 (Lokalisierung) entfällt; alle Texte b
 - Tutorial mit 11 Schritten (`content/tutorial.json`) und der KI-Erklärerin Lysa: folgt neuen Charakteren, flüstert jeden Schritt mit der eigenen Tastenbelegung, zeigt auf das nächste Ziel (Questgeber, passender Gegner, Leiche, Lehrer, Wirt), gibt nach 45 s einen Tipp, reagiert auf Tod und Stufenaufstieg. Schritte schließen sich nur durch echte Handlungen ab. Überspringen und Neustarten jederzeit; Veteranen und Bots bekommen kein Tutorial; der Stand wird gespeichert.
 
 **Nur kompiliergeprüft** (Unity): Erfolgsfenster (H) mit Kategorien, Fortschrittsbalken und Titelwahl, Erfolgseinblendung mit Klang, Tutorial-Leiste mit „Überspringen“, schwebender Hinweispfeil über dem Ziel der Erklärerin, Tutorial-Neustart im Spielmenü.
+
+### Block F – Stand
+
+**Umgesetzt und getestet** (`SecurityTests`, `NetworkTests`, Live-Lauf mit Konsolenclient gegen PostgreSQL):
+- **Kontoschutz (40):**
+  - Nach 5 Fehlversuchen wird das Konto 15 Minuten gesperrt; die Sperre wird gespeichert und übersteht Neustarts. Pro IP-Adresse gelten höchstens 20 Fehlversuche bzw. 5 neue Konten pro Stunde.
+  - Unbekannte Kontonamen brauchen gleich lange und erhalten dieselbe Meldung wie falsche Passwörter.
+  - Neue Passwörter brauchen mindestens 8 Zeichen, Buchstaben und Ziffern, dürfen den Kontonamen nicht enthalten und nicht auf der Liste verbreiteter Passwörter stehen.
+  - Optionale Zwei-Faktor-Anmeldung (TOTP nach RFC 6238, mit den Testvektoren geprüft). Sie wird erst nach der Bestätigung mit einem Code aktiv; jeder Code gilt nur einmal. Abschalten verlangt Passwort und Code.
+  - Passwortänderung macht alle Wiederverbindungstokens ungültig.
+- **Wiederverbindung (41/54):**
+  - Nach einem Verbindungsabbruch bleibt der Charakter 60 s in der Welt (verbindungslos) und wird ohne Neuladen übernommen. Ein Doppelstand ist dadurch ausgeschlossen.
+  - Der Client verbindet sich selbst neu (1–15 s Abstand, 8 Versuche) und meldet sich mit einem einmaligen Token an. Der Server speichert nur dessen SHA-256-Hash.
+  - Eine zweite Anmeldung übernimmt den Charakter, statt ihn abzumelden.
+  - Trennt der Server die Verbindung (Spielleitung, Wartung, Nachrichtenflut, doppelte Anmeldung), schickt er den Grund mit; der Client verbindet sich dann nicht neu.
+  - Anmeldeschlange bei vollem Realm (`ER_MAX_PLAYERS`), Spielleiter ausgenommen. Wartungsmodus, in dem nur Spielleiter hineinkommen.
+- **Backups (42):** `tools/backup.sh` und `tools/restore.sh` (siehe `docs/BETRIEB.md`):
+  - Sicherung mit pg_dump, Prüfsumme und Aufbewahrung der letzten N Sicherungen.
+  - Die Wiederherstellung prüft die Prüfsumme und überschreibt nie unbemerkt.
+  - Hier ausgeführt: drei Sicherungen bei Aufbewahrung 2, Wiederherstellung in eine neue Datenbank, Abbruch bei einer belegten Zieldatenbank und bei einer beschädigten Datei.
+- **Anti-Cheat (49):**
+  - Der Server setzt die Regeln weiterhin selbst durch. Zusätzlich vergibt er Punkte für zu schnelle Bewegung, Nachrichtenflut, unmögliche Aktionen und auffälligen Goldzufluss (nur neu entstandenes Gold, nicht Handel oder Post). Die Punkte klingen ab.
+  - Ab 50 Punkten gibt es eine Meldung an alle Spielleiter und einen Eintrag im Prüfprotokoll, ab 150 eine Trennung.
+  - Gesperrt wird nie automatisch.
+- **Spielleitung (50):**
+  - Punktbefehle für Spielleiter: wer, info, ansage, kick, stumm/laut, bann/entbann, gehezu/hol/tele, auffaellig, meldungen/erledigt, protokoll, wartung, speichern.
+  - Zusätzlich für Admins: gold, gegenstand, rechte.
+  - Serverkonsole (`ER_CONSOLE=true`) mit vollen Rechten.
+  - Niemand kann gegen Gleich- oder Höhergestellte vorgehen. Jede Handlung landet im Prüfprotokoll (`audit_log`), ebenso Anmeldungen, Sperren und Sicherheitsänderungen.
+- Migration `006_security.sql`. Migrationen laufen jetzt unter einer Datenbanksperre, sodass zwei gleichzeitig startende Prozesse sich nicht stören.
+
+**Nur kompiliergeprüft** (Unity):
+- Codefeld für die Zwei-Faktor-Anmeldung auf dem Anmeldebildschirm.
+- Fenster „Kontoschutz“ (2FA einrichten/abschalten, Passwort ändern).
+- Hinweis während der Wiederverbindung und Platz in der Warteschlange.
+
+**Grenzen:**
+- Die Verbindung ist nicht verschlüsselt. Passwörter gehen im Klartext über UDP, daher ist das TLS-Anmeldegateway aus Meilenstein 5 vor einem öffentlichen Betrieb nötig.
+- Das 2FA-Geheimnis liegt unverschlüsselt in der Datenbank.
+- Die IP-Begrenzung gilt nur im Speicher eines Prozesses.
+- Die Kontosperre kann ein Angreifer gezielt auslösen (übliche Abwägung).
+- Wiederherstellungscodes für verlorene 2FA-Geräte gibt es nicht; das Abschalten erfolgt dann über die Spielleitung oder Datenbank.
+

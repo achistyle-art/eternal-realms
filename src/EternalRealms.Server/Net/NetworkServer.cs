@@ -19,7 +19,7 @@ namespace EternalRealms.Server.Net
         private readonly ICharacterRepository _chars;
         private readonly NetManager _net;
         private readonly Dictionary<int, WorldSession> _byPeer = new();
-        public SessionRegistry Registry { get; } = new();
+        public SessionRegistry Registry => _w.Sessions;
 
         public NetworkServer(GameWorld world, IAccountRepository accounts, ICharacterRepository chars)
         {
@@ -81,6 +81,7 @@ namespace EternalRealms.Server.Net
             private readonly NetDataWriter _writer = new();
             public PeerConnection(NetPeer peer) { _peer = peer; }
             public string RemoteAddress => _peer.ToString();
+            public string RemoteIp => _peer.Address.ToString();
 
             public void Send(Message message)
             {
@@ -99,7 +100,13 @@ namespace EternalRealms.Server.Net
                 else _peer.Send(_writer, 1, DeliveryMethod.Unreliable);
             }
 
-            public void Disconnect(string reason) => _peer.Disconnect();
+            /// <summary>Der Grund reist im Trennungspaket mit – zuverlässige Nachrichten kurz vor der Trennung gehen sonst verloren.</summary>
+            public void Disconnect(string reason)
+            {
+                _writer.Reset();
+                Packets.Write(_writer, new S_Goodbye { Reason = reason, MayReconnect = false });
+                _peer.Disconnect(_writer);
+            }
         }
     }
 }

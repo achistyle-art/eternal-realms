@@ -200,7 +200,45 @@ namespace EternalRealms.Server.Persistence
         public long Id { get; set; }
         public string Username { get; set; } = "";
         public string PasswordHash { get; set; } = "";
+        /// <summary>Dauerhaft gesperrt.</summary>
         public bool IsBanned { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        // Kontoschutz (Kapitel 40)
+        public int FailedLogins { get; set; }
+        public DateTime? LockedUntil { get; set; }
+        /// <summary>Base32-Geheimnis der Zwei-Faktor-Anmeldung (null = aus).</summary>
+        public string? TotpSecret { get; set; }
+        /// <summary>Zuletzt verwendeter Zeitschritt – ein Code gilt nur einmal.</summary>
+        public long TotpLastStep { get; set; }
+
+        // Spielleitung und Sanktionen (Kapitel 50)
+        public int GmLevel { get; set; }
+        public DateTime? BanUntil { get; set; }
+        public string BanReason { get; set; } = "";
+        public DateTime? MutedUntil { get; set; }
+
+        public bool IsBannedAt(DateTime now) => IsBanned || (BanUntil != null && BanUntil > now);
+        public bool IsLockedAt(DateTime now) => LockedUntil != null && LockedUntil > now;
+        public Account Clone() => (Account)MemberwiseClone();
+    }
+
+    /// <summary>Spielleiter-Stufen eines Kontos.</summary>
+    public static class GmLevels
+    {
+        public const int Player = 0, GameMaster = 1, Admin = 2;
+    }
+
+    /// <summary>Ein Eintrag im Prüfprotokoll.</summary>
+    public sealed class AuditEntry
+    {
+        public long Id { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public long? AccountId { get; set; }
+        public string Actor { get; set; } = "";
+        public string Action { get; set; } = "";
+        public string Target { get; set; } = "";
+        public string Detail { get; set; } = "";
+        public string Ip { get; set; } = "";
     }
 }

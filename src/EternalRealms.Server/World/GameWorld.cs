@@ -83,6 +83,26 @@ namespace EternalRealms.Server.World
         public BotDirector Bots { get; }
         public DevCommands DevCommands { get; }
 
+        // Betrieb und Sicherheit (Block F)
+        public Net.SessionRegistry Sessions { get; } = new();
+        /// <summary>Konten (Spielleitung, Prüfprotokoll); standardmäßig derselbe Speicher wie die Charaktere.</summary>
+        public IAccountRepository? Accounts { get; set; }
+        public AntiCheatSystem AntiCheat { get; }
+        public GmCommands Gm { get; }
+        /// <summary>Wartungsmodus: nur Spielleiter können sich anmelden und die Welt betreten.</summary>
+        public bool Maintenance { get; set; }
+        public string MaintenanceMessage { get; set; } = "Der Realm wird gerade gewartet. Bitte versucht es später erneut.";
+        private double _lastCheatCleanup;
+
+        /// <summary>Schreibt einen Eintrag ins Prüfprotokoll (in Auftragsreihenfolge, Fehler werden protokolliert).</summary>
+        public void Audit(AuditEntry entry)
+        {
+            var repo = Accounts;
+            if (repo == null) return;
+            if (Persistence != null) Persistence.Enqueue(() => repo.AuditAsync(entry));
+            else _ = repo.AuditAsync(entry);
+        }
+
         private readonly Dictionary<string, ZoneInstance> _zones = new();
         private readonly Dictionary<int, Player> _players = new();
         private readonly ConcurrentQueue<Action> _mainThread = new();
@@ -123,6 +143,10 @@ namespace EternalRealms.Server.World
             Groups = new GroupSystem(this);
             Bots = new BotDirector(this);
             DevCommands = new DevCommands(this);
+            Accounts = characters as IAccountRepository;
+            AntiCheat = new AntiCheatSystem(this);
+            Gm = new GmCommands(this);
+            Maintenance = Config.Maintenance;
             foreach (var z in content.Zones.Values.Where(z => z.Playable && !z.IsInstance))
             {
                 var zi = new ZoneInstance(this, z);
@@ -192,6 +216,8 @@ namespace EternalRealms.Server.World
             LootRolls.Update();
             Auctions.Update(dt);
             Economy.Update(dt);
+            Sessions.Update(this);
+            if (Time - _lastCheatCleanup > 60) { _lastCheatCleanup = Time; AntiCheat.Cleanup(); }
             if (Time - _lastWorldStateBroadcast > 30)
             {
                 _lastWorldStateBroadcast = Time;
@@ -395,6 +421,8 @@ namespace EternalRealms.Server.World
             float size = p.Zone.Def.Size;
             target = new Vec3(Math.Clamp(target.X, 0, size), Math.Clamp(target.Y, -200, 1000), Math.Clamp(target.Z, 0, size));
             float dist = Vec3.DistanceXZ(target, p.Position);
+            // Deutlich zu weit (nicht nur Netzwerkschwankung): für die Anti-Cheat-Bewertung vormerken. Begrenzt wird ohnehin.
+            if (dist > maxDist * 2 + 1) AntiCheat.Report(p, Systems.CheatKind.Speed, $"{dist:0.0} m statt höchstens {maxDist:0.0} m");
             if (dist > maxDist)
             {
                 var dir = (target - p.Position).NormalizedXZ();

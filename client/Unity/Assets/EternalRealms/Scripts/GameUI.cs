@@ -79,7 +79,9 @@ namespace EternalRealms.Client
             var mouse = new Vector2(Input.mousePosition.x, UnityEngine.Screen.height - Input.mousePosition.y) / Scale;
             PointerOverUi = _uiRects.Any(r => r.Contains(mouse)) || _drag != null || _dragWindow != null;
             TypingInChat = _chatFocus || _capturingAction != null;
-            if (!Client.LoggedIn) _screen = Screen.Login;
+            // Während der automatischen Wiederverbindung bleibt das Bild stehen (mit Hinweis), statt zur Anmeldung zu springen.
+            if (Client.Reconnecting) { }
+            else if (!Client.LoggedIn) _screen = Screen.Login;
             else if (Client.InWorld) _screen = Screen.World;
             else if (_screen == Screen.Login || _screen == Screen.World) _screen = Screen.Characters;
             if (_screen == Screen.World && !_chatFocus) HandleWorldHotkeys();
@@ -120,6 +122,7 @@ namespace EternalRealms.Client
                 case Screen.Create: DrawCreate(); break;
                 case Screen.World: DrawWorld(); break;
             }
+            DrawReconnectOverlay();
             DrawToasts();
         }
 
@@ -129,7 +132,7 @@ namespace EternalRealms.Client
 
         private void DrawLogin()
         {
-            var r = Box(new Rect(ScreenW / 2 - 180, ScreenH / 2 - 150, 360, 300));
+            var r = Box(new Rect(ScreenW / 2 - 180, ScreenH / 2 - 170, 360, 340));
             GUILayout.BeginArea(r, GUI.skin.box);
             GUILayout.Label("ETERNAL REALMS", _title);
             GUILayout.Label("Server");
@@ -140,23 +143,30 @@ namespace EternalRealms.Client
             GUILayout.Label("Konto");
             _account = GUILayout.TextField(_account, 32);
             GUILayout.Label("Passwort");
-            _password = GUILayout.PasswordField(_password, '•', 64);
+            _password = GUILayout.PasswordField(_password, '•', 128);
+            if (Client.NeedsTwoFactor)
+            {
+                GUILayout.Label("Code der Authenticator-App");
+                _loginCode = GUILayout.TextField(_loginCode, 8);
+            }
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Anmelden")) Login(false);
-            if (GUILayout.Button("Konto erstellen")) Login(true);
+            if (!Client.NeedsTwoFactor && GUILayout.Button("Konto erstellen")) Login(true);
             GUILayout.EndHorizontal();
             GUILayout.Label(Client.Connected ? "<color=lime>verbunden</color>" : _connecting ? "verbinde …" : "", _small);
             GUILayout.Label(_status, _wrap);
             GUILayout.EndArea();
-            if (_connecting && Client.Connected) { _connecting = false; Client.Login(_account, _password, _pendingRegister); }
+            if (_connecting && Client.Connected) { _connecting = false; Client.Login(_account, _password, _pendingRegister, _loginCode.Trim()); }
         }
+
+        private string _loginCode = "";
 
         private bool _pendingRegister;
 
         private void Login(bool register)
         {
             _pendingRegister = register;
-            if (Client.Connected) { Client.Login(_account, _password, register); return; }
+            if (Client.Connected) { Client.Login(_account, _password, register, register ? "" : _loginCode.Trim()); return; }
             _connecting = NetworkManager.Instance.Connect();
             if (!_connecting) _status = "Verbindung fehlgeschlagen.";
         }
@@ -177,9 +187,14 @@ namespace EternalRealms.Client
                 GUILayout.EndHorizontal();
             }
             GUILayout.FlexibleSpace();
+            if (Client.Queue != null) GUILayout.Label($"<b>Warteschlange:</b> Platz {Client.Queue.Position} von {Client.Queue.Length} – Ihr betretet die Welt automatisch.", _wrap);
+            GUILayout.BeginHorizontal();
             if (GUILayout.Button("Neuen Charakter erschaffen", GUILayout.Height(32))) { _screen = Screen.Create; RandomName(); }
+            if (GUILayout.Button("Kontoschutz", GUILayout.Height(32), GUILayout.Width(130))) ToggleAccountWindow();
+            GUILayout.EndHorizontal();
             GUILayout.Label(_status, _wrap);
             GUILayout.EndArea();
+            DrawAccountWindow();
         }
 
         private string ZoneName(string id) => Content.Zones.TryGetValue(id, out var z) ? z.Name : id;

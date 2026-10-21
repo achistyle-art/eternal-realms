@@ -40,6 +40,14 @@ namespace EternalRealms.Server.World
         /// <summary>Letzter Befehl/Aktion eines Spielers, für die Inaktivitätserkennung.</summary>
         public double LastActivity { get; set; }
 
+        // Konto (Kapitel 40/50): Spielleiter-Stufe und Stummschaltung kommen beim Weltbetritt vom Konto.
+        public int GmLevel { get; set; }
+        public DateTime? MutedUntil { get; set; }
+        public bool IsGm => GmLevel >= Persistence.GmLevels.GameMaster;
+        /// <summary>Verbindung abgerissen: bleibt bis zu diesem Zeitpunkt in der Welt und kann übernommen werden (0 = verbunden).</summary>
+        public double LinkdeadUntil { get; set; }
+        public bool IsLinkdead => LinkdeadUntil > 0;
+
         private readonly Dictionary<PowerType, int> _pools = new();
 
         public Player(CharacterData data, ContentDatabase content)

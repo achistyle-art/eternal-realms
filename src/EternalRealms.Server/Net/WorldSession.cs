@@ -1,5 +1,6 @@
 using EternalRealms.Server.AI;
 using EternalRealms.Server.Persistence;
+using EternalRealms.Server.Systems;
 using EternalRealms.Server.World;
 using EternalRealms.Shared;
 using EternalRealms.Shared.Content;
@@ -45,10 +46,12 @@ namespace EternalRealms.Server.Net
             if (_w.Time - _rateWindow >= 1) { _rateWindow = _w.Time; _messagesThisSecond = 0; }
             if (++_messagesThisSecond > _w.Config.MaxMessagesPerSecond)
             {
+                if (_messagesThisSecond == _w.Config.MaxMessagesPerSecond + 1 && Player != null) _w.AntiCheat.Report(Player, CheatKind.Flood, $"> {_w.Config.MaxMessagesPerSecond} Nachrichten/s");
                 if (m is C_Move) return; // Bewegungen bei Überlast verwerfen statt trennen
-                if (_messagesThisSecond > _w.Config.MaxMessagesPerSecond * 3) { Connection.Disconnect("Zu viele Nachrichten"); Close(); }
+                if (_messagesThisSecond > _w.Config.MaxMessagesPerSecond * 3) Kick("Zu viele Nachrichten.");
                 return;
             }
+            if (m is C_AccountSecurity sec && State is SessionState.Authenticated or SessionState.InWorld) { HandleAccountSecurity(sec); return; }
             switch (State)
             {
                 case SessionState.Connected:
@@ -72,6 +75,11 @@ namespace EternalRealms.Server.Net
 
         // ------------------------------------------------------------ Anmeldung
 
+        /// <summary>Vergleichswert, damit unbekannte Kontonamen genauso lange brauchen wie falsche Passwörter.</summary>
+        private static readonly string DummyHash = PasswordHasher.Hash("kein-konto-" + Guid.NewGuid());
+
+        private enum LoginFailure { None, Credentials, Other }
+
         private void HandleLogin(C_Login m)
         {
             if (_busy) return;
@@ -80,13 +88,32 @@ namespace EternalRealms.Server.Net
             if (user.Length < 3 || user.Length > 32 || !user.All(c => char.IsLetterOrDigit(c) || c == '_' || c == '.' || c == '-'))
             { Connection.Send(new S_LoginResult { Message = "Ungültiger Kontoname (3–32 Zeichen, Buchstaben, Ziffern, _ . -)." }); return; }
             var pass = m.Password ?? "";
-            if (pass.Length < 6 || pass.Length > 128) { Connection.Send(new S_LoginResult { Message = "Das Passwort muss mindestens 6 Zeichen haben." }); return; }
+            var token = m.Token ?? "";
+            bool register = m.Register && token.Length == 0;
+            if (register && Security.PasswordPolicy.Check(pass, user) is string weak) { Connection.Send(new S_LoginResult { Message = weak }); return; }
+            if (token.Length == 0 && (pass.Length == 0 || pass.Length > Security.PasswordPolicy.MaxLength))
+            { Connection.Send(new S_LoginResult { Message = "Kontoname oder Passwort falsch." }); return; }
+            if (token.Length > 128) { Connection.Send(new S_LoginResult { Message = "Sitzung abgelaufen – bitte neu anmelden." }); return; }
+            string ip = Connection.RemoteIp;
+            var limiter = register ? _registry.Registrations : _registry.Logins;
+            if (limiter.IsBlocked(ip, DateTime.UtcNow))
+            {
+                Connection.Send(new S_LoginResult { Message = register ? "Zu viele neue Konten von dieser Adresse. Bitte später erneut versuchen."
+                                                                       : "Zu viele Fehlversuche von dieser Adresse. Bitte später erneut versuchen." });
+                return;
+            }
             _busy = true;
-            bool register = m.Register;
+            string code = m.TotpCode ?? "";
+            bool maintenance = _w.Maintenance;
+            string maintenanceText = _w.MaintenanceMessage;
+            double tokenHours = _w.Config.SessionTokenHours;
             Task.Run(async () =>
             {
                 Account? acc = null;
-                string error = "";
+                string error = "", newToken = "";
+                bool needsCode = false;
+                var failure = LoginFailure.None;
+                var now = DateTime.UtcNow;
                 try
                 {
                     acc = await _accounts.FindByNameAsync(user);
@@ -94,25 +121,232 @@ namespace EternalRealms.Server.Net
                     {
                         if (!_w.Config.AllowRegistration) error = "Neue Konten sind derzeit deaktiviert.";
                         else if (acc != null) { error = "Dieser Kontoname ist vergeben."; acc = null; }
-                        else acc = await _accounts.CreateAsync(user, PasswordHasher.Hash(pass));
+                        else
+                        {
+                            acc = await _accounts.CreateAsync(user, PasswordHasher.Hash(pass));
+                            await Audit(acc, "account.create", acc.Username, "", ip);
+                        }
                     }
-                    else if (acc == null || !PasswordHasher.Verify(pass, acc.PasswordHash)) { error = "Kontoname oder Passwort falsch."; acc = null; }
-                    else if (acc.IsBanned) { error = "Dieses Konto ist gesperrt."; acc = null; }
-                    if (acc != null) await _accounts.TouchLoginAsync(acc.Id);
+                    else if (token.Length > 0)
+                    {
+                        // Wiederverbindung: Token einmalig einlösen; es ersetzt Passwort und Zwei-Faktor-Code.
+                        long? owner = await _accounts.ConsumeSessionTokenAsync(Security.SessionTokens.Hash(token), now);
+                        if (acc == null || owner != acc.Id) { error = "Sitzung abgelaufen – bitte neu anmelden."; acc = null; failure = LoginFailure.Credentials; }
+                    }
+                    else if (acc == null)
+                    {
+                        PasswordHasher.Verify(pass, DummyHash);
+                        error = "Kontoname oder Passwort falsch.";
+                        failure = LoginFailure.Credentials;
+                    }
+                    else if (acc.IsLockedAt(now))
+                    {
+                        error = $"Zu viele Fehlversuche. Das Konto ist bis {acc.LockedUntil!.Value.ToLocalTime():HH:mm} Uhr gesperrt.";
+                        acc = null;
+                        failure = LoginFailure.Other;
+                    }
+                    else
+                    {
+                        bool ok = PasswordHasher.Verify(pass, acc.PasswordHash);
+                        if (ok && acc.TotpSecret != null)
+                        {
+                            if (code.Length == 0) { needsCode = true; error = "Bitte den Code Eurer Authenticator-App eingeben."; }
+                            else if (Security.Totp.Verify(acc.TotpSecret, code, now, acc.TotpLastStep) is long step) acc.TotpLastStep = step;
+                            else ok = false;
+                        }
+                        if (!ok)
+                        {
+                            acc.FailedLogins++;
+                            if (acc.FailedLogins >= Security.LoginLimiter.MaxPerAccount)
+                            {
+                                acc.FailedLogins = 0;
+                                acc.LockedUntil = now + Security.LoginLimiter.AccountLock;
+                                await Audit(acc, "account.locked", acc.Username, "zu viele Fehlversuche", ip);
+                            }
+                            await _accounts.UpdateSecurityAsync(acc);
+                            await Audit(acc, "login.fail", acc.Username, code.Length > 0 ? "Code" : "Passwort", ip);
+                            error = code.Length > 0 && acc.TotpSecret != null ? "Passwort oder Code falsch." : "Kontoname oder Passwort falsch.";
+                            acc = null;
+                            failure = LoginFailure.Credentials;
+                        }
+                        else if (needsCode) acc = null;
+                        else if (acc.FailedLogins != 0 || acc.LockedUntil != null || acc.TotpSecret != null)
+                        {
+                            acc.FailedLogins = 0;
+                            acc.LockedUntil = null;
+                            await _accounts.UpdateSecurityAsync(acc);
+                        }
+                    }
+                    if (acc != null && acc.IsBannedAt(now))
+                    {
+                        error = acc.IsBanned ? "Dieses Konto ist dauerhaft gesperrt." : $"Dieses Konto ist bis {acc.BanUntil!.Value.ToLocalTime():dd.MM.yyyy HH:mm} Uhr gesperrt.";
+                        if (acc.BanReason.Length > 0) error += " Grund: " + acc.BanReason;
+                        acc = null;
+                    }
+                    if (acc != null && maintenance && acc.GmLevel < GmLevels.GameMaster) { error = maintenanceText; acc = null; }
+                    if (acc != null)
+                    {
+                        newToken = Security.SessionTokens.Create();
+                        await _accounts.SaveSessionTokenAsync(Security.SessionTokens.Hash(newToken), acc.Id, now.AddHours(tokenHours));
+                        await _accounts.TouchLoginAsync(acc.Id);
+                        await Audit(acc, token.Length > 0 ? "login.token" : "login.ok", acc.Username, "", ip);
+                    }
                 }
-                catch (Exception ex) { error = "Anmeldung derzeit nicht möglich."; _w.Post(() => _w.Log("Login-Fehler: " + ex.Message)); }
+                catch (Exception ex) { error = "Anmeldung derzeit nicht möglich."; acc = null; _w.Post(() => _w.Log("Login-Fehler: " + ex.Message)); }
                 _w.Post(() =>
                 {
                     _busy = false;
+                    if (failure == LoginFailure.Credentials || (register && acc != null)) limiter.Fail(ip, now);
                     if (State == SessionState.Closed) return;
-                    if (acc == null) { Connection.Send(new S_LoginResult { Success = false, Message = error }); return; }
+                    if (acc == null) { Connection.Send(new S_LoginResult { Success = false, Message = error, NeedsTwoFactor = needsCode }); return; }
                     _registry.KickOther(acc.Id, this);
                     Account = acc;
                     State = SessionState.Authenticated;
-                    Connection.Send(new S_LoginResult { Success = true, Message = register ? "Konto erstellt. Willkommen in Eternal Realms!" : "Willkommen zurück!" });
+                    var resume = _w.AllPlayers.FirstOrDefault(p => p.IsLinkdead && !p.IsBot && p.Data.AccountId == acc.Id);
+                    Connection.Send(new S_LoginResult
+                    {
+                        Success = true, Token = newToken, Resumed = resume != null, GmLevel = (byte)acc.GmLevel,
+                        Message = register ? "Konto erstellt. Willkommen in Eternal Realms!" : resume != null ? "Verbindung wiederhergestellt." : "Willkommen zurück!",
+                    });
+                    if (resume != null) Resume(resume);
                 });
             });
         }
+
+        /// <summary>Übernimmt einen Charakter, dessen Verbindung abgerissen war – ohne Neuladen, also ohne Gefahr doppelter Stände.</summary>
+        private void Resume(Player p)
+        {
+            Player = p;
+            p.Connection = Connection;
+            p.LinkdeadUntil = 0;
+            p.LastActivity = _w.Time;
+            p.VisibleEntities.Clear(); // der neue Client kennt noch nichts: Umgebung beim nächsten Takt neu senden
+            ApplyAccount(p);
+            State = SessionState.InWorld;
+            _w.SendFullState(p);
+            if (p.IsDead) p.Send(new S_DeathState { State = p.DeathState, CorpsePosition = p.Data.CorpsePosition });
+            _w.Tutorial.OnReconnect(p);
+            _w.Log($"{p.Name} hat die Verbindung wiederhergestellt ({Connection.RemoteAddress}).");
+        }
+
+        private void ApplyAccount(Player p)
+        {
+            p.GmLevel = Account!.GmLevel;
+            p.MutedUntil = Account.MutedUntil;
+        }
+
+        private Task Audit(Account? acc, string action, string target, string detail, string ip = "") =>
+            _accounts.AuditAsync(new AuditEntry { AccountId = acc?.Id, Actor = acc?.Username ?? "", Action = action, Target = target, Detail = detail, Ip = ip });
+
+        // ------------------------------------------------------------ Kontoschutz
+
+        private string? _pendingTotpSecret;
+
+        private void HandleAccountSecurity(C_AccountSecurity m)
+        {
+            if (Account == null) return;
+            if (_busy) { SecurityReply(false, "Bitte einen Moment …"); return; }
+            var accountId = Account.Id;
+            string ip = Connection.RemoteIp;
+            switch (m.Action)
+            {
+                case AccountAction.Info:
+                    SecurityReply(true, "");
+                    return;
+                case AccountAction.BeginTwoFactor:
+                    if (Account.TotpSecret != null) { SecurityReply(false, "Die Zwei-Faktor-Anmeldung ist bereits aktiv."); return; }
+                    _pendingTotpSecret = Security.Totp.NewSecret();
+                    Connection.Send(new S_AccountSecurity
+                    {
+                        Success = true, PendingSecret = _pendingTotpSecret, PendingUri = Security.Totp.Uri(Account.Username, _pendingTotpSecret),
+                        Message = "Geheimnis in der Authenticator-App eintragen und mit dem angezeigten Code bestätigen.",
+                    });
+                    return;
+            }
+            string secret = _pendingTotpSecret ?? "";
+            if (m.Action == AccountAction.ConfirmTwoFactor && secret.Length == 0) { SecurityReply(false, "Zuerst die Einrichtung beginnen."); return; }
+            if (m.Action == AccountAction.ChangePassword && Security.PasswordPolicy.Check(m.NewPassword ?? "", Account.Username) is string weak) { SecurityReply(false, weak); return; }
+            _busy = true;
+            Task.Run(async () =>
+            {
+                bool ok = false;
+                string message, newToken = "";
+                Account? acc = null;
+                try
+                {
+                    acc = await _accounts.GetAccountAsync(accountId);
+                    var now = DateTime.UtcNow;
+                    if (acc == null) message = "Konto nicht gefunden.";
+                    else if (m.Action == AccountAction.ConfirmTwoFactor)
+                    {
+                        if (Security.Totp.Verify(secret, m.Code, now, 0) is long step)
+                        {
+                            acc.TotpSecret = secret;
+                            acc.TotpLastStep = step;
+                            await _accounts.UpdateSecurityAsync(acc);
+                            await Audit(acc, "account.2fa.on", acc.Username, "", ip);
+                            ok = true;
+                            message = "Zwei-Faktor-Anmeldung aktiviert. Ab jetzt wird beim Anmelden ein Code verlangt.";
+                        }
+                        else message = "Der Code stimmt nicht. Uhrzeit des Geräts prüfen und erneut versuchen.";
+                    }
+                    else if (acc.IsLockedAt(now)) message = "Zu viele Fehlversuche – bitte später erneut versuchen.";
+                    else
+                    {
+                        bool passOk = PasswordHasher.Verify(m.Password ?? "", acc.PasswordHash);
+                        bool codeNeeded = acc.TotpSecret != null;
+                        long? step = codeNeeded ? Security.Totp.Verify(acc.TotpSecret!, m.Code, now, acc.TotpLastStep) : null;
+                        if (!passOk || (codeNeeded && step == null))
+                        {
+                            if (++acc.FailedLogins >= Security.LoginLimiter.MaxPerAccount) { acc.FailedLogins = 0; acc.LockedUntil = now + Security.LoginLimiter.AccountLock; }
+                            await _accounts.UpdateSecurityAsync(acc);
+                            message = codeNeeded ? "Passwort oder Code falsch." : "Das Passwort ist falsch.";
+                        }
+                        else
+                        {
+                            if (step != null) acc.TotpLastStep = step.Value;
+                            acc.FailedLogins = 0;
+                            if (m.Action == AccountAction.DisableTwoFactor)
+                            {
+                                if (!codeNeeded) message = "Die Zwei-Faktor-Anmeldung ist nicht aktiv.";
+                                else
+                                {
+                                    acc.TotpSecret = null;
+                                    acc.TotpLastStep = 0;
+                                    await Audit(acc, "account.2fa.off", acc.Username, "", ip);
+                                    ok = true;
+                                    message = "Zwei-Faktor-Anmeldung abgeschaltet.";
+                                }
+                            }
+                            else
+                            {
+                                acc.PasswordHash = PasswordHasher.Hash(m.NewPassword!);
+                                // Alle Wiederverbindungstokens verfallen; diese Sitzung erhält ein neues.
+                                await _accounts.RevokeSessionTokensAsync(acc.Id);
+                                newToken = Security.SessionTokens.Create();
+                                await _accounts.SaveSessionTokenAsync(Security.SessionTokens.Hash(newToken), acc.Id, now.AddHours(_w.Config.SessionTokenHours));
+                                await Audit(acc, "account.password", acc.Username, "", ip);
+                                ok = true;
+                                message = "Passwort geändert.";
+                            }
+                            await _accounts.UpdateSecurityAsync(acc);
+                        }
+                    }
+                }
+                catch (Exception ex) { message = "Änderung derzeit nicht möglich."; _w.Post(() => _w.Log("Kontoschutz: " + ex.Message)); }
+                _w.Post(() =>
+                {
+                    _busy = false;
+                    if (State == SessionState.Closed || Account == null) return;
+                    if (acc != null) { Account.TotpSecret = acc.TotpSecret; Account.TotpLastStep = acc.TotpLastStep; Account.PasswordHash = acc.PasswordHash; }
+                    if (ok && m.Action == AccountAction.ConfirmTwoFactor) _pendingTotpSecret = null;
+                    SecurityReply(ok, message, newToken);
+                });
+            });
+        }
+
+        private void SecurityReply(bool success, string message, string token = "") =>
+            Connection.Send(new S_AccountSecurity { Success = success, Message = message, TwoFactorEnabled = Account?.TotpSecret != null, Token = token });
 
         // ------------------------------------------------------------ Charakterauswahl
 
@@ -204,10 +438,30 @@ namespace EternalRealms.Server.Net
             else Task.Run(job);
         }
 
+        /// <summary>Wird gerade aus der Warteschlange eingelassen (zählt schon als belegter Platz).</summary>
+        public bool Admitting { get; private set; }
+        public long QueuedCharacter { get; set; }
+
         private void EnterWorld(long id)
         {
             if (_busy) return;
+            bool gm = Account!.GmLevel >= GmLevels.GameMaster;
+            if (_w.Maintenance && !gm) { Error(_w.MaintenanceMessage); return; }
+            if (!gm && !_registry.HasFreeSlot(_w, this))
+            {
+                _registry.Enqueue(this, id);
+                return;
+            }
+            EnterWorldNow(id);
+        }
+
+        /// <summary>Lädt den Charakter und betritt die Welt (Platz wurde geprüft oder von der Warteschlange vergeben).</summary>
+        public void EnterWorldNow(long id)
+        {
+            if (_busy || State != SessionState.Authenticated) return;
+            _registry.Dequeue(this);
             _busy = true;
+            Admitting = true;
             var accountId = Account!.Id;
             // Über die Persistenz-Warteschlange: geladen wird erst nach der letzten Speicherung dieses Charakters.
             Queue(async () =>
@@ -218,10 +472,12 @@ namespace EternalRealms.Server.Net
                 _w.Post(() =>
                 {
                     _busy = false;
+                    Admitting = false;
                     if (State != SessionState.Authenticated) return;
                     if (data == null || data.AccountId != accountId || data.IsBot) { Error("Charakter nicht gefunden."); return; }
                     if (_w.AllPlayers.Any(p => p.Data.Id == data.Id)) { Error("Dieser Charakter ist bereits in der Welt."); return; }
                     Player = _w.EnterWorld(data, Connection);
+                    ApplyAccount(Player);
                     State = SessionState.InWorld;
                     _w.Log($"{Player.Name} betritt {Player.Zone!.Def.Name} ({Connection.RemoteAddress}).");
                 });
@@ -261,6 +517,7 @@ namespace EternalRealms.Server.Net
                 case C_AttackStop: p.AutoAttacking = false; return;
                 case C_Chat chat:
                     if (chat.Text.Trim() == ".pvp") { p.PvP = !p.PvP; p.Notice(p.PvP ? "PvP aktiviert." : "PvP wird deaktiviert."); return; }
+                    if (chat.Text.StartsWith(".") && p.IsGm) { _w.Gm.Execute(GmContext.ForPlayer(p, Account!), chat.Text); return; }
                     _w.Chat.Handle(p, chat.Channel, chat.Text, chat.WhisperTo ?? "");
                     return;
                 case C_Interact i: err = _w.Interactions.Interact(p, i.EntityId); break;
@@ -470,7 +727,12 @@ namespace EternalRealms.Server.Net
         {
             if (string.IsNullOrEmpty(c.AbilityId) || c.AbilityId.Length > 64) return "Unbekannte Fähigkeit.";
             int known = p.KnownRank(c.AbilityId);
-            if (known <= 0) return "Ihr kennt diese Fähigkeit nicht.";
+            if (known <= 0)
+            {
+                // Die Benutzeroberfläche bietet nur bekannte Fähigkeiten an – unbekannte kommen nur von veränderten Clients.
+                _w.AntiCheat.Report(p, CheatKind.InvalidAction, "unbekannte Fähigkeit " + c.AbilityId);
+                return "Ihr kennt diese Fähigkeit nicht.";
+            }
             int rank = c.Rank <= 0 ? known : Math.Min(c.Rank, known);
             var ab = _w.Content.GetAbilityRank(c.AbilityId, rank);
             if (ab == null) return "Unbekannte Fähigkeit.";
@@ -496,31 +758,129 @@ namespace EternalRealms.Server.Net
             if (Account != null && State != SessionState.Closed) SendCharacterList();
         }
 
-        public void Close()
+        /// <summary>Verbindung beendet (Netzwerk). Ein Charakter in der Welt bleibt eine Weile „verbindungslos“ und kann übernommen werden.</summary>
+        public void Close() => Close(keepInWorld: true);
+
+        public void Close(bool keepInWorld)
         {
             if (State == SessionState.Closed) return;
-            if (Player != null) { _w.Logout(Player); Player.Connection = null; Player = null; }
+            if (Player != null) DetachPlayer(keepInWorld);
             State = SessionState.Closed;
             _registry.Remove(this);
         }
+
+        /// <summary>Löst den Charakter von dieser Sitzung: verbindungslos in der Welt lassen oder sofort abmelden.</summary>
+        private void DetachPlayer(bool keepInWorld)
+        {
+            var p = Player!;
+            Player = null;
+            p.Connection = null;
+            if (keepInWorld && _w.Config.LinkdeadSeconds > 0 && p.Zone != null)
+            {
+                p.LinkdeadUntil = _w.Time + _w.Config.LinkdeadSeconds;
+                p.AutoAttacking = false;
+                _w.Log($"Verbindung zu {p.Name} verloren – bleibt {_w.Config.LinkdeadSeconds:0} s in der Welt.");
+            }
+            else
+            {
+                _w.Logout(p);
+                _w.Log($"{p.Name} hat die Welt verlassen.");
+            }
+        }
+
+        /// <summary>Vom Server beendet (Spielleiter, Flut, Wartung): sofort abmelden, Client verbindet sich nicht neu.</summary>
+        public void Kick(string reason)
+        {
+            if (State == SessionState.Closed) return;
+            Close(keepInWorld: false);
+            Connection.Disconnect(reason);
+        }
+
+        /// <summary>Gleiches Konto meldet sich woanders an: Charakter übergeben statt abmelden, dann diese Verbindung trennen.</summary>
+        public void HandOver()
+        {
+            if (State == SessionState.Closed) return;
+            Close(keepInWorld: true);
+            Connection.Disconnect("Euer Konto wurde an einem anderen Ort angemeldet.");
+        }
     }
 
-    /// <summary>Alle Sitzungen; verhindert doppelte Anmeldung desselben Kontos.</summary>
+    /// <summary>
+    /// Alle Sitzungen (Kapitel 41/54): verhindert doppelte Anmeldung, führt die Anmeldeschlange bei vollem Realm und
+    /// meldet verbindungslose Charaktere nach Ablauf ihrer Frist ab. Läuft im Spielthread.
+    /// </summary>
     public sealed class SessionRegistry
     {
         private readonly List<WorldSession> _sessions = new();
+        private readonly List<WorldSession> _queue = new();
+        private double _queueBroadcast;
         public IReadOnlyList<WorldSession> Sessions => _sessions;
+        public IReadOnlyList<WorldSession> Queue => _queue;
+        /// <summary>Fehlversuche je IP; neue Konten je IP (höchstens 5 pro Stunde).</summary>
+        public Security.LoginLimiter Logins { get; } = new();
+        public Security.LoginLimiter Registrations { get; } = new(5, TimeSpan.FromHours(1));
 
         public void Add(WorldSession s) => _sessions.Add(s);
-        public void Remove(WorldSession s) => _sessions.Remove(s);
+        public void Remove(WorldSession s) { _sessions.Remove(s); Dequeue(s); }
+
+        public WorldSession? ForPlayer(Player p) => _sessions.FirstOrDefault(s => s.Player == p);
 
         public void KickOther(long accountId, WorldSession keep)
         {
-            foreach (var s in _sessions.Where(s => s != keep && s.Account?.Id == accountId).ToList())
+            foreach (var s in _sessions.Where(s => s != keep && s.Account?.Id == accountId).ToList()) s.HandOver();
+        }
+
+        // ------------------------------------------------------------ Warteschlange
+
+        private static int Occupied(GameWorld w, IEnumerable<WorldSession> sessions) =>
+            w.AllPlayers.Count(p => !p.IsBot && !p.IsGm) + sessions.Count(s => s.Admitting);
+
+        /// <summary>Ein Platz ist frei und niemand wartet vor dieser Sitzung.</summary>
+        public bool HasFreeSlot(GameWorld w, WorldSession s) =>
+            Occupied(w, _sessions) < w.Config.MaxPlayers && (_queue.Count == 0 || _queue[0] == s);
+
+        public void Enqueue(WorldSession s, long characterId)
+        {
+            s.QueuedCharacter = characterId;
+            if (!_queue.Contains(s)) _queue.Add(s);
+            Notify(s);
+        }
+
+        public void Dequeue(WorldSession s)
+        {
+            if (!_queue.Remove(s)) return;
+            s.QueuedCharacter = 0;
+            s.Connection.Send(new S_QueueStatus { Position = 0, Length = _queue.Count });
+        }
+
+        private void Notify(WorldSession s) => s.Connection.Send(new S_QueueStatus
+        {
+            Position = _queue.IndexOf(s) + 1, Length = _queue.Count,
+            Message = $"Der Realm ist voll. Ihr seid Nummer {_queue.IndexOf(s) + 1} in der Warteschlange.",
+        });
+
+        public void Update(GameWorld w)
+        {
+            foreach (var p in w.AllPlayers.Where(p => p.IsLinkdead && w.Time >= p.LinkdeadUntil).ToList())
             {
-                s.Connection.Send(new S_Notice { IsError = true, Text = "Euer Konto wurde an einem anderen Ort angemeldet." });
-                s.Connection.Disconnect("Doppelte Anmeldung");
-                s.Close();
+                p.LinkdeadUntil = 0;
+                w.Logout(p);
+                w.Log($"{p.Name} wurde nach Verbindungsabbruch abgemeldet.");
+            }
+            if (_queue.Count == 0) return;
+            _queue.RemoveAll(s => s.State != SessionState.Authenticated);
+            bool changed = false;
+            while (_queue.Count > 0 && Occupied(w, _sessions) < w.Config.MaxPlayers && !w.Maintenance)
+            {
+                var s = _queue[0];
+                s.EnterWorldNow(s.QueuedCharacter);
+                if (_queue.Count > 0 && _queue[0] == s) _queue.RemoveAt(0); // Laden nicht möglich (beschäftigt): nicht blockieren
+                changed = true;
+            }
+            if (changed || w.Time - _queueBroadcast > 10)
+            {
+                _queueBroadcast = w.Time;
+                foreach (var s in _queue) Notify(s);
             }
         }
     }

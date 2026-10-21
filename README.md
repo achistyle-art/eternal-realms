@@ -77,13 +77,21 @@ Steuerung: **WASD** laufen, **Q/E** seitwärts, **Maus links/rechts** Kamera bzw
 | `ER_ALLOW_REGISTRATION` | true | neue Konten erlauben |
 | `ER_DEV_COMMANDS` | false | Entwicklerbefehle im Chat (`#level 15`, `#item id`, `#tele zone x z`, `#gold 10`, `#kill`, `#spawn id`, `#where`) |
 | `ER_AUTOSAVE_SECONDS` | 60 | Speicherintervall |
+| `ER_MAX_PLAYERS` | 1000 | Spieler gleichzeitig in der Welt, weitere warten in der Anmeldeschlange |
+| `ER_LINKDEAD_SECONDS` | 60 | so lange bleibt ein Charakter nach Verbindungsabbruch in der Welt (0 = sofort abmelden) |
+| `ER_SESSION_TOKEN_HOURS` | 12 | Gültigkeit des einmaligen Wiederverbindungstokens |
+| `ER_MAINTENANCE` | false | Wartungsmodus beim Start (nur Spielleiter) |
+| `ER_CONSOLE` | false | Spielleiter-Befehle über die Serverkonsole (z. B. `rechte meinkonto 2`) |
+| `ER_CHEAT_FLAG_SCORE` / `ER_CHEAT_KICK_SCORE` | 50 / 150 | Anti-Cheat: Meldung an Spielleiter / Trennung (nie automatische Sperre) |
+
+Betrieb (Spielleitung, Backups, Kontoschutz): siehe [docs/BETRIEB.md](docs/BETRIEB.md).
 
 Datenbankmigrationen (`db/migrations`) laufen beim Start automatisch.
 
 ## Tests
 
 ```bash
-dotnet test                                           # 47 Tests
+dotnet test                                           # 189 Tests
 ER_TEST_DATABASE="Host=localhost;Username=realms;Password=realms;Database=er_test" dotnet test   # zusätzlich gegen PostgreSQL
 ```
 

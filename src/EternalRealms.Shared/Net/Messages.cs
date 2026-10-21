@@ -11,8 +11,18 @@ namespace EternalRealms.Shared.Net
         public string Account = "", Password = "";
         public bool Register;
         public int ProtocolVersion = ProtocolInfo.ProtocolVersion;
-        public override void Write(NetDataWriter w) { w.Put(Account); w.Put(Password); w.Put(Register); w.Put(ProtocolVersion); }
-        public override void Read(NetDataReader r) { Account = r.GetString(); Password = r.GetString(); Register = r.GetBool(); ProtocolVersion = r.GetInt(); }
+        /// <summary>Wiederverbindung: Token aus dem letzten <see cref="S_LoginResult"/> statt Passwort.</summary>
+        public string Token = "";
+        /// <summary>Code der Zwei-Faktor-Anmeldung (sechs Ziffern), falls das Konto sie verlangt.</summary>
+        public string TotpCode = "";
+        // Protokollversion zuerst: ein veralteter Client wird erkannt, auch wenn sich die übrigen Felder geändert haben.
+        public override void Write(NetDataWriter w) { w.Put(ProtocolVersion); w.Put(Account); w.Put(Password); w.Put(Register); w.Put(Token); w.Put(TotpCode); }
+        public override void Read(NetDataReader r)
+        {
+            ProtocolVersion = r.GetInt();
+            if (ProtocolVersion != ProtocolInfo.ProtocolVersion) return;
+            Account = r.GetString(); Password = r.GetString(); Register = r.GetBool(); Token = r.GetString(); TotpCode = r.GetString();
+        }
     }
 
     public sealed class C_CharacterList : Message
@@ -364,8 +374,15 @@ namespace EternalRealms.Shared.Net
         public override Opcode Op => Opcode.S_LoginResult;
         public bool Success;
         public string Message = "";
-        public override void Write(NetDataWriter w) { w.Put(Success); w.Put(Message); }
-        public override void Read(NetDataReader r) { Success = r.GetBool(); Message = r.GetString(); }
+        /// <summary>Einmal gültiges Token für eine Wiederverbindung (nur im Speicher halten).</summary>
+        public string Token = "";
+        /// <summary>Passwort stimmte, das Konto verlangt aber einen Zwei-Faktor-Code.</summary>
+        public bool NeedsTwoFactor;
+        /// <summary>Wiederverbindung: der Charakter war noch in der Welt und wird direkt übernommen.</summary>
+        public bool Resumed;
+        public byte GmLevel;
+        public override void Write(NetDataWriter w) { w.Put(Success); w.Put(Message); w.Put(Token); w.Put(NeedsTwoFactor); w.Put(Resumed); w.Put(GmLevel); }
+        public override void Read(NetDataReader r) { Success = r.GetBool(); Message = r.GetString(); Token = r.GetString(); NeedsTwoFactor = r.GetBool(); Resumed = r.GetBool(); GmLevel = r.GetByte(); }
     }
 
     public sealed class S_CharacterList : Message

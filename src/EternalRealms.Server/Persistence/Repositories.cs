@@ -8,6 +8,16 @@ namespace EternalRealms.Server.Persistence
         Task<Account?> FindByNameAsync(string username);
         Task<Account> CreateAsync(string username, string passwordHash);
         Task TouchLoginAsync(long accountId);
+        Task<Account?> GetAccountAsync(long accountId);
+        /// <summary>Schreibt Passwort, Fehlversuche, Sperren, Zwei-Faktor und Spielleiter-Stufe.</summary>
+        Task UpdateSecurityAsync(Account account);
+        /// <summary>Speichert den Hash eines Wiederverbindungstokens.</summary>
+        Task SaveSessionTokenAsync(string tokenHash, long accountId, DateTime expiresAt);
+        /// <summary>Löst ein Token ein (einmalig): liefert das Konto, wenn es gültig war, und löscht es.</summary>
+        Task<long?> ConsumeSessionTokenAsync(string tokenHash, DateTime now);
+        Task RevokeSessionTokensAsync(long accountId);
+        Task AuditAsync(AuditEntry entry);
+        Task<List<AuditEntry>> ListAuditAsync(string? actionPrefix, string? target, int limit);
     }
 
     public interface ICharacterRepository
@@ -52,16 +62,58 @@ namespace EternalRealms.Server.Persistence
         private long _nextAccount = 1, _nextChar = 1;
 
         public Task<Account?> FindByNameAsync(string username) =>
-            Task.FromResult(_accounts.Values.FirstOrDefault(a => string.Equals(a.Username, username, StringComparison.OrdinalIgnoreCase)));
+            Task.FromResult(_accounts.Values.FirstOrDefault(a => string.Equals(a.Username, username, StringComparison.OrdinalIgnoreCase))?.Clone());
 
         public Task<Account> CreateAsync(string username, string passwordHash)
         {
             var a = new Account { Id = Interlocked.Increment(ref _nextAccount) - 1, Username = username, PasswordHash = passwordHash };
             _accounts[a.Id] = a;
-            return Task.FromResult(a);
+            return Task.FromResult(a.Clone());
         }
 
         public Task TouchLoginAsync(long accountId) => Task.CompletedTask;
+
+        // Konten werden als Kopie herausgegeben – wie bei einer Datenbank wirkt eine Änderung erst nach UpdateSecurityAsync.
+        public Task<Account?> GetAccountAsync(long accountId) => Task.FromResult(_accounts.TryGetValue(accountId, out var a) ? a.Clone() : null);
+
+        public Task UpdateSecurityAsync(Account account)
+        {
+            if (_accounts.ContainsKey(account.Id)) _accounts[account.Id] = account.Clone();
+            return Task.CompletedTask;
+        }
+
+        private readonly ConcurrentDictionary<string, (long Account, DateTime Expires)> _tokens = new();
+        private readonly List<AuditEntry> _audit = new();
+        public IReadOnlyList<AuditEntry> Audit { get { lock (_audit) return _audit.ToList(); } }
+
+        public Task SaveSessionTokenAsync(string tokenHash, long accountId, DateTime expiresAt)
+        {
+            _tokens[tokenHash] = (accountId, expiresAt);
+            return Task.CompletedTask;
+        }
+
+        public Task<long?> ConsumeSessionTokenAsync(string tokenHash, DateTime now) =>
+            Task.FromResult(_tokens.TryRemove(tokenHash, out var t) && t.Expires > now ? t.Account : (long?)null);
+
+        public Task RevokeSessionTokensAsync(long accountId)
+        {
+            foreach (var kv in _tokens.Where(kv => kv.Value.Account == accountId).ToList()) _tokens.TryRemove(kv.Key, out _);
+            return Task.CompletedTask;
+        }
+
+        public Task AuditAsync(AuditEntry entry)
+        {
+            lock (_audit) { entry.Id = _audit.Count + 1; _audit.Add(entry); }
+            return Task.CompletedTask;
+        }
+
+        public Task<List<AuditEntry>> ListAuditAsync(string? actionPrefix, string? target, int limit)
+        {
+            lock (_audit)
+                return Task.FromResult(_audit.Where(e => (actionPrefix == null || e.Action.StartsWith(actionPrefix)) &&
+                                                         (target == null || string.Equals(e.Target, target, StringComparison.OrdinalIgnoreCase)))
+                    .Reverse().Take(limit).ToList());
+        }
 
         public Task<List<CharacterData>> ListForAccountAsync(long accountId) =>
             Task.FromResult(_chars.Values.Where(c => c.AccountId == accountId && !c.IsBot).OrderBy(c => c.Id).Select(c => c.Clone()).ToList());
@@ -146,7 +198,17 @@ namespace EternalRealms.Server.Persistence
         public Task<List<GuildData>> LoadGuildsAsync() { lock (_economyLock) return Task.FromResult(_guilds.Values.Select(g => g.Clone()).ToList()); }
         public Task SaveGuildAsync(GuildData guild) { lock (_economyLock) _guilds[guild.Id] = guild.Clone(); return Task.CompletedTask; }
         public Task DeleteGuildAsync(long guildId) { lock (_economyLock) _guilds.Remove(guildId); return Task.CompletedTask; }
-        public Task SaveReportAsync(PlayerReport report) { lock (_economyLock) _reports.Add(report); return Task.CompletedTask; }
+        public Task SaveReportAsync(PlayerReport report) { lock (_economyLock) { report.Id = _reports.Count + 1; _reports.Add(report); } return Task.CompletedTask; }
+        public Task<List<PlayerReport>> ListOpenReportsAsync(int limit) { lock (_economyLock) return Task.FromResult(_reports.Where(r => !r.Handled).Reverse().Take(limit).ToList()); }
+        public Task<bool> MarkReportHandledAsync(long id)
+        {
+            lock (_economyLock)
+            {
+                var r = _reports.FirstOrDefault(x => x.Id == id && !x.Handled);
+                if (r != null) r.Handled = true;
+                return Task.FromResult(r != null);
+            }
+        }
 
         private readonly Dictionary<string, DateTime> _spawnTimers = new();
         public Task<Dictionary<string, DateTime>> LoadSpawnTimersAsync() { lock (_spawnTimers) return Task.FromResult(new Dictionary<string, DateTime>(_spawnTimers)); }

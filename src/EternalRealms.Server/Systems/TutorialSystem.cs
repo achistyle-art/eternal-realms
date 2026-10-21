@@ -72,6 +72,12 @@ namespace EternalRealms.Server.Systems
             if (!p.IsBot) Start(p);
         }
 
+        /// <summary>Nach einer Wiederverbindung: Stand erneut schicken (die Erklärerin war die ganze Zeit da).</summary>
+        public void OnReconnect(Player p)
+        {
+            if (_sessions.ContainsKey(p) || p.Data.Tutorial != null) p.Send(BuildState(p));
+        }
+
         public void OnLogout(Player p)
         {
             if (!_sessions.Remove(p, out var s)) return;

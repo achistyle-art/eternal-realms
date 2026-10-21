@@ -19,6 +19,7 @@ namespace EternalRealms.Tests
             {
                 var m = (Message)Activator.CreateInstance(type)!;
                 Fill(m, rng);
+                if (m is C_Login login) login.ProtocolVersion = ProtocolInfo.ProtocolVersion; // fremde Versionen liest der Server bewusst nicht weiter
                 var bytes = Packets.Serialize(m);
                 var back = Packets.Deserialize(bytes);
                 Assert.Equal(type, back.GetType());
@@ -127,6 +128,49 @@ namespace EternalRealms.Tests
             await loop;
             var tickErrors = serverLog.Where(l => l.StartsWith("Fehler")).ToList();
             Assert.True(tickErrors.Count == 0, "Fehler im Server: " + string.Join("\n", tickErrors.Take(2)));
+        }
+
+        /// <summary>Netzabbruch über echtes UDP: der Client verbindet sich selbst neu und übernimmt seinen Charakter (Kapitel 41).</summary>
+        [Fact]
+        public async Task ClientReconnectsAutomaticallyAndResumesItsCharacter()
+        {
+            var config = new ServerConfig { Port = 0, AmbientBots = false, ContentPath = TestContent.ContentRoot, Tutorial = false };
+            var store = new InMemoryStore();
+            using var server = new GameServer(config, TestContent.Db, store, store);
+            var serverLog = new System.Collections.Concurrent.ConcurrentQueue<string>();
+            server.World.Log = l => serverLog.Enqueue(l);
+            _serverLog = serverLog;
+            server.World.Bots.LoadOffline(Array.Empty<CharacterData>());
+            Assert.True(server.Start());
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
+            var loop = Task.Run(() => server.Run(cts.Token));
+
+            using var client = new GameClient();
+            bool? resumed = null;
+            client.Reconnected += r => resumed = r;
+            Assert.True(client.Connect("127.0.0.1", server.Network.Port));
+            await WaitFor(client, () => client.Connected, "Verbindung");
+            client.Login("wiederkehr", "Netz4bruch", register: true);
+            await WaitFor(client, () => client.LoggedIn && client.Token.Length > 0, "Anmeldung mit Token");
+            client.Send(new C_CreateCharacter { Name = "Wiederkehr", Race = Race.Aldorer, Class = CharClass.Warrior, Gender = Gender.Male, Appearance = new AppearanceData { Height = 1.0f } });
+            await WaitFor(client, () => client.Characters.Count == 1, "Charakterliste");
+            client.Send(new C_EnterWorld { CharacterId = client.Characters[0].Id });
+            await WaitFor(client, () => client.InWorld && client.State.Entities.Count > 3, "Weltbetritt");
+            var player = server.World.AllPlayers.Single(p => !p.IsBot);
+            string oldToken = client.Token;
+
+            client.SimulateConnectionLoss();
+            Assert.True(client.Reconnecting);
+            await WaitFor(client, () => resumed != null, "automatische Wiederverbindung");
+            Assert.True(resumed);
+            await WaitFor(client, () => client.InWorld && client.State.Entities.Count > 3, "Welt nach Wiederverbindung");
+            Assert.NotEqual(oldToken, client.Token);
+            Assert.Same(player, server.World.AllPlayers.Single(p => !p.IsBot)); // derselbe Charakter, nie doppelt
+            client.Move(client.Me!.Position + new Vec3(1.5f, 0, 0), 0);
+            await WaitFor(client, () => Vec3.DistanceXZ(player.Position, client.Me!.Position) < 0.5f, "Bewegung nach Wiederverbindung");
+            cts.Cancel();
+            await loop;
+            Assert.DoesNotContain(serverLog, l => l.StartsWith("Fehler"));
         }
 
         private static System.Collections.Concurrent.ConcurrentQueue<string>? _serverLog;

@@ -84,6 +84,31 @@ namespace EternalRealms.Shared.Client
         public S_Achievements Achievements { get; private set; } = new S_Achievements();
         public S_Tutorial? Tutorial { get; private set; }
 
+        // Konto und Verbindung (Kapitel 40/41/54)
+        /// <summary>Einmal-Token für die Wiederverbindung; liegt nur im Speicher, nie auf der Festplatte.</summary>
+        public string Token { get; private set; } = "";
+        public string AccountName { get; private set; } = "";
+        public bool NeedsTwoFactor { get; private set; }
+        public int GmLevel { get; private set; }
+        public S_AccountSecurity? AccountSecurity { get; private set; }
+        /// <summary>Platz in der Anmeldeschlange (null = nicht in der Schlange).</summary>
+        public S_QueueStatus? Queue { get; private set; }
+        /// <summary>Grund, aus dem der Server die Verbindung beendet hat (null = Abbruch durch das Netz).</summary>
+        public S_Goodbye? LastGoodbye { get; private set; }
+        /// <summary>Nach einem Verbindungsabbruch automatisch neu verbinden und mit dem Token anmelden.</summary>
+        public bool AutoReconnect { get; set; } = true;
+        public bool Reconnecting { get; private set; }
+        public int ReconnectAttempt { get; private set; }
+        public const int MaxReconnectAttempts = 8;
+        private double _nextReconnect;
+        private string _host = "";
+        private int _port;
+        private bool _closing;
+        /// <summary>Wiederverbindung gelungen; mit true, wenn der Charakter noch in der Welt war.</summary>
+        public event Action<bool>? Reconnected;
+        /// <summary>Wiederverbindung aufgegeben – die Oberfläche zeigt wieder die Anmeldung.</summary>
+        public event Action<string>? ReconnectFailed;
+
         /// <summary>Jede empfangene Nachricht (nach der Verarbeitung) – für Benutzeroberflächen.</summary>
         public event Action<Message>? MessageReceived;
         public event Action<string>? Disconnected;
@@ -99,16 +124,50 @@ namespace EternalRealms.Shared.Client
         public bool Connect(string host, int port)
         {
             if (!_net.IsRunning && !_net.Start()) return false;
+            _host = host;
+            _port = port;
+            _closing = false;
             _peer = _net.Connect(host, port, ProtocolInfo.ConnectionKey);
             return _peer != null;
         }
 
-        public void Disconnect() { _peer?.Disconnect(); _net.Stop(); }
+        /// <summary>Für Tests und Störungsübungen: Verbindung hart kappen (ohne Abmeldung), als wäre das Netz weg.</summary>
+        public void SimulateConnectionLoss()
+        {
+            _net.Stop(false);
+            _peer = null;
+            bool wasLoggedIn = LoggedIn;
+            LoggedIn = false;
+            InWorld = false;
+            if (AutoReconnect && Token.Length > 0 && wasLoggedIn) { Reconnecting = true; ReconnectAttempt = 0; _nextReconnect = Now + 0.5; }
+        }
+
+        /// <summary>Selbst gewollte Trennung: keine automatische Wiederverbindung, Token verwerfen.</summary>
+        public void Disconnect()
+        {
+            _closing = true;
+            Reconnecting = false;
+            Token = "";
+            _peer?.Disconnect();
+            _net.Stop();
+        }
         public void Dispose() => Disconnect();
 
         public void Poll()
         {
             _net.PollEvents();
+            if (Reconnecting && !Connected && Now >= _nextReconnect)
+            {
+                if (ReconnectAttempt >= MaxReconnectAttempts) { GiveUpReconnect("Der Server ist nicht erreichbar."); }
+                else
+                {
+                    ReconnectAttempt++;
+                    // 1, 2, 4, 8, 15, 15 … Sekunden – zusammen etwa so lange, wie der Charakter in der Welt wartet
+                    _nextReconnect = Now + Math.Min(15, Math.Pow(2, ReconnectAttempt - 1)) + 3;
+                    Notices.Add($"Verbindung verloren – neuer Versuch ({ReconnectAttempt}/{MaxReconnectAttempts}) …");
+                    if (_net.IsRunning || _net.Start()) _peer = _net.Connect(_host, _port, ProtocolInfo.ConnectionKey);
+                }
+            }
             if (Cooldowns.Count > 0)
             {
                 var keys = new List<string>(Cooldowns.Keys);
@@ -134,8 +193,28 @@ namespace EternalRealms.Shared.Client
 
         // ------------------------------------------------------------ Bequeme Aktionen
 
-        public void Login(string account, string password, bool register = false) =>
-            Send(new C_Login { Account = account, Password = password, Register = register });
+        /// <param name="code">Code der Authenticator-App, wenn <see cref="NeedsTwoFactor"/> gesetzt ist.</param>
+        public void Login(string account, string password, bool register = false, string code = "")
+        {
+            AccountName = account;
+            Send(new C_Login { Account = account, Password = password, Register = register, TotpCode = code });
+        }
+
+        private void GiveUpReconnect(string reason)
+        {
+            Reconnecting = false;
+            Token = "";
+            Notices.Add(reason);
+            ReconnectFailed?.Invoke(reason);
+        }
+
+        // Kontoschutz
+        public void RequestAccountSecurity() => Send(new C_AccountSecurity { Action = AccountAction.Info });
+        public void BeginTwoFactor() => Send(new C_AccountSecurity { Action = AccountAction.BeginTwoFactor });
+        public void ConfirmTwoFactor(string code) => Send(new C_AccountSecurity { Action = AccountAction.ConfirmTwoFactor, Code = code });
+        public void DisableTwoFactor(string password, string code) => Send(new C_AccountSecurity { Action = AccountAction.DisableTwoFactor, Password = password, Code = code });
+        public void ChangePassword(string oldPassword, string newPassword, string code = "") =>
+            Send(new C_AccountSecurity { Action = AccountAction.ChangePassword, Password = oldPassword, NewPassword = newPassword, Code = code });
 
         /// <summary>Meldet die gewünschte Position (ca. 10× pro Sekunde während der Bewegung).</summary>
         public void Move(Vec3 position, float facing, bool jumping = false)
@@ -182,9 +261,31 @@ namespace EternalRealms.Shared.Client
             {
                 case S_LoginResult r:
                     LoggedIn = r.Success;
+                    NeedsTwoFactor = r.NeedsTwoFactor;
                     Notices.Add(r.Message);
-                    if (r.Success) Send(new C_CharacterList());
+                    if (r.Success)
+                    {
+                        Token = r.Token;
+                        GmLevel = r.GmLevel;
+                        LastGoodbye = null;
+                        bool wasReconnecting = Reconnecting;
+                        Reconnecting = false;
+                        ReconnectAttempt = 0;
+                        if (!r.Resumed) Send(new C_CharacterList());
+                        if (wasReconnecting) Reconnected?.Invoke(r.Resumed);
+                    }
+                    else if (Reconnecting) GiveUpReconnect(r.Message);
                     break;
+                case S_AccountSecurity sec:
+                    AccountSecurity = sec;
+                    if (sec.Token.Length > 0) Token = sec.Token;
+                    if (sec.Message.Length > 0) Notices.Add(sec.Message);
+                    break;
+                case S_QueueStatus q:
+                    Queue = q.Position > 0 ? q : null;
+                    if (q.Message.Length > 0) Notices.Add(q.Message);
+                    break;
+                case S_Goodbye bye: LastGoodbye = bye; break;
                 case S_CharacterList cl: Characters = cl.Characters; InWorld = false; break;
                 case S_CreateCharacterResult cr: Notices.Add(cr.Message); break;
                 case S_EnterWorld ew:
@@ -315,12 +416,33 @@ namespace EternalRealms.Shared.Client
 
         // ------------------------------------------------------------ LiteNetLib
 
-        void INetEventListener.OnPeerConnected(NetPeer peer) { _peer = peer; }
+        void INetEventListener.OnPeerConnected(NetPeer peer)
+        {
+            _peer = peer;
+            if (Reconnecting && Token.Length > 0) Send(new C_Login { Account = AccountName, Token = Token });
+        }
+
         void INetEventListener.OnPeerDisconnected(NetPeer peer, DisconnectInfo info)
         {
+            if (peer != _peer && _peer != null && _peer.ConnectionState == ConnectionState.Connected) return; // alter Versuch
+            bool wasLoggedIn = LoggedIn;
             LoggedIn = false;
             InWorld = false;
-            Disconnected?.Invoke(info.Reason.ToString());
+            Queue = null;
+            // Vom Server beendet: Grund steht im Trennungspaket – dann nicht neu verbinden.
+            if (info.AdditionalData != null && info.AdditionalData.AvailableBytes > 0)
+            {
+                try { if (Packets.Read(info.AdditionalData) is S_Goodbye bye) LastGoodbye = bye; }
+                catch (Exception) { }
+            }
+            if (LastGoodbye != null) Notices.Add(LastGoodbye.Reason);
+            bool retry = !_closing && AutoReconnect && Token.Length > 0 && (wasLoggedIn || Reconnecting) && LastGoodbye?.MayReconnect != false;
+            if (retry)
+            {
+                if (!Reconnecting) { Reconnecting = true; ReconnectAttempt = 0; _nextReconnect = Now + 1; }
+            }
+            else Reconnecting = false;
+            Disconnected?.Invoke(LastGoodbye?.Reason ?? info.Reason.ToString());
         }
         void INetEventListener.OnNetworkError(IPEndPoint endPoint, SocketError socketError) => Notices.Add("Netzwerkfehler: " + socketError);
         void INetEventListener.OnNetworkReceive(NetPeer peer, NetPacketReader reader, byte channel, DeliveryMethod method)

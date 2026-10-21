@@ -22,6 +22,21 @@ namespace EternalRealms.Server
         public bool Tutorial { get; set; } = true;
         public int MaxCharactersPerAccount { get; set; } = 10;
         public int MaxMessagesPerSecond { get; set; } = 80;
+        /// <summary>Spieler gleichzeitig in der Welt; weitere warten in der Anmeldeschlange (Spielleiter ausgenommen).</summary>
+        public int MaxPlayers { get; set; } = 1000;
+        /// <summary>So lange bleibt ein Charakter nach einem Verbindungsabbruch in der Welt (0 = sofort abmelden).</summary>
+        public double LinkdeadSeconds { get; set; } = 60;
+        /// <summary>Gültigkeit eines Wiederverbindungstokens.</summary>
+        public double SessionTokenHours { get; set; } = 12;
+        /// <summary>Wartungsmodus beim Start: nur Spielleiter können sich anmelden.</summary>
+        public bool Maintenance { get; set; }
+        /// <summary>Befehle über die Serverkonsole (stdin) annehmen.</summary>
+        public bool Console { get; set; }
+        /// <summary>Anti-Cheat: ab dieser Punktzahl Meldung an Spielleiter, ab der zweiten Schwelle Trennung (nie automatische Sperre).</summary>
+        public int CheatFlagScore { get; set; } = 50;
+        public int CheatKickScore { get; set; } = 150;
+        /// <summary>Gold pro Stunde (in Kupfer) je Stufe, ab dem der Geldzufluss eines Charakters auffällt.</summary>
+        public long GoldPerHourPerLevel { get; set; } = 400_00;
 
         public static ServerConfig FromEnvironment()
         {
@@ -38,6 +53,13 @@ namespace EternalRealms.Server
             if (bool.TryParse(Env("ER_ZONE_LOD"), out var lod)) c.ZoneLod = lod;
             if (bool.TryParse(Env("ER_TUTORIAL"), out var tut)) c.Tutorial = tut;
             if (double.TryParse(Env("ER_AUTOSAVE_SECONDS"), out var ass)) c.AutosaveSeconds = Math.Max(5, ass);
+            if (int.TryParse(Env("ER_MAX_PLAYERS"), out var mp)) c.MaxPlayers = Math.Max(1, mp);
+            if (double.TryParse(Env("ER_LINKDEAD_SECONDS"), out var ld)) c.LinkdeadSeconds = Math.Clamp(ld, 0, 600);
+            if (double.TryParse(Env("ER_SESSION_TOKEN_HOURS"), out var th)) c.SessionTokenHours = Math.Clamp(th, 0.1, 168);
+            if (bool.TryParse(Env("ER_MAINTENANCE"), out var mt)) c.Maintenance = mt;
+            if (bool.TryParse(Env("ER_CONSOLE"), out var con)) c.Console = con;
+            if (int.TryParse(Env("ER_CHEAT_FLAG_SCORE"), out var cf)) c.CheatFlagScore = Math.Max(1, cf);
+            if (int.TryParse(Env("ER_CHEAT_KICK_SCORE"), out var ck)) c.CheatKickScore = Math.Max(1, ck);
             return c;
         }
     }

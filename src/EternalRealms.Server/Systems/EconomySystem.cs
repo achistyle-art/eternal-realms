@@ -23,6 +23,7 @@ namespace EternalRealms.Server.Systems
             if (amount <= 0) return;
             p.ApplyMoney(amount);
             Record(p, amount, reason, reference);
+            _w.AntiCheat.OnIncome(p, amount, reason);
         }
 
         /// <summary>Zieht Geld ab, wenn genug vorhanden ist. Rückgabe: erfolgreich.</summary>

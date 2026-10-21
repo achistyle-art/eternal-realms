@@ -88,6 +88,11 @@ namespace EternalRealms.Server.Systems
             if (text.Length == 0) return;
             if (text.Length > MaxLength) text = text.Substring(0, MaxLength);
             if (text.StartsWith("#") && _w.Config.DevCommands && !from.IsBot) { _w.DevCommands.Execute(from, text); return; }
+            if (!from.IsBot && from.MutedUntil is DateTime muted && muted > DateTime.UtcNow)
+            {
+                from.Notice($"Ihr seid bis {muted.ToLocalTime():HH:mm} Uhr stummgeschaltet.", true);
+                return;
+            }
             if (TryRollCommand(from, text)) return;
             text = ChatLinks.Sanitize(text, _w.Content);
             if (text.Length == 0) return;

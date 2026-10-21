@@ -28,6 +28,8 @@ namespace EternalRealms.Server.Persistence
         public async Task MigrateAsync(string migrationsDir, Action<string>? log = null)
         {
             await using var conn = await _ds.OpenConnectionAsync();
+            // Sperre für die Dauer der Migration: starten zwei Prozesse gleichzeitig, wartet der zweite und sieht danach alles angewendet.
+            await using (var cmd = new NpgsqlCommand("SELECT pg_advisory_lock(7277001)", conn)) await cmd.ExecuteNonQueryAsync();
             await using (var cmd = new NpgsqlCommand("CREATE TABLE IF NOT EXISTS schema_migrations (version TEXT PRIMARY KEY, applied_at TIMESTAMPTZ NOT NULL DEFAULT now())", conn))
                 await cmd.ExecuteNonQueryAsync();
             var applied = new HashSet<string>();
@@ -52,13 +54,109 @@ namespace EternalRealms.Server.Persistence
 
         // ------------------------------------------------------------ Konten
 
+        private const string AccountColumns =
+            "id, username, password_hash, is_banned, created_at, failed_logins, locked_until, totp_secret, totp_last_step, gm_level, ban_until, ban_reason, muted_until";
+
+        private static Account ReadAccount(NpgsqlDataReader r) => new()
+        {
+            Id = r.GetInt64(0), Username = r.GetString(1), PasswordHash = r.GetString(2), IsBanned = r.GetBoolean(3), CreatedAt = r.GetDateTime(4),
+            FailedLogins = r.GetInt32(5), LockedUntil = r.IsDBNull(6) ? null : r.GetDateTime(6), TotpSecret = r.IsDBNull(7) ? null : r.GetString(7),
+            TotpLastStep = r.GetInt64(8), GmLevel = r.GetInt16(9), BanUntil = r.IsDBNull(10) ? null : r.GetDateTime(10), BanReason = r.GetString(11),
+            MutedUntil = r.IsDBNull(12) ? null : r.GetDateTime(12),
+        };
+
         public async Task<Account?> FindByNameAsync(string username)
         {
-            await using var cmd = _ds.CreateCommand("SELECT id, username, password_hash, is_banned, created_at FROM accounts WHERE lower(username) = lower(@u)");
+            await using var cmd = _ds.CreateCommand($"SELECT {AccountColumns} FROM accounts WHERE lower(username) = lower(@u)");
             cmd.Parameters.AddWithValue("u", username);
             await using var r = await cmd.ExecuteReaderAsync();
+            return await r.ReadAsync() ? ReadAccount(r) : null;
+        }
+
+        public async Task<Account?> GetAccountAsync(long accountId)
+        {
+            await using var cmd = _ds.CreateCommand($"SELECT {AccountColumns} FROM accounts WHERE id = @id");
+            cmd.Parameters.AddWithValue("id", accountId);
+            await using var r = await cmd.ExecuteReaderAsync();
+            return await r.ReadAsync() ? ReadAccount(r) : null;
+        }
+
+        public async Task UpdateSecurityAsync(Account a)
+        {
+            await using var cmd = _ds.CreateCommand(
+                "UPDATE accounts SET password_hash = @p, is_banned = @b, failed_logins = @f, locked_until = @l, totp_secret = @t, totp_last_step = @ts, " +
+                "gm_level = @g, ban_until = @bu, ban_reason = @br, muted_until = @m WHERE id = @id");
+            cmd.Parameters.AddWithValue("id", a.Id);
+            cmd.Parameters.AddWithValue("p", a.PasswordHash);
+            cmd.Parameters.AddWithValue("b", a.IsBanned);
+            cmd.Parameters.AddWithValue("f", a.FailedLogins);
+            cmd.Parameters.AddWithValue("l", NpgsqlDbType.TimestampTz, (object?)a.LockedUntil ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("t", NpgsqlDbType.Text, (object?)a.TotpSecret ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("ts", a.TotpLastStep);
+            cmd.Parameters.AddWithValue("g", (short)a.GmLevel);
+            cmd.Parameters.AddWithValue("bu", NpgsqlDbType.TimestampTz, (object?)a.BanUntil ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("br", a.BanReason);
+            cmd.Parameters.AddWithValue("m", NpgsqlDbType.TimestampTz, (object?)a.MutedUntil ?? DBNull.Value);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task SaveSessionTokenAsync(string tokenHash, long accountId, DateTime expiresAt)
+        {
+            // Abgelaufene Tokens nebenbei aufräumen
+            await using (var del = _ds.CreateCommand("DELETE FROM session_tokens WHERE expires_at < now()")) await del.ExecuteNonQueryAsync();
+            await using var cmd = _ds.CreateCommand("INSERT INTO session_tokens (token_hash, account_id, expires_at) VALUES (@h, @a, @e)");
+            cmd.Parameters.AddWithValue("h", tokenHash);
+            cmd.Parameters.AddWithValue("a", accountId);
+            cmd.Parameters.AddWithValue("e", NpgsqlDbType.TimestampTz, expiresAt);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task<long?> ConsumeSessionTokenAsync(string tokenHash, DateTime now)
+        {
+            // DELETE … RETURNING: zwei gleichzeitige Einlöseversuche können nicht beide gelingen.
+            await using var cmd = _ds.CreateCommand("DELETE FROM session_tokens WHERE token_hash = @h RETURNING account_id, expires_at");
+            cmd.Parameters.AddWithValue("h", tokenHash);
+            await using var r = await cmd.ExecuteReaderAsync();
             if (!await r.ReadAsync()) return null;
-            return new Account { Id = r.GetInt64(0), Username = r.GetString(1), PasswordHash = r.GetString(2), IsBanned = r.GetBoolean(3), CreatedAt = r.GetDateTime(4) };
+            return r.GetDateTime(1) > now ? r.GetInt64(0) : null;
+        }
+
+        public async Task RevokeSessionTokensAsync(long accountId)
+        {
+            await using var cmd = _ds.CreateCommand("DELETE FROM session_tokens WHERE account_id = @a");
+            cmd.Parameters.AddWithValue("a", accountId);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task AuditAsync(AuditEntry e)
+        {
+            await using var cmd = _ds.CreateCommand("INSERT INTO audit_log (account_id, actor, action, target, detail, ip) VALUES (@a, @ac, @x, @t, @d, @ip)");
+            cmd.Parameters.AddWithValue("a", NpgsqlDbType.Bigint, (object?)e.AccountId ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("ac", e.Actor);
+            cmd.Parameters.AddWithValue("x", e.Action);
+            cmd.Parameters.AddWithValue("t", e.Target);
+            cmd.Parameters.AddWithValue("d", e.Detail);
+            cmd.Parameters.AddWithValue("ip", e.Ip);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task<List<AuditEntry>> ListAuditAsync(string? actionPrefix, string? target, int limit)
+        {
+            await using var cmd = _ds.CreateCommand(
+                "SELECT id, created_at, account_id, actor, action, target, detail, ip FROM audit_log " +
+                "WHERE (@p::text IS NULL OR action LIKE @p || '%') AND (@t::text IS NULL OR lower(target) = lower(@t)) ORDER BY id DESC LIMIT @n");
+            cmd.Parameters.AddWithValue("p", NpgsqlDbType.Text, (object?)actionPrefix ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("t", NpgsqlDbType.Text, (object?)target ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("n", limit);
+            var list = new List<AuditEntry>();
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync())
+                list.Add(new AuditEntry
+                {
+                    Id = r.GetInt64(0), CreatedAt = r.GetDateTime(1), AccountId = r.IsDBNull(2) ? null : r.GetInt64(2), Actor = r.GetString(3),
+                    Action = r.GetString(4), Target = r.GetString(5), Detail = r.GetString(6), Ip = r.GetString(7),
+                });
+            return list;
         }
 
         public async Task<Account> CreateAsync(string username, string passwordHash)
@@ -554,6 +652,30 @@ namespace EternalRealms.Server.Persistence
             p.AddWithValue("at", rep.At); p.AddWithValue("rid", rep.ReporterId); p.AddWithValue("rn", rep.ReporterName); p.AddWithValue("tid", (object?)rep.TargetId ?? DBNull.Value);
             p.AddWithValue("tn", rep.TargetName); p.AddWithValue("r", rep.Reason); p.AddWithValue("t", rep.Text); p.AddWithValue("e", JsonSerializer.Serialize(rep.Evidence, Json));
             await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task<List<PlayerReport>> ListOpenReportsAsync(int limit)
+        {
+            await using var cmd = _ds.CreateCommand("SELECT id, at, reporter_id, reporter_name, target_id, target_name, reason, text, evidence::text FROM player_reports " +
+                                                    "WHERE NOT handled ORDER BY at DESC LIMIT @n");
+            cmd.Parameters.AddWithValue("n", limit);
+            var list = new List<PlayerReport>();
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync())
+                list.Add(new PlayerReport
+                {
+                    Id = r.GetInt64(0), At = r.GetDateTime(1), ReporterId = r.IsDBNull(2) ? 0 : r.GetInt64(2), ReporterName = r.GetString(3),
+                    TargetId = r.IsDBNull(4) ? null : r.GetInt64(4), TargetName = r.GetString(5), Reason = r.GetString(6), Text = r.GetString(7),
+                    Evidence = JsonSerializer.Deserialize<List<string>>(r.GetString(8), Json) ?? new(),
+                });
+            return list;
+        }
+
+        public async Task<bool> MarkReportHandledAsync(long id)
+        {
+            await using var cmd = _ds.CreateCommand("UPDATE player_reports SET handled = TRUE WHERE id = @id AND NOT handled");
+            cmd.Parameters.AddWithValue("id", id);
+            return await cmd.ExecuteNonQueryAsync() > 0;
         }
 
         public async Task DeleteAsync(long id)

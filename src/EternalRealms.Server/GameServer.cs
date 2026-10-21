@@ -29,7 +29,7 @@ namespace EternalRealms.Server
             _accounts = accounts;
             _chars = chars;
             _store = store;
-            World = new GameWorld(content, config, chars);
+            World = new GameWorld(content, config, chars) { Accounts = accounts };
             Network = new NetworkServer(World, accounts, chars);
         }
 
@@ -83,6 +83,13 @@ namespace EternalRealms.Server
                 log($"Weltbosse: {waiting} warten auf ihre Wiederkehr");
             }
             return server;
+        }
+
+        /// <summary>Befehl der Serverkonsole (Spielleiter-Befehle mit vollen Rechten), ausgeführt im Spielthread.</summary>
+        public void ConsoleCommand(string line, Action<string> reply)
+        {
+            if (string.IsNullOrWhiteSpace(line)) return;
+            World.Post(() => World.Gm.Execute(Systems.GmContext.Console(reply), line));
         }
 
         public bool Start()

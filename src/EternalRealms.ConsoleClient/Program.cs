@@ -19,6 +19,9 @@ int lastNotice = 0, lastChat = 0;
 double nextMoveSend = 0;
 
 var lastEventState = new Dictionary<string, string>();
+(string Account, string Password)? lastLogin = null;
+client.Reconnected += resumed => Print(resumed ? "Verbindung wiederhergestellt – Ihr seid wieder in der Welt." : "Wieder verbunden.");
+client.ReconnectFailed += why => Print("Wiederverbindung fehlgeschlagen: " + why + " Bitte erneut 'login'.");
 var lastTutorial = "";
 client.MessageReceived += m =>
 {
@@ -128,6 +131,12 @@ client.MessageReceived += m =>
         case S_DeathState ds when ds.State == DeathState.Dead: Print("Ihr seid gestorben. 'release' lässt den Geist frei."); break;
         case S_DeathState ds when ds.State == DeathState.Ghost: Print($"Ihr seid ein Geist. Lauft zur Leiche ({ds.CorpsePosition}) und schreibt 'reclaim' – oder 'talk' zum Geisterheiler."); break;
         case S_CharacterList cl: ShowChars(); break;
+        case S_LoginResult lr when lr.NeedsTwoFactor: Print("Zwei-Faktor-Anmeldung: 'code <sechs Ziffern>' eingeben."); break;
+        case S_AccountSecurity sec:
+            if (sec.PendingSecret != "") Print($"Geheimnis für die Authenticator-App: {sec.PendingSecret}\n  Adresse: {sec.PendingUri}\n  Danach '2fa bestätigen <Code>'.");
+            else Print($"Zwei-Faktor-Anmeldung: {(sec.TwoFactorEnabled ? "an" : "aus")}");
+            break;
+        case S_QueueStatus q when q.Position > 0: Print($"Warteschlange: Platz {q.Position} von {q.Length}."); break;
         case S_EnterWorld ew: Print($"Ihr betretet {content.Zones[ew.ZoneId].Name} bei {ew.Position}."); walkTarget = null; break;
     }
 };
@@ -188,8 +197,27 @@ void Command(string line)
     switch (cmd)
     {
         case "hilfe": case "help": Help(); break;
-        case "register": client.Login(a[0], a[1], true); break;
-        case "login": client.Login(a[0], a[1], false); break;
+        case "register": lastLogin = (a[0], a[1]); client.Login(a[0], a[1], true); break;
+        case "login": lastLogin = (a[0], a[1]); client.Login(a[0], a[1], false, a.Length > 2 ? a[2] : ""); break;
+        case "code":
+            if (lastLogin == null) { Print("Zuerst 'login <konto> <passwort>'."); break; }
+            client.Login(lastLogin.Value.Account, lastLogin.Value.Password, false, rest.Replace(" ", ""));
+            break;
+        case "2fa":
+            switch (a.Length > 0 ? a[0] : "")
+            {
+                case "an": client.BeginTwoFactor(); break;
+                case "bestätigen": case "ok": client.ConfirmTwoFactor(a.Length > 1 ? a[1] : ""); break;
+                case "aus": client.DisableTwoFactor(a.Length > 1 ? a[1] : "", a.Length > 2 ? a[2] : ""); break;
+                default: client.RequestAccountSecurity(); break;
+            }
+            break;
+        case "passwort":
+            if (a.Length < 2) { Print("passwort <alt> <neu> [Code]"); break; }
+            client.ChangePassword(a[0], a[1], a.Length > 2 ? a[2] : "");
+            if (lastLogin != null) lastLogin = (lastLogin.Value.Account, a[1]);
+            break;
+        case "gm": client.Say("." + rest.TrimStart('.'), ChatChannel.Say); break;
         case "chars": ShowChars(); break;
         case "races":
             foreach (var r in content.Races.Values) Print($"  {r.Id} ({content.Factions[r.Faction].Name}): {string.Join(", ", r.Classes.Select(c => c.ToString()))}");
@@ -677,7 +705,8 @@ string Money(long c) => $"{c / 10000}g {c / 100 % 100}s {c % 100}k";
 void Print(string s) => Console.WriteLine(s);
 
 void Help() => Print(@"Befehle:
-  register <konto> <passwort> | login <konto> <passwort> | races | create <Name> <Volk> <Klasse> [w] | chars | play <Nr>
+  register <konto> <passwort> | login <konto> <passwort> [Code] | code <Code> | 2fa [an|bestätigen <Code>|aus <Passwort> <Code>] | passwort <alt> <neu> [Code]
+  gm <Befehl> (Spielleitung, z. B. gm hilfe) | races | create <Name> <Volk> <Klasse> [w] | chars | play <Nr>
   look | status | tab | target <id> | attack [id] | stop | cast <fähigkeit|name> [id] | spells
   go <id> | go <x> <z> | follow <id> | talk [id] | loot [id] | accept <Nr> | turnin <Nr> [Belohnung] | quests | abandon <quest>
   inv | equip <Platz> | item <Platz> | buy <Nr> [Anzahl] | sell <Platz> | train | talents | talent <id>

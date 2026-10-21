@@ -43,6 +43,8 @@ namespace EternalRealms.Server.Persistence
     /// <summary>Spielermeldung (Kapitel 31/32/49): wird gespeichert und von Game-Mastern ausgewertet.</summary>
     public sealed class PlayerReport
     {
+        public long Id { get; set; }
+        public bool Handled { get; set; }
         public long ReporterId { get; set; }
         public string ReporterName { get; set; } = "";
         public long? TargetId { get; set; }
@@ -61,5 +63,8 @@ namespace EternalRealms.Server.Persistence
         Task SaveGuildAsync(GuildData guild);
         Task DeleteGuildAsync(long guildId);
         Task SaveReportAsync(PlayerReport report);
+        /// <summary>Unbearbeitete Meldungen, neueste zuerst (Spielleitung, Kapitel 50).</summary>
+        Task<List<PlayerReport>> ListOpenReportsAsync(int limit);
+        Task<bool> MarkReportHandledAsync(long id);
     }
 }
