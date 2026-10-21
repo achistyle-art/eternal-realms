@@ -283,7 +283,10 @@ namespace EternalRealms.Server.World
         /// <summary>Bringt einen geladenen Charakter in die Welt (an seine gespeicherte Position).</summary>
         public Player EnterWorld(CharacterData data, Net.IPlayerConnection? connection)
         {
+            // Patches (Kapitel 56): gespeicherten Stand an den aktuellen Content anpassen, bevor die Figur entsteht.
+            var migration = ContentMigrator.Apply(data, Content);
             var p = new Player(data, Content) { Connection = connection };
+            if (migration.Changed) OnContentMigrated(p, migration);
             p.EnsureBagSize();
             // Offline gesammelter Ruhebonus
             double offline = (DateTime.UtcNow - data.LastLogout).TotalSeconds;
@@ -314,6 +317,16 @@ namespace EternalRealms.Server.World
             if (p.IsDead) p.Send(new S_DeathState { State = p.DeathState, CorpsePosition = p.Data.CorpsePosition });
             Tutorial.OnEnterWorld(p);
             return p;
+        }
+
+        private void OnContentMigrated(Player p, ContentMigrator.Report r)
+        {
+            Log($"Content-Anpassung für {p.Name}: {string.Join("; ", r.Changes.Take(20))}{(r.Changes.Count > 20 ? $" (+{r.Changes.Count - 20})" : "")}");
+            if (r.Refund > 0) Economy.Credit(p, r.Refund, "content_refund");
+            Economy.Commit(new EconomyCommit(), p);
+            if (r.Refund > 0) p.Notice($"Durch ein Update wurden Gegenstände entfernt – Ihr erhaltet {r.Refund / 10000.0:0.##} Gold Erstattung.");
+            if (p.Data.Quarantine.Count > 0)
+                p.Notice($"{p.Data.Quarantine.Count} Gegenstand/Gegenstände sind nach einem Update vorübergehend verwahrt und kehren zurück, sobald sie wieder verfügbar sind.");
         }
 
         public void AddToZone(Player p, ZoneInstance zone, Vec3 pos)

@@ -13,6 +13,12 @@ namespace EternalRealms.Shared.Content
     /// </summary>
     public sealed class ContentDatabase
     {
+        public ContentManifest Manifest { get; private set; } = new ContentManifest();
+        public List<ContentMigrationDef> Migrations { get; } = new List<ContentMigrationDef>();
+        /// <summary>SHA-256 über alle Content-Dateien (Zeilenenden vereinheitlicht), hexadezimal.</summary>
+        public string Hash { get; private set; } = "";
+        /// <summary>Versionskennung für Client/Server-Abgleich, z. B. „0.9.0+3fa2c1d0“.</summary>
+        public string Version => Hash.Length >= 8 ? Manifest.Version + "+" + Hash.Substring(0, 8) : Manifest.Version;
         public Dictionary<Faction, FactionDef> Factions { get; } = new Dictionary<Faction, FactionDef>();
         public Dictionary<Race, RaceDef> Races { get; } = new Dictionary<Race, RaceDef>();
         public Dictionary<CharClass, ClassDef> Classes { get; } = new Dictionary<CharClass, ClassDef>();
@@ -66,6 +72,10 @@ namespace EternalRealms.Shared.Content
         {
             if (!Directory.Exists(root)) throw new DirectoryNotFoundException("Content-Verzeichnis nicht gefunden: " + root);
             var db = new ContentDatabase();
+            var manifest = Path.Combine(root, "manifest.json");
+            if (File.Exists(manifest)) db.Manifest = JsonSerializer.Deserialize<ContentManifest>(File.ReadAllText(manifest), CreateOptions()) ?? new ContentManifest();
+            db.Migrations.AddRange(ReadList<ContentMigrationDef>(root, "migrations"));
+            db.Hash = ComputeHash(root);
             foreach (var f in ReadList<FactionDef>(root, "factions")) db.Factions[f.Id] = f;
             foreach (var r in ReadList<RaceDef>(root, "races")) db.Races[r.Id] = r;
             foreach (var c in ReadList<ClassDef>(root, "classes")) db.Classes[c.Id] = c;
@@ -98,6 +108,28 @@ namespace EternalRealms.Shared.Content
                 foreach (var c in e.Commands) AddUnique(db.EmoteCommands, c.ToLowerInvariant(), e, "Emote-Befehl");
             }
             return db;
+        }
+
+        /// <summary>
+        /// Prüfsumme über alle JSON-Dateien (Pfad relativ, mit „/“, und Inhalt ohne Wagenrücklauf) – identisch auf Windows und Linux,
+        /// damit Server und Client (StreamingAssets) denselben Stand erkennen.
+        /// </summary>
+        public static string ComputeHash(string root)
+        {
+            using var sha = System.Security.Cryptography.SHA256.Create();
+            var files = Directory.GetFiles(root, "*.json", SearchOption.AllDirectories)
+                .Select(f => (Rel: f.Substring(root.Length).TrimStart('/', '\\').Replace('\\', '/'), Full: f))
+                .OrderBy(f => f.Rel, StringComparer.Ordinal);
+            using var ms = new MemoryStream();
+            foreach (var (rel, full) in files)
+            {
+                var name = System.Text.Encoding.UTF8.GetBytes(rel + "\n");
+                ms.Write(name, 0, name.Length);
+                var bytes = File.ReadAllBytes(full).Where(b => b != (byte)'\r').ToArray();
+                ms.Write(bytes, 0, bytes.Length);
+                ms.WriteByte(0);
+            }
+            return BitConverter.ToString(sha.ComputeHash(ms.ToArray())).Replace("-", "").ToLowerInvariant();
         }
 
         /// <summary>
@@ -435,6 +467,21 @@ namespace EternalRealms.Shared.Content
             foreach (var pr in Professions.Values) if (pr.Tool != null) Need(Items.ContainsKey(pr.Tool), $"Beruf {pr.Id}: unbekanntes Werkzeug {pr.Tool}");
             foreach (var it in Items.Values.Where(i => i.TeachesMount != null))
                 Need(Mounts.ContainsKey(it.TeachesMount!), $"Gegenstand {it.Id}: unbekanntes Reittier {it.TeachesMount}");
+            // Content-Migrationen (Kapitel 56): Ziele müssen existieren, entfernte/umbenannte Quellen dürfen es nicht mehr.
+            var migIds = new HashSet<string>();
+            Need(System.Text.RegularExpressions.Regex.IsMatch(Manifest.Version, @"^\d+\.\d+\.\d+$"), $"Manifest: Version '{Manifest.Version}' muss die Form 1.2.3 haben");
+            foreach (var m in Migrations)
+            {
+                Need(m.Id.Length > 0 && migIds.Add(m.Id), $"Migration '{m.Id}': Id fehlt oder doppelt");
+                foreach (var kv in m.RenameItems) Need(!Items.ContainsKey(kv.Key) && Items.ContainsKey(kv.Value), $"Migration {m.Id}: Gegenstand {kv.Key} → {kv.Value} (alt darf nicht, neu muss existieren)");
+                foreach (var kv in m.RemoveItems) Need(!Items.ContainsKey(kv.Key) && kv.Value >= 0, $"Migration {m.Id}: entfernter Gegenstand {kv.Key} existiert noch oder Erstattung negativ");
+                foreach (var kv in m.RenameQuests) Need(!Quests.ContainsKey(kv.Key) && Quests.ContainsKey(kv.Value), $"Migration {m.Id}: Quest {kv.Key} → {kv.Value}");
+                foreach (var q in m.RemoveQuests) Need(!Quests.ContainsKey(q), $"Migration {m.Id}: entfernte Quest {q} existiert noch");
+                foreach (var kv in m.RenameAbilities) Need(!HasAbility(kv.Key) && HasAbility(kv.Value), $"Migration {m.Id}: Fähigkeit {kv.Key} → {kv.Value}");
+                foreach (var a in m.RemoveAbilities) Need(!HasAbility(a), $"Migration {m.Id}: entfernte Fähigkeit {a} existiert noch");
+                foreach (var kv in m.RenameZones) Need(!Zones.ContainsKey(kv.Key) && Zones.ContainsKey(kv.Value), $"Migration {m.Id}: Region {kv.Key} → {kv.Value}");
+                foreach (var kv in m.RenameAchievements) Need(!Achievements.ContainsKey(kv.Key) && Achievements.ContainsKey(kv.Value), $"Migration {m.Id}: Erfolg {kv.Key} → {kv.Value}");
+            }
             return errors;
         }
     }

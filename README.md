@@ -77,6 +77,9 @@ Steuerung: **WASD** laufen, **Q/E** seitwärts, **Maus links/rechts** Kamera bzw
 | `ER_ALLOW_REGISTRATION` | true | neue Konten erlauben |
 | `ER_DEV_COMMANDS` | false | Entwicklerbefehle im Chat (`#level 15`, `#item id`, `#tele zone x z`, `#gold 10`, `#kill`, `#spawn id`, `#where`) |
 | `ER_AUTOSAVE_SECONDS` | 60 | Speicherintervall |
+| `ER_MODE` | `ki` | Betriebsart: `klassisch` (nur Menschen, keine KI-Mitspieler), `ki` (Standard), `entwicklung` (Entwicklerbefehle und Konsole an) – einzelne Variablen überschreiben die Voreinstellungen |
+| `ER_BOT_COMPANIONS` | true | KI-Mitspieler einladen und von der Gruppensuche ergänzen lassen |
+| `ER_STATUS_FILE` | – | Statusdatei (`running`/`stopped`/`failed`) für das Update-Skript |
 | `ER_MAX_PLAYERS` | 1000 | Spieler gleichzeitig in der Welt, weitere warten in der Anmeldeschlange |
 | `ER_LINKDEAD_SECONDS` | 60 | so lange bleibt ein Charakter nach Verbindungsabbruch in der Welt (0 = sofort abmelden) |
 | `ER_SESSION_TOKEN_HOURS` | 12 | Gültigkeit des einmaligen Wiederverbindungstokens |
@@ -91,7 +94,7 @@ Datenbankmigrationen (`db/migrations`) laufen beim Start automatisch.
 ## Tests
 
 ```bash
-dotnet test                                           # 189 Tests
+dotnet test                                           # 210 Tests
 ER_TEST_DATABASE="Host=localhost;Username=realms;Password=realms;Database=er_test" dotnet test   # zusätzlich gegen PostgreSQL
 ```
 
@@ -113,10 +116,12 @@ src/EternalRealms.Shared        gemeinsame Bibliothek (netstandard2.1): Content-
 src/EternalRealms.Server        Spielwelt, Systeme, KI, Persistenz, Netzwerk
 src/EternalRealms.ServerHost    ausführbarer Realmserver
 src/EternalRealms.ConsoleClient Textclient
+src/EternalRealms.ContentTool   Content-Werkzeug „er-content“: prüfen, auswerten, Verweise, IDs umbenennen, Vorlagen
 client/Unity                    Unity-6-Client
 content/                        alle Spielinhalte (JSON)
-db/migrations/                  PostgreSQL-Schema
-tools/                          Content-Werkzeuge (Fähigkeiten/Talente/Profile, Gegenstände), Unity-Plugin-Build
+db/migrations/                  PostgreSQL-Schema (nur vorwärts, siehe docs/DATENMODELL.md)
+tools/                          Content-Generatoren, Unity-Plugin-Build, Backup/Restore, Release bauen, Update mit Rollback,
+                                UnityCheck (Unity-Skripte ohne Editor kompilieren)
 tests/                          xUnit-Tests und Simulationen
 docs/                           Architektur, Welt, KI-Mitspieler, Content, Roadmap
 ```
@@ -127,6 +132,9 @@ docs/                           Architektur, Welt, KI-Mitspieler, Content, Roadm
 * [KI-Mitspieler](docs/KI-MITSPIELER.md)
 * [Welt, Völker und Geschichte](docs/WELT.md)
 * [Inhalte erstellen](docs/CONTENT.md)
+* [Betrieb: Spielleitung, Kontoschutz, Backups](docs/BETRIEB.md)
+* [Updates und Rollback](docs/UPDATES.md)
+* [Datenmodell](docs/DATENMODELL.md)
 * [Roadmap](docs/ROADMAP.md)
 
 Alle Namen, Völker, Orte, Figuren und Texte sind eigenständig. Es werden keine geschützten Inhalte anderer Spiele verwendet.

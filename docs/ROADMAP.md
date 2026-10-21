@@ -82,7 +82,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | E ✅ | 38, 39 | Erfolge und Titel (ohne Spielvorteile), interaktives Tutorial mit KI-Erklärer – Lokalisierung (Kapitel 58) auf Wunsch gestrichen, das Spiel bleibt deutsch |
 | F ✅ | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
 | G ✅ | 43–45, 48 | KI-Ebenen ausbauen – auf Wunsch zunächst nur für 5er-Dungeons: Encounter-Manager, Tankwechsel, Flächen ausweichen, Bot-Balance. Raids (10/20/40) folgen später |
-| H | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
+| H ✅ | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
 | I | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang 1–60, kosmetische Monetarisierung ohne Pay-to-Win, Endgame |
 
 ### Block A – Stand
@@ -240,4 +240,40 @@ Auf Wunsch zunächst nur für Gruppen bis 5 Spieler. Raids für 10, 20 und 40 Sp
 - Bodeneffekte sind Kreise ohne Sichtlinie oder Gelände.
 - Weitere Mechanikarten (Kegel, Linien, Positionswechsel des Bosses, „zusammenstellen/verteilen“) gibt es noch nicht.
 - Der Ersatz-Tank kann nur spotten, wenn seine Klasse eine Spottfähigkeit hat.
+
+### Block H – Stand
+
+**Umgesetzt und getestet** (`UpdateTests`, Live-Läufe des Update-Skripts mit echten Releases und PostgreSQL):
+- **Datenmodell (53):**
+  - Migration `007_datamodel`: fehlende Indizes auf Fremdschlüsseln, Wertebereiche der Kontospalten, Tabelle `realm_info`.
+  - Konsistenzprüfung der gespeicherten Daten gegen den Content.
+  - Vollständige Beschreibung in `docs/DATENMODELL.md`.
+- **Updates und Rollback (56):**
+  - Content-Version (Versionsnummer + Prüfsumme ohne Zeilenenden); der Client warnt bei abweichendem Stand.
+  - Content-Migrationen: Umbenennen und Entfernen mit Erstattung für Charaktere, Post und Auktionen, je Charakter genau einmal.
+  - Gegenstände ohne Definition werden verwahrt statt gelöscht und kehren zurück, sobald die Definition wieder da ist.
+  - Server verweigert eine Datenbank, die neuer ist als er selbst. Prüflauf `--check`, Statusdatei.
+  - `tools/package.sh` (Release bauen) und `tools/update.sh` (Prüflauf → Sicherung → Umstellen → Start; bei Fehlschlag automatischer Rollback, bei angewendeten Migrationen mit Wiederherstellung der Sicherung).
+  - Alle drei Wege live ausgeführt (siehe `docs/UPDATES.md`).
+- **Qualitätssicherung (57):** Die CI baut und prüft:
+  - Generatoren erzeugen identische Dateien.
+  - Content mit dem Content-Werkzeug, Shell-Skripte auf Syntax.
+  - Alle Tests gegen PostgreSQL und der Prüflauf `--check`.
+  - In einem eigenen Job kompilieren die Unity-Skripte (`tools/UnityCheck`).
+- **Servermodi (60):** `ER_MODE=klassisch | ki | entwicklung`.
+  - Klassisch: keine KI-Mitspieler oder KI-Bewohner, Gruppensuche nur mit Menschen.
+  - KI-unterstützt (Standard): Menschen und gekennzeichnete KI-Mitspieler.
+  - Entwicklung: Entwicklerbefehle und Konsole an, mit Warnung beim Start.
+  - Die Clients erfahren die Betriebsart beim Anmelden.
+- **Projektstruktur (64):** Abschnitt in `docs/ARCHITEKTUR.md`, README aktualisiert.
+- **Content-Editoren (65):** `er-content` (`src/EternalRealms.ContentTool`) mit `pruefen`, `version`, `stats`, `verweise`, `umbenennen` (alle Dateien, Generatoren, Content-Migration, Rücksetzen bei ungültigem Ergebnis) und `neu` (Vorlagen für Gegenstand, Kreatur, Quest).
+- **Spielleitung:** neue Befehle `.version` und `.pruefen`.
+
+**Nur kompiliergeprüft** (Unity): Hinweis bei abweichendem Content-Stand.
+
+**Grenzen:**
+- Kein grafischer Editor: Ein Unity-Editorfenster lässt sich ohne Unity-Editor nicht prüfen. Der Content-Editor arbeitet auf der Kommandozeile.
+- Datenbankmigrationen gehen nur vorwärts. Zurück kommt man über die Sicherung, nicht über Rückwärts-Skripte.
+- `update.sh` geht von einem Server pro Datenbank aus.
+- Das Update-Skript ist für Linux mit systemd o. Ä. geschrieben.
 

@@ -206,6 +206,7 @@ namespace EternalRealms.Server.Net
                     Connection.Send(new S_LoginResult
                     {
                         Success = true, Token = newToken, Resumed = resume != null, GmLevel = (byte)acc.GmLevel,
+                        RealmMode = (byte)_w.Config.Mode, ContentVersion = _w.Content.Version,
                         Message = register ? "Konto erstellt. Willkommen in Eternal Realms!" : resume != null ? "Verbindung wiederhergestellt." : "Willkommen zurück!",
                     });
                     if (resume != null) Resume(resume);
@@ -539,6 +540,7 @@ namespace EternalRealms.Server.Net
                 case C_GroupAccept ga: _w.Groups.Respond(p, ga.Accept); return;
                 case C_GroupLeave: _w.Groups.Leave(p); return;
                 case C_BotSearch bs:
+                    if (!_w.Config.BotCompanions) { err = BotDirector.NoCompanions; break; }
                     p.Send(new S_BotCandidates { Candidates = _w.Bots.FindCandidates(p, bs.Role == 255 ? null : (Role)Math.Min((int)bs.Role, 3),
                         bs.Difficulty == 255 ? null : (BotDifficulty)Math.Min((int)bs.Difficulty, 3)) });
                     return;

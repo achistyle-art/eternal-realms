@@ -63,6 +63,13 @@ namespace EternalRealms.Server.Persistence
         public string ActiveTitle { get; set; } = "";
         /// <summary>Tutorial (Kapitel 39); null = noch nie gestartet.</summary>
         public TutorialState? Tutorial { get; set; }
+        /// <summary>Bereits angewendete Content-Migrationen (Kapitel 56).</summary>
+        public HashSet<string> ContentMigrations { get; set; } = new();
+        /// <summary>
+        /// Gegenstände, deren Definition im Content fehlt (ohne passende Migration): sicher verwahrt statt gelöscht,
+        /// damit ein Rollback oder eine nachgereichte Migration sie zurückgeben kann.
+        /// </summary>
+        public List<ItemStack> Quarantine { get; set; } = new();
         public int TalentResets { get; set; }
         public DateTime LastTalentReset { get; set; }
         public Dictionary<string, QuestProgress> Quests { get; set; } = new();

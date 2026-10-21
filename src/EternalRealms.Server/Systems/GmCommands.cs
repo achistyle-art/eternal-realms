@@ -64,6 +64,8 @@ namespace EternalRealms.Server.Systems
                 new Command("speichern", 1, ".speichern – alle Charaktere speichern", SaveAll),
                 new Command("gold", 2, ".gold Name Gold – Gold gutschreiben (Admin)", Gold),
                 new Command("gegenstand", 2, ".gegenstand Name Gegenstand [Anzahl] – Gegenstand geben (Admin)", GiveItem),
+                new Command("pruefen", 2, ".pruefen – gespeicherte Daten gegen den Content prüfen (ändert nichts)", Inspect),
+                new Command("version", 1, ".version – Content-Version, Betriebsart und Spieler", Version),
                 new Command("rechte", 2, ".rechte Kontoname 0|1|2 – Spielleiter-Stufe setzen (Admin)", SetLevel),
             };
             return list.ToDictionary(c => c.Name);
@@ -446,6 +448,22 @@ namespace EternalRealms.Server.Systems
             p.Notice($"Die Spielleitung hat Euch {count}× {item.Name} gegeben.");
             Audit(ctx, "item", p.Name, $"{count}× {item.Id}");
             ctx.Reply($"{p.Name} erhält {count}× {item.Name}.");
+        }
+
+        private void Version(GmContext ctx, string[] a) =>
+            ctx.Reply($"Content {_w.Content.Version} ({_w.Content.Migrations.Count} Content-Migrationen), Betriebsart {ServerConfig.ModeLabel(_w.Config.Mode)}, " +
+                      $"{_w.AllPlayers.Count(p => !p.IsBot)} Spieler, {_w.AllPlayers.Count(p => p.IsBot)} KI-Mitspieler");
+
+        private void Inspect(GmContext ctx, string[] a)
+        {
+            if (_w.Characters == null) { ctx.Reply("Keine Datenbank."); return; }
+            var chars = _w.Characters;
+            var content = _w.Content;
+            Async(ctx, async () =>
+            {
+                var (n, affected, lines) = await ContentMigrator.InspectAsync(chars, content, 20);
+                return $"Geprüft: {n} Charaktere, {affected} würden beim nächsten Laden angepasst." + (lines.Count > 0 ? "\n" + string.Join("\n", lines) : "");
+            });
         }
 
         private void SetLevel(GmContext ctx, string[] a)

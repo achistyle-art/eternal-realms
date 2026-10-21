@@ -18,6 +18,24 @@ Alle Spielinhalte sind Daten in `content/`. Server und Client laden dieselben Da
 
 Positionen sind `[x, y, z]` oder kurz `[x, z]` in Metern; die Zone reicht von 0 bis `size`.
 
+## Content-Werkzeug
+
+```bash
+dotnet run --project src/EternalRealms.ContentTool -- pruefen                 # Content prüfen (auch in der CI)
+dotnet run --project src/EternalRealms.ContentTool -- stats                   # Umfang, Regionen, Stufen
+dotnet run --project src/EternalRealms.ContentTool -- verweise item_wolf_fang # Wo wird eine ID benutzt?
+dotnet run --project src/EternalRealms.ContentTool -- umbenennen item_wolf_fang item_waldwolf_fang [--probe]
+dotnet run --project src/EternalRealms.ContentTool -- neu item item_feder "Glänzende Feder" --price 12
+dotnet run --project src/EternalRealms.ContentTool -- neu creature mob_kaefer "Panzerkäfer" --level 4
+dotnet run --project src/EternalRealms.ContentTool -- neu quest q_kaefer "Käferplage" --giver npc_as_durgash --target mob_kaefer
+```
+
+- **`umbenennen`** ändert die ID in allen Content-Dateien und in den Generatoren (`tools/gen_*.py`).
+  - Für gespeicherte Arten (Gegenstand, Quest, Fähigkeit, Erfolg, Region) legt es eine Content-Migration an; Spielstände ziehen dann beim nächsten Start mit (siehe [Updates](UPDATES.md)).
+  - Ist der Content danach ungültig, werden alle Dateien zurückgesetzt.
+- **`neu`** legt Einträge aus geprüften Vorlagen in eigenen Dateien an (`items/eigene.json`, `creatures/eigene.json`, `quests/eigene.json`), nie in erzeugten Dateien.
+- **Versionsnummer** des Contents in `content/manifest.json` bei jedem Patch erhöhen.
+
 ## Fähigkeiten mit Rängen
 
 `tools/gen_class_content.py` beschreibt jede Fähigkeit einmal; das Skript erzeugt alle Ränge über eine Skalierungskurve (`dmg(Stufe, Faktor)`, `cost(Stufe, Faktor)`). Beispiel:

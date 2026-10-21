@@ -63,7 +63,13 @@ namespace EternalRealms.Client
                 OnProgressMessage(m);
                 if (m is S_NpcInteraction ni) { _npc = ni; _choice = -1; }
                 OnEconomyMessage(m);
-                if (m is S_LoginResult lr) _status = lr.Message;
+                if (m is S_LoginResult lr)
+                {
+                    _status = lr.Message;
+                    // Patches (Kapitel 56): abweichender Content-Stand → deutlicher Hinweis statt seltsamer Anzeigefehler
+                    if (lr.Success && lr.ContentVersion.Length > 0 && lr.ContentVersion != Content.Version)
+                        Toast($"Content-Stand {Content.Version} passt nicht zum Server ({lr.ContentVersion}) – bitte Client aktualisieren.");
+                }
                 if (m is S_CreateCharacterResult cr) { _status = cr.Message; if (cr.Success) _screen = Screen.Characters; }
                 if (m is S_LevelUp lu && lu.EntityId == Client.State.MyId) Toast($"Stufe {lu.NewLevel} erreicht!");
             };

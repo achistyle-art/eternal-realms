@@ -50,6 +50,17 @@ namespace EternalRealms.Server
             {
                 var pg = new PostgresStore(config.ConnectionString);
                 if (migrationsDir != null) await pg.MigrateAsync(migrationsDir, log);
+                try
+                {
+                    var info = await pg.GetRealmInfoAsync();
+                    if (info.TryGetValue("content_version", out var lastContent) && lastContent != content.Version)
+                        log($"Content-Update: {lastContent} → {content.Version}");
+                    await pg.SetRealmInfoAsync("content_version", content.Version);
+                    await pg.SetRealmInfoAsync("server_version", typeof(GameServer).Assembly.GetName().Version?.ToString() ?? "?");
+                    await pg.SetRealmInfoAsync("mode", config.Mode.ToString());
+                    await pg.SetRealmInfoAsync("started_at", DateTime.UtcNow.ToString("O"));
+                }
+                catch (Npgsql.PostgresException ex) { log("Realm-Informationen nicht gespeichert (Schema veraltet?): " + ex.MessageText); }
                 accounts = pg; chars = pg; store = pg;
                 log("Datenbank: PostgreSQL");
             }
@@ -66,8 +77,10 @@ namespace EternalRealms.Server
             if (chars is IEconomyRepository eco)
             {
                 var mail = await eco.LoadMailAsync();
-                server.World.Mail.Load(mail);
                 var auctions = await eco.LoadAuctionsAsync();
+                int migrated = await MigrateEconomyAsync(content, eco, mail, auctions);
+                if (migrated > 0) log($"Content-Anpassung: {migrated} Briefe/Auktionen an den aktuellen Content angepasst");
+                server.World.Mail.Load(mail);
                 server.World.Auctions.Load(auctions);
                 log($"Wirtschaft: {mail.Count} Briefe, {auctions.Count} Auktionen geladen");
             }
@@ -90,6 +103,37 @@ namespace EternalRealms.Server
         {
             if (string.IsNullOrWhiteSpace(line)) return;
             World.Post(() => World.Gm.Execute(Systems.GmContext.Console(reply), line));
+        }
+
+        /// <summary>
+        /// Post und Auktionen an Content-Migrationen anpassen (Kapitel 56). Auktionen entfernter Gegenstände werden aufgelöst:
+        /// der Verkäufer erhält die Erstattung, der Höchstbietende sein Gebot zurück – alles in einer Transaktion.
+        /// </summary>
+        public static async Task<int> MigrateEconomyAsync(ContentDatabase content, IEconomyRepository eco, List<MailData> mail, List<AuctionData> auctions)
+        {
+            if (content.Migrations.Count == 0) return 0;
+            var commit = new EconomyCommit();
+            foreach (var m in mail) if (ContentMigrator.Apply(m, content)) commit.UpsertMail.Add(m);
+            long nextMail = mail.Count == 0 ? 1 : mail.Max(m => m.Id) + 1;
+            foreach (var a in auctions.ToList())
+            {
+                var r = ContentMigrator.Apply(a, content);
+                if (r == true) commit.UpsertAuctions.Add(a);
+                if (r != false) continue;
+                auctions.Remove(a);
+                commit.DeleteAuctions.Add(a.Id);
+                MailData Refund(long to, string subject, long money) => new()
+                {
+                    Id = nextMail++, RecipientId = to, SenderName = "Auktionshaus", Subject = subject, Money = money, DeliverAt = DateTime.UtcNow,
+                    ExpiresAt = DateTime.UtcNow.AddDays(30), Body = "Der Gegenstand wurde mit einem Update aus dem Spiel genommen.",
+                };
+                var seller = Refund(a.SellerId, "Auktion aufgelöst (Update)", ContentMigrator.RefundFor(a, content));
+                commit.UpsertMail.Add(seller); mail.Add(seller);
+                if (a.BidderId is long bidder && a.CurrentBid > 0) { var back = Refund(bidder, "Gebot zurück (Update)", a.CurrentBid); commit.UpsertMail.Add(back); mail.Add(back); }
+            }
+            if (commit.UpsertMail.Count + commit.UpsertAuctions.Count + commit.DeleteAuctions.Count == 0) return 0;
+            await eco.CommitAsync(commit);
+            return commit.UpsertMail.Count + commit.UpsertAuctions.Count + commit.DeleteAuctions.Count;
         }
 
         public bool Start()

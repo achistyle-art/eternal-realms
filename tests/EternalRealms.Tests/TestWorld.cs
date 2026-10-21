@@ -15,11 +15,13 @@ namespace EternalRealms.Tests
         public List<string> Log { get; } = new();
 
         /// <param name="store">Gemeinsamer Speicher, um einen Serverneustart nachzustellen.</param>
-        public TestWorld(int seed = 1234, bool ambientBots = false, bool zoneLod = true, InMemoryStore? store = null, bool tutorial = false)
+        /// <param name="content">Eigener Content (z. B. eine Kopie mit Content-Migrationen); Standard ist der echte Content.</param>
+        public TestWorld(int seed = 1234, bool ambientBots = false, bool zoneLod = true, InMemoryStore? store = null, bool tutorial = false,
+                         Shared.Content.ContentDatabase? content = null, ServerConfig? config = null)
         {
             Store = store ?? new InMemoryStore();
-            var config = new ServerConfig { AmbientBots = ambientBots, DevCommands = true, ZoneLod = zoneLod, Tutorial = tutorial };
-            World = new GameWorld(TestContent.Db, config, Store, new GameRandom(seed)) { Log = s => { lock (Log) Log.Add(s); } };
+            config ??= new ServerConfig { AmbientBots = ambientBots, DevCommands = true, ZoneLod = zoneLod, Tutorial = tutorial };
+            World = new GameWorld(content ?? TestContent.Db, config, Store, new GameRandom(seed)) { Log = s => { lock (Log) Log.Add(s); } };
             World.Bots.LoadOffline(Array.Empty<CharacterData>());
         }
 

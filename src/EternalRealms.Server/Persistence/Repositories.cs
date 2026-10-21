@@ -29,6 +29,8 @@ namespace EternalRealms.Server.Persistence
         Task SaveAsync(CharacterData data);
         Task DeleteAsync(long id);
         Task<List<CharacterData>> ListBotsAsync();
+        /// <summary>Alle Charakter-IDs (Konsistenzprüfung).</summary>
+        Task<List<long>> ListAllIdsAsync();
     }
 
     /// <summary>PBKDF2-SHA256 mit zufälligem Salz. Format: iterationen.salz.hash (Base64).</summary>
@@ -143,6 +145,7 @@ namespace EternalRealms.Server.Persistence
         }
 
         public Task<List<CharacterData>> ListBotsAsync() => Task.FromResult(_chars.Values.Where(c => c.IsBot).Select(c => c.Clone()).ToList());
+        public Task<List<long>> ListAllIdsAsync() => Task.FromResult(_chars.Keys.OrderBy(k => k).ToList());
 
         // ------------------------------------------------------------ Wirtschaft
 

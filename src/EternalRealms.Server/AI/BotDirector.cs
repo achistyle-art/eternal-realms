@@ -35,7 +35,12 @@ namespace EternalRealms.Server.AI
 
         public void LoadOffline(IEnumerable<CharacterData> bots)
         {
-            foreach (var b in bots) _offline[b.Id] = b;
+            foreach (var b in bots)
+            {
+                var r = ContentMigrator.Apply(b, _w.Content);
+                b.Money += r.Refund; // Bots haben kein Geldbuch-Konto für Erstattungen; der Stand wird beim nächsten Speichern geschrieben
+                _offline[b.Id] = b;
+            }
             _loaded = true;
         }
 
@@ -102,8 +107,12 @@ namespace EternalRealms.Server.AI
             };
         }
 
+        /// <summary>Klassischer Realm: keine KI-Mitspieler (Kapitel 60).</summary>
+        public const string NoCompanions = "Auf diesem Realm (klassisch) gibt es keine KI-Mitspieler.";
+
         public string? Invite(Player p, long candidateId)
         {
+            if (!_w.Config.BotCompanions) return NoCompanions;
             if (!_candidates.TryGetValue(candidateId, out var cand)) return "Dieser KI-Mitspieler ist nicht mehr verfügbar. Sucht erneut.";
             if (p.Group != null && p.Group.IsFull) return "Eure Gruppe ist voll.";
             if (p.Zone == null) return "Nicht in der Welt.";
@@ -115,6 +124,7 @@ namespace EternalRealms.Server.AI
         /// <summary>Gespeicherten Lieblingsbegleiter direkt in die Gruppe rufen (KI-Freundesliste, Kapitel 32).</summary>
         public string? InviteFavorite(Player p, long characterId)
         {
+            if (!_w.Config.BotCompanions) return NoCompanions;
             long account = p.Data.AccountId ?? -1;
             if (p.Group != null && p.Group.IsFull) return "Eure Gruppe ist voll.";
             if (p.Group != null && p.Group.Leader != p) return "Nur der Gruppenanführer kann einladen.";

@@ -80,6 +80,19 @@ Die heutige Struktur ist schon darauf ausgelegt. Die Schritte im Einzelnen:
 * **Protokoll** (`Net/*`): rund 70 Nachrichtentypen, binär, `[ushort Opcode][Nutzdaten]`.
 * **GameClient** (`Client/*`): Verbindung, Weltspiegel und Ereignisse. Unity, der Konsolenclient und die Tests nutzen ihn.
 
+## Projektstruktur (Kapitel 64)
+
+- **`EternalRealms.Shared`** (netstandard2.1, C# 9 – Unity-kompatibel): Content-Schema und -Prüfung, Spielregeln, Netzwerkprotokoll und `GameClient`. Alles, was Client und Server gleich sehen müssen.
+- **`EternalRealms.Server`:**
+  - `World/` (Spielwelt, Einheiten, Zonen), `Systems/` (je Spielsystem eine Klasse), `AI/` (Kreaturen und KI-Mitspieler).
+  - `Net/` (Sitzungen, UDP), `Persistence/` (Speicher, Migrationen, Content-Migrator), `Security/` (Kontoschutz).
+- **`EternalRealms.ServerHost`:** ausführbarer Realm mit Konsole, Prüflauf `--check` und Statusdatei.
+- **`EternalRealms.ConsoleClient`:** Textclient über dasselbe Protokoll.
+- **`EternalRealms.ContentTool`:** Content-Editor für die Kommandozeile.
+- **`client/Unity`:** Darstellung und Eingabe. Spielregeln stehen nie im Client.
+- **`content/`:** Daten statt Code. Neue Gegner, Quests und Bosse entstehen ohne Programmänderung.
+- **`tests/`:** Regel-, System-, Netzwerk-, Persistenz- und Simulationstests. Die CI führt sie mit PostgreSQL aus und kompiliert zusätzlich die Unity-Skripte (`tools/UnityCheck`).
+
 ## Bekannte Grenzen dieses Meilensteins
 
 * **Kein Navmesh:** Monster und Bots laufen auf geraden Linien, der Server kennt keine Hindernisse und keine Höhe. Geplant ist ein Recast/Detour-Navmesh, das aus der Unity-Szene exportiert wird.

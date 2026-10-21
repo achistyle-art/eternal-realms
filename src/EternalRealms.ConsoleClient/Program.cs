@@ -134,6 +134,11 @@ client.MessageReceived += m =>
         case S_DeathState ds when ds.State == DeathState.Ghost: Print($"Ihr seid ein Geist. Lauft zur Leiche ({ds.CorpsePosition}) und schreibt 'reclaim' – oder 'talk' zum Geisterheiler."); break;
         case S_CharacterList cl: ShowChars(); break;
         case S_LoginResult lr when lr.NeedsTwoFactor: Print("Zwei-Faktor-Anmeldung: 'code <sechs Ziffern>' eingeben."); break;
+        case S_LoginResult lr when lr.Success:
+            if (lr.ContentVersion.Length > 0 && lr.ContentVersion != content.Version)
+                Print($"Warnung: Der Server nutzt Content {lr.ContentVersion}, dieser Client {content.Version} – bitte aktualisieren, sonst fehlen Namen und Texte.");
+            if (lr.RealmMode == 0) Print("Dieser Realm ist klassisch: keine KI-Mitspieler.");
+            break;
         case S_AccountSecurity sec:
             if (sec.PendingSecret != "") Print($"Geheimnis für die Authenticator-App: {sec.PendingSecret}\n  Adresse: {sec.PendingUri}\n  Danach '2fa bestätigen <Code>'.");
             else Print($"Zwei-Faktor-Anmeldung: {(sec.TwoFactorEnabled ? "an" : "aus")}");

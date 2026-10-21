@@ -11,3 +11,5 @@ client/Unity/UserSettings/
 client/Unity/Assets/Plugins/EternalRealms/*.dll
 client/Unity/Assets/StreamingAssets/content/
 build/
+releases/
+backups/

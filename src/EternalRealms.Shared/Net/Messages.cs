@@ -381,8 +381,15 @@ namespace EternalRealms.Shared.Net
         /// <summary>Wiederverbindung: der Charakter war noch in der Welt und wird direkt übernommen.</summary>
         public bool Resumed;
         public byte GmLevel;
-        public override void Write(NetDataWriter w) { w.Put(Success); w.Put(Message); w.Put(Token); w.Put(NeedsTwoFactor); w.Put(Resumed); w.Put(GmLevel); }
-        public override void Read(NetDataReader r) { Success = r.GetBool(); Message = r.GetString(); Token = r.GetString(); NeedsTwoFactor = r.GetBool(); Resumed = r.GetBool(); GmLevel = r.GetByte(); }
+        /// <summary>Betriebsart des Realms (0 klassisch, 1 KI-unterstützt, 2 Entwicklung) und Content-Version des Servers.</summary>
+        public byte RealmMode = 1;
+        public string ContentVersion = "";
+        public override void Write(NetDataWriter w) { w.Put(Success); w.Put(Message); w.Put(Token); w.Put(NeedsTwoFactor); w.Put(Resumed); w.Put(GmLevel); w.Put(RealmMode); w.Put(ContentVersion); }
+        public override void Read(NetDataReader r)
+        {
+            Success = r.GetBool(); Message = r.GetString(); Token = r.GetString(); NeedsTwoFactor = r.GetBool(); Resumed = r.GetBool(); GmLevel = r.GetByte();
+            RealmMode = r.GetByte(); ContentVersion = r.GetString();
+        }
     }
 
     public sealed class S_CharacterList : Message

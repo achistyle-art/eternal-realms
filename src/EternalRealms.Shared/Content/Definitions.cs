@@ -879,4 +879,35 @@ namespace EternalRealms.Shared.Content
         public float Value { get; set; }
         public string? Aura { get; set; }
     }
+
+    /// <summary>Kopfdaten des Contents (content/manifest.json): Versionsnummer für Patches (Kapitel 56).</summary>
+    public sealed class ContentManifest
+    {
+        public string Name { get; set; } = "Eternal Realms";
+        /// <summary>Von Hand gepflegte Versionsnummer (z. B. 0.9.0); dazu kommt automatisch eine Prüfsumme aller Dateien.</summary>
+        public string Version { get; set; } = "0.0.0";
+        /// <summary>Älteste Clientversion, die mit diesem Content spielen darf (leer = jede).</summary>
+        public string MinClientContent { get; set; } = "";
+    }
+
+    /// <summary>
+    /// Änderung am Content, die gespeicherte Daten betrifft (content/migrations.json): umbenannte oder entfernte IDs.
+    /// Der Server wendet sie beim Laden einmal je Charakter (und auf Post und Auktionen) an – so übersteht ein Patch
+    /// jeden gespeicherten Stand, ohne Gegenstände oder Gold zu verdoppeln oder zu verlieren.
+    /// </summary>
+    public sealed class ContentMigrationDef
+    {
+        public string Id { get; set; } = "";
+        public string Description { get; set; } = "";
+        public Dictionary<string, string> RenameItems { get; set; } = new Dictionary<string, string>();
+        /// <summary>Entfernte Gegenstände → Erstattung in Kupfer je Stück.</summary>
+        public Dictionary<string, long> RemoveItems { get; set; } = new Dictionary<string, long>();
+        public Dictionary<string, string> RenameQuests { get; set; } = new Dictionary<string, string>();
+        public List<string> RemoveQuests { get; set; } = new List<string>();
+        public Dictionary<string, string> RenameAbilities { get; set; } = new Dictionary<string, string>();
+        public List<string> RemoveAbilities { get; set; } = new List<string>();
+        public Dictionary<string, string> RenameAchievements { get; set; } = new Dictionary<string, string>();
+        /// <summary>Umbenannte Regionen (Aufenthaltsort, Bindepunkt, Leiche, Rückkehrpunkt).</summary>
+        public Dictionary<string, string> RenameZones { get; set; } = new Dictionary<string, string>();
+    }
 }

@@ -2,7 +2,8 @@
 # Eternal Realms – Sicherung zurückspielen (Kapitel 42).
 #   tools/restore.sh <sicherung.dump> <zieldatenbank>
 # Die Zieldatenbank wird angelegt, falls sie fehlt. Ist sie nicht leer, bricht das Skript ab –
-# außer mit ER_RESTORE_OVERWRITE=true (dann werden vorhandene Objekte ersetzt). Server vorher stoppen!
+# außer mit ER_RESTORE_OVERWRITE=true (dann werden vorhandene Objekte ersetzt) oder ER_RESTORE_RECREATE=true
+# (Datenbank wird gelöscht und neu angelegt). Server vorher stoppen!
 # Zugangsdaten wie bei backup.sh über libpq-Umgebungsvariablen bzw. ~/.pgpass.
 set -euo pipefail
 
@@ -14,6 +15,11 @@ if [ -f "$file.sha256" ]; then
 fi
 pg_restore --list "$file" > /dev/null
 
+# ER_RESTORE_RECREATE=true: Zieldatenbank vollständig neu anlegen (Rollback – nichts vom fehlgeschlagenen Update bleibt übrig).
+if [ "${ER_RESTORE_RECREATE:-false}" = "true" ]; then
+  dropdb --if-exists "$target"
+  echo "Datenbank $target entfernt (wird neu angelegt)."
+fi
 if ! psql -d postgres -Atc "SELECT 1 FROM pg_database WHERE datname = '$(printf "%s" "$target" | sed "s/'/''/g")'" | grep -q 1; then
   createdb "$target"
   echo "Datenbank $target angelegt."

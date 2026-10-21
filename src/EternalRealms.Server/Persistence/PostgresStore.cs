@@ -36,6 +36,12 @@ namespace EternalRealms.Server.Persistence
             await using (var cmd = new NpgsqlCommand("SELECT version FROM schema_migrations", conn))
             await using (var r = await cmd.ExecuteReaderAsync())
                 while (await r.ReadAsync()) applied.Add(r.GetString(0));
+            // Rollback-Schutz (Kapitel 56): eine Datenbank mit Migrationen, die dieser Server nicht kennt, ist neuer als er.
+            var known = Directory.GetFiles(migrationsDir, "*.sql").Select(Path.GetFileNameWithoutExtension).ToHashSet();
+            var unknown = applied.Where(v => !known.Contains(v)).OrderBy(v => v, StringComparer.Ordinal).ToList();
+            if (unknown.Count > 0)
+                throw new InvalidOperationException($"Die Datenbank ist neuer als dieser Server (unbekannte Migration {string.Join(", ", unknown)}). " +
+                                                    "Neuere Serverversion starten oder die Sicherung von vor dem Update zurückspielen (tools/restore.sh).");
             foreach (var file in Directory.GetFiles(migrationsDir, "*.sql").OrderBy(f => f, StringComparer.Ordinal))
             {
                 var version = Path.GetFileNameWithoutExtension(file);
@@ -50,6 +56,39 @@ namespace EternalRealms.Server.Persistence
                 await tx.CommitAsync();
                 log?.Invoke("Datenbankmigration angewendet: " + version);
             }
+        }
+
+        /// <summary>Realm-Information setzen (z. B. content_version beim Start).</summary>
+        public async Task SetRealmInfoAsync(string key, string value)
+        {
+            await using var cmd = _ds.CreateCommand("INSERT INTO realm_info (key, value) VALUES (@k, @v) ON CONFLICT (key) DO UPDATE SET value = @v, updated_at = now()");
+            cmd.Parameters.AddWithValue("k", key);
+            cmd.Parameters.AddWithValue("v", value);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task<Dictionary<string, string>> GetRealmInfoAsync()
+        {
+            var d = new Dictionary<string, string>();
+            await using var cmd = _ds.CreateCommand("SELECT key, value FROM realm_info");
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync()) d[r.GetString(0)] = r.GetString(1);
+            return d;
+        }
+
+        /// <summary>Stand der Migrationen ohne etwas anzuwenden (für „--check“ und das Update-Skript).</summary>
+        public async Task<(List<string> Applied, List<string> Pending, List<string> Unknown)> MigrationStatusAsync(string migrationsDir)
+        {
+            var applied = new List<string>();
+            await using (var exists = _ds.CreateCommand("SELECT to_regclass('schema_migrations') IS NOT NULL"))
+                if ((bool)(await exists.ExecuteScalarAsync())!)
+                {
+                    await using var cmd = _ds.CreateCommand("SELECT version FROM schema_migrations ORDER BY version");
+                    await using var r = await cmd.ExecuteReaderAsync();
+                    while (await r.ReadAsync()) applied.Add(r.GetString(0));
+                }
+            var files = Directory.GetFiles(migrationsDir, "*.sql").Select(f => Path.GetFileNameWithoutExtension(f)!).OrderBy(v => v, StringComparer.Ordinal).ToList();
+            return (applied, files.Where(f => !applied.Contains(f)).ToList(), applied.Where(a => !files.Contains(a)).ToList());
         }
 
         // ------------------------------------------------------------ Konten
@@ -199,6 +238,8 @@ namespace EternalRealms.Server.Persistence
             public HashSet<int> LeftChannels { get; set; } = new();
             public Dictionary<string, AchievementProgress> Achievements { get; set; } = new();
             public string ActiveTitle { get; set; } = "";
+            public HashSet<string> ContentMigrations { get; set; } = new();
+            public List<ItemStack> Quarantine { get; set; } = new();
             public TutorialState? Tutorial { get; set; }
         }
 
@@ -259,6 +300,7 @@ namespace EternalRealms.Server.Persistence
                     Bot = r.IsDBNull(20) ? null : JsonSerializer.Deserialize<BotData>(r.GetString(20), Json),
                     CorpseZone = ws.CorpseZone, CorpsePosition = ws.CorpsePosition, BindZone = ws.BindZone, BindPosition = ws.BindPosition,
                     ReturnZone = ws.ReturnZone, ReturnPosition = ws.ReturnPosition, TalentResets = ws.TalentResets, LastTalentReset = ws.LastTalentReset, RidingSkill = ws.RidingSkill, Mounts = ws.Mounts, ShareLocation = ws.ShareLocation, InstanceBinds = ws.InstanceBinds, CurrentInstanceId = ws.CurrentInstanceId, RecentInstances = ws.RecentInstances, Professions = ws.Professions, ClientSettings = ws.ClientSettings, LeftChannels = ws.LeftChannels, Achievements = ws.Achievements, ActiveTitle = ws.ActiveTitle, Tutorial = ws.Tutorial,
+                    ContentMigrations = ws.ContentMigrations ?? new(), Quarantine = ws.Quarantine ?? new(),
                     DiscoveredAreas = new HashSet<string>(r.GetFieldValue<string[]>(22)), KnownTravelNodes = new HashSet<string>(r.GetFieldValue<string[]>(23)),
                     CompletedQuests = new HashSet<string>(r.GetFieldValue<string[]>(24)), PlayedSeconds = r.GetInt64(25), LoggedOutInInn = r.GetBoolean(26),
                     CreatedAt = r.GetDateTime(27), LastLogout = r.GetDateTime(28),
@@ -364,6 +406,7 @@ namespace EternalRealms.Server.Persistence
             {
                 CorpseZone = d.CorpseZone, CorpsePosition = d.CorpsePosition, BindZone = d.BindZone, BindPosition = d.BindPosition,
                 ReturnZone = d.ReturnZone, ReturnPosition = d.ReturnPosition, TalentResets = d.TalentResets, LastTalentReset = d.LastTalentReset, RidingSkill = d.RidingSkill, Mounts = d.Mounts, ShareLocation = d.ShareLocation, InstanceBinds = d.InstanceBinds, CurrentInstanceId = d.CurrentInstanceId, RecentInstances = d.RecentInstances, Professions = d.Professions, ClientSettings = d.ClientSettings, LeftChannels = d.LeftChannels, Achievements = d.Achievements, ActiveTitle = d.ActiveTitle, Tutorial = d.Tutorial,
+                ContentMigrations = d.ContentMigrations, Quarantine = d.Quarantine,
             };
             await using (var cmd = new NpgsqlCommand(
                 "UPDATE characters SET level=@lv, xp=@xp, rested_xp=@rx, money=@m, zone_id=@z, pos_x=@x, pos_y=@y, pos_z=@zz, facing=@f, health=@h, mana=@mn, " +
@@ -652,6 +695,15 @@ namespace EternalRealms.Server.Persistence
             p.AddWithValue("at", rep.At); p.AddWithValue("rid", rep.ReporterId); p.AddWithValue("rn", rep.ReporterName); p.AddWithValue("tid", (object?)rep.TargetId ?? DBNull.Value);
             p.AddWithValue("tn", rep.TargetName); p.AddWithValue("r", rep.Reason); p.AddWithValue("t", rep.Text); p.AddWithValue("e", JsonSerializer.Serialize(rep.Evidence, Json));
             await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task<List<long>> ListAllIdsAsync()
+        {
+            var list = new List<long>();
+            await using var cmd = _ds.CreateCommand("SELECT id FROM characters ORDER BY id");
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync()) list.Add(r.GetInt64(0));
+            return list;
         }
 
         public async Task<List<PlayerReport>> ListOpenReportsAsync(int limit)

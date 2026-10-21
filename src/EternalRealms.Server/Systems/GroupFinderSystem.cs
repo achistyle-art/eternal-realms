@@ -89,6 +89,7 @@ namespace EternalRealms.Server.Systems
         public string? Join(Player p, IEnumerable<string> activityIds, IEnumerable<Role> roles, FinderAiMode mode)
         {
             if (IsQueued(p)) return "Ihr sucht bereits eine Gruppe.";
+            if (!_w.Config.BotCompanions) mode = FinderAiMode.HumansOnly; // klassischer Realm: nur Menschen
             if (p.Group != null && p.Group.Leader != p) return "Nur der Gruppenanführer kann die Gruppe anmelden.";
             var acts = activityIds.Distinct().Select(id => Activities.FirstOrDefault(a => a.Id == id)).Where(a => a != null).Select(a => a!).ToList();
             if (acts.Count == 0) return "Wählt mindestens eine Aktivität.";

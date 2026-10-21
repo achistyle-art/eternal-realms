@@ -1,5 +1,7 @@
 name: CI
 
+# Qualitätssicherung (Kapitel 57): jede Änderung wird gebaut, der Content geprüft, alle Tests laufen gegen PostgreSQL,
+# die Unity-Skripte werden kompiliert und der Prüflauf für Updates (--check) muss bestehen.
 on:
   push:
   pull_request:
@@ -11,23 +13,43 @@ jobs:
       postgres:
         image: postgres:16
         env:
+          # Nur für diesen kurzlebigen Testcontainer der CI – kein echtes Passwort.
           POSTGRES_USER: realms
           POSTGRES_PASSWORD: realms
           POSTGRES_DB: er_test
         ports: ["5432:5432"]
         options: >-
           --health-cmd "pg_isready -U realms" --health-interval 5s --health-retries 10
+    env:
+      ER_TEST_DATABASE: "Host=localhost;Username=realms;Password=realms;Database=er_test"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "8.0.x"
-      - name: Content-Werkzeuge erzeugen identische Dateien
+      - name: Content-Generatoren erzeugen identische Dateien
         run: |
-          python3 tools/gen_class_content.py
-          python3 tools/gen_items.py
+          for g in tools/gen_*.py; do python3 "$g"; done
           git diff --exit-code content/
+      - name: Bauen
+        run: dotnet build --configuration Release
+      - name: Content prüfen
+        run: dotnet run --project src/EternalRealms.ContentTool --configuration Release --no-build -- pruefen
+      - name: Skripte prüfen
+        run: for s in tools/*.sh; do bash -n "$s"; done
       - name: Tests
+        run: dotnet test --configuration Release --no-build
+      - name: Prüflauf für Updates (--check)
         env:
-          ER_TEST_DATABASE: "Host=localhost;Username=realms;Password=realms;Database=er_test"
-        run: dotnet test --configuration Release
+          ER_DATABASE: "Host=localhost;Username=realms;Password=realms;Database=er_test"
+        run: dotnet run --project src/EternalRealms.ServerHost --configuration Release --no-build -- --check
+
+  unity-compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Unity-Skripte kompilieren (ohne Editor)
+        run: dotnet build tools/UnityCheck
