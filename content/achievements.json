@@ -935,5 +935,89 @@
    }
   ],
   "title": "der Verehrte"
+ },
+ {
+  "id": "ach_rep_weidenwacht",
+  "name": "Freund der Weidenwacht",
+  "description": "Werdet bei Burg Weidenwacht wohlwollend aufgenommen.",
+  "category": "Ruf",
+  "points": 10,
+  "faction": "Sonnenbuendnis",
+  "criteria": [
+   {
+    "event": "Reputation",
+    "target": "rep_weidenwacht",
+    "count": 9000,
+    "description": "Wohlwollend"
+   }
+  ],
+  "title": "von Weidenwacht"
+ },
+ {
+  "id": "ach_held_westmark",
+  "name": "Held der Westmark",
+  "description": "Werdet bei Burg Weidenwacht ehrfürchtig verehrt.",
+  "category": "Ruf",
+  "points": 25,
+  "faction": "Sonnenbuendnis",
+  "criteria": [
+   {
+    "event": "Reputation",
+    "target": "rep_weidenwacht",
+    "count": 42000,
+    "description": "Ehrfürchtig"
+   }
+  ],
+  "title": "Held der Westmark"
+ },
+ {
+  "id": "ach_rep_zharas_rast",
+  "name": "Freund von Zharas Rast",
+  "description": "Werdet in Zharas Rast wohlwollend aufgenommen.",
+  "category": "Ruf",
+  "points": 10,
+  "faction": "Schattenpakt",
+  "criteria": [
+   {
+    "event": "Reputation",
+    "target": "rep_zharas_rast",
+    "count": 9000,
+    "description": "Wohlwollend"
+   }
+  ],
+  "title": "von Zharas Rast"
+ },
+ {
+  "id": "ach_held_rotsand",
+  "name": "Held der Rotsandwüste",
+  "description": "Werdet in Zharas Rast ehrfürchtig verehrt.",
+  "category": "Ruf",
+  "points": 25,
+  "faction": "Schattenpakt",
+  "criteria": [
+   {
+    "event": "Reputation",
+    "target": "rep_zharas_rast",
+    "count": 42000,
+    "description": "Ehrfürchtig"
+   }
+  ],
+  "title": "Held der Rotsandwüste"
+ },
+ {
+  "id": "ach_wk_heroisch",
+  "name": "Heroisch: Die Wurzelkrypta",
+  "description": "Besiegt Wurzelfürst Morrak auf dem heroischen Schwierigkeitsgrad.",
+  "category": "Dungeons",
+  "points": 25,
+  "criteria": [
+   {
+    "event": "KillBoss",
+    "target": "hboss_morrak",
+    "count": 1,
+    "description": "Morrak (heroisch)"
+   }
+  ],
+  "title": "Bezwinger der Tiefe"
  }
 ]

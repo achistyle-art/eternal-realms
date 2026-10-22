@@ -42,6 +42,11 @@ namespace EternalRealms.Shared.Content
         public Dictionary<string, QuestDef> Quests { get; } = new Dictionary<string, QuestDef>();
         public Dictionary<string, ReputationDef> Reputations { get; } = new Dictionary<string, ReputationDef>();
         public Dictionary<string, MountDef> Mounts { get; } = new Dictionary<string, MountDef>();
+        /// <summary>Reitstufen, aufsteigend nach Fertigkeit.</summary>
+        public List<RidingRankDef> RidingRanks { get; } = new List<RidingRankDef>();
+
+        /// <summary>Kleinste Reitstufe, die ein Reittier dieses Tempos erlaubt (null: keine).</summary>
+        public RidingRankDef? RidingRankFor(int speed) => RidingRanks.FirstOrDefault(r => r.Speed >= speed);
         public Dictionary<string, ProfessionDef> Professions { get; } = new Dictionary<string, ProfessionDef>();
         public Dictionary<string, RecipeDef> Recipes { get; } = new Dictionary<string, RecipeDef>();
         public Dictionary<string, TravelNodeDef> TravelNodes { get; } = new Dictionary<string, TravelNodeDef>();
@@ -98,6 +103,7 @@ namespace EternalRealms.Shared.Content
             foreach (var q in ReadList<QuestDef>(root, "quests")) AddUnique(db.Quests, q.Id, q, "Quest");
             foreach (var r in ReadList<ReputationDef>(root, "reputations")) AddUnique(db.Reputations, r.Id, r, "Ruf");
             foreach (var m in ReadList<MountDef>(root, "mounts")) AddUnique(db.Mounts, m.Id, m, "Reittier");
+            db.RidingRanks.AddRange(ReadList<RidingRankDef>(root, "riding").OrderBy(r => r.Skill));
             foreach (var pr in ReadList<ProfessionDef>(root, "professions")) AddUnique(db.Professions, pr.Id, pr, "Beruf");
             foreach (var r in ReadList<RecipeDef>(root, "recipes")) AddUnique(db.Recipes, r.Id, r, "Rezept");
             foreach (var n in ReadList<TravelNodeDef>(root, "travel/nodes")) AddUnique(db.TravelNodes, n.Id, n, "Reisepunkt");
@@ -395,6 +401,11 @@ namespace EternalRealms.Shared.Content
             }
             var npcZones = new Dictionary<string, string>();
             foreach (var z in Zones.Values) foreach (var n in z.Npcs) npcZones[n.Npc] = z.Id;
+            foreach (var z in Zones.Values.Where(z => z.RequiredLevel > 0 && z.Playable))
+                Need(z.RequiredLevel <= LevelCap, $"Zone {z.Id}: Mindeststufe {z.RequiredLevel} liegt über der Stufenobergrenze {LevelCap}");
+            foreach (var it in Items.Values.Where(i => i.RequiredReputation != null))
+                Need(Reputations.ContainsKey(it.RequiredReputation!) && it.RequiredReputationValue > 0 && it.RequiredReputationValue <= Rules.Reputation.Max,
+                     $"Gegenstand {it.Id}: Rufanforderung ungültig");
             foreach (var q in Quests.Values)
             {
                 Need(Creatures.ContainsKey(q.Giver), $"Quest {q.Id}: Questgeber '{q.Giver}' fehlt");
@@ -408,6 +419,9 @@ namespace EternalRealms.Shared.Content
                 Need(q.MinLevel <= q.Level, $"Quest {q.Id}: Mindeststufe über Queststufe");
                 foreach (var r in q.Requires) Need(Quests.ContainsKey(r), $"Quest {q.Id}: Vorgänger '{r}' fehlt");
                 foreach (var r in q.ExclusiveWith) Need(Quests.ContainsKey(r), $"Quest {q.Id}: Alternative '{r}' fehlt");
+                // Tagesquests landen nie in den abgeschlossenen Quests – sie dürfen nichts freischalten.
+                foreach (var r in q.Requires.Concat(q.ExclusiveWith)) Need(!Quests.TryGetValue(r, out var dq) || !dq.Daily, $"Quest {q.Id}: Tagesquest '{r}' kann keine Voraussetzung sein");
+                if (q.Daily) Need(q.Escort == null && q.ProvidedItems.Count == 0, $"Quest {q.Id}: Tagesquests ohne Eskorte und mitgegebene Gegenstände");
                 foreach (var r in q.RewardItems.Concat(q.RewardChoices).Concat(q.ProvidedItems)) Need(Items.ContainsKey(r.Item), $"Quest {q.Id}: Gegenstand '{r.Item}' fehlt");
                 foreach (var r in q.RewardReputation) Need(Reputations.ContainsKey(r.Faction), $"Quest {q.Id}: Ruf '{r.Faction}' fehlt");
                 if (q.RewardAbility != null) Need(HasAbility(q.RewardAbility), $"Quest {q.Id}: Fähigkeit '{q.RewardAbility}' fehlt");
@@ -454,9 +468,19 @@ namespace EternalRealms.Shared.Content
             foreach (var m in Mounts.Values)
             {
                 Need(m.Speed == 60 || m.Speed == 100, $"Reittier {m.Id}: Tempo muss 60 oder 100 sein");
-                Need(m.Speed != 100 || m.RequiredLevel >= 60, $"Reittier {m.Id}: +100 % erst ab Stufe 60");
+                var rank = RidingRankFor(m.Speed);
+                Need(rank != null && m.RequiredLevel >= rank.Level, $"Reittier {m.Id}: braucht eine Reitstufe für +{m.Speed} % und mindestens deren Stufe");
                 Need(Items.TryGetValue(m.Item, out var mi) && mi.TeachesMount == m.Id, $"Reittier {m.Id}: Zügel {m.Item} fehlt oder lehrt ein anderes Reittier");
+                Need(mi == null || (mi.RequiredReputation == m.RequiredReputation && mi.RequiredReputationValue == m.RequiredReputationValue),
+                     $"Reittier {m.Id}: Zügel tragen eine andere Rufanforderung");
                 Need(Abilities.ContainsKey("mount_ride_" + m.Speed) || AbilityRanks.ContainsKey("mount_ride_" + m.Speed), $"Reittier {m.Id}: Fähigkeit mount_ride_{m.Speed} fehlt");
+            }
+            Need(RidingRanks.Count > 0, "riding.json: keine Reitstufen");
+            for (int i = 0; i < RidingRanks.Count; i++)
+            {
+                var r = RidingRanks[i];
+                Need(r.Skill > 0 && r.Cost >= 0 && (r.Speed == 60 || r.Speed == 100) && r.Level >= 1 && r.Level <= Rules.Experience.MaxLevel, $"Reitstufe {r.Name}: Werte ungültig");
+                if (i > 0) Need(r.Level >= RidingRanks[i - 1].Level && r.Speed > RidingRanks[i - 1].Speed, $"Reitstufe {r.Name}: Stufe und Tempo müssen steigen");
             }
             foreach (var r in Recipes.Values)
             {

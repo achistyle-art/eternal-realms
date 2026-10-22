@@ -42,6 +42,7 @@ for r in races:
     faction_classes.setdefault(r["faction"], set()).update(r["classes"])
 
 SB, SP = "Sonnenbuendnis", "Schattenpakt"
+RIDING_LEVEL = min(r["level"] for r in load("riding.json"))
 PROF_NAMES = {"mining": "Bergbau", "herbalism": "Kräuterkunde", "skinning": "Kürschnerei", "blacksmithing": "Schmiedekunst",
               "leatherworking": "Lederverarbeitung", "tailoring": "Schneiderei", "alchemy": "Alchemie", "engineering": "Ingenieurskunst",
               "enchanting": "Verzauberkunst", "fishing": "Angeln", "cooking": "Kochkunst", "first_aid": "Erste Hilfe"}
@@ -137,7 +138,7 @@ def capital(cap, creatures):
     place(person("werkzeug", "Werkzeug und Zubehör", "Vendor", 25, vendorItems=npcs_base["npc_mt_craftvendor"]["vendorItems"],
                  gossip="Alles, was Handwerker brauchen."), C + 14, C - 70, 1.57)
     stable = (npcs_base["npc_mt_stablemaster"] if cap["faction"] == SB else npcs_base["npc_as_stablemaster"])["vendorItems"]
-    place(person("stall", "Stallmeisterei", "RidingTrainer, Vendor", 40, vendorItems=stable, gossip="Ab Stufe 40 lernt Ihr bei mir das Reiten."), C - 30, C + 160, 4.71)
+    place(person("stall", "Stallmeisterei", "RidingTrainer, Vendor", 40, vendorItems=stable, gossip=f"Ab Stufe {RIDING_LEVEL} lernt Ihr bei mir das Reiten."), C - 30, C + 160, 4.71)
     place(person("flug", "Flugmeisterei", "FlightMaster", 30, gossip="Von hier aus erreicht Ihr die Siedlungen Eurer Fraktion."), C + 30, C + 165, 4.71)
     # Lehrer aller Klassen der Fraktion
     cls = sorted(faction_classes[cap["faction"]])

@@ -324,6 +324,10 @@ namespace EternalRealms.Shared.Content
         public int BagSlots { get; set; }
         /// <summary>Benutzen fügt dieses Reittier der Sammlung hinzu.</summary>
         public string? TeachesMount { get; set; }
+        /// <summary>Nur mit diesem Ruf kaufbar bzw. nutzbar (Rüstmeister der Siedlungen).</summary>
+        public string? RequiredReputation { get; set; }
+        /// <summary>Nötiger Rufwert, z. B. 9000 = Wohlwollend.</summary>
+        public int RequiredReputationValue { get; set; }
         public string Icon { get; set; } = "";
         public string Model { get; set; } = "";
 
@@ -511,7 +515,7 @@ namespace EternalRealms.Shared.Content
         public int TrainerCost { get; set; }
     }
 
-    /// <summary>Reittier (Kapitel 18): Tempo +60 % ab Stufe 40 oder +100 % ab Stufe 60, Seltenheit über die Qualität.</summary>
+    /// <summary>Reittier (Kapitel 18): Tempo +60 % oder +100 %; die nötige Reitstufe steht in <c>riding.json</c>, Seltenheit über die Qualität.</summary>
     public sealed class MountDef
     {
         public string Id { get; set; } = "";
@@ -520,7 +524,7 @@ namespace EternalRealms.Shared.Content
         /// <summary>None = beide Fraktionen.</summary>
         public Faction Faction { get; set; }
         public int Speed { get; set; } = 60;
-        public int RequiredLevel { get; set; } = 40;
+        public int RequiredLevel { get; set; } = 20;
         public ItemQuality Quality { get; set; } = ItemQuality.Uncommon;
         /// <summary>Herkunft: vendor, drop, raid, reputation, achievement.</summary>
         public string Source { get; set; } = "vendor";
@@ -529,6 +533,21 @@ namespace EternalRealms.Shared.Content
         public string Item { get; set; } = "";
         public int Price { get; set; }
         public bool BindOnPickup { get; set; }
+        /// <summary>Rufbelohnung: Ruf-ID und nötiger Wert (gilt auch für die Zügel).</summary>
+        public string? RequiredReputation { get; set; }
+        public int RequiredReputationValue { get; set; }
+    }
+
+    /// <summary>Reitstufe beim Stallmeister (<c>content/riding.json</c>): ab welcher Stufe, zu welchem Preis, bis zu welchem Tempo.</summary>
+    public sealed class RidingRankDef
+    {
+        public int Skill { get; set; }
+        public string Name { get; set; } = "";
+        public int Level { get; set; }
+        /// <summary>Preis in Kupfer.</summary>
+        public long Cost { get; set; }
+        /// <summary>Höchstes Reittier-Tempo, das diese Stufe erlaubt (60 oder 100).</summary>
+        public int Speed { get; set; }
     }
 
     public sealed class ReputationDef
@@ -656,9 +675,15 @@ namespace EternalRealms.Shared.Content
         public List<Weather> Weather { get; set; } = new List<Weather>();
         public bool IsInstance { get; set; }
         public int MaxPlayers { get; set; }
-        /// <summary>Schlachtzugsperre in Tagen (7 = wöchentlich, 3 = alle drei Tage, 0 = keine Sperre wie bei Dungeons).</summary>
+        /// <summary>Sperre in Tagen (7 = wöchentlich, 1 = täglich wie heroische Dungeons, 0 = keine Sperre wie bei normalen Dungeons).</summary>
         public int LockoutDays { get; set; }
         public bool IsRaid => IsInstance && MaxPlayers > 5;
+        /// <summary>Instanzen mit Sperre: Schlachtzüge und Dungeons mit LockoutDays (z. B. heroisch). Besiegte Bosse bleiben bis zum Reset tot.</summary>
+        public bool HasLockout => IsInstance && (IsRaid || LockoutDays > 0);
+        /// <summary>Heroischer Schwierigkeitsgrad (Endgame): stärkere Gegner, bessere Beute.</summary>
+        public bool Heroic { get; set; }
+        /// <summary>Mindeststufe zum Betreten (0 = keine), serverseitig beim Zonenwechsel geprüft.</summary>
+        public int RequiredLevel { get; set; }
         public Vec3 InstanceEntry { get; set; }
         /// <summary>Wohin man beim Verlassen/Tod im Dungeon gebracht wird.</summary>
         public string? ExitZone { get; set; }
@@ -721,6 +746,8 @@ namespace EternalRealms.Shared.Content
     public sealed class QuestDef
     {
         public string Id { get; set; } = "";
+        /// <summary>Tagesquest: nach der Abgabe bis zum nächsten täglichen Reset (05:00 UTC) gesperrt, dann erneut annehmbar.</summary>
+        public bool Daily { get; set; }
         public string Title { get; set; } = "";
         public QuestCategory Category { get; set; }
         public string Zone { get; set; } = "";

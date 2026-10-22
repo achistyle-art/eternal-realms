@@ -165,7 +165,7 @@
    "item_mount_moon_stag",
    "item_mount_swift_white_steed"
   ],
-  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+  "gossip": "Ab Stufe 20 lernt Ihr bei mir das Reiten."
  },
  {
   "id": "npc_sf_flug",
@@ -884,7 +884,7 @@
    "item_mount_moon_stag",
    "item_mount_swift_white_steed"
   ],
-  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+  "gossip": "Ab Stufe 20 lernt Ihr bei mir das Reiten."
  },
  {
   "id": "npc_sm_flug",
@@ -1603,7 +1603,7 @@
    "item_mount_marsh_raptor",
    "item_mount_swift_war_wolf"
   ],
-  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+  "gossip": "Ab Stufe 20 lernt Ihr bei mir das Reiten."
  },
  {
   "id": "npc_kz_flug",
@@ -2322,7 +2322,7 @@
    "item_mount_marsh_raptor",
    "item_mount_swift_war_wolf"
   ],
-  "gossip": "Ab Stufe 40 lernt Ihr bei mir das Reiten."
+  "gossip": "Ab Stufe 20 lernt Ihr bei mir das Reiten."
  },
  {
   "id": "npc_nw_flug",

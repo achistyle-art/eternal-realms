@@ -72,7 +72,7 @@ namespace EternalRealms.Tests
             var db = TestContent.Db;
             foreach (var zoneId in NewZones)
             {
-                var qs = db.Quests.Values.Where(q => q.Zone == zoneId).ToList();
+                var qs = db.Quests.Values.Where(q => q.Zone == zoneId && !q.Daily).ToList(); // Tagesquests gehören zum Endgame
                 Assert.True(qs.Count >= 24, $"{zoneId}: nur {qs.Count} Quests");
                 // Jede Quest ist von der Einstiegsquest aus erreichbar (keine Zyklen, keine fremden Voraussetzungen)
                 var done = new HashSet<string>();
@@ -102,7 +102,7 @@ namespace EternalRealms.Tests
             long need = Experience.TotalXpToReach(20) - Experience.TotalXpToReach(12);
             foreach (var zoneId in NewZones)
             {
-                var qs = db.Quests.Values.Where(q => q.Zone == zoneId).ToList();
+                var qs = db.Quests.Values.Where(q => q.Zone == zoneId && !q.Daily).ToList(); // Tagesquests gehören zum Endgame
                 long questXp = qs.Sum(q => (long)q.RewardXp);
                 // Pflichtkills der Quests (ohne zusätzliche Gegner und ohne Ruhebonus)
                 long killXp = qs.SelectMany(q => q.Objectives.Where(o => o.Type == ObjectiveType.Kill).Select(o => (q, o)))
@@ -154,6 +154,28 @@ namespace EternalRealms.Tests
             Assert.Null(t.World.Quests.TurnIn(p, vogtin, "q_wm_ankunft", -1));
             Assert.True(p.Data.Reputation["rep_weidenwacht"] > 0);
             Assert.Equal(QuestMarker.Available, t.World.Quests.MarkerFor(p, vogtin)); // nächste Quest: die Goldfelder
+        }
+
+        [Theory]
+        [InlineData("zone_westmark", "npc_wm_stable", Race.Aldorer, "item_mount_grey_steed")]
+        [InlineData("zone_rotsand", "npc_rs_stable", Race.Grakar, "item_mount_dune_wolf")]
+        public void RidingStartsAtTheCapInTheNewSettlements(string zone, string stableId, Race race, string reins)
+        {
+            var t = new TestWorld();
+            var rank = t.World.Content.RidingRanks[0];
+            Assert.Equal(20, rank.Level);
+            var stable = Npc(t, stableId, zone);
+            var p = t.CreatePlayer(race, CharClass.Warrior, 20, stable.Position + new Vec3(2, 0, 0), zone);
+            long price = t.World.Content.Items[reins].BuyPrice;
+            t.World.Economy.Credit(p, rank.Cost + price - p.Money, "test"); // genau genug Gold für Reitstufe und Reittier
+            Assert.Null(t.World.Mounts.LearnRiding(p, stable.Id));
+            Assert.Null(t.World.Interactions.Buy(p, stable.Id, reins, 1));
+            Assert.Equal(0, p.Money);
+            Assert.Null(t.World.Interactions.UseItem(p, p.Data.Bag.FindIndex(s => s?.ItemId == reins), 0));
+            t.ClearMonstersAround(p.Position, 80, zone);
+            Assert.Null(t.World.Mounts.Mount(p, ""));
+            t.Run(2);
+            Assert.True(p.IsMounted);
         }
 
         [Fact]

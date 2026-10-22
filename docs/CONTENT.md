@@ -11,6 +11,9 @@ Alle Spielinhalte sind Daten in `content/`. Server und Client laden dieselben Da
 | `items.json` | **erzeugt** von `tools/gen_items.py` (Formeln in `tools/itemlib.py`) |
 | `zones/westmark.json`, `zones/rotsand.json`, `quests/westmark.json`, `quests/rotsand.json`, `*/stufe12_20.json` | **erzeugt** von `tools/gen_world_i.py` (Regionen für Stufe 12–20) |
 | `manifest.json` | Name, Content-Version, `levelCap` (derzeit 20, höchstens 60) |
+| `riding.json` | Reitstufen: Fertigkeit, Name, Mindeststufe, Preis, höchstes Tempo (derzeit Lehrling ab Stufe 20, Experte ab 60) |
+| `mounts.json` | Reittiere; Rufbelohnungen mit `requiredReputation` und `requiredReputationValue` (die Zügel erben die Anforderung) |
+| `zones/wurzelkrypta_heroisch.json`, `creatures/heroisch.json` | **erzeugt** von `tools/gen_world_i.py` aus der normalen Krypta: `heroic`, `requiredLevel`, `lockoutDays` |
 | `creatures/*.json` | Monster, NPCs, Begleiter – Stufen, Fähigkeiten mit Intervallen, Bossphasen, Beute, Händlerwaren, Tagesabläufe |
 | `objects.json` | Erzadern, Kisten, Portale |
 | `zones/*.json` | eine Datei pro Region: Gebiete, Friedhöfe, Spawns (Anzahl, Radius, Patrouille, Respawn), NPCs, Objekte, eigenständige Bots |
@@ -52,7 +55,7 @@ Danach `python3 tools/gen_class_content.py` und `dotnet test`.
 
 ## Questtypen
 
-`objectives[].type`: `Kill`, `Collect` (Beute mit `quest`-Bindung oder Objekte), `Explore` (Gebiet), `Interact` (Objekt), `Talk`, `Deliver` (mit `providedItems`), `Escort` (mit `escort`: Wegpunkte, Hinterhalte, optionale Verteidigungszeit). Weitere Felder: `requires` (Kette), `exclusiveWith` (Entscheidung), `rewardChoices` (Wahlbelohnung), `rewardReputation`, `rewardAbility`, `class`/`race`/`faction`, `category` (`Main`, `Side`, `Class`, `Dungeon`, `Raid`, `Profession`, `Faction`), `suggestedPlayers`.
+`objectives[].type`: `Kill`, `Collect` (Beute mit `quest`-Bindung oder Objekte), `Explore` (Gebiet), `Interact` (Objekt), `Talk`, `Deliver` (mit `providedItems`), `Escort` (mit `escort`: Wegpunkte, Hinterhalte, optionale Verteidigungszeit). Weitere Felder: `requires` (Kette), `exclusiveWith` (Entscheidung), `rewardChoices` (Wahlbelohnung), `rewardReputation`, `rewardAbility`, `class`/`race`/`faction`, `category` (`Main`, `Side`, `Class`, `Dungeon`, `Raid`, `Profession`, `Faction`), `suggestedPlayers`, `daily` (Tagesquest: nach der Abgabe bis zum nächsten Reset um 05:00 UTC gesperrt; darf nichts freischalten).
 
 ## Bosse
 

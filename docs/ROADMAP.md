@@ -34,7 +34,7 @@ Stand: in Arbeit. Erledigt (implementiert und getestet):
 
 Offen in diesem Meilenstein:
 
-- [x] Reittiere (Stufe 40: +60 %, Stufe 60: +100 %), Sammlung, Bots reiten mit
+- [x] Reittiere (+60 % ab Stufe 20, +100 % ab Stufe 60 – Stufen in `content/riding.json`), Sammlung, Bots reiten mit
 - [x] Gilden mit Rängen und Gildenchat, Freundesliste, Ignorieren, Melden, KI-Freundesliste
 - [x] Gruppenfinder mit KI-Modi, Bereitschaftscheck, Abstimmung, Rollenwahl, Untergruppen, Ersatz ohne Bosskampf-Unterbrechung
 - [x] Instanz-IDs, Bindungen, Schlachtzugsperren, Zurücksetzen, Wiederverbindung
@@ -301,7 +301,29 @@ Auf Wunsch zunächst nur bis Stufe 20; die Stufen 21–60 folgen später.
 
 **Nur kompiliergeprüft** (Unity): Erfolgsliste blendet unerreichbare Erfolge aus.
 
+**Reiten ab Stufe 20** (`MountTests`, `LevelCapTests`):
+- Reitstufen kommen aus `content/riding.json` statt aus dem Code: Lehrling (+60 %) ab Stufe 20 für 1 Gold, Experte (+100 %) ab Stufe 60.
+- Die Fraktionsreittiere kosten 2 Gold. Der Content-Check prüft, dass jedes Reittier eine passende Reitstufe hat.
+- Neue Stallmeister in Burg Weidenwacht und Zharas Rast. Bots lernen das Reiten nach denselben Daten.
+
+**Endgame auf Stufe 20** (`EndgameTests`):
+- **Heroische Wurzelkrypta:**
+  - Eigene Instanz ab Stufe 20, betreten über den tiefen Weg an den Rissen der neuen Regionen. Die Mindeststufe prüft der Server beim Zonenwechsel.
+  - Gegner Stufe 20, Bosse Stufe 21, mehr Leben und Schaden. Die Bosse beschwören heroische Adds.
+  - Neue seltene Beute: neun Gegenstände der Stufe 26.
+  - Tägliche Sperre: Besiegte Bosse bleiben bis 05:00 UTC tot, auch über das Zurücksetzen und den Verfall leerer Instanzen hinweg. Schlachtzüge nutzen denselben Mechanismus.
+  - In der Gruppensuche als „Heroischer Dungeon“. Die Abstimmung steht in `docs/KI-MITSPIELER.md`.
+- **Tagesquests:** je Region vier, darunter „Das schwarze Herz“ (heroischer Morrak).
+  - Freigeschaltet nach dem Abschluss der Region.
+  - Belohnung: Gold (auf Stufe 20 statt EP) und Ruf.
+  - Der tägliche Stand wird gespeichert (`world_state`).
+- **Kosmetische Rufbelohnungen:**
+  - Rüstmeister in beiden Siedlungen. Je zwei Reittiere: eines ab „Wohlwollend“, eines ab „Respektvoll“. Sie sind nicht schneller als gekaufte Reittiere.
+  - Titel für „Wohlwollend“ und „Ehrfürchtig“ sowie für den heroischen Morrak.
+  - Die Rufanforderung gilt beim Kauf und beim Lernen der Zügel.
+
 **Grenzen:**
-- Reiten beginnt weiterhin mit Stufe 40 und ist damit derzeit nicht erreichbar.
+- Ohne eigenen Platz für Wappenröcke gibt es als kosmetische Belohnung bisher nur Reittiere und Titel.
+- Die heroische Abstimmung beruht auf Simulationen mit KI-Gruppen, nicht auf echten Spielergruppen.
 - Musik und Umgebungsklang der neuen Regionen erzeugt der Client wie überall prozedural aus der ID; eigens komponierte Stücke gibt es nicht.
 - Die neuen Regionen sind nur über Tests und den Prüflauf geprüft, nicht in einer langen Spielsitzung.

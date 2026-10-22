@@ -20,13 +20,14 @@ namespace EternalRealms.Tests
         [Fact]
         public void RidingRequiresLevelSkillAndGold()
         {
-            var (t, p, stable) = Rider(39);
-            Assert.NotNull(t.World.Mounts.LearnRiding(p, stable.Id)); // zu niedrig
-            t.World.Progression.LevelUp(p);
-            Assert.NotNull(t.World.Mounts.LearnRiding(p, stable.Id)); // kein Geld
+            var (t, p, stable) = Rider(19);
             t.World.Economy.Credit(p, 1_000_000, "test");
+            Assert.Equal("Reiten (Lehrling) erfordert Stufe 20.", t.World.Mounts.LearnRiding(p, stable.Id));
+            t.World.Progression.LevelUp(p);
+            long before = p.Money;
             Assert.Null(t.World.Mounts.LearnRiding(p, stable.Id));
             Assert.Equal(75, p.Data.RidingSkill);
+            Assert.Equal(t.World.Content.RidingRanks[0].Cost, before - p.Money);
             Assert.NotNull(t.World.Mounts.LearnRiding(p, stable.Id)); // Experte erst ab 60
 
             Assert.Null(t.World.Interactions.Buy(p, stable.Id, "item_mount_grey_steed", 1));

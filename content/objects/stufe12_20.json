@@ -70,6 +70,18 @@
   "interactTime": 0.5
  },
  {
+  "id": "obj_crypt_heroic_wm",
+  "name": "Tiefer Weg in die Wurzelkrypta (heroisch, ab Stufe 20)",
+  "model": "portal_roots_dark",
+  "teleportZone": "dungeon_wurzelkrypta_heroisch",
+  "teleportPosition": [
+   50,
+   0,
+   50
+  ],
+  "interactTime": 0.5
+ },
+ {
   "id": "obj_rs_sack",
   "name": "Gestohlenes Wasserfass",
   "model": "crate",
@@ -132,6 +144,18 @@
   "name": "Eingang der Wurzelkrypta",
   "model": "portal_roots",
   "teleportZone": "dungeon_wurzelkrypta",
+  "teleportPosition": [
+   50,
+   0,
+   50
+  ],
+  "interactTime": 0.5
+ },
+ {
+  "id": "obj_crypt_heroic_rs",
+  "name": "Tiefer Weg in die Wurzelkrypta (heroisch, ab Stufe 20)",
+  "model": "portal_roots_dark",
+  "teleportZone": "dungeon_wurzelkrypta_heroisch",
   "teleportPosition": [
    50,
    0,

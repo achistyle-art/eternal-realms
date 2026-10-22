@@ -9,7 +9,7 @@ namespace EternalRealms.Server.Systems
     /// <summary>
     /// Instanzen (Kapitel 10/11): eindeutige IDs, Bindungen, Schlachtzugsperren mit festem Reset, Zurücksetzen von
     /// Dungeons durch den Anführer, höchstens 10 neue Instanzen pro Stunde und Charakter, Wiederverbindung in dieselbe
-    /// Instanz. Besiegte Bosse stehen in den Bindungen der Charaktere – eine Schlachtzugsperre übersteht so auch einen
+    /// Instanz. Heroische Dungeons sperren wie Schlachtzüge, aber täglich. Besiegte Bosse stehen in den Bindungen der Charaktere – eine Schlachtzugsperre übersteht so auch einen
     /// Serverneustart.
     /// </summary>
     public sealed class InstanceSystem
@@ -57,7 +57,7 @@ namespace EternalRealms.Server.Systems
             if (explicitId != 0 && _byId.TryGetValue(explicitId, out var exact)) return exact;
             var bind = ValidBind(p, def);
             long groupId = 0;
-            if (p.Group != null && p.Group.InstanceIds.TryGetValue(def.Id, out var gid) && (_byId.ContainsKey(gid) || def.IsRaid)) groupId = gid;
+            if (p.Group != null && p.Group.InstanceIds.TryGetValue(def.Id, out var gid) && (_byId.ContainsKey(gid) || def.HasLockout)) groupId = gid;
             else if (p.Group == null && _personal.TryGetValue((p.Data.Id, def.Id), out var pid) && _byId.ContainsKey(pid)) groupId = pid;
             // Der Anführer bestimmt die Instanz der Gruppe; Gebundene dürfen nur in ihre eigene.
             if (bind != null && groupId != 0 && bind.InstanceId != groupId)
@@ -98,7 +98,7 @@ namespace EternalRealms.Server.Systems
             var z = boss.Zone;
             if (z == null || !z.IsInstance || z.InstanceId == 0) return;
             z.KilledBosses.Add(boss.Template.Id);
-            if (z.Def.IsRaid && z.LockoutUntil == null) z.LockoutUntil = NextReset(z.Def.LockoutDays > 0 ? z.Def.LockoutDays : 7, DateTime.UtcNow);
+            if (z.Def.HasLockout && z.LockoutUntil == null) z.LockoutUntil = NextReset(z.Def.LockoutDays > 0 ? z.Def.LockoutDays : 7, DateTime.UtcNow);
             foreach (var p in z.Players.ToList())
             {
                 bool fresh = !p.Data.InstanceBinds.TryGetValue(z.Def.Id, out var b) || b.InstanceId != z.InstanceId;
@@ -117,7 +117,7 @@ namespace EternalRealms.Server.Systems
                 }
         }
 
-        /// <summary>Anführer setzt die Dungeons der Gruppe zurück (nicht Schlachtzüge, nicht solange jemand drin ist).</summary>
+        /// <summary>Anführer setzt die Dungeons der Gruppe zurück (nicht Instanzen mit Sperre, nicht solange jemand drin ist).</summary>
         public string? Reset(Player p)
         {
             var g = p.Group;
@@ -127,7 +127,7 @@ namespace EternalRealms.Server.Systems
             int reset = 0;
             foreach (var (zoneId, id) in ids)
             {
-                if (!_w.Content.Zones.TryGetValue(zoneId, out var def) || def.IsRaid) continue;
+                if (!_w.Content.Zones.TryGetValue(zoneId, out var def) || def.HasLockout) continue;
                 if (_byId.TryGetValue(id, out var z))
                 {
                     if (z.Players.Any(x => !x.IsBot)) { p.Notice($"{def.Name} kann nicht zurückgesetzt werden – es sind noch Spieler darin.", true); continue; }

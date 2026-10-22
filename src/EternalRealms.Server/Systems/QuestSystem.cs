@@ -20,7 +20,11 @@ namespace EternalRealms.Server.Systems
 
         public string? CanAccept(Player p, QuestDef q)
         {
-            if (p.Data.CompletedQuests.Contains(q.Id)) return "Bereits abgeschlossen.";
+            if (q.Daily)
+            {
+                if (p.Data.DailyQuests.TryGetValue(q.Id, out var until) && until > DateTime.UtcNow) return "Diese Aufgabe gibt es erst morgen wieder.";
+            }
+            else if (p.Data.CompletedQuests.Contains(q.Id)) return "Bereits abgeschlossen.";
             if (p.Data.Quests.ContainsKey(q.Id)) return "Bereits angenommen.";
             if (q.Faction != Faction.None && q.Faction != p.Faction) return "Diese Quest ist nicht für Eure Fraktion.";
             if (q.Class != CharClass.None && q.Class != p.Class) return "Diese Quest ist nicht für Eure Klasse.";
@@ -103,7 +107,12 @@ namespace EternalRealms.Server.Systems
                 if (q.Objectives[i].Type == ObjectiveType.Collect) p.RemoveItem(q.Objectives[i].Target, q.Objectives[i].Count);
             foreach (var it in q.ProvidedItems) p.RemoveItem(it.Item, p.CountItem(it.Item));
             p.Data.Quests.Remove(q.Id);
-            p.Data.CompletedQuests.Add(q.Id);
+            if (q.Daily)
+            {
+                foreach (var old in p.Data.DailyQuests.Where(kv => kv.Value <= DateTime.UtcNow).Select(kv => kv.Key).ToList()) p.Data.DailyQuests.Remove(old);
+                p.Data.DailyQuests[q.Id] = InstanceSystem.NextReset(1, DateTime.UtcNow);
+            }
+            else p.Data.CompletedQuests.Add(q.Id);
             _w.ReportProgress(p, ProgressEvent.CompleteQuest, q.Id);
 
             foreach (var it in q.RewardItems) p.AddItem(it.Item, it.Count);

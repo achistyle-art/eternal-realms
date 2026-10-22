@@ -1,0 +1,16 @@
+[
+ {
+  "skill": 75,
+  "name": "Reiten (Lehrling)",
+  "level": 20,
+  "cost": 10000,
+  "speed": 60
+ },
+ {
+  "skill": 150,
+  "name": "Reiten (Experte)",
+  "level": 60,
+  "cost": 2000000,
+  "speed": 100
+ }
+]

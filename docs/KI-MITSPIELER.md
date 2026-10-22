@@ -200,6 +200,17 @@ Wie zuverlässig Bots die Mechaniken meistern, hängt von der Schwierigkeitsstuf
 - Moderkeim als erster Boss bleibt nachsichtig.
 - Elvaines Heilung wird auch von Anfängern meist unterbrochen, weil Magier und Schurke beide unterbrechen können.
 
+**Heroisch (Stufe 20)** – `EndgameTests.ExperiencedBotsBeatHeroicMorrakAtLevelTwenty`: Morrak auf Stufe 21 mit 1,4-fachem Leben und 1,25-fachem Schaden gegen eine Gruppe der Stufe 20.
+Die Gruppe trägt, was man vorher sammeln kann (Questbelohnungen, grüne Beute, Beute der normalen Krypta).
+
+| Gruppe | Ergebnis | Dauer | Tode |
+|---|---|---|---|
+| Erfahren, ausgerüstet (2 Kämpfe) | 2 Siege | 129 s / 151 s | je 2 |
+| Veteran, ausgerüstet (2 Kämpfe) | 2 Siege | 104 s / 144 s | 0 / 1 |
+| Erfahren, Startausrüstung | Niederlage | 144 s | 5 |
+
+Heroisch verlangt also Ausrüstung und gute Mitspieler – genau das ist der Zweck.
+
 ## Grundausrüstung
 
 Bots haben keine tausend handgefertigten Gegenstände. Deshalb tragen sie eine **virtuelle Grundausrüstung**, deren Werte etwa grüner Ausrüstung ihrer Stufe entsprechen (`BotGear`). Jeder echte Gegenstand, den ein Bot anlegt, ersetzt den virtuellen Anteil seines Platzes. Bots verbrauchen beim Rasten keine Nahrungsmittel.

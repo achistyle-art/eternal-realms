@@ -142,6 +142,8 @@ for m in _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file_
              req=m["requiredLevel"], buy=m.get("price", 0), ilvl=m["requiredLevel"])
     d["teachesMount"] = m["id"]
     if m.get("bindOnPickup"): d["bindOnPickup"] = True
+    if m.get("requiredReputation"):  # Rufbelohnung: nur mit genug Ansehen kauf- und lernbar
+        d["requiredReputation"], d["requiredReputationValue"] = m["requiredReputation"], m["requiredReputationValue"]
 
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

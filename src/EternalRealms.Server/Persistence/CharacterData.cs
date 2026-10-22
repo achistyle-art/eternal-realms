@@ -52,6 +52,8 @@ namespace EternalRealms.Server.Persistence
         public long CurrentInstanceId { get; set; }
         /// <summary>Zeitpunkte neu betretener Instanzen (Begrenzung je Stunde).</summary>
         public List<DateTime> RecentInstances { get; set; } = new();
+        /// <summary>Tagesquests: Quest-ID → wieder annehmbar ab (UTC).</summary>
+        public Dictionary<string, DateTime> DailyQuests { get; set; } = new();
         /// <summary>Berufe (Beruf-ID → Fortschritt).</summary>
         public Dictionary<string, ProfessionProgress> Professions { get; set; } = new();
         /// <summary>Clienteinstellungen (Tasten, Leisten, Fenster, Barrierefreiheit) als JSON; der Server prüft nur die Größe.</summary>

@@ -29,9 +29,10 @@ namespace EternalRealms.Server.Persistence
                 {
                     if (d.Quests.Remove(from, out var qp)) { qp.QuestId = to; d.Quests[to] = qp; r.Changes.Add($"Quest {from} → {to}"); }
                     if (d.CompletedQuests.Remove(from)) d.CompletedQuests.Add(to);
+                    if (d.DailyQuests.Remove(from, out var until)) d.DailyQuests[to] = until;
                 }
                 foreach (var q in m.RemoveQuests)
-                    if (d.Quests.Remove(q) | d.CompletedQuests.Remove(q)) r.Changes.Add($"Quest {q} entfernt");
+                    if (d.Quests.Remove(q) | d.CompletedQuests.Remove(q) | d.DailyQuests.Remove(q)) r.Changes.Add($"Quest {q} entfernt");
                 foreach (var (from, to) in m.RenameAbilities)
                     if (d.Abilities.Remove(from, out var rank))
                     {

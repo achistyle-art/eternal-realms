@@ -187,6 +187,7 @@ namespace EternalRealms.Server.Systems
             if (!npc.Template.VendorItems.Contains(itemId)) return "Das verkauft dieser Händler nicht.";
             count = Math.Clamp(count, 1, 200);
             var def = _w.Content.Items[itemId];
+            if (ReputationMissing(p, def) is string repErr) return repErr;
             long cost = (long)def.BuyPrice * count;
             if (p.Money < cost) return "Ihr habt nicht genug Geld.";
             if (p.SpaceFor(itemId) < count) return "Eure Taschen sind voll.";
@@ -194,6 +195,16 @@ namespace EternalRealms.Server.Systems
             p.AddItem(itemId, count);
             p.Send(p.BuildInventory());
             return null;
+        }
+
+        /// <summary>Rufanforderung eines Gegenstands (Rüstmeister); null = erfüllt.</summary>
+        public string? ReputationMissing(Player p, ItemDef def)
+        {
+            if (def.RequiredReputation == null) return null;
+            int have = p.Data.Reputation.GetValueOrDefault(def.RequiredReputation);
+            if (have >= def.RequiredReputationValue) return null;
+            var rep = _w.Content.Reputations[def.RequiredReputation];
+            return $"Benötigt „{ProgressionSystem.Standing(def.RequiredReputationValue)}“ bei {rep.Name}.";
         }
 
         public string? Sell(Player p, int npcId, int bagIndex)

@@ -334,6 +334,24 @@
     "facing": 0.0
    },
    {
+    "npc": "npc_wm_stable",
+    "position": [
+     460,
+     0,
+     500
+    ],
+    "facing": 0.0
+   },
+   {
+    "npc": "npc_wm_qm",
+    "position": [
+     475,
+     0,
+     485
+    ],
+    "facing": 0.0
+   },
+   {
     "npc": "npc_wm_flight",
     "position": [
      540,
@@ -393,6 +411,17 @@
     "object": "obj_crypt_entrance_wm",
     "position": [
      170,
+     0,
+     150
+    ],
+    "count": 1,
+    "radius": 0,
+    "respawnSeconds": 45
+   },
+   {
+    "object": "obj_crypt_heroic_wm",
+    "position": [
+     184,
      0,
      150
     ],

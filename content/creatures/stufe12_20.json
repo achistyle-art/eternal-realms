@@ -135,6 +135,39 @@
   ]
  },
  {
+  "id": "npc_wm_stable",
+  "name": "Stallmeisterin Hanna Hufeisen",
+  "title": "Stallmeisterei",
+  "faction": "Sonnenbuendnis",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Ab Stufe 20 bringe ich Euch das Reiten bei. Pferde, Widder, Hirsche – alles da.",
+  "vendorItems": [
+   "item_mount_grey_steed",
+   "item_mount_chestnut_steed",
+   "item_mount_mountain_ram",
+   "item_mount_moon_stag",
+   "item_mount_swift_white_steed"
+  ]
+ },
+ {
+  "id": "npc_wm_qm",
+  "name": "Rüstmeisterin Gesa Bannerträger",
+  "title": "Rüstmeisterin der Weidenwacht",
+  "faction": "Sonnenbuendnis",
+  "roles": "Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Wer der Westmark treu dient, reitet unter ihrem Banner. Mit genug Ansehen verkaufe ich Euch die Reittiere der Burg.",
+  "vendorItems": [
+   "item_mount_weidenwacht_charger",
+   "item_mount_westmark_ram"
+  ]
+ },
+ {
   "id": "npc_wm_flight",
   "name": "Greifenwärter Lutz",
   "title": "Flugmeister",
@@ -1552,6 +1585,39 @@
    "item_vendor_mail_wrist",
    "item_vendor_mail_shoulders",
    "item_vendor_mail_head"
+  ]
+ },
+ {
+  "id": "npc_rs_stable",
+  "name": "Stallmeister Urgash",
+  "title": "Stallmeisterei",
+  "faction": "Schattenpakt",
+  "roles": "RidingTrainer, Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Ab Stufe 20 lehre ich dich das Reiten. Wölfe, Echsen, Schreiter – such dir eins aus.",
+  "vendorItems": [
+   "item_mount_dune_wolf",
+   "item_mount_bone_mare",
+   "item_mount_plains_strider",
+   "item_mount_marsh_raptor",
+   "item_mount_swift_war_wolf"
+  ]
+ },
+ {
+  "id": "npc_rs_qm",
+  "name": "Rüstmeister Haddur",
+  "title": "Rüstmeister von Zharas Rast",
+  "faction": "Schattenpakt",
+  "roles": "Vendor",
+  "minLevel": 25,
+  "maxLevel": 25,
+  "model": "npc",
+  "gossip": "Wer der Rast treu dient, bekommt die besten Tiere der Karawanen. Aber erst, wenn Zhara dir vertraut.",
+  "vendorItems": [
+   "item_mount_zharas_lizard",
+   "item_mount_rotsand_strider"
   ]
  },
  {

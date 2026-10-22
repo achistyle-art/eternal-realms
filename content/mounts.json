@@ -5,12 +5,12 @@
   "description": "Ein treues Ross aus den Ställen von Lindenfurt.",
   "faction": "Sonnenbuendnis",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "horse_grey",
   "item": "item_mount_grey_steed",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_chestnut_steed",
@@ -18,12 +18,12 @@
   "description": "Flink und gutmütig.",
   "faction": "Sonnenbuendnis",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "horse_chestnut",
   "item": "item_mount_chestnut_steed",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_mountain_ram",
@@ -31,12 +31,12 @@
   "description": "Die Felsgeborenen schwören auf ihre Widder.",
   "faction": "Sonnenbuendnis",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "ram_brown",
   "item": "item_mount_mountain_ram",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_moon_stag",
@@ -44,12 +44,12 @@
   "description": "Der Begleiter der Elarii-Waldläufer.",
   "faction": "Sonnenbuendnis",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "stag_silver",
   "item": "item_mount_moon_stag",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_dune_wolf",
@@ -57,12 +57,12 @@
   "description": "Grakar-Krieger reiten auf diesen zähen Wölfen.",
   "faction": "Schattenpakt",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "wolf_sand",
   "item": "item_mount_dune_wolf",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_bone_mare",
@@ -70,12 +70,12 @@
   "description": "Ein Ross, das weder Hunger noch Müdigkeit kennt.",
   "faction": "Schattenpakt",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "horse_bone",
   "item": "item_mount_bone_mare",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_plains_strider",
@@ -83,12 +83,12 @@
   "description": "Die Laufvögel des Hornvolks.",
   "faction": "Schattenpakt",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "strider_tan",
   "item": "item_mount_plains_strider",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_marsh_raptor",
@@ -96,12 +96,12 @@
   "description": "Schnell, wendig und bissig.",
   "faction": "Schattenpakt",
   "speed": 60,
-  "requiredLevel": 40,
+  "requiredLevel": 20,
   "quality": "Uncommon",
   "source": "vendor",
   "model": "raptor_green",
   "item": "item_mount_marsh_raptor",
-  "price": 350000
+  "price": 20000
  },
  {
   "id": "mount_swift_white_steed",
@@ -154,5 +154,69 @@
   "model": "drake_dawn",
   "item": "item_mount_dawn_drake",
   "bindOnPickup": true
+ },
+ {
+  "id": "mount_weidenwacht_charger",
+  "name": "Bannerross der Weidenwacht",
+  "description": "Trägt die blau-goldene Schabracke der Grenzburg.",
+  "faction": "Sonnenbuendnis",
+  "speed": 60,
+  "requiredLevel": 20,
+  "quality": "Rare",
+  "source": "reputation",
+  "model": "horse_banner_blue",
+  "item": "item_mount_weidenwacht_charger",
+  "price": 15000,
+  "bindOnPickup": true,
+  "requiredReputation": "rep_weidenwacht",
+  "requiredReputationValue": 9000
+ },
+ {
+  "id": "mount_westmark_ram",
+  "name": "Erntewidder der Westmark",
+  "description": "Mit Ährenkranz – das Reittier der Erntefeste.",
+  "faction": "Sonnenbuendnis",
+  "speed": 60,
+  "requiredLevel": 20,
+  "quality": "Epic",
+  "source": "reputation",
+  "model": "ram_harvest",
+  "item": "item_mount_westmark_ram",
+  "price": 30000,
+  "bindOnPickup": true,
+  "requiredReputation": "rep_weidenwacht",
+  "requiredReputationValue": 21000
+ },
+ {
+  "id": "mount_zharas_lizard",
+  "name": "Lastechse von Zharas Rast",
+  "description": "Ruhig, ausdauernd und mit bunten Karawanentüchern behängt.",
+  "faction": "Schattenpakt",
+  "speed": 60,
+  "requiredLevel": 20,
+  "quality": "Rare",
+  "source": "reputation",
+  "model": "lizard_caravan",
+  "item": "item_mount_zharas_lizard",
+  "price": 15000,
+  "bindOnPickup": true,
+  "requiredReputation": "rep_zharas_rast",
+  "requiredReputationValue": 9000
+ },
+ {
+  "id": "mount_rotsand_strider",
+  "name": "Sonnenschreiter der Rotsandwüste",
+  "description": "Sein Gefieder glüht im Abendlicht wie roter Sand.",
+  "faction": "Schattenpakt",
+  "speed": 60,
+  "requiredLevel": 20,
+  "quality": "Epic",
+  "source": "reputation",
+  "model": "strider_sunset",
+  "item": "item_mount_rotsand_strider",
+  "price": 30000,
+  "bindOnPickup": true,
+  "requiredReputation": "rep_zharas_rast",
+  "requiredReputationValue": 21000
  }
 ]

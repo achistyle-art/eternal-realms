@@ -6,22 +6,17 @@ using EternalRealms.Shared.Net;
 namespace EternalRealms.Server.Systems
 {
     /// <summary>
-    /// Reiten (Kapitel 18): Reitfertigkeit beim Stallmeister (Stufe 40: +60 %, Stufe 60: +100 %), Reittier-Sammlung,
+    /// Reiten (Kapitel 18): Reitfertigkeit beim Stallmeister (Stufen, Preise und Tempo aus <c>content/riding.json</c>), Reittier-Sammlung,
     /// Aufsitzen über eine Fähigkeit mit 1,5 s Zauberzeit (Aura „Beritten“). Schaden, eigene Angriffe oder Zauber,
     /// Instanzen und der Tod werfen ab. Fliegende Reittiere gibt es nicht.
     /// </summary>
     public sealed class MountSystem
     {
-        public static readonly (int Skill, int Level, long Cost, string Name)[] RidingRanks =
-        {
-            (75, 40, 200_000, "Reiten (Lehrling)"),
-            (150, 60, 2_000_000, "Reiten (Experte)"),
-        };
-
         private readonly GameWorld _w;
         public MountSystem(GameWorld world) { _w = world; }
 
-        public static int SkillFor(int speed) => speed >= 100 ? 150 : 75;
+        /// <summary>Nötige Reitfertigkeit für ein Tempo (int.MaxValue: keine Reitstufe erlaubt es).</summary>
+        public int SkillFor(int speed) => _w.Content.RidingRankFor(speed)?.Skill ?? int.MaxValue;
 
         public S_MountJournal BuildJournal(Player p) => new()
         {
@@ -31,8 +26,8 @@ namespace EternalRealms.Server.Systems
         public string? LearnRiding(Player p, int npcId)
         {
             if (_w.Interactions.NpcWithRole(p, npcId, NpcRole.RidingTrainer) == null) return "Kein Stallmeister in der Nähe.";
-            var next = RidingRanks.FirstOrDefault(r => r.Skill > p.Data.RidingSkill);
-            if (next.Skill == 0) return "Ihr beherrscht das Reiten bereits meisterhaft.";
+            var next = _w.Content.RidingRanks.FirstOrDefault(r => r.Skill > p.Data.RidingSkill);
+            if (next == null) return "Ihr beherrscht das Reiten bereits meisterhaft.";
             if (p.Level < next.Level) return $"{next.Name} erfordert Stufe {next.Level}.";
             if (!_w.Economy.Debit(p, next.Cost, "riding", next.Name)) return $"{next.Name} kostet {LootSystem.Money(next.Cost)}.";
             p.Data.RidingSkill = next.Skill;
@@ -51,8 +46,10 @@ namespace EternalRealms.Server.Systems
             if (item.TeachesMount == null || !_w.Content.Mounts.TryGetValue(item.TeachesMount, out var m)) return "Das ist kein Reittier.";
             if (m.Faction != Faction.None && m.Faction != p.Faction) return "Dieses Reittier gehört zur anderen Fraktion.";
             if (p.Data.Mounts.Contains(m.Id)) return "Dieses Reittier besitzt Ihr bereits.";
+            if (_w.Interactions.ReputationMissing(p, item) is string repErr) return repErr;
             if (p.Level < m.RequiredLevel) return $"Benötigt Stufe {m.RequiredLevel}.";
-            if (p.Data.RidingSkill < SkillFor(m.Speed)) return m.Speed >= 100 ? "Dafür braucht Ihr „Reiten (Experte)“." : "Lernt zuerst beim Stallmeister das Reiten.";
+            if (p.Data.RidingSkill < SkillFor(m.Speed))
+                return p.Data.RidingSkill == 0 ? "Lernt zuerst beim Stallmeister das Reiten." : $"Dafür braucht Ihr „{_w.Content.RidingRankFor(m.Speed)?.Name}“.";
             if (--stack.Count <= 0) p.Data.Bag[bagIndex] = null;
             p.Data.Mounts.Add(m.Id);
             _w.ReportProgress(p, ProgressEvent.MountsOwned, "", p.Data.Mounts.Count);
@@ -112,13 +109,13 @@ namespace EternalRealms.Server.Systems
         }
 
         /// <summary>
-        /// KI-Mitspieler lernen ab Stufe 40 das Reiten, sobald sie es sich leisten können, und kaufen das
+        /// KI-Mitspieler lernen das Reiten ab der Stufe aus <c>riding.json</c>, sobald sie es sich leisten können, und kaufen das
         /// Fraktionsreittier ihres Volkes – ohne Abkürzung über virtuelle Gegenstände.
         /// </summary>
         public void BotProgress(Player bot)
         {
             if (!bot.IsBot) return;
-            foreach (var r in RidingRanks)
+            foreach (var r in _w.Content.RidingRanks)
             {
                 if (bot.Data.RidingSkill >= r.Skill || bot.Level < r.Level) continue;
                 if (!_w.Economy.Debit(bot, r.Cost, "riding", r.Name)) return;

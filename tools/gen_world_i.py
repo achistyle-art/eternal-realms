@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
-Block I (Kapitel 64–66): Inhalte für Stufe 12–20 – Westmark (Sonnenbündnis) und Rotsandwüste (Schattenpakt).
+Block I (Kapitel 64–68): Inhalte für Stufe 12–20 – Westmark (Sonnenbündnis) und Rotsandwüste (Schattenpakt) –
+und das Endgame auf Stufe 20: heroische Wurzelkrypta (tägliche Sperre), Tagesquests, Rüstmeister mit kosmetischen Rufbelohnungen.
 
 Erzeugt deterministisch:
   content/zones/westmark.json, content/zones/rotsand.json      spielbare Regionen mit Siedlung, Gegnern, Objekten
   content/quests/westmark.json, content/quests/rotsand.json    Questreihen inkl. Wurzelkrypta-Quests
   content/creatures/stufe12_20.json                            NPCs und Gegner
   content/objects/stufe12_20.json                              Questobjekte, Wege zwischen den Regionen, Krypta-Eingang
-  content/items/stufe12_20.json                                Questgegenstände, Belohnungen, Plunder, grüne Beute
+  content/items/stufe12_20.json                                Questgegenstände, Belohnungen, Plunder, grüne Beute, heroische Beute
+  content/zones/wurzelkrypta_heroisch.json, content/creatures/heroisch.json   heroische Wurzelkrypta (aus der normalen abgeleitet)
   content/travel/nodes/stufe12_20.json, content/travel/paths/stufe12_20.json   Flugpunkte
 und passt an:
   content/zones/weltkarte.json        Platzhalter Westmark/Rotsandwüste entfernt (jetzt echte Zonen)
@@ -16,7 +18,7 @@ und passt an:
 
 Aufruf: python3 tools/gen_world_i.py   (mehrfach ausführbar, Ergebnis immer gleich)
 """
-import json, os, sys
+import copy, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import itemlib  # noqa: E402
@@ -49,7 +51,7 @@ def xp_to_next(level):
     return int(round(raw * factor / 100.0) * 100)
 
 
-QUEST_SHARE = {"normal": 0.19, "group": 0.32, "dungeon": 0.4, "talk": 0.06}
+QUEST_SHARE = {"normal": 0.19, "group": 0.32, "dungeon": 0.4, "talk": 0.06, "daily": 0.12}
 
 
 def quest_xp(level, kind):
@@ -76,9 +78,9 @@ def stat_split(ilvl, q, names):
     return {names[0]: a, names[1]: budget - a}
 
 
-def reward_set(prefix, suffix, level, slot, q="Uncommon", weapon_set=None):
+def reward_set(prefix, suffix, level, slot, q="Uncommon", weapon_set=None, req=None):
     """Gibt die drei Wahlbelohnungen einer Quest zurück; legt die Gegenstände an."""
-    ilvl, req = level + 2, max(1, level - 2)
+    ilvl, req = level + 2, req if req is not None else max(1, level - 2)
     out = []
     for i, (key, atype, names) in enumerate(ARCH):
         iid = f"{prefix}_{key}"
@@ -122,6 +124,8 @@ ZONES = [
             priest=("Schwester Adelind", "Lichtpriesterin von Sankt Elmar", "QuestGiver", P(515, 515), "Die Abtei war ein Ort des Lichts. Was dort jetzt betet, betet nicht zum Licht."),
             inn=("Wirt Bodo Schankherz", "Gasthaus Zur Weide", "Innkeeper, Vendor, QuestGiver", P(485, 520), "Ein Bett, ein Eintopf und die neuesten Gerüchte – alles im Preis inbegriffen."),
             smith=("Rüstmeister Gerwin", "Waffen und Rüstungen", "Vendor, Repair", P(520, 480), "Was die Sensenbrüder zerbeulen, biege ich wieder gerade."),
+            stable=("Stallmeisterin Hanna Hufeisen", "Stallmeisterei", "RidingTrainer, Vendor", P(460, 500), "Ab Stufe 20 bringe ich Euch das Reiten bei. Pferde, Widder, Hirsche – alles da."),
+            qm=("Rüstmeisterin Gesa Bannerträger", "Rüstmeisterin der Weidenwacht", "Vendor", P(475, 485), "Wer der Westmark treu dient, reitet unter ihrem Banner. Mit genug Ansehen verkaufe ich Euch die Reittiere der Burg."),
             flight=("Greifenwärter Lutz", "Flugmeister", "FlightMaster", P(540, 500), "Meine Greifen fliegen nach Morgentau und zur Sonnenfeste."),
             spirit=("Geisterheilerin", "", "SpiritHealer", P(470, 575), "Noch ist Eure Zeit nicht gekommen."),
             guard=("Wache von Weidenwacht", "", "Guard", None, None)),
@@ -243,6 +247,19 @@ ZONES = [
             ("wk_elvaine", "Die gefallene Dryade", 17, "ranger", "ranger", ["grauwald"], [("K", "boss_elvaine", 1, "Elvaine erlöst")], "dungeon",
              "Elvaine war die Hüterin des Grauwalds, bevor die Flut sie holte. Jetzt dient sie Morrak in der Krypta. Erlöst sie. Mehr Gnade bleibt uns nicht.",
              "Elvaine ist frei. Vielleicht wird eines Tages wieder eine Dryade über diesen Wald wachen.", {"slot": "Back", "suffix": "der Dryade", "quality": "Rare", "players": 5}),
+            # ---- Tagesquests (Stufe 20)
+            ("t_sensen", "Täglich: Sensen im Morgengrauen", 20, "mason", "mason", ["malachias"], [("K", "brandschatzer", 10, "Brandschatzer getötet"), ("K", "schuetze", 6, "Armbruster getötet")], "daily",
+             "Ruriks Leute sind zerschlagen, aber jede Nacht kommen neue Deserteure auf den Hügel. Haltet sie klein – heute wieder.",
+             "Wieder ein Tag, an dem die Mühlen mahlen. Danke.", {}),
+            ("t_wurzeln", "Täglich: Kranke Wurzeln", 20, "ranger", "ranger", ["malachias"], [("K", "kriecher", 10, "Wurzelkriecher getötet"), ("K", "baumhirt", 4, "Baumhirten erlöst")], "daily",
+             "Der Riss blutet weiter, auch ohne Malachias. Jeden Tag kriechen neue Wurzeln heraus. Drängt sie zurück.",
+             "Der Wald atmet heute ein wenig freier.", {}),
+            ("t_abtei", "Täglich: Wache über Sankt Elmar", 20, "priest", "priest", ["malachias"], [("K", "geweihter", 8, "Geweihte getötet"), ("K", "hexer", 4, "Hexer getötet")], "daily",
+             "Malachias ist tot, doch seine Geweihten beten weiter in den Ruinen. Solange sie das tun, kann die Flut zurückkehren.",
+             "Ihr haltet das Licht in Sankt Elmar am Leben.", {}),
+            ("t_heroisch", "Täglich: Das schwarze Herz", 20, "priest", "priest", ["malachias"], [("K", "hboss_morrak", 1, "Morrak (heroisch) besiegt")], "daily",
+             "Unter dem Wurzelriss gibt es einen tieferen Weg in die Krypta. Dort ist Morrak stärker, als Ihr ihn kennt – und er wächst jeden Tag nach. Sammelt die Besten, die Ihr finden könnt.",
+             "Ihr seid in die Tiefe gestiegen und zurückgekehrt. Die Hüter der Wurzeln werden davon hören.", {"players": 5, "rep": 350, "category": "Dungeon"}),
         ]),
     dict(
         key="rs", id="zone_rotsand", name="Rotsandwüste", faction=SP, continent="Kharvath", biome="Wüste",
@@ -270,6 +287,8 @@ ZONES = [
             priest=("Seher Rakhim", "Hüter des Sonnenwissens", "QuestGiver", P(515, 515), "Der Tempel der Versunkenen Sonne war heilig. Jetzt ist er hohl."),
             inn=("Wirtin Shazra", "Rasthaus Zum Kühlen Krug", "Innkeeper, Vendor, QuestGiver", P(485, 520), "Wasser, Schatten und ein weiches Lager. Mehr braucht niemand in der Wüste."),
             smith=("Waffenschmied Grothak", "Waffen und Rüstungen", "Vendor, Repair", P(520, 480), "Sand frisst jede Klinge. Ich mache sie wieder scharf."),
+            stable=("Stallmeister Urgash", "Stallmeisterei", "RidingTrainer, Vendor", P(460, 500), "Ab Stufe 20 lehre ich dich das Reiten. Wölfe, Echsen, Schreiter – such dir eins aus."),
+            qm=("Rüstmeister Haddur", "Rüstmeister von Zharas Rast", "Vendor", P(475, 485), "Wer der Rast treu dient, bekommt die besten Tiere der Karawanen. Aber erst, wenn Zhara dir vertraut."),
             flight=("Windreiterin Kesra", "Flugmeisterin", "FlightMaster", P(540, 500), "Meine Windreiter fliegen zur Oase Zharim und nach Kharzul."),
             spirit=("Geisterheiler", "", "SpiritHealer", P(470, 575), "Die Wüste hat dich noch nicht verschluckt. Geh zurück."),
             guard=("Wache von Zharas Rast", "", "Guard", None, None)),
@@ -390,8 +409,70 @@ ZONES = [
             ("wk_elvaine", "Die gefallene Dryade", 17, "ranger", "ranger", ["graeber"], [("K", "boss_elvaine", 1, "Elvaine erlöst")], "dungeon",
              "Elvaine war einst eine Hüterin des Lebens. Jetzt dient sie Morrak in der Krypta. Erlöse sie.",
              "Ihr Geist ist frei. Die Toten sagen, sie habe gelächelt.", {"slot": "Back", "suffix": "der Dryade", "quality": "Rare", "players": 5}),
+            # ---- Tagesquests (Stufe 20)
+            ("t_klippen", "Täglich: Ruhe auf den Klippen", 20, "mason", "mason", ["nethra"], [("K", "raeuber", 10, "Dünenräuber getötet"), ("K", "schleuderer", 6, "Schleuderer getötet")], "daily",
+             "Mardra ist fort, aber die Klippen ziehen Gesindel an wie Wasser die Fliegen. Halte sie klein – heute wieder.",
+             "Heute kommen die Karawanen durch. Gut gemacht.", {}),
+            ("t_wurzeln", "Täglich: Dürre Wurzeln", 20, "ranger", "ranger", ["nethra"], [("K", "kriecher", 10, "Dürrwurzel-Kriecher getötet"), ("K", "wurm", 4, "Sandwürmer getötet")], "daily",
+             "Der Riss blutet weiter, und die Würmer fliehen weiter aus der Tiefe. Dräng beide zurück.",
+             "Die Toten flüstern heute leiser.", {}),
+            ("t_tempel", "Täglich: Wache im Tempel", 20, "priest", "priest", ["nethra"], [("K", "geweihter", 8, "Geweihte getötet"), ("K", "seherin", 4, "Seherinnen getötet")], "daily",
+             "Nethra ist gefallen, doch ihre Anhänger beten weiter im Tempel. Solange sie das tun, kann die Flut zurückkehren.",
+             "Die Sonne steht heute ein wenig heller über dem Tempel.", {}),
+            ("t_heroisch", "Täglich: Das schwarze Herz", 20, "priest", "priest", ["nethra"], [("K", "hboss_morrak", 1, "Morrak (heroisch) besiegt")], "daily",
+             "Unter dem Dürrwurzelriss führt ein tieferer Weg in die Krypta. Dort ist Morrak stärker, als du ihn kennst – und er wächst jeden Tag nach. Nimm die Besten mit, die du finden kannst.",
+             "Du bist in die Tiefe gestiegen und zurückgekehrt. Die Hüter der Wurzeln werden davon hören.", {"players": 5, "rep": 350, "category": "Dungeon"}),
         ]),
 ]
+
+
+HEROIC = "dungeon_wurzelkrypta_heroisch"
+# Abstimmung (EndgameTests): Gegner auf Stufe 20, Bosse 21 – also über der Stufenobergrenze –, dazu mehr Leben und Schaden
+HEROIC_LEVEL, HEROIC_HEALTH, HEROIC_DAMAGE = 20, 1.4, 1.25
+MOUNTS = load("mounts.json")
+
+# Heroische Beute: je Boss drei Gegenstände (Stärke, Beweglichkeit, Intelligenz) der Gegenstandsstufe 26
+HEROIC_LOOT = {"boss_moderkeim": ("Shoulders", "der Sporentiefe", None), "boss_elvaine": ("Legs", "der Dryadentränen", None),
+               "boss_morrak": (None, "des Wurzelfürsten", 0)}
+
+
+def heroic_id(cid):
+    return "h" + cid  # boss_x → hboss_x, dmob_x → hdmob_x
+
+
+def build_heroic():
+    """Leitet die heroische Wurzelkrypta aus der normalen ab: Gegner Stufe 21–22, mehr Leben und Schaden, eigene Beute, tägliche Sperre."""
+    base = load("zones/wurzelkrypta.json")[0]
+    mobs = {c["id"]: c for c in load("creatures/mobs.json")}
+    wanted = sorted({s["creature"] for s in base["spawns"]})
+    adds = sorted({a["creature"] for cid in wanted for ph in mobs[cid].get("phases", []) for a in ph.get("summonAdds", [])})
+    out = []
+    for cid in sorted(set(wanted) | set(adds)):
+        c = copy.deepcopy(mobs[cid])
+        c["id"] = heroic_id(cid)
+        lvl = HEROIC_LEVEL + (1 if c.get("boss") else 0)
+        c["minLevel"] = c["maxLevel"] = lvl
+        c["healthMultiplier"] = round(c.get("healthMultiplier", 1) * HEROIC_HEALTH, 2)
+        c["damageMultiplier"] = round(c.get("damageMultiplier", 1) * HEROIC_DAMAGE, 2)
+        for ph in c.get("phases", []):
+            for a in ph.get("summonAdds", []):
+                a["creature"] = heroic_id(a["creature"])
+        c["loot"] = [l for l in c.get("loot", []) if "quest" not in l and not l["item"].startswith("item_wk_")]
+        if cid in HEROIC_LOOT:
+            slot, suffix, wset = HEROIC_LOOT[cid]
+            ids = reward_set(f"item_wkh_{cid[5:]}", suffix, 24, slot, "Rare", wset, req=20)
+            c["loot"] += [{"item": i["item"], "chance": 0.4, "min": 1, "max": 1} for i in ids]
+            c["moneyMin"], c["moneyMax"] = c.get("moneyMin", 0) * 2, c.get("moneyMax", 0) * 2
+        out.append(c)
+    z = copy.deepcopy(base)
+    z.update(id=HEROIC, name="Die Wurzelkrypta (heroisch)", minLevel=20, maxLevel=20, heroic=True, requiredLevel=20, lockoutDays=1,
+             description="Der tiefe Weg in die Krypta: Morrak und seine Diener sind stärker als je zuvor. Nur für Gruppen der Stufe 20 – besiegte Bosse kehren erst nach dem täglichen Reset zurück.")
+    for a in z["areas"]:
+        a["id"] = a["id"].replace("area_wk_", "area_wkh_")
+        a["discoveryXp"] = 0
+    for sp in z["spawns"]:
+        sp["creature"] = heroic_id(sp["creature"])
+    return z, out
 
 
 def junk_items(spec):
@@ -429,7 +510,7 @@ def build_zone(spec, creatures, objects, quests, nodes, paths):
         return spec["home_giver"] if key == "home" else f"npc_{k}_{key}"
 
     def mob_id(key):
-        if key.startswith(("boss_", "dmob_", "mob_")):
+        if key.startswith(("boss_", "dmob_", "mob_", "hboss_", "hdmob_")):
             return key
         if key in ("rare", "elite", "boss"):
             return f"mob_{k}_{spec[key][0]}"
@@ -451,6 +532,11 @@ def build_zone(spec, creatures, objects, quests, nodes, paths):
         if key == "inn":
             d["vendorItems"] = ["item_tough_jerky", "item_fresh_bread", "item_refreshing_water", "item_ice_cold_milk", "item_lesser_healing_potion", "item_bag_leather"]
             d["barks"] = ["Frisch aus dem Topf!", "Noch einen Krug?"]
+        if key == "stable":
+            src = "npc_mt_stablemaster" if fac == SB else "npc_as_stablemaster"
+            d["vendorItems"] = [n for n in load("creatures/npcs.json") if n["id"] == src][0]["vendorItems"]
+        if key == "qm":
+            d["vendorItems"] = [m["item"] for m in MOUNTS if m.get("requiredReputation") == rep]
         if key == "smith":
             d["vendorItems"] = [n for n in load("creatures/npcs.json") if n["id"] == "npc_mt_smith"][0]["vendorItems"]
         if key == "guard":
@@ -530,6 +616,10 @@ def build_zone(spec, creatures, objects, quests, nodes, paths):
                     "teleportPosition": P(hw[0] - 20, hw[2]), "requiredFaction": fac, "interactTime": 0.5})
     objects.append({"id": f"obj_crypt_entrance_{k}", "name": "Eingang der Wurzelkrypta", "model": "portal_roots", "teleportZone": "dungeon_wurzelkrypta",
                     "teleportPosition": P(50, 50), "interactTime": 0.5})
+    objects.append({"id": f"obj_crypt_heroic_{k}", "name": "Tiefer Weg in die Wurzelkrypta (heroisch, ab Stufe 20)", "model": "portal_roots_dark",
+                    "teleportZone": HEROIC, "teleportPosition": P(50, 50), "interactTime": 0.5})
+    ce = spec["crypt_entrance"]
+    zone_objects.append({"object": f"obj_crypt_heroic_{k}", "position": P(ce[0] + 14, ce[2]), "count": 1, "radius": 0, "respawnSeconds": 45})
     zone_objects.append({"object": f"obj_weg_{k}_heim", "position": P(arrival[0] - 30, arrival[2]), "count": 1, "radius": 0, "respawnSeconds": 0})
     zone_objects.append({"object": f"obj_crypt_entrance_{k}", "position": spec["crypt_entrance"], "count": 1, "radius": 0, "respawnSeconds": 45})
     hubc = center[hub]
@@ -567,15 +657,19 @@ def build_zone(spec, creatures, objects, quests, nodes, paths):
                 objectives.append({"type": "Talk" if t == "T" else "Deliver", "target": npc_id(o[1]), "count": 1, "description": o[2]})
                 otexts.append(o[2])
         category = opt.get("category", "Dungeon" if kind == "dungeon" else "Main" if giver in ("home", "main") or turnin == "main" else "Side")
-        q = {"id": qid(key), "title": title, "category": category, "zone": zid, "level": level, "minLevel": max(1, level - 2), "faction": fac, "class": "None",
+        daily = kind == "daily"
+        q = {"id": qid(key), "title": title, "category": category, "zone": zid, "level": level, "minLevel": level if daily else max(1, level - 2), "faction": fac, "class": "None",
              "giver": npc_id(giver), "turnIn": npc_id(turnin), "requires": [qid(r) for r in requires], "text": text,
              "objectivesText": "Ziele: " + ", ".join(otexts) + ".", "progressText": "Habt Ihr es schon erledigt?", "completionText": completion,
-             "objectives": objectives, "rewardXp": quest_xp(level, kind), "rewardMoney": int(level * level * (2.5 if kind != "talk" else 0.8)),
+             "objectives": objectives, "rewardXp": quest_xp(level, kind), "rewardMoney": int(level * level * (4 if kind != "talk" else 1.2)),
              "rewardItems": [], "rewardChoices": [], "providedItems": [{"item": qitem(opt["provided"]), "count": 1}] if "provided" in opt else [],
              "rewardReputation": [{"faction": rep, "amount": opt.get("rep", 75 if kind == "talk" else 250)}],
              "suggestedPlayers": opt.get("players", 1), "exclusiveWith": []}
-        if kind == "dungeon":
-            q["rewardReputation"].append({"faction": "rep_hueter_der_wurzeln", "amount": 250})
+        if daily:
+            q["daily"] = True
+            q["rewardMoney"] = 1500 if category != "Dungeon" else 5000
+        if kind == "dungeon" or (daily and category == "Dungeon"):
+            q["rewardReputation"].append({"faction": "rep_hueter_der_wurzeln", "amount": 500 if daily else 250})
         if "suffix" in opt:
             q_quality = opt.get("quality", "Uncommon")
             prefix = f"item_{k}_{key}"
@@ -601,6 +695,9 @@ def build_zone(spec, creatures, objects, quests, nodes, paths):
 def main():
     itemlib.items.clear()
     creatures, objects, nodes, paths = [], [], [], []
+    heroic_zone, heroic_creatures = build_heroic()
+    save("zones/wurzelkrypta_heroisch.json", [heroic_zone])
+    save("creatures/heroisch.json", heroic_creatures)
     for spec in ZONES:
         quests = []
         zone = build_zone(spec, creatures, objects, quests, nodes, paths)

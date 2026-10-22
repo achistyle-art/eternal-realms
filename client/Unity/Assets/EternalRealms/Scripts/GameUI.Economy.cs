@@ -254,7 +254,9 @@ namespace EternalRealms.Client
             var j = Client.MountJournal;
             var area = Window("Reittiere (J) – Aufsitzen mit Y", 420, 420);
             GUILayout.BeginArea(area);
-            string skill = j.RidingSkill >= 150 ? "Experte (+100 %)" : j.RidingSkill >= 75 ? "Lehrling (+60 %)" : "keine – beim Stallmeister ab Stufe 40";
+            var rank = Content.RidingRanks.LastOrDefault(r => r.Skill <= j.RidingSkill);
+            var first = Content.RidingRanks.FirstOrDefault();
+            string skill = rank != null ? $"{rank.Name} (+{rank.Speed} %)" : $"keine – beim Stallmeister ab Stufe {first?.Level}";
             GUILayout.Label($"Reitfertigkeit: {skill}", _wrap);
             if (j.Mounts.Count == 0) GUILayout.Label("<i>Noch keine Reittiere.</i>", _wrap);
             foreach (var id in j.Mounts)

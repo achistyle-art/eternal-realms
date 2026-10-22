@@ -66,3 +66,5 @@ Nicht spielbare Regionen sind bereits mit Stufenbereich, Biom, Wetter und Beschr
 **Rotsandwüste:** Spiegelbildlich im Westen von Kharvath: Schakale und Glutstachel-Skorpione bedrohen die Karawanen, Klippenfürstin Mardra führt die Dünenräuber. In den Königsgräbern erheben sich die Wächter, Sandwürmer fliehen aus der Tiefe vor dem Dürrwurzelriss. Hohepriesterin Nethra betet im Tempel der Versunkenen Sonne zur Flut.
 
 In beiden Regionen führt ein zweiter Eingang am Riss in die Wurzelkrypta (Questreihe: Moderkeim, Gruftschlurfer, Elvaine).
+
+**Auf Stufe 20:** Daneben öffnet sich der tiefe Weg in die heroische Krypta, wo Morrak jeden Tag nachwächst. Die Siedlungen vergeben Tagesquests gegen die Reste der Sensenbrüder, Dünenräuber und Kultisten. Wer ihnen lange dient, reitet ihre Bannerreittiere und trägt ihre Titel.

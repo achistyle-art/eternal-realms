@@ -1,5 +1,254 @@
 [
  {
+  "id": "item_wkh_elvaine_str",
+  "name": "Beinschienen der Dryadentränen",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Mail",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "armor": 121,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_elvaine_agi",
+  "name": "Beinlinge der Dryadentränen",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Leather",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "armor": 60,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_elvaine_int",
+  "name": "Hose der Dryadentränen",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Legs",
+  "armorType": "Cloth",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "armor": 30,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 7
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_moderkeim_str",
+  "name": "Schulterplatten der Sporentiefe",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Mail",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "armor": 101,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_moderkeim_agi",
+  "name": "Schulterstücke der Sporentiefe",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Leather",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "armor": 50,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_moderkeim_int",
+  "name": "Schulterumhang der Sporentiefe",
+  "description": "",
+  "quality": "Rare",
+  "category": "Armor",
+  "inventoryType": "Shoulders",
+  "armorType": "Cloth",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "armor": 25,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 7
+   }
+  ],
+  "maxDurability": 72,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_morrak_str",
+  "name": "Streitaxt des Wurzelfürsten",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Axe2H",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "minDamage": 74,
+  "maxDamage": 124,
+  "speed": 3.4,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Strength",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 90,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_morrak_agi",
+  "name": "Bogen des Wurzelfürsten",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "Ranged",
+  "weaponType": "Bow",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "minDamage": 43,
+  "maxDamage": 73,
+  "speed": 2.6,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Agility",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Stamina",
+    "value": 7
+   }
+  ],
+  "maxDurability": 90,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
+  "id": "item_wkh_morrak_int",
+  "name": "Stab des Wurzelfürsten",
+  "description": "",
+  "quality": "Rare",
+  "category": "Weapon",
+  "inventoryType": "TwoHand",
+  "weaponType": "Staff",
+  "itemLevel": 26,
+  "requiredLevel": 20,
+  "minDamage": 65,
+  "maxDamage": 109,
+  "speed": 3.0,
+  "modifiers": [
+   {
+    "type": "StatFlat",
+    "stat": "Intellect",
+    "value": 7
+   },
+   {
+    "type": "StatFlat",
+    "stat": "Spirit",
+    "value": 7
+   }
+  ],
+  "maxDurability": 90,
+  "sellPrice": 538,
+  "buyPrice": 2152
+ },
+ {
   "id": "item_q_wm_saatgut",
   "name": "Gerettetes Saatgut",
   "description": "Aus dem Kropf eines Feldwühlers – noch keimfähig.",

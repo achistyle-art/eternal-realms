@@ -67,7 +67,7 @@ namespace EternalRealms.Server.Systems
                 {
                     int size = Math.Max(5, z.MaxPlayers);
                     var (t, h) = size switch { <= 5 => (1, 1), <= 10 => (2, 3), <= 20 => (3, 5), _ => (5, 10) };
-                    list.Add(new Activity { Id = (z.IsRaid ? "raid:" : "dungeon:") + z.Id, Name = z.Name, Kind = z.IsRaid ? "Schlachtzug" : "Dungeon", Zone = z,
+                    list.Add(new Activity { Id = (z.IsRaid ? "raid:" : "dungeon:") + z.Id, Name = z.Name, Kind = z.IsRaid ? "Schlachtzug" : z.Heroic ? "Heroischer Dungeon" : "Dungeon", Zone = z,
                                             MinLevel = z.MinLevel, MaxLevel = z.MaxLevel, Size = size, Tanks = t, Healers = h, Dps = size - t - h });
                 }
                 else if (z.MaxLevel > 1)

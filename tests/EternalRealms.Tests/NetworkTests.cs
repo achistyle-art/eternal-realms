@@ -244,6 +244,8 @@ namespace EternalRealms.Tests
             back.ClientSettings = "{\"UiScale\":1.25}";
             back.Achievements["ach_thornmaw"] = new AchievementProgress { Counts = { 1 }, CompletedAt = DateTime.UtcNow };
             back.ActiveTitle = "Wurzelbrecher";
+            var dailyUntil = new DateTime(2030, 1, 2, 5, 0, 0, DateTimeKind.Utc);
+            back.DailyQuests["q_wm_t_sensen"] = dailyUntil;
             back.Tutorial = new TutorialState { Step = 4, Counter = 2 };
             back.Professions["mining"] = new ProfessionProgress { Skill = 42, MaxSkill = 75, Recipes = { "smelt_copper" } };
             foreach (var eq in back.Equipment.Values.Take(1)) eq.Enchant = "ench_wrist_0";
@@ -265,6 +267,7 @@ namespace EternalRealms.Tests
             Assert.Equal("{\"UiScale\":1.25}", again.ClientSettings);
             Assert.NotNull(again.Achievements["ach_thornmaw"].CompletedAt);
             Assert.Equal("Wurzelbrecher", again.ActiveTitle);
+            Assert.Equal(dailyUntil, again.DailyQuests["q_wm_t_sensen"].ToUniversalTime());
             Assert.Equal(4, again.Tutorial!.Step);
             Assert.Equal(42, again.Professions["mining"].Skill);
             Assert.Contains("smelt_copper", again.Professions["mining"].Recipes);

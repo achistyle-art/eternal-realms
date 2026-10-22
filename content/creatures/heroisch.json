@@ -1,0 +1,679 @@
+[
+ {
+  "id": "hboss_elvaine",
+  "name": "Schwester Elvaine die Verdorbene",
+  "minLevel": 21,
+  "maxLevel": 21,
+  "family": "Dryad",
+  "faction": "Hostile",
+  "model": "dryad",
+  "elite": true,
+  "boss": true,
+  "healthMultiplier": 2.94,
+  "damageMultiplier": 0.94,
+  "ranged": true,
+  "preferredRange": 20,
+  "powerType": "Mana",
+  "manaFactor": 5,
+  "scale": 1.3,
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Verderbnis",
+    "yell": "Der Wald hat euch nicht gerufen!",
+    "abilities": [
+     {
+      "ability": "mob_shadowbolt",
+      "interval": 3.5,
+      "initialDelay": 1,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_dark_mending",
+      "interval": 16,
+      "initialDelay": 10,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 0.85,
+      "mustInterrupt": true
+     },
+     {
+      "ability": "mob_shadow_ring",
+      "interval": 14,
+      "initialDelay": 6,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 6,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "Farthest",
+       "count": 1
+      },
+      "announce": "Ein Schattenkreis bildet sich um den Entferntesten!"
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.4,
+    "name": "Schrecken",
+    "yell": "Flieht, solange ihr noch könnt!",
+    "abilities": [
+     {
+      "ability": "mob_terrify",
+      "interval": 20,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_shadowbolt",
+      "interval": 3.5,
+      "initialDelay": 1,
+      "chance": 1.0,
+      "targetRule": "Random",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_dark_mending",
+      "interval": 16,
+      "initialDelay": 6,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 1.01,
+      "mustInterrupt": true
+     },
+     {
+      "ability": "mob_shadow_ring",
+      "interval": 12,
+      "initialDelay": 4,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 6,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "Farthest",
+       "count": 1
+      },
+      "announce": "Ein Schattenkreis bildet sich um den Entferntesten!"
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "hdmob_blighted_dryad",
+      "count": 1,
+      "priority": true
+     }
+    ]
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wkh_elvaine_str",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wkh_elvaine_agi",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wkh_elvaine_int",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 800,
+  "moneyMax": 1400,
+  "enrageAfter": 200
+ },
+ {
+  "id": "hboss_moderkeim",
+  "name": "Moderkeim",
+  "minLevel": 21,
+  "maxLevel": 21,
+  "family": "Fungus",
+  "faction": "Hostile",
+  "model": "fungus",
+  "elite": true,
+  "boss": true,
+  "healthMultiplier": 3.36,
+  "damageMultiplier": 1.0,
+  "scale": 1.8,
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Sporen",
+    "yell": "Ihr... riecht... nach Leben. Köstlich.",
+    "abilities": [
+     {
+      "ability": "mob_spore_burst",
+      "interval": 14,
+      "initialDelay": 6,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_spore_carpet",
+      "interval": 15,
+      "initialDelay": 8,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 5,
+       "warning": 2.5,
+       "duration": 8,
+       "tickInterval": 1,
+       "placement": "RandomPlayer",
+       "count": 2
+      },
+      "announce": "{boss} spuckt Sporenteppiche aus – raus da!"
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.5,
+    "name": "Brut",
+    "yell": "Wachst, meine Kinder!",
+    "abilities": [
+     {
+      "ability": "mob_spore_burst",
+      "interval": 12,
+      "initialDelay": 3,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_spore_carpet",
+      "interval": 12,
+      "initialDelay": 4,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 5,
+       "warning": 2.5,
+       "duration": 8,
+       "tickInterval": 1,
+       "placement": "RandomPlayer",
+       "count": 2
+      },
+      "announce": "{boss} spuckt Sporenteppiche aus – raus da!"
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "hdmob_sporeling",
+      "count": 3,
+      "priority": true
+     }
+    ]
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wkh_moderkeim_str",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wkh_moderkeim_agi",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wkh_moderkeim_int",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 600,
+  "moneyMax": 1200,
+  "enrageAfter": 180
+ },
+ {
+  "id": "hboss_morrak",
+  "name": "Wurzelfürst Morrak",
+  "minLevel": 21,
+  "maxLevel": 21,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "elite": true,
+  "boss": true,
+  "healthMultiplier": 3.64,
+  "damageMultiplier": 1.0,
+  "armorMultiplier": 1.3,
+  "scale": 2.2,
+  "phases": [
+   {
+    "healthBelow": 1.01,
+    "name": "Borke",
+    "yell": "Ihr wagt es, in mein Herz vorzudringen?",
+    "abilities": [
+     {
+      "ability": "mob_armor_crush",
+      "interval": 6,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_ground_slam",
+      "interval": 20,
+      "initialDelay": 10,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.6,
+    "name": "Würgende Wurzeln",
+    "yell": "Die Wurzeln halten euch fest – für immer!",
+    "abilities": [
+     {
+      "ability": "mob_armor_crush",
+      "interval": 6,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_root_eruption",
+      "interval": 16,
+      "initialDelay": 4,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 4,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "EachPlayer",
+       "count": 1
+      },
+      "announce": "Wurzeln brechen unter Euren Füßen hervor!"
+     }
+    ],
+    "summonAdds": [
+     {
+      "creature": "hdmob_root_crawler",
+      "count": 2,
+      "priority": true
+     }
+    ]
+   },
+   {
+    "healthBelow": 0.25,
+    "name": "Kernwut",
+    "yell": "WENN ICH FALLE, FALLT DER WALD MIT MIR!",
+    "abilities": [
+     {
+      "ability": "mob_enrage",
+      "interval": 600,
+      "initialDelay": 0,
+      "chance": 1.0,
+      "targetRule": "Self",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_ground_slam",
+      "interval": 15,
+      "initialDelay": 3,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01
+     },
+     {
+      "ability": "mob_root_eruption",
+      "interval": 12,
+      "initialDelay": 2,
+      "chance": 1.0,
+      "targetRule": "Current",
+      "healthBelow": 1.01,
+      "ground": {
+       "radius": 4,
+       "warning": 3,
+       "duration": 0,
+       "tickInterval": 1,
+       "placement": "EachPlayer",
+       "count": 1
+      },
+      "announce": "Wurzeln brechen unter Euren Füßen hervor!"
+     }
+    ]
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_wkh_morrak_str",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wkh_morrak_agi",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_wkh_morrak_int",
+    "chance": 0.4,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 1200,
+  "moneyMax": 2000,
+  "enrageAfter": 240
+ },
+ {
+  "id": "hdmob_blighted_dryad",
+  "name": "Verdorbene Dryade",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "family": "Dryad",
+  "faction": "Hostile",
+  "model": "dryad",
+  "elite": true,
+  "healthMultiplier": 0.84,
+  "damageMultiplier": 0.88,
+  "ranged": true,
+  "preferredRange": 25,
+  "powerType": "Mana",
+  "manaFactor": 2,
+  "callsForHelp": true,
+  "abilities": [
+   {
+    "ability": "mob_shadowbolt",
+    "interval": 4,
+    "initialDelay": 1,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   },
+   {
+    "ability": "mob_heal_ally",
+    "interval": 10,
+    "initialDelay": 5,
+    "chance": 1.0,
+    "targetRule": "LowestHealthAlly",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_moldy_root",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 25,
+  "moneyMax": 60
+ },
+ {
+  "id": "hdmob_crypt_shambler",
+  "name": "Gruftschlurfer",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "family": "Undead",
+  "faction": "Hostile",
+  "model": "undead",
+  "elite": true,
+  "healthMultiplier": 1.12,
+  "damageMultiplier": 1.0,
+  "callsForHelp": true,
+  "abilities": [
+   {
+    "ability": "mob_armor_crush",
+    "interval": 7,
+    "initialDelay": 3,
+    "chance": 1.0,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_tattered_cloth",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 25,
+  "moneyMax": 60
+ },
+ {
+  "id": "hdmob_root_crawler",
+  "name": "Wurzelkriecher",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "family": "Treant",
+  "faction": "Hostile",
+  "model": "treant",
+  "elite": true,
+  "healthMultiplier": 0.98,
+  "damageMultiplier": 1.0,
+  "abilities": [
+   {
+    "ability": "mob_root_grip",
+    "interval": 14,
+    "initialDelay": 6,
+    "chance": 0.6,
+    "targetRule": "Current",
+    "healthBelow": 1.01
+   }
+  ],
+  "loot": [
+   {
+    "item": "item_moldy_root",
+    "chance": 0.5,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_eule",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_baeren",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_leather_boots_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_cloth_gloves_adlers",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_mail_belt_affen",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_dagger_wolf",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_sword_dawn",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   },
+   {
+    "item": "item_green_wand_ember",
+    "chance": 0.02,
+    "min": 1,
+    "max": 1
+   }
+  ],
+  "moneyMin": 20,
+  "moneyMax": 50
+ },
+ {
+  "id": "hdmob_sporeling",
+  "name": "Sporenling",
+  "minLevel": 20,
+  "maxLevel": 20,
+  "family": "Fungus",
+  "faction": "Hostile",
+  "model": "fungus",
+  "healthMultiplier": 0.84,
+  "damageMultiplier": 0.75,
+  "aggroRadius": 40,
+  "loot": []
+ }
+]

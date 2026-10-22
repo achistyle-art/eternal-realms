@@ -477,6 +477,7 @@ namespace EternalRealms.Server.World
         public void Transfer(Player p, string zoneId, Vec3 pos, string? instanceKey = null)
         {
             if (!Content.Zones.TryGetValue(zoneId, out var def)) return;
+            if (p.Level < def.RequiredLevel) { p.Notice($"{def.Name} könnt Ihr erst ab Stufe {def.RequiredLevel} betreten.", true); return; }
             if (def.IsInstance && p.IsMounted) Mounts.Dismount(p);
             ZoneInstance target;
             if (def.IsInstance)

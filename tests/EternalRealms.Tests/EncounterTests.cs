@@ -34,7 +34,7 @@ namespace EternalRealms.Tests
         public static readonly (string Id, int Level)[] Bosses = { ("boss_moderkeim", 16), ("boss_elvaine", 17), ("boss_morrak", 18) };
 
         public static Outcome Run(string bossId, int level, BotDifficulty difficulty, int seed, bool humanDodges = true, double maxSeconds = 300,
-                                  Action<Outcome>? everySecond = null)
+                                  Action<Outcome>? everySecond = null, string dungeon = "dungeon_wurzelkrypta", Action<TestWorld, Player>? prepare = null)
         {
             var t = new TestWorld(seed: seed);
             var p = t.CreatePlayer(Race.Aldorer, CharClass.Warrior, level, new Vec3(870, 0, 805), name: "Probandin");
@@ -49,8 +49,9 @@ namespace EternalRealms.Tests
                 t.World.Groups.Join(p.Group!, b);
                 bots.Add(b);
             }
+            if (prepare != null) foreach (var m in bots.Prepend(p)) prepare(t, m); // z. B. Ausrüstung für heroische Kämpfe
             t.Run(2);
-            t.World.TeleportSpecial(p, "dungeon_wurzelkrypta", new Vec3(50, 0, 50));
+            t.World.TeleportSpecial(p, dungeon, new Vec3(50, 0, 50));
             t.Run(3);
             t.World.Chat.Handle(p, ChatChannel.Party, "Wir gehen in den Dungeon", "");
             t.Run(12);
