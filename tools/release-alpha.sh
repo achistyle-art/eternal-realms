@@ -12,9 +12,10 @@ version="${1:?Version angeben, z. B. alpha-1}"
 [[ "$version" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "Version nur aus Buchstaben, Ziffern, . _ -" >&2; exit 2; }
 root="$(cd "$(dirname "$0")/.." && pwd)"
 dist="${2:-$root/dist/$version}"
+mkdir -p "$dist"
+dist="$(cd "$dist" && pwd)" # absolut: gepackt wird aus einem Arbeitsordner heraus
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
-mkdir -p "$dist"
 server="${ER_ALPHA_SERVER:-}"
 if [ -n "$server" ] && ! [[ "$server" =~ ^[A-Za-z0-9.-]+(:[0-9]{1,5})?$ ]]; then echo "ER_ALPHA_SERVER ungültig: $server" >&2; exit 2; fi
 manifest="$(python3 -c 'import json,sys; m=json.load(open(sys.argv[1])); print(m.get("stage",""), m["version"])' "$root/content/manifest.json")"
