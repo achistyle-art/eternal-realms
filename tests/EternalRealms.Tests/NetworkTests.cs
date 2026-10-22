@@ -90,7 +90,8 @@ namespace EternalRealms.Tests
             Assert.True(server.Start()); // Port 0 = freier Port
             int port = server.Network.Port;
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
-            var loop = Task.Run(() => server.Run(cts.Token));
+            // Eigener Thread: Run blockiert, und unter Testlast käme ein ThreadPool-Thread zu spät (CI mit zwei Kernen).
+            var loop = Task.Factory.StartNew(() => server.Run(cts.Token), TaskCreationOptions.LongRunning);
 
             using var client = new GameClient();
             var received = new System.Collections.Concurrent.ConcurrentDictionary<string, int>();
@@ -143,7 +144,8 @@ namespace EternalRealms.Tests
             server.World.Bots.LoadOffline(Array.Empty<CharacterData>());
             Assert.True(server.Start());
             using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
-            var loop = Task.Run(() => server.Run(cts.Token));
+            // Eigener Thread: Run blockiert, und unter Testlast käme ein ThreadPool-Thread zu spät (CI mit zwei Kernen).
+            var loop = Task.Factory.StartNew(() => server.Run(cts.Token), TaskCreationOptions.LongRunning);
 
             using var client = new GameClient();
             bool? resumed = null;
@@ -176,19 +178,24 @@ namespace EternalRealms.Tests
         private static System.Collections.Concurrent.ConcurrentQueue<string>? _serverLog;
         private static System.Collections.Concurrent.ConcurrentDictionary<string, int>? _received;
 
-        private static async Task WaitFor(GameClient c, Func<bool> cond, string what)
+        /// <remarks>
+        /// Wartet synchron auf dem Testthread: Mit „await Task.Delay“ würde xUnit die Fortsetzung erst einplanen, wenn einer seiner
+        /// (so vielen wie Kerne) Arbeitsthreads frei ist – lange Simulationstests daneben ließen dann die Frist ohne ein einziges Poll verstreichen.
+        /// </remarks>
+        private static Task WaitFor(GameClient c, Func<bool> cond, string what)
         {
             // Zeitbasiert statt nach Schleifendurchläufen: unter paralleler Testlast braucht der Server manchmal länger.
             var until = DateTime.UtcNow.AddSeconds(20);
             while (DateTime.UtcNow < until)
             {
                 c.Poll();
-                if (cond()) return;
-                await Task.Delay(20);
+                if (cond()) return Task.CompletedTask;
+                Thread.Sleep(20);
             }
             Assert.Fail("Zeitüberschreitung: " + what + " – letzte Meldungen: " + string.Join(" | ", c.Notices.TakeLast(3)) +
                         " – Server: " + string.Join(" | ", (_serverLog ?? new()).TakeLast(5)) +
                         " – empfangen: " + string.Join(", ", (_received ?? new()).Select(kv => kv.Key + "×" + kv.Value)));
+            return Task.CompletedTask; // nicht erreichbar: Assert.Fail wirft
         }
     }
 

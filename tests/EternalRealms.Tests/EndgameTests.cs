@@ -84,7 +84,7 @@ namespace EternalRealms.Tests
         /// Ausrüstung, die man vor dem heroischen Modus sammeln kann: Questbelohnungen, grüne Beute und Beute der normalen Krypta
         /// bis Stufe 20 – keine heroischen Gegenstände. Angelegt wird, was für Klasse und Rolle besser ist.
         /// </summary>
-        public static void GearUpBeforeHeroic(TestWorld t, Player m)
+        internal static void GearUpBeforeHeroic(TestWorld t, Player m)
         {
             var pool = t.World.Content.Items.Values
                 .Where(i => i.IsEquippable && i.RequiredLevel <= 20 && i.Quality >= ItemQuality.Uncommon && i.Quality <= ItemQuality.Rare && !i.Id.StartsWith("item_wkh_"))
