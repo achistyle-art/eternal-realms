@@ -366,3 +366,13 @@ Auf Wunsch zunächst nur bis Stufe 20; die Stufen 21–60 folgen später.
 **Noch offen:**
 - Erster Start im echten Editor und erster echter Build. Beides braucht eine Unity-Lizenz und ist hier nicht möglich.
 - Der Workflow „Unity-Build“ ist deshalb noch nicht gelaufen.
+
+**Download-Paket und Hosting:**
+- **Workflow „Alpha-Release“** (auf Knopfdruck) und `tools/release-alpha.sh`: eigenständige ZIPs, die keine .NET-Installation brauchen.
+  - Textclient für Windows, Linux und macOS (arm64 und x64), Server für Linux und Windows.
+  - Mit `SHA256SUMS` und `LIESMICH.txt`; der Textclient liest eine voreingestellte `server.txt`.
+  - Geprüft: Linux-Server und -Client aus dem ZIP ohne installiertes .NET – Konto, Charakter, Weltbetritt, `bug`.
+- **Docker:** Das Datenbankpasswort kommt nicht mehr fest aus `docker-compose.yml`, sondern aus `.env` (Vorlage `.env.example`).
+  - Dazu Alpha-Einstellungen, Serverkonsole per `docker compose attach realm`, Volumes für Statistik und Status, Neustart nach Ausfall.
+  - Geprüft mit PostgreSQL 16: Migrationen 001–008, Einladungscodes an der Konsole, Textclient aus dem ZIP gegen den Container, Fehlermeldung in der Datenbank.
+  - Ausnahme: Die Build-Stufe des Dockerfiles (`dotnet publish` im SDK-Image) erreichte in der Testumgebung NuGet nicht. Getestet wurde deshalb mit lokal gebautem Server im gleichen Laufzeit-Image; an dieser Stufe hat sich nichts geändert.

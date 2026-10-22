@@ -1,0 +1,75 @@
+# Download-Paket der Alpha als GitHub-Release: Actions → „Alpha-Release“ → Run workflow.
+# Baut eigenständige ZIPs (Textclient für Windows/Linux/macOS, Server für Linux/Windows, ohne .NET-Installation)
+# mit tools/release-alpha.sh und hängt sie an ein Pre-Release. Die Dateien stehen danach unter „Releases“.
+name: Alpha-Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versionsname, z. B. alpha-1 (wird auch der Git-Tag)"
+        required: true
+        default: "alpha-1"
+      server:
+        description: "Voreingestellter Alpha-Server im Textclient (host:port), leer = Tester geben ihn an"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Eingaben prüfen
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+          SERVER: ${{ github.event.inputs.server }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [[ "$VERSION" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "::error::Version nur aus Buchstaben, Ziffern, . _ -"; exit 1; }
+          if [ -n "$SERVER" ] && ! [[ "$SERVER" =~ ^[A-Za-z0-9.-]+(:[0-9]{1,5})?$ ]]; then echo "::error::Serveradresse ungültig"; exit 1; fi
+          if gh release view "$VERSION" > /dev/null 2>&1; then echo "::error::Release $VERSION gibt es schon – bitte einen neuen Namen wählen."; exit 1; fi
+
+      - name: Tests (ein Release nur von einem grünen Stand)
+        run: dotnet test --configuration Release
+
+      - name: Pakete bauen
+        env:
+          ER_ALPHA_SERVER: ${{ github.event.inputs.server }}
+        run: tools/release-alpha.sh "${{ github.event.inputs.version }}" dist
+
+      - name: Release anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ github.event.inputs.version }}
+          SERVER: ${{ github.event.inputs.server }}
+        run: |
+          cat > notes.md <<EOF
+          **Eternal Realms – Testversion $VERSION** (Commit ${GITHUB_SHA::7})
+
+          **Für Tester:** den Textclient für euer System herunterladen, entpacken und starten – eine .NET-Installation ist nicht nötig.
+          Die Datei \`LIESMICH.txt\` im ZIP erklärt Anmeldung, Befehle und Fehlermeldungen (\`bug <Text>\`).
+          ${SERVER:+Der Client verbindet sich automatisch mit \`$SERVER\`.}
+
+          | Datei | Für |
+          |---|---|
+          | \`…-textclient-windows-x64.zip\` | Windows 10/11 |
+          | \`…-textclient-macos-arm64.zip\` | Mac mit Apple-Chip (M1 und neuer) |
+          | \`…-textclient-macos-x64.zip\` | Mac mit Intel-Prozessor |
+          | \`…-textclient-linux-x64.zip\` | Linux |
+          | \`…-server-*.zip\` | Spielleitung: Realm-Server (Einrichtung in \`docs/ALPHA.md\`) |
+
+          Der grafische Unity-Client folgt, sobald der Unity-Build eingerichtet ist.
+          Prüfsummen: \`SHA256SUMS\`.
+          EOF
+          gh release create "$VERSION" dist/*.zip dist/SHA256SUMS --prerelease --target "$GITHUB_SHA" \
+            --title "Eternal Realms $VERSION (Alpha)" --notes-file notes.md

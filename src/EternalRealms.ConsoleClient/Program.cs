@@ -8,14 +8,32 @@ using EternalRealms.Shared.Net;
 
 // Eternal Realms – Textclient. Spielt über dasselbe Netzwerkprotokoll wie der Unity-Client.
 // Aufruf: dotnet run --project src/EternalRealms.ConsoleClient -- [host] [port]
-string host = args.Length > 0 ? args[0] : "127.0.0.1";
-int port = args.Length > 1 && int.TryParse(args[1], out var pp) ? pp : ProtocolInfo.DefaultPort;
+// Ohne Argumente (z. B. per Doppelklick im Alpha-Paket) gilt die Adresse aus server.txt neben dem Programm.
+Console.OutputEncoding = System.Text.Encoding.UTF8; // Umlaute auch in der Windows-Konsole
+string host = "127.0.0.1";
+int port = ProtocolInfo.DefaultPort;
+if (args.Length == 0 && File.Exists(Path.Combine(AppContext.BaseDirectory, "server.txt")))
+{
+    var preset = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "server.txt")).Trim();
+    int colon = preset.LastIndexOf(':');
+    if (colon > 0 && int.TryParse(preset[(colon + 1)..], out var presetPort)) { host = preset[..colon]; port = presetPort; }
+    else if (preset.Length > 0) host = preset;
+}
+if (args.Length > 0) host = args[0];
+if (args.Length > 1 && int.TryParse(args[1], out var pp)) port = pp;
 // Abstürze landen in fehler.log neben dem Programm – Tester können die Datei an eine /bug-Meldung anhängen.
 AppDomain.CurrentDomain.UnhandledException += (_, e) =>
 {
     try { File.AppendAllText(Path.Combine(AppContext.BaseDirectory, "fehler.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {e.ExceptionObject}\n"); } catch { }
 };
-var content = ContentDatabase.LoadFromDirectory(FindContent());
+ContentDatabase content;
+try { content = ContentDatabase.LoadFromDirectory(FindContent()); }
+catch (Exception ex)
+{
+    Console.WriteLine("Der Ordner 'content' fehlt oder ist beschädigt – bitte das Alpha-Paket vollständig entpacken. (" + ex.Message + ")");
+    WaitIfDoubleClicked();
+    return;
+}
 if (content.Manifest.Stage.Length > 0) Console.WriteLine($"{content.Manifest.Label} – Testversion. Fehler bitte mit 'bug <Text>' melden.");
 var client = new GameClient();
 var input = new ConcurrentQueue<string>();
@@ -168,8 +186,8 @@ client.MessageReceived += m =>
 };
 
 Print("Eternal Realms – Textclient. 'hilfe' zeigt alle Befehle.");
-if (!client.Connect(host, port)) { Print("Verbindung fehlgeschlagen."); return; }
 Print($"Verbinde mit {host}:{port} …");
+if (!client.Connect(host, port)) { Print("Verbindung fehlgeschlagen."); WaitIfDoubleClicked(); return; }
 var reader = new Thread(() => { while (true) { var l = Console.ReadLine(); if (l == null) { input.Enqueue("quit"); break; } input.Enqueue(l); } }) { IsBackground = true };
 reader.Start();
 
@@ -801,6 +819,14 @@ void Help() => Print(@"Befehle:
   trade <id|Name> | tradeyes | tradeno | tput <1-6> <Taschenplatz> | tgold <Kupfer> | tok | tcancel
   s <Text> | p <Text> (Gruppe – Bots verstehen z. B. 'folgt mir', 'wartet', 'Angriff', 'Wir gehen in den Dungeon') | y | g | w <Name> <Text>
   release | reclaim | rez | fly <Nr> | ping | quit   (.pvp schaltet PvP um; #-Befehle nur mit ER_DEV_COMMANDS)");
+
+// Per Doppelklick gestartet: Fenster nicht sofort schließen, damit die Meldung lesbar bleibt.
+static void WaitIfDoubleClicked()
+{
+    if (Console.IsInputRedirected || Environment.GetCommandLineArgs().Length > 1) return;
+    Console.WriteLine("Enter drücken zum Beenden.");
+    Console.ReadLine();
+}
 
 static string FindContent()
 {

@@ -1,9 +1,14 @@
+# Alpha-Server mit PostgreSQL. Einrichtung (siehe docs/ALPHA.md → „Server mit Docker“):
+#   cp .env.example .env      # Passwort und Einstellungen eintragen – .env wird nie eingecheckt
+#   docker compose up -d --build
+# Serverkonsole (Einladungscodes, Spielleitung): docker compose attach realm – verlassen mit Strg+P, Strg+Q
 services:
   db:
     image: postgres:16
+    restart: unless-stopped
     environment:
       POSTGRES_USER: realms
-      POSTGRES_PASSWORD: realms
+      POSTGRES_PASSWORD: ${ER_DB_PASSWORD:?ER_DB_PASSWORD in .env setzen}
       POSTGRES_DB: eternal_realms
     volumes:
       - realm-data:/var/lib/postgresql/data
@@ -14,15 +19,27 @@ services:
 
   realm:
     build: .
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
+    stdin_open: true
+    tty: true
     environment:
-      ER_DATABASE: "Host=db;Username=realms;Password=realms;Database=eternal_realms"
+      ER_DATABASE: "Host=db;Username=realms;Password=${ER_DB_PASSWORD};Database=eternal_realms"
       ER_PORT: "7777"
+      ER_CONSOLE: "true"
+      ER_INVITE_ONLY: ${ER_INVITE_ONLY:-true}
+      ER_MODE: ${ER_MODE:-ki}
+      ER_MOTD: ${ER_MOTD:-}
+      ER_METRICS_FILE: /srv/eternal-realms/data/statistik.jsonl
+      ER_STATUS_FILE: /srv/eternal-realms/data/status
+    volumes:
+      - realm-files:/srv/eternal-realms/data
     ports:
-      - "7777:7777/udp"
+      - "${ER_PUBLIC_PORT:-7777}:7777/udp"
     stop_grace_period: 30s
 
 volumes:
   realm-data:
+  realm-files:

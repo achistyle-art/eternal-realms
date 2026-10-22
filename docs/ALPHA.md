@@ -15,7 +15,43 @@ Leitfaden für den ersten Testlauf mit echten Spielern: was die Alpha umfasst, w
 
 Nicht in der Alpha: Steam, Bezahlinhalte, Schlachtzüge (10/20/40), Stufen über 20.
 
-## Realm einrichten (Betrieb)
+## Download-Paket (Release)
+
+**Actions → Alpha-Release → Run workflow** baut eigenständige ZIPs. Eine .NET-Installation ist für sie nicht nötig. Der Workflow lässt vorher die Tests laufen und hängt die ZIPs an ein Pre-Release unter **Releases**:
+
+| Datei | Für |
+|---|---|
+| `eternal-realms-<version>-textclient-windows-x64.zip` | Tester mit Windows 10/11 |
+| `…-textclient-macos-arm64.zip` / `…-macos-x64.zip` | Mac mit Apple-Chip bzw. Intel |
+| `…-textclient-linux-x64.zip` | Linux |
+| `…-server-linux-x64.zip` / `…-server-windows-x64.zip` | Spielleitung: Realm-Server mit Content, Migrationen, Werkzeugen und Doku |
+
+- **Serveradresse:** Wer beim Start eine Adresse angibt (`host:port`), dessen Textclients verbinden sich per Doppelklick direkt (`server.txt` im ZIP).
+- **Lokal bauen:** `tools/release-alpha.sh alpha-1`, das Ergebnis liegt in `dist/alpha-1/`.
+- **Zugriff:** Bei einem privaten Repository können nur angemeldete Mitglieder des Repos die Release-Dateien herunterladen. Für externe Tester die ZIPs weitergeben, z. B. per Cloud-Link, oder das Repository öffentlich machen.
+
+## Server mit Docker
+
+Der einfachste Weg auf einem eigenen Server (Linux mit Docker und Compose):
+
+```bash
+git clone https://github.com/achistyle-art/eternal-realms.git && cd eternal-realms
+cp .env.example .env            # ER_DB_PASSWORD setzen (z. B. openssl rand -base64 24), Begrüßung, Modus
+docker compose up -d --build    # PostgreSQL 16 + Realm-Server auf UDP 7777, startet nach Neustarts wieder
+docker compose attach realm     # Serverkonsole: "einladung 10 Welle 1", "rechte <Konto> 2" … – lösen mit Strg+P, Strg+Q
+docker compose logs -f realm    # Protokoll
+```
+
+- **Ohne `.env`:** Ohne Passwort startet Compose nicht. Ein Passwort steht nie in der Compose-Datei.
+- **Daten:** Datenbank, Statistik (`statistik.jsonl`) und Statusdatei liegen in Docker-Volumes und überstehen Neustarts und Updates.
+- **Update:** `git pull && docker compose up -d --build`.
+- **Firewall:** UDP-Port 7777 (bzw. `ER_PUBLIC_PORT`) freigeben.
+- **Sicherung:**
+  ```bash
+  docker compose exec -T db pg_dump -U realms -Fc eternal_realms > alpha-$(date +%F).dump
+  ```
+
+## Realm einrichten ohne Docker
 
 Voraussetzungen und Grundbetrieb stehen in [Betrieb](BETRIEB.md) und [Updates](UPDATES.md). Für die Alpha zusätzlich:
 
@@ -96,8 +132,8 @@ Der Workflow „Unity-Build“ läuft nur auf Knopfdruck und erzeugt Windows- un
 **Client:**
 
 - **Unity-Client:** Den Build stellt die Spielleitung bereit (siehe „Client bauen“). Die Serveradresse ist dann meist schon eingetragen.
-- **Ohne Unity:** Der Textclient liegt im Release unter `client-konsole/`:
-  `dotnet EternalRealms.ConsoleClient.dll <server> 7777`, danach `register <konto> <passwort> <Einladungscode>`.
+- **Ohne Unity:** Den Textclient für das eigene System aus dem Release herunterladen, entpacken und starten (Windows: Doppelklick auf `EternalRealms.ConsoleClient.exe`). Ohne voreingestellten Server lautet der Aufruf `EternalRealms.ConsoleClient <server> 7777`.
+  Danach `register <konto> <passwort> <Einladungscode>`.
   Mit `hilfe` erscheinen alle Befehle.
 - **Konto anlegen:** Im Unity-Client den Einladungscode beim Anlegen des Kontos eintragen. Passwörter brauchen mindestens 8 Zeichen mit Buchstaben und Ziffern und dürfen den Kontonamen nicht enthalten.
 

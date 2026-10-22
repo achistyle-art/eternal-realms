@@ -11,7 +11,7 @@ Ein Fantasy-MMORPG für Windows-PC im Geist der klassischen Genre-Vorbilder – 
 > - **Auf Stufe 20:** Reiten, Tagesquests und Rufbelohnungen.
 > - **Noch offen:** Die übrigen 19 Regionen der Weltkarte (davon 3 Schlachtzüge) sind angelegt, aber noch ohne Inhalte. Die Grafik besteht aus Platzhalterformen.
 >
-> Für Tester und Betrieb siehe [Alpha](docs/ALPHA.md). Was fertig ist und was folgt, steht in der [Roadmap](docs/ROADMAP.md).
+> Für Tester und Betrieb siehe [Alpha](docs/ALPHA.md). Fertige Downloads (Textclient und Server, ohne .NET-Installation) gibt es unter **Releases**. Ein Alpha-Server läuft mit `docker compose up -d` (vorher `.env` aus `.env.example` anlegen). Was fertig ist und was folgt, steht in der [Roadmap](docs/ROADMAP.md).
 
 ## Was schon funktioniert
 
@@ -56,6 +56,7 @@ p Wir gehen in den Dungeon
 Mit PostgreSQL und Docker:
 
 ```bash
+cp .env.example .env             # Datenbankpasswort eintragen
 docker compose up --build        # PostgreSQL 16 und Realmserver auf UDP 7777
 ```
 

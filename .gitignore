@@ -14,3 +14,5 @@ build/
 releases/
 backups/
 __pycache__/
+.env
+dist/
