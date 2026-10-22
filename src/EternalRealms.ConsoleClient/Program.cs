@@ -10,7 +10,13 @@ using EternalRealms.Shared.Net;
 // Aufruf: dotnet run --project src/EternalRealms.ConsoleClient -- [host] [port]
 string host = args.Length > 0 ? args[0] : "127.0.0.1";
 int port = args.Length > 1 && int.TryParse(args[1], out var pp) ? pp : ProtocolInfo.DefaultPort;
+// Abstürze landen in fehler.log neben dem Programm – Tester können die Datei an eine /bug-Meldung anhängen.
+AppDomain.CurrentDomain.UnhandledException += (_, e) =>
+{
+    try { File.AppendAllText(Path.Combine(AppContext.BaseDirectory, "fehler.log"), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} {e.ExceptionObject}\n"); } catch { }
+};
 var content = ContentDatabase.LoadFromDirectory(FindContent());
+if (content.Manifest.Stage.Length > 0) Console.WriteLine($"{content.Manifest.Label} – Testversion. Fehler bitte mit 'bug <Text>' melden.");
 var client = new GameClient();
 var input = new ConcurrentQueue<string>();
 Vec3? walkTarget = null;
@@ -226,7 +232,7 @@ void Command(string line)
     switch (cmd)
     {
         case "hilfe": case "help": Help(); break;
-        case "register": lastLogin = (a[0], a[1]); client.Login(a[0], a[1], true); break;
+        case "register": lastLogin = (a[0], a[1]); client.Login(a[0], a[1], true, "", a.Length > 2 ? a[2] : ""); break;
         case "login": lastLogin = (a[0], a[1]); client.Login(a[0], a[1], false, a.Length > 2 ? a[2] : ""); break;
         case "code":
             if (lastLogin == null) { Print("Zuerst 'login <konto> <passwort>'."); break; }
@@ -422,6 +428,15 @@ void Command(string line)
         {
             int ix = client.Friends.Ignored.FindIndex(n => n.Equals(rest, StringComparison.OrdinalIgnoreCase));
             if (ix >= 0) client.Send(new C_IgnoreRemove { CharacterId = client.Friends.IgnoredIds[ix] });
+            break;
+        }
+        case "bug":
+        {
+            // bug [kategorie:] Text – Kategorie Fehler, Balance, Text, Absturz oder Vorschlag
+            int colon = rest.IndexOf(':');
+            bool hasCat = colon > 0 && colon < 12;
+            client.Send(new C_BugReport { Category = hasCat ? rest[..colon] : "Fehler", Text = (hasCat ? rest[(colon + 1)..] : rest).Trim(),
+                                          ClientInfo = $"Konsole, {Environment.OSVersion}" });
             break;
         }
         case "report": client.Send(new C_ReportPlayer { Name = a.Length > 0 ? a[0] : "", Reason = "Spielermeldung", Text = rest.Length > 0 && a.Length > 0 ? rest.Substring(a[0].Length).Trim() : "" }); break;
@@ -757,7 +772,7 @@ string Money(long c) => $"{c / 10000}g {c / 100 % 100}s {c % 100}k";
 void Print(string s) => Console.WriteLine(s);
 
 void Help() => Print(@"Befehle:
-  register <konto> <passwort> | login <konto> <passwort> [Code] | code <Code> | 2fa [an|bestätigen <Code>|aus <Passwort> <Code>] | passwort <alt> <neu> [Code]
+  register <konto> <passwort> [Einladungscode] | login <konto> <passwort> [Code] | code <Code> | 2fa [an|bestätigen <Code>|aus <Passwort> <Code>] | passwort <alt> <neu> [Code]
   gm <Befehl> (Spielleitung, z. B. gm hilfe) | races | create <Name> <Volk> <Klasse> [w] | chars | play <Nr>
   look | status | tab | target <id> | attack [id] | stop | cast <fähigkeit|name> [id] | spells
   go <id> | go <x> <z> | follow <id> | talk [id] | loot [id] | accept <Nr> | turnin <Nr> [Belohnung] | quests | abandon <quest>
@@ -768,7 +783,7 @@ void Help() => Print(@"Befehle:
   mail | send <Name> <Kupfer> <Betreff> [| 3,4] | take <Nr> | delmail <Nr> | return <Nr>   (am Briefkasten)
   ah [Suchtext] | ahmine [gebote] | ahsell <Platz> <Anzahl> <Gebot> [Sofortkauf] [12|24|48] | ahbid <Nr> <Betrag> | ahbuy <Nr> | ahcancel <Nr>
   gcreate <Name> | ginvite <Name> | gjoin | gdecline | gleave | gkick <Name> | grank <Name> <0-4> | gmotd <Text> | guild | gu <Text> | gdisband
-  friends | friend <Name> | unfriend <Name> | ignore <Name> | unignore <Name> | report <Name> <Text> | share [aus] | summon <KI-Begleiter>
+  friends | friend <Name> | unfriend <Name> | ignore <Name> | unignore <Name> | report <Name> <Text> | bug [Kategorie:] <Text> (Fehler melden) | share [aus] | summon <KI-Begleiter>
   lfg liste | lfg <id> [tank,heiler,dd,fern] [nurmenschen|bevorzugt|ki] | lfgleave | accept-group | decline-group
   readycheck | ready [nein] | votekick <id> <Grund> | vote [nein] | role <tank|heiler|dd|fern> | botrole <id> <rolle> | raid | subgroup <id> <1-8>
   instances | resetinstances

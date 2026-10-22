@@ -113,6 +113,24 @@ namespace EternalRealms.Server.Security
     }
 
     /// <summary>
+    /// Einladungscodes für eine geschlossene Alpha: „ER-XXXX-XXXX-XXXX“ (Base32, 60 Bit Zufall). Gespeichert wird nur der
+    /// SHA-256-Hash der normalisierten Form; der Code selbst wird beim Anlegen genau einmal angezeigt.
+    /// </summary>
+    public static class InviteCodes
+    {
+        public static string Create()
+        {
+            var b32 = Base32.Encode(RandomNumberGenerator.GetBytes(8))[..12];
+            return $"ER-{b32[..4]}-{b32.Substring(4, 4)}-{b32.Substring(8, 4)}";
+        }
+
+        /// <summary>Groß, ohne Leerzeichen und Bindestriche – Tippvarianten führen zum selben Code.</summary>
+        public static string Normalize(string code) => new string((code ?? "").ToUpperInvariant().Where(char.IsLetterOrDigit).ToArray());
+
+        public static string Hash(string code) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(Normalize(code))));
+    }
+
+    /// <summary>
     /// Begrenzung von Versuchen je IP-Adresse (im Speicher): nach <see cref="MaxPerIp"/> Ereignissen im Zeitfenster wird die
     /// Adresse abgewiesen, bis das älteste aus dem Fenster fällt. Die Sperre je Konto liegt am Konto selbst (übersteht Neustarts).
     /// </summary>

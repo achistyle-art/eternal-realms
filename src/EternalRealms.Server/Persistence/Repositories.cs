@@ -18,6 +18,23 @@ namespace EternalRealms.Server.Persistence
         Task RevokeSessionTokensAsync(long accountId);
         Task AuditAsync(AuditEntry entry);
         Task<List<AuditEntry>> ListAuditAsync(string? actionPrefix, string? target, int limit);
+        /// <summary>Einladungscodes (nur Hashes) anlegen.</summary>
+        Task SaveInviteCodesAsync(IEnumerable<InviteCode> codes);
+        /// <summary>Löst einen Code einmalig ein (gleichzeitige Versuche können nicht beide gelingen).</summary>
+        Task<bool> RedeemInviteCodeAsync(string codeHash, DateTime now);
+        /// <summary>Vermerkt das neue Konto am eingelösten Code.</summary>
+        Task BindInviteCodeAsync(string codeHash, long accountId);
+        Task<(int Open, int Used)> CountInviteCodesAsync();
+    }
+
+    public sealed class InviteCode
+    {
+        public string CodeHash { get; set; } = "";
+        public string CreatedBy { get; set; } = "";
+        public string Note { get; set; } = "";
+        public DateTime? ExpiresAt { get; set; }
+        public DateTime? UsedAt { get; set; }
+        public long? UsedBy { get; set; }
     }
 
     public interface ICharacterRepository
@@ -107,6 +124,35 @@ namespace EternalRealms.Server.Persistence
         {
             lock (_audit) { entry.Id = _audit.Count + 1; _audit.Add(entry); }
             return Task.CompletedTask;
+        }
+
+        private readonly Dictionary<string, InviteCode> _invites = new();
+
+        public Task SaveInviteCodesAsync(IEnumerable<InviteCode> codes)
+        {
+            lock (_invites) foreach (var c in codes) _invites[c.CodeHash] = c;
+            return Task.CompletedTask;
+        }
+
+        public Task<bool> RedeemInviteCodeAsync(string codeHash, DateTime now)
+        {
+            lock (_invites)
+            {
+                if (!_invites.TryGetValue(codeHash, out var c) || c.UsedAt != null || (c.ExpiresAt is DateTime e && e <= now)) return Task.FromResult(false);
+                c.UsedAt = now;
+                return Task.FromResult(true);
+            }
+        }
+
+        public Task BindInviteCodeAsync(string codeHash, long accountId)
+        {
+            lock (_invites) if (_invites.TryGetValue(codeHash, out var c)) c.UsedBy = accountId;
+            return Task.CompletedTask;
+        }
+
+        public Task<(int Open, int Used)> CountInviteCodesAsync()
+        {
+            lock (_invites) return Task.FromResult((_invites.Values.Count(c => c.UsedAt == null), _invites.Values.Count(c => c.UsedAt != null)));
         }
 
         public Task<List<AuditEntry>> ListAuditAsync(string? actionPrefix, string? target, int limit)
@@ -203,6 +249,20 @@ namespace EternalRealms.Server.Persistence
         public Task DeleteGuildAsync(long guildId) { lock (_economyLock) _guilds.Remove(guildId); return Task.CompletedTask; }
         public Task SaveReportAsync(PlayerReport report) { lock (_economyLock) { report.Id = _reports.Count + 1; _reports.Add(report); } return Task.CompletedTask; }
         public Task<List<PlayerReport>> ListOpenReportsAsync(int limit) { lock (_economyLock) return Task.FromResult(_reports.Where(r => !r.Handled).Reverse().Take(limit).ToList()); }
+        private readonly List<BugReport> _bugs = new();
+        public IReadOnlyList<BugReport> BugReports { get { lock (_economyLock) return _bugs.ToList(); } }
+        public Task SaveBugReportAsync(BugReport report) { lock (_economyLock) { report.Id = _bugs.Count + 1; _bugs.Add(report); } return Task.CompletedTask; }
+        public Task<List<BugReport>> ListOpenBugReportsAsync(int limit) { lock (_economyLock) return Task.FromResult(_bugs.Where(b => !b.Handled).Reverse().Take(limit).ToList()); }
+        public Task<bool> MarkBugReportHandledAsync(long id)
+        {
+            lock (_economyLock)
+            {
+                var b = _bugs.FirstOrDefault(x => x.Id == id && !x.Handled);
+                if (b != null) b.Handled = true;
+                return Task.FromResult(b != null);
+            }
+        }
+
         public Task<bool> MarkReportHandledAsync(long id)
         {
             lock (_economyLock)

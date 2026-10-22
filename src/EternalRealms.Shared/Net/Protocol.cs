@@ -8,7 +8,7 @@ namespace EternalRealms.Shared.Net
     {
         /// <summary>Wird beim Verbinden geprüft; Client und Server müssen übereinstimmen.</summary>
         public const string ConnectionKey = "EternalRealms/1";
-        public const int ProtocolVersion = 3;
+        public const int ProtocolVersion = 4;
         public const int DefaultPort = 7777;
     }
 
@@ -35,6 +35,7 @@ namespace EternalRealms.Shared.Net
         C_TradeRequest, C_TradeRespond, C_TradeSetItem, C_TradeSetMoney, C_TradeAccept, C_TradeCancel, C_ChatJoin,
         C_Emote, C_SetTitle, C_TutorialSkip, C_TutorialRestart,
         C_AccountSecurity,
+        C_BugReport,
 
         // Server -> Client (ab 1000)
         S_LoginResult = 1000, S_CharacterList, S_CreateCharacterResult, S_EnterWorld, S_PlayerState, S_SpellBook,

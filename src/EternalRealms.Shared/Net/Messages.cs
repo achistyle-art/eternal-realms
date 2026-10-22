@@ -15,13 +15,15 @@ namespace EternalRealms.Shared.Net
         public string Token = "";
         /// <summary>Code der Zwei-Faktor-Anmeldung (sechs Ziffern), falls das Konto sie verlangt.</summary>
         public string TotpCode = "";
+        /// <summary>Einladungscode beim Anlegen eines Kontos (geschlossene Alpha).</summary>
+        public string InviteCode = "";
         // Protokollversion zuerst: ein veralteter Client wird erkannt, auch wenn sich die übrigen Felder geändert haben.
-        public override void Write(NetDataWriter w) { w.Put(ProtocolVersion); w.Put(Account); w.Put(Password); w.Put(Register); w.Put(Token); w.Put(TotpCode); }
+        public override void Write(NetDataWriter w) { w.Put(ProtocolVersion); w.Put(Account); w.Put(Password); w.Put(Register); w.Put(Token); w.Put(TotpCode); w.Put(InviteCode); }
         public override void Read(NetDataReader r)
         {
             ProtocolVersion = r.GetInt();
             if (ProtocolVersion != ProtocolInfo.ProtocolVersion) return;
-            Account = r.GetString(); Password = r.GetString(); Register = r.GetBool(); Token = r.GetString(); TotpCode = r.GetString();
+            Account = r.GetString(); Password = r.GetString(); Register = r.GetBool(); Token = r.GetString(); TotpCode = r.GetString(); InviteCode = r.GetString();
         }
     }
 

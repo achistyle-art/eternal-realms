@@ -116,6 +116,36 @@ namespace EternalRealms.Server.Systems
 
         private static string Cut(string? s, int n) => s == null ? "" : s.Length > n ? s.Substring(0, n) : s;
 
+        /// <summary>Höchstens so viele Fehlermeldungen je Konto im Zeitfenster.</summary>
+        public const int BugReportsPerWindow = 5;
+        public static readonly TimeSpan BugReportWindow = TimeSpan.FromMinutes(10);
+        private readonly Dictionary<long, List<DateTime>> _bugTimes = new();
+        private static readonly string ServerVersion = typeof(SocialSystem).Assembly.GetName().Version?.ToString() ?? "?";
+
+        /// <summary>Fehlermeldung (/bug): Der Server ergänzt Ort, Stufe und Versionen; der Client liefert nur Text und Einordnung.</summary>
+        public string? ReportBug(Player p, string category, string text, string clientInfo)
+        {
+            text = (text ?? "").Trim();
+            if (text.Length < 5) return "Bitte beschreibt den Fehler in ein paar Worten.";
+            var cat = BugReport.Categories.FirstOrDefault(c => string.Equals(c, (category ?? "").Trim(), StringComparison.OrdinalIgnoreCase)) ?? "Fehler";
+            var now = DateTime.UtcNow;
+            long key = p.Data.AccountId ?? -p.Data.Id;
+            var times = _bugTimes.TryGetValue(key, out var l) ? l : _bugTimes[key] = new List<DateTime>();
+            times.RemoveAll(t => t < now - BugReportWindow);
+            if (times.Count >= BugReportsPerWindow) return "Ihr habt gerade schon mehrere Meldungen geschickt. Bitte wartet ein paar Minuten.";
+            times.Add(now);
+            var bug = new BugReport
+            {
+                At = now, AccountId = p.Data.AccountId, CharacterName = p.Name, Category = cat, Text = Cut(text, 2000),
+                Zone = p.Zone?.Def.Id ?? "", PosX = p.Position.X, PosZ = p.Position.Z, Level = p.Level,
+                ContentVersion = _w.Content.Version, ServerVersion = ServerVersion, ClientInfo = Cut((clientInfo ?? "").Trim(), 200),
+            };
+            _w.Log($"Fehlermeldung ({cat}) von {p.Name} in {bug.Zone}: {Cut(text, 80)}");
+            if (_w.Characters is ISocialRepository repo && _w.Persistence != null) _w.Persistence.Enqueue(() => repo.SaveBugReportAsync(bug));
+            p.Notice("Danke! Eure Meldung ist gespeichert – mit Ort, Stufe und Version.");
+            return null;
+        }
+
         /// <summary>Beim Ein- und Ausloggen: Freunde, die einen auf der Liste haben, werden benachrichtigt.</summary>
         public void NotifyFriends(Player p, bool online)
         {

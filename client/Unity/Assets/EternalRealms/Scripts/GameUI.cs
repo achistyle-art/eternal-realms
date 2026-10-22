@@ -130,6 +130,15 @@ namespace EternalRealms.Client
             }
             DrawReconnectOverlay();
             DrawToasts();
+            DrawStageMark();
+        }
+
+        /// <summary>Wasserzeichen in Test-Ständen (manifest „stage“), damit Screenshots und Videos als Testversion erkennbar sind.</summary>
+        private void DrawStageMark()
+        {
+            var m = Content?.Manifest;
+            if (m == null || m.Stage.Length == 0) return;
+            GUI.Label(new Rect(8, ScreenH - 22, 600, 20), $"<color=#ffffff99>{m.Label} – Testversion · Fehler melden: /bug Text</color>", _small);
         }
 
         private Rect Box(Rect r) { _uiRects.Add(r); return r; }
@@ -138,7 +147,7 @@ namespace EternalRealms.Client
 
         private void DrawLogin()
         {
-            var r = Box(new Rect(ScreenW / 2 - 180, ScreenH / 2 - 170, 360, 340));
+            var r = Box(new Rect(ScreenW / 2 - 180, ScreenH / 2 - 190, 360, 390));
             GUILayout.BeginArea(r, GUI.skin.box);
             GUILayout.Label("ETERNAL REALMS", _title);
             GUILayout.Label("Server");
@@ -155,6 +164,11 @@ namespace EternalRealms.Client
                 GUILayout.Label("Code der Authenticator-App");
                 _loginCode = GUILayout.TextField(_loginCode, 8);
             }
+            else
+            {
+                GUILayout.Label("Einladungscode (nur für ein neues Konto in der Alpha)", _small);
+                _invite = GUILayout.TextField(_invite, 24);
+            }
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Anmelden")) Login(false);
             if (!Client.NeedsTwoFactor && GUILayout.Button("Konto erstellen")) Login(true);
@@ -162,17 +176,17 @@ namespace EternalRealms.Client
             GUILayout.Label(Client.Connected ? "<color=lime>verbunden</color>" : _connecting ? "verbinde …" : "", _small);
             GUILayout.Label(_status, _wrap);
             GUILayout.EndArea();
-            if (_connecting && Client.Connected) { _connecting = false; Client.Login(_account, _password, _pendingRegister, _loginCode.Trim()); }
+            if (_connecting && Client.Connected) { _connecting = false; Client.Login(_account, _password, _pendingRegister, _pendingRegister ? "" : _loginCode.Trim(), _invite.Trim()); }
         }
 
-        private string _loginCode = "";
+        private string _loginCode = "", _invite = "";
 
         private bool _pendingRegister;
 
         private void Login(bool register)
         {
             _pendingRegister = register;
-            if (Client.Connected) { Client.Login(_account, _password, register, register ? "" : _loginCode.Trim()); return; }
+            if (Client.Connected) { Client.Login(_account, _password, register, register ? "" : _loginCode.Trim(), register ? _invite.Trim() : ""); return; }
             _connecting = NetworkManager.Instance.Connect();
             if (!_connecting) _status = "Verbindung fehlgeschlagen.";
         }
@@ -621,6 +635,15 @@ namespace EternalRealms.Client
                         var wp = body.Split(new[] { ' ' }, 2);
                         ch = ChatChannel.Whisper; whisper = wp[0]; text = wp.Length > 1 ? wp[1] : ""; break;
                     case "/inv": Client.Send(new C_GroupInvite { Name = body }); return;
+                    case "/bug": case "/fehler":
+                    {
+                        // „/bug balance: Text“ ordnet ein; ohne Kategorie gilt „Fehler“. Ort, Stufe und Version ergänzt der Server.
+                        var colon = body.IndexOf(':');
+                        string cat = colon > 0 && colon < 12 ? body.Substring(0, colon) : "Fehler";
+                        string msg = colon > 0 && colon < 12 ? body.Substring(colon + 1) : body;
+                        Client.Send(new C_BugReport { Category = cat, Text = msg.Trim(), ClientInfo = $"Unity {Application.unityVersion}, {SystemInfo.operatingSystem}, {UnityEngine.Screen.width}x{UnityEngine.Screen.height}" });
+                        return;
+                    }
                     case "/e": case "/me": ch = ChatChannel.Emote; text = body; break;
                     default:
                         if (TryEmoteCommand(parts[0])) return;

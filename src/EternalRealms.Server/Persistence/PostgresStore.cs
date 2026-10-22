@@ -167,6 +167,78 @@ namespace EternalRealms.Server.Persistence
             await cmd.ExecuteNonQueryAsync();
         }
 
+        public async Task SaveInviteCodesAsync(IEnumerable<InviteCode> codes)
+        {
+            await using var conn = await _ds.OpenConnectionAsync();
+            await using var tx = await conn.BeginTransactionAsync();
+            foreach (var c in codes)
+            {
+                await using var cmd = new NpgsqlCommand("INSERT INTO invite_codes (code_hash, created_by, note, expires_at) VALUES (@h, @by, @n, @e)", conn, tx);
+                cmd.Parameters.AddWithValue("h", c.CodeHash); cmd.Parameters.AddWithValue("by", c.CreatedBy); cmd.Parameters.AddWithValue("n", c.Note);
+                cmd.Parameters.AddWithValue("e", (object?)c.ExpiresAt ?? DBNull.Value);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            await tx.CommitAsync();
+        }
+
+        public async Task<bool> RedeemInviteCodeAsync(string codeHash, DateTime now)
+        {
+            // Bedingtes UPDATE: von zwei gleichzeitigen Einlöseversuchen gelingt höchstens einer.
+            await using var cmd = _ds.CreateCommand("UPDATE invite_codes SET used_at = @now WHERE code_hash = @h AND used_at IS NULL AND (expires_at IS NULL OR expires_at > @now)");
+            cmd.Parameters.AddWithValue("h", codeHash); cmd.Parameters.AddWithValue("now", now);
+            return await cmd.ExecuteNonQueryAsync() == 1;
+        }
+
+        public async Task BindInviteCodeAsync(string codeHash, long accountId)
+        {
+            await using var cmd = _ds.CreateCommand("UPDATE invite_codes SET used_by = @a WHERE code_hash = @h");
+            cmd.Parameters.AddWithValue("h", codeHash); cmd.Parameters.AddWithValue("a", accountId);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task<(int Open, int Used)> CountInviteCodesAsync()
+        {
+            await using var cmd = _ds.CreateCommand("SELECT count(*) FILTER (WHERE used_at IS NULL), count(*) FILTER (WHERE used_at IS NOT NULL) FROM invite_codes");
+            await using var r = await cmd.ExecuteReaderAsync();
+            await r.ReadAsync();
+            return ((int)r.GetInt64(0), (int)r.GetInt64(1));
+        }
+
+        public async Task SaveBugReportAsync(BugReport b)
+        {
+            await using var cmd = _ds.CreateCommand("INSERT INTO bug_reports (at, account_id, character_name, category, text, zone, pos_x, pos_z, level, content_version, server_version, client_info) " +
+                                                    "VALUES (@at, @a, @c, @cat, @t, @z, @x, @zz, @l, @cv, @sv, @ci)");
+            var p = cmd.Parameters;
+            p.AddWithValue("at", b.At); p.AddWithValue("a", (object?)b.AccountId ?? DBNull.Value); p.AddWithValue("c", b.CharacterName); p.AddWithValue("cat", b.Category);
+            p.AddWithValue("t", b.Text); p.AddWithValue("z", b.Zone); p.AddWithValue("x", b.PosX); p.AddWithValue("zz", b.PosZ); p.AddWithValue("l", (short)b.Level);
+            p.AddWithValue("cv", b.ContentVersion); p.AddWithValue("sv", b.ServerVersion); p.AddWithValue("ci", b.ClientInfo);
+            await cmd.ExecuteNonQueryAsync();
+        }
+
+        public async Task<List<BugReport>> ListOpenBugReportsAsync(int limit)
+        {
+            await using var cmd = _ds.CreateCommand("SELECT id, at, account_id, character_name, category, text, zone, pos_x, pos_z, level, content_version, server_version, client_info " +
+                                                    "FROM bug_reports WHERE NOT handled ORDER BY at DESC LIMIT @n");
+            cmd.Parameters.AddWithValue("n", limit);
+            var list = new List<BugReport>();
+            await using var r = await cmd.ExecuteReaderAsync();
+            while (await r.ReadAsync())
+                list.Add(new BugReport
+                {
+                    Id = r.GetInt64(0), At = r.GetDateTime(1), AccountId = r.IsDBNull(2) ? null : r.GetInt64(2), CharacterName = r.GetString(3), Category = r.GetString(4),
+                    Text = r.GetString(5), Zone = r.GetString(6), PosX = r.GetFloat(7), PosZ = r.GetFloat(8), Level = r.GetInt16(9),
+                    ContentVersion = r.GetString(10), ServerVersion = r.GetString(11), ClientInfo = r.GetString(12),
+                });
+            return list;
+        }
+
+        public async Task<bool> MarkBugReportHandledAsync(long id)
+        {
+            await using var cmd = _ds.CreateCommand("UPDATE bug_reports SET handled = TRUE WHERE id = @id AND NOT handled");
+            cmd.Parameters.AddWithValue("id", id);
+            return await cmd.ExecuteNonQueryAsync() > 0;
+        }
+
         public async Task AuditAsync(AuditEntry e)
         {
             await using var cmd = _ds.CreateCommand("INSERT INTO audit_log (account_id, actor, action, target, detail, ip) VALUES (@a, @ac, @x, @t, @d, @ip)");

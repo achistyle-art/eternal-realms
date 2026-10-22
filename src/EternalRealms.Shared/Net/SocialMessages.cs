@@ -84,6 +84,19 @@ namespace EternalRealms.Shared.Net
         public override void Read(NetDataReader r) { Name = r.GetString(); Reason = r.GetString(); Text = r.GetString(); }
     }
 
+    /// <summary>Fehlermeldung eines Testers (/bug). Ort, Stufe und Versionen ergänzt der Server.</summary>
+    public sealed class C_BugReport : Message
+    {
+        public override Opcode Op => Opcode.C_BugReport;
+        /// <summary>Fehler, Balance, Text, Absturz oder Vorschlag.</summary>
+        public string Category = "Fehler";
+        public string Text = "";
+        /// <summary>Betriebssystem, Client-Art, Auflösung – nur zur Einordnung.</summary>
+        public string ClientInfo = "";
+        public override void Write(NetDataWriter w) { w.Put(Category); w.Put(Text); w.Put(ClientInfo); }
+        public override void Read(NetDataReader r) { Category = r.GetString(); Text = r.GetString(); ClientInfo = r.GetString(); }
+    }
+
     public sealed class C_ShareLocation : Message
     {
         public override Opcode Op => Opcode.C_ShareLocation;

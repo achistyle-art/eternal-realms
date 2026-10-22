@@ -107,6 +107,9 @@ namespace EternalRealms.Server.Net
             bool maintenance = _w.Maintenance;
             string maintenanceText = _w.MaintenanceMessage;
             double tokenHours = _w.Config.SessionTokenHours;
+            bool inviteOnly = _w.Config.InviteOnly;
+            bool inviteGiven = Security.InviteCodes.Normalize(m.InviteCode ?? "").Length > 0;
+            string inviteHash = Security.InviteCodes.Hash(m.InviteCode ?? "");
             Task.Run(async () =>
             {
                 Account? acc = null;
@@ -121,10 +124,15 @@ namespace EternalRealms.Server.Net
                     {
                         if (!_w.Config.AllowRegistration) error = "Neue Konten sind derzeit deaktiviert.";
                         else if (acc != null) { error = "Dieser Kontoname ist vergeben."; acc = null; }
+                        else if (inviteOnly && !inviteGiven) error = "Für die Alpha braucht Ihr einen Einladungscode.";
+                        // Falsche Codes zählen wie falsche Passwörter: Die Begrenzung neuer Konten je Adresse bremst Rateversuche.
+                        else if (inviteOnly && !await _accounts.RedeemInviteCodeAsync(inviteHash, now))
+                        { error = "Einladungscode ungültig oder bereits benutzt."; failure = LoginFailure.Credentials; }
                         else
                         {
                             acc = await _accounts.CreateAsync(user, PasswordHasher.Hash(pass));
-                            await Audit(acc, "account.create", acc.Username, "", ip);
+                            if (inviteOnly) await _accounts.BindInviteCodeAsync(inviteHash, acc.Id);
+                            await Audit(acc, "account.create", acc.Username, inviteOnly ? "Einladungscode" : "", ip);
                         }
                     }
                     else if (token.Length > 0)
@@ -480,6 +488,9 @@ namespace EternalRealms.Server.Net
                     Player = _w.EnterWorld(data, Connection);
                     ApplyAccount(Player);
                     State = SessionState.InWorld;
+                    // Begrüßung (ER_MOTD), z. B. Hinweise für Alpha-Tester; „\n“ trennt Zeilen.
+                    foreach (var line in _w.Config.Motd.Replace("\\n", "\n").Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                        Connection.Send(new S_Chat { Channel = ChatChannel.System, Text = line });
                     _w.Log($"{Player.Name} betritt {Player.Zone!.Def.Name} ({Connection.RemoteAddress}).");
                 });
             });
@@ -632,6 +643,7 @@ namespace EternalRealms.Server.Net
                 case C_IgnoreRemove ir: _w.Social.Unignore(p, ir.CharacterId); return;
                 case C_ShareLocation sl: _w.Social.SetShareLocation(p, sl.Share); return;
                 case C_ReportPlayer rp: _w.Social.Report(p, rp.Name, rp.Reason, rp.Text); return;
+                case C_BugReport bug: if (_w.Social.ReportBug(p, bug.Category, bug.Text, bug.ClientInfo) is string bugErr) p.Notice(bugErr, true); return;
                 case C_InviteFavorite ifv: err = _w.Bots.InviteFavorite(p, ifv.CharacterId); if (err == null) p.Send(_w.Social.BuildList(p)); break;
                 case C_ResetInstances: err = _w.Instances.Reset(p); break;
                 case C_InstanceInfo: p.Send(_w.Instances.BuildInfo(p)); return;

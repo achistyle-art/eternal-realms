@@ -83,7 +83,7 @@ Die Kapitel 28–68 der Produktspezifikation werden nach Abschluss der Wirtschaf
 | F ✅ | 40, 41, 42, 49, 50, 54 | Accountsicherheit (Brute-Force-Schutz, Tokens, optionale 2FA), Wiederverbindung, Backups, Anti-Cheat-Auswertung, GM-/Admin-Werkzeuge mit Protokoll |
 | G ✅ | 43–45, 48 | KI-Ebenen ausbauen – auf Wunsch zunächst nur für 5er-Dungeons: Encounter-Manager, Tankwechsel, Flächen ausweichen, Bot-Balance. Raids (10/20/40) folgen später |
 | H ✅ | 53, 56, 57, 60, 64, 65 | Datenmodell vervollständigen, Update-/Rollback-Konzept, Serverbetriebsarten (klassisch, KI-unterstützt, Entwicklung), Content-Editoren |
-| I (in Arbeit) | 55, 61, 62, 66, 67, 68 | Steam-Vorbereitung, Inhaltsumfang – auf Wunsch zunächst bis Stufe 20 –, kosmetische Monetarisierung ohne Pay-to-Win, Endgame auf Stufe 20 |
+| I ✅ | 55, 61, 62, 66, 67, 68 | Inhaltsumfang – auf Wunsch zunächst bis Stufe 20 –, Endgame auf Stufe 20, Vorbereitung der geschlossenen Alpha. Steam und kosmetische Bezahlinhalte auf Wunsch zurückgestellt |
 
 ### Block A – Stand
 
@@ -327,3 +327,28 @@ Auf Wunsch zunächst nur bis Stufe 20; die Stufen 21–60 folgen später.
 - Die heroische Abstimmung beruht auf Simulationen mit KI-Gruppen, nicht auf echten Spielergruppen.
 - Musik und Umgebungsklang der neuen Regionen erzeugt der Client wie überall prozedural aus der ID; eigens komponierte Stücke gibt es nicht.
 - Die neuen Regionen sind nur über Tests und den Prüflauf geprüft, nicht in einer langen Spielsitzung.
+
+**Alpha-Vorbereitung** (auf Wunsch statt Steam; `AlphaTests`, live mit gebautem Release, PostgreSQL und Textclient):
+- **Geschlossene Alpha:** `ER_INVITE_ONLY=true` – neue Konten nur mit Einladungscode.
+  - `.einladung [Anzahl] [Notiz]` (Admin), `.einladungen`.
+  - Codes gelten einmalig. Gespeichert wird nur der SHA-256-Hash, auch das Prüfprotokoll enthält keine Codes.
+  - Rateversuche fallen unter die Begrenzung neuer Konten je Adresse. Gleichzeitige Einlösungen sind ausgeschlossen (bedingtes UPDATE).
+  - Migration `008_alpha`. Protokoll 4: Der Anmeldung liegt der Einladungscode bei, ältere Clients werden abgewiesen.
+- **Fehlermeldungen im Spiel:** `/bug [Kategorie:] Text` im Unity-Client, `bug …` im Textclient.
+  - Der Server ergänzt Ort, Stufe, Content- und Serverversion.
+  - Höchstens 5 Meldungen je 10 Minuten.
+  - `.fehler` und `.behoben`, Tabelle `bug_reports`.
+- **Kennzeichnung:** `manifest.stage = "Alpha"`, Wasserzeichen im Unity-Client, Hinweis im Textclient.
+  - Begrüßung nach dem Weltbetritt (`ER_MOTD`).
+  - Unity und Textclient schreiben `fehler.log`.
+- **Statistik für die Abstimmung:** `.statistik` und JSON-Zeilen in `ER_METRICS_FILE`.
+  - Inhalt: Spieler online, Stufen, Tode je Region, Quests, Bosskämpfe, Spielthread.
+  - Nur Menschen, nur Zählwerte.
+- **Betrieb:**
+  - `tools/alpha-wipe.sh`: Sicherung, dann alle Spielstände löschen. Mit Bestätigung und Abbruch bei laufendem Server, live an einer Wegwerf-Datenbank geprüft.
+  - `tools/package.sh` legt den Textclient und die Doku bei.
+  - Leitfaden mit Testplan in `docs/ALPHA.md`.
+
+**Nur kompiliergeprüft** (Unity): Einladungsfeld, `/bug`, Wasserzeichen, Fehlerprotokoll.
+
+**Zurückgestellt:** Steam-Anbindung und kosmetische Bezahlinhalte – erst nach der Alpha.

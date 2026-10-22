@@ -212,10 +212,11 @@ namespace EternalRealms.Shared.Client
         // ------------------------------------------------------------ Bequeme Aktionen
 
         /// <param name="code">Code der Authenticator-App, wenn <see cref="NeedsTwoFactor"/> gesetzt ist.</param>
-        public void Login(string account, string password, bool register = false, string code = "")
+        /// <param name="invite">Einladungscode beim Anlegen eines Kontos (geschlossene Alpha).</param>
+        public void Login(string account, string password, bool register = false, string code = "", string invite = "")
         {
             AccountName = account;
-            Send(new C_Login { Account = account, Password = password, Register = register, TotpCode = code });
+            Send(new C_Login { Account = account, Password = password, Register = register, TotpCode = code, InviteCode = invite });
         }
 
         private void GiveUpReconnect(string reason)

@@ -26,6 +26,13 @@ namespace EternalRealms.Server
         /// <summary>Leer = Speicher im Arbeitsspeicher (nur für Tests und Ausprobieren).</summary>
         public string? ConnectionString { get; set; }
         public bool AllowRegistration { get; set; } = true;
+        /// <summary>Geschlossene Alpha: neue Konten nur mit einem gültigen Einladungscode (Spielleitung: .einladung).</summary>
+        public bool InviteOnly { get; set; }
+        /// <summary>Begrüßung nach dem Betreten der Welt (z. B. Hinweise für Alpha-Tester); leer = keine.</summary>
+        public string Motd { get; set; } = "";
+        /// <summary>Alpha-Statistik: alle n Minuten eine JSON-Zeile in diese Datei (leer = aus).</summary>
+        public string? MetricsFile { get; set; }
+        public double MetricsMinutes { get; set; } = 5;
         /// <summary>Chatbefehle mit # (Stufe setzen, Gegenstände erzeugen …). Nur für Entwicklung!</summary>
         public bool DevCommands { get; set; }
         public bool AmbientBots { get; set; } = true;
@@ -105,6 +112,10 @@ namespace EternalRealms.Server
             c.ContentPath = Env("ER_CONTENT") ?? c.ContentPath;
             c.ConnectionString = Env("ER_DATABASE");
             if (bool.TryParse(Env("ER_ALLOW_REGISTRATION"), out var reg)) c.AllowRegistration = reg;
+            if (bool.TryParse(Env("ER_INVITE_ONLY"), out var inv)) c.InviteOnly = inv;
+            c.Motd = Env("ER_MOTD") ?? c.Motd;
+            c.MetricsFile = Env("ER_METRICS_FILE") is { Length: > 0 } mf ? mf : c.MetricsFile;
+            if (double.TryParse(Env("ER_METRICS_MINUTES"), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var mm)) c.MetricsMinutes = Math.Clamp(mm, 0.1, 1440);
             if (bool.TryParse(Env("ER_DEV_COMMANDS"), out var dev)) c.DevCommands = dev;
             if (bool.TryParse(Env("ER_AMBIENT_BOTS"), out var ab)) c.AmbientBots = ab;
             if (bool.TryParse(Env("ER_ZONE_LOD"), out var lod)) c.ZoneLod = lod;

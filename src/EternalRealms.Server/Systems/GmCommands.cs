@@ -59,6 +59,8 @@ namespace EternalRealms.Server.Systems
                 new Command("auffaellig", 1, ".auffaellig – Meldungen der Anti-Cheat-Erkennung", Flags),
                 new Command("meldungen", 1, ".meldungen – offene Spielermeldungen", Reports),
                 new Command("erledigt", 1, ".erledigt Nummer – Meldung als bearbeitet markieren", ReportDone),
+                new Command("fehler", 1, ".fehler – offene Fehlermeldungen der Tester (/bug)", Bugs),
+                new Command("behoben", 1, ".behoben Nummer – Fehlermeldung als bearbeitet markieren", BugDone),
                 new Command("protokoll", 1, ".protokoll [Aktion|Name] – letzte Einträge im Prüfprotokoll", AuditLog),
                 new Command("wartung", 1, ".wartung an [Text] | aus | leeren – Wartungsmodus", MaintenanceCmd),
                 new Command("speichern", 1, ".speichern – alle Charaktere speichern", SaveAll),
@@ -66,7 +68,10 @@ namespace EternalRealms.Server.Systems
                 new Command("gegenstand", 2, ".gegenstand Name Gegenstand [Anzahl] – Gegenstand geben (Admin)", GiveItem),
                 new Command("pruefen", 2, ".pruefen – gespeicherte Daten gegen den Content prüfen (ändert nichts)", Inspect),
                 new Command("version", 1, ".version – Content-Version, Betriebsart und Spieler", Version),
+                new Command("statistik", 1, ".statistik – Alpha-Statistik seit dem Start: Stufen, Tode, Quests, Bosskämpfe", Statistics),
                 new Command("rechte", 2, ".rechte Kontoname 0|1|2 – Spielleiter-Stufe setzen (Admin)", SetLevel),
+                new Command("einladung", 2, ".einladung [Anzahl] [Notiz] – Einladungscodes für die Alpha erzeugen (Admin; werden nur jetzt angezeigt)", CreateInvites),
+                new Command("einladungen", 1, ".einladungen – offene und eingelöste Einladungscodes zählen", CountInvites),
             };
             return list.ToDictionary(c => c.Name);
         }
@@ -195,6 +200,65 @@ namespace EternalRealms.Server.Systems
                 if (!await repo.MarkReportHandledAsync(id)) return $"Meldung #{id} nicht gefunden oder schon erledigt.";
                 Audit(ctx, "report.done", "#" + id, "");
                 return $"Meldung #{id} als bearbeitet markiert.";
+            });
+        }
+
+        private void Statistics(GmContext ctx, string[] a)
+        {
+            foreach (var line in AlphaMetrics.Describe(_w.Metrics.Take(), _w.Content)) ctx.Reply(line);
+        }
+
+        private void Bugs(GmContext ctx, string[] a)
+        {
+            if (_w.Characters is not ISocialRepository repo) { ctx.Reply("Keine Datenbank für Fehlermeldungen."); return; }
+            Async(ctx, async () =>
+            {
+                var list = await repo.ListOpenBugReportsAsync(15);
+                if (list.Count == 0) return "Keine offenen Fehlermeldungen.";
+                return string.Join("\n", list.Select(b => $"#{b.Id} {b.At:dd.MM. HH:mm} [{b.Category}] {b.CharacterName} (Stufe {b.Level}, {b.Zone} {b.PosX:0}/{b.PosZ:0}, {b.ContentVersion}): {b.Text}"));
+            });
+        }
+
+        private void BugDone(GmContext ctx, string[] a)
+        {
+            if (!Need(ctx, a, 1, "behoben") || _w.Characters is not ISocialRepository repo) return;
+            if (!long.TryParse(a[1].TrimStart('#'), out var id)) { ctx.Reply("Ungültige Nummer."); return; }
+            Async(ctx, async () =>
+            {
+                if (!await repo.MarkBugReportHandledAsync(id)) return $"Fehlermeldung #{id} nicht gefunden oder schon erledigt.";
+                Audit(ctx, "bug.done", "#" + id, "");
+                return $"Fehlermeldung #{id} als bearbeitet markiert.";
+            });
+        }
+
+        private void CreateInvites(GmContext ctx, string[] a)
+        {
+            var repo = _w.Accounts;
+            if (repo == null) { ctx.Reply("Keine Kontodatenbank."); return; }
+            int count = 1;
+            int noteFrom = 1;
+            if (a.Length > 1 && int.TryParse(a[1], out var n)) { count = n; noteFrom = 2; }
+            if (count < 1 || count > 50) { ctx.Reply("Anzahl 1–50."); return; }
+            string note = Rest(a, noteFrom);
+            if (note.Length > 200) note = note[..200];
+            var codes = Enumerable.Range(0, count).Select(_ => Security.InviteCodes.Create()).ToList();
+            Async(ctx, async () =>
+            {
+                await repo.SaveInviteCodesAsync(codes.Select(c => new InviteCode { CodeHash = Security.InviteCodes.Hash(c), CreatedBy = ctx.Name, Note = note }));
+                Audit(ctx, "invite.create", note, $"{count} Code(s)"); // die Codes selbst landen nie im Protokoll
+                string hint = _w.Config.InviteOnly ? "" : "\nHinweis: ER_INVITE_ONLY ist aus – derzeit kann sich jeder registrieren.";
+                return $"{count} Einladungscode(s) – jetzt notieren, sie werden nicht erneut angezeigt:\n" + string.Join("\n", codes) + hint;
+            });
+        }
+
+        private void CountInvites(GmContext ctx, string[] a)
+        {
+            var repo = _w.Accounts;
+            if (repo == null) { ctx.Reply("Keine Kontodatenbank."); return; }
+            Async(ctx, async () =>
+            {
+                var (open, used) = await repo.CountInviteCodesAsync();
+                return $"Einladungscodes: {open} offen, {used} eingelöst. Registrierung {(_w.Config.InviteOnly ? "nur mit Einladung" : "offen für alle")}.";
             });
         }
 

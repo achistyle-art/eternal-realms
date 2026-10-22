@@ -1,6 +1,6 @@
 # Datenmodell
 
-PostgreSQL-Schema (Kapitel 53), erzeugt durch `db/migrations/001–007`. Die Migrationen laufen beim Start automatisch, nur vorwärts und unter einer Datenbanksperre. Ohne `ER_DATABASE` nutzt der Server einen Speicher im Arbeitsspeicher mit derselben Schnittstelle (Tests, Ausprobieren).
+PostgreSQL-Schema (Kapitel 53), erzeugt durch `db/migrations/001–008`. Die Migrationen laufen beim Start automatisch, nur vorwärts und unter einer Datenbanksperre. Ohne `ER_DATABASE` nutzt der Server einen Speicher im Arbeitsspeicher mit derselben Schnittstelle (Tests, Ausprobieren).
 
 ## Grundsätze
 
@@ -30,6 +30,8 @@ PostgreSQL-Schema (Kapitel 53), erzeugt durch `db/migrations/001–007`. Die Mig
 | `mail` | Post | `recipient_id`, `sender_id`, `money`, `cod`, `items` (JSON), `deliver_at`, `expires_at`, `returned` |
 | `auctions` | Auktionshaus (je Fraktion) | `house`, `seller_id`, `item_id`, `count`, `start_bid`, `buyout`, `current_bid`, `bidder_id`, `expires_at` |
 | `economy_log` | Geldbuch: jede Goldbewegung | `character_id`, `delta`, `balance`, `reason` (z. B. `loot`, `trade`, `gm`, `content_refund`), `reference` |
+| `invite_codes` | Einladungscodes der geschlossenen Alpha | `code_hash` (SHA-256, nie der Code), `created_by`, `note`, `expires_at`, `used_at`, `used_by` |
+| `bug_reports` | Fehlermeldungen der Tester (`/bug`) | `category` (Fehler, Balance, Text, Absturz, Vorschlag), `text`, vom Server gesetzt: `zone`, `pos_*`, `level`, `content_version`, `server_version`; `handled` |
 | `player_reports` | Spielermeldungen | Melder, Ziel, Grund, Text, `evidence` (letzte Chatzeilen), `handled` |
 | `audit_log` | Prüfprotokoll | `account_id`, `actor`, `action` (`login.*`, `account.*`, `gm.*`, `anticheat.*`), `target`, `detail`, `ip` |
 | `spawn_timers` | Wiederkehr von Weltbossen | `key` (Zone:Spawn:Kreatur), `respawn_at` |
@@ -42,6 +44,7 @@ Seltener gebrauchte oder verschachtelte Felder:
 
 - **Orte:** Leiche, Bindepunkt, Rückkehrpunkt (Instanzen).
 - **Charakterwerte:** Talent-Resets, Reitfertigkeit und Reittiere, Berufe mit Rezepten.
+- **Tagesquests:** `dailyQuests` – Quest-ID → wieder annehmbar ab (nächster Reset 05:00 UTC).
 - **Instanzen:** Instanzbindungen, Instanz-Sperrzeiten.
 - **Einstellungen:** Clienteinstellungen (Tasten, Fenster, Barrierefreiheit), verlassene Chatkanäle, Standortfreigabe.
 - **Fortschritt:** Erfolge mit Fortschritt, gewählter Titel, Tutorialstand.

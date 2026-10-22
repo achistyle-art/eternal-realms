@@ -285,7 +285,7 @@ namespace EternalRealms.Tests
         {
             var migrations = Path.Combine(Path.GetDirectoryName(TestContent.ContentRoot)!, "db", "migrations");
             using var store = new PostgresStore(cs);
-            Assert.Equal(7, (await store.MigrationStatusAsync(migrations)).Pending.Count); // leere Datenbank
+            Assert.Equal(Directory.GetFiles(migrations, "*.sql").Length, (await store.MigrationStatusAsync(migrations)).Pending.Count); // leere Datenbank
             await store.MigrateAsync(migrations);
             var status = await store.MigrationStatusAsync(migrations);
             Assert.Empty(status.Pending);

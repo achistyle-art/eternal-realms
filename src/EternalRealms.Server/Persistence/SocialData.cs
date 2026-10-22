@@ -66,5 +66,30 @@ namespace EternalRealms.Server.Persistence
         /// <summary>Unbearbeitete Meldungen, neueste zuerst (Spielleitung, Kapitel 50).</summary>
         Task<List<PlayerReport>> ListOpenReportsAsync(int limit);
         Task<bool> MarkReportHandledAsync(long id);
+        /// <summary>Fehlermeldungen der Tester (/bug).</summary>
+        Task SaveBugReportAsync(BugReport report);
+        /// <summary>Offene Fehlermeldungen, neueste zuerst.</summary>
+        Task<List<BugReport>> ListOpenBugReportsAsync(int limit);
+        Task<bool> MarkBugReportHandledAsync(long id);
+    }
+
+    /// <summary>Fehlermeldung aus dem Spiel. Ort, Stufe und Versionen setzt der Server.</summary>
+    public sealed class BugReport
+    {
+        public static readonly string[] Categories = { "Fehler", "Balance", "Text", "Absturz", "Vorschlag" };
+        public long Id { get; set; }
+        public DateTime At { get; set; } = DateTime.UtcNow;
+        public long? AccountId { get; set; }
+        public string CharacterName { get; set; } = "";
+        public string Category { get; set; } = "Fehler";
+        public string Text { get; set; } = "";
+        public string Zone { get; set; } = "";
+        public float PosX { get; set; }
+        public float PosZ { get; set; }
+        public int Level { get; set; }
+        public string ContentVersion { get; set; } = "";
+        public string ServerVersion { get; set; } = "";
+        public string ClientInfo { get; set; } = "";
+        public bool Handled { get; set; }
     }
 }

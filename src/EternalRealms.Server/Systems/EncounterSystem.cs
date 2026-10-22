@@ -250,6 +250,7 @@ namespace EternalRealms.Server.Systems
                 Interrupts = e.Interrupts, MissedInterrupts = e.MissedInterrupts, GroundHits = new Dictionary<string, int>(e.GroundHits),
             };
             _results.Add(r);
+            _w.Metrics.OnEncounter(r);
             if (_results.Count > MaxResults) _results.RemoveAt(0);
             if (silent) return;
             _w.Log("Bosskampf beendet – " + r);

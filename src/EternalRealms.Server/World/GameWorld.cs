@@ -66,7 +66,10 @@ namespace EternalRealms.Server.World
             if (p.Removed && p.Zone == null) return;
             Achievements.Report(p, ev, target, amount);
             Tutorial.Report(p, ev, target, amount);
+            Metrics.OnProgress(p, ev, target);
         }
+        /// <summary>Alpha-Statistik (Zählwerte für die Abstimmung).</summary>
+        public AlphaMetrics Metrics { get; }
         public LootRollSystem LootRolls { get; }
         public AuctionSystem Auctions { get; }
         public double Time { get; private set; }
@@ -148,6 +151,7 @@ namespace EternalRealms.Server.World
             Accounts = characters as IAccountRepository;
             AntiCheat = new AntiCheatSystem(this);
             Encounters = new EncounterSystem(this);
+            Metrics = new AlphaMetrics(this);
             Gm = new GmCommands(this);
             Maintenance = Config.Maintenance;
             foreach (var z in content.Zones.Values.Where(z => z.Playable && !z.IsInstance))
@@ -221,6 +225,7 @@ namespace EternalRealms.Server.World
             Auctions.Update(dt);
             Economy.Update(dt);
             Sessions.Update(this);
+            Metrics.Update();
             if (Time - _lastCheatCleanup > 60) { _lastCheatCleanup = Time; AntiCheat.Cleanup(); }
             if (Time - _lastWorldStateBroadcast > 30)
             {

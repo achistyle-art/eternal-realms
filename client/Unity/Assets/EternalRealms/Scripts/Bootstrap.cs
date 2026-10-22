@@ -32,6 +32,32 @@ namespace EternalRealms.Client
             if (cam.GetComponent<ThirdPersonCamera>() == null) cam.gameObject.AddComponent<ThirdPersonCamera>();
             Application.targetFrameRate = 60; // danach bestimmt GraphicsApplier die Bildrate
             Application.runInBackground = true;
+            ErrorLog.Install();
+        }
+    }
+
+    /// <summary>
+    /// Schreibt Fehler und Ausnahmen in „fehler.log“ (Application.persistentDataPath), damit Alpha-Tester sie einer
+    /// /bug-Meldung beilegen können. Die Datei wird beim Start ab 1 MB neu begonnen.
+    /// </summary>
+    public static class ErrorLog
+    {
+        public static string FilePath => System.IO.Path.Combine(Application.persistentDataPath, "fehler.log");
+
+        public static void Install()
+        {
+            try
+            {
+                var info = new System.IO.FileInfo(FilePath);
+                if (info.Exists && info.Length > 1_000_000) info.Delete();
+            }
+            catch (System.Exception) { }
+            Application.logMessageReceived += (text, stack, type) =>
+            {
+                if (type != LogType.Error && type != LogType.Exception && type != LogType.Assert) return;
+                try { System.IO.File.AppendAllText(FilePath, $"{System.DateTime.Now:yyyy-MM-dd HH:mm:ss} [{type}] {text}\n{stack}\n"); }
+                catch (System.Exception) { }
+            };
         }
     }
 }

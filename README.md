@@ -6,7 +6,12 @@ Ein Fantasy-MMORPG für Windows-PC im Geist der klassischen Genre-Vorbilder – 
 * **Client:** Unity 6 (C#), teilt Regeln, Content und Protokoll mit dem Server über eine gemeinsame Bibliothek
 * **Content:** vollständig datengetrieben (JSON) mit automatischer Prüfung aller Querverweise
 
-> Stand: **Meilenstein 1 – Fundament.** Zwei Startgebiete, ein Dungeon und zwei Weltbosse sind komplett spielbar. Die übrigen 21 Regionen der Weltkarte sind angelegt, aber noch ohne Inhalte. Die Grafik besteht aus Platzhalterformen. Was fertig ist und was folgt, steht in der [Roadmap](docs/ROADMAP.md).
+> Stand: **vorbereitet für die geschlossene Alpha.**
+> - **Spielbar bis Stufe 20:** zwei Startgebiete, vier Hauptstädte, Westmark und Rotsandwüste, die Wurzelkrypta (normal und heroisch) und zwei Weltbosse.
+> - **Auf Stufe 20:** Reiten, Tagesquests und Rufbelohnungen.
+> - **Noch offen:** Die übrigen 19 Regionen der Weltkarte (davon 3 Schlachtzüge) sind angelegt, aber noch ohne Inhalte. Die Grafik besteht aus Platzhalterformen.
+>
+> Für Tester und Betrieb siehe [Alpha](docs/ALPHA.md). Was fertig ist und was folgt, steht in der [Roadmap](docs/ROADMAP.md).
 
 ## Was schon funktioniert
 
@@ -132,6 +137,7 @@ docs/                           Architektur, Welt, KI-Mitspieler, Content, Roadm
 * [KI-Mitspieler](docs/KI-MITSPIELER.md)
 * [Welt, Völker und Geschichte](docs/WELT.md)
 * [Inhalte erstellen](docs/CONTENT.md)
+* [Geschlossene Alpha: Einrichtung, Testplan, Auswertung](docs/ALPHA.md)
 * [Betrieb: Spielleitung, Kontoschutz, Backups](docs/BETRIEB.md)
 * [Updates und Rollback](docs/UPDATES.md)
 * [Datenmodell](docs/DATENMODELL.md)

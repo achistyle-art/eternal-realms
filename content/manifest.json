@@ -2,5 +2,6 @@
  "name": "Eternal Realms",
  "version": "0.9.0",
  "minClientContent": "",
- "levelCap": 20
+ "levelCap": 20,
+ "stage": "Alpha"
 }

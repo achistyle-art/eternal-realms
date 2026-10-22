@@ -16,6 +16,8 @@ psql -d eternal_realms -c "UPDATE accounts SET gm_level = 2 WHERE lower(username
 
 Stufen: 0 = Spieler, 1 = Spielleiter, 2 = Admin. Die Rechte gelten sofort, auch für Charaktere, die bereits in der Welt sind.
 
+Bei geschlossener Alpha (`ER_INVITE_ONLY=true`) braucht schon das erste Konto einen Einladungscode: an der Konsole `einladung 1` – siehe [Alpha](ALPHA.md).
+
 ## Befehle der Spielleitung
 
 Im Spiel als Chat mit Punkt (`.kick Name Grund`), im Konsolenclient mit `gm kick Name Grund`, an der Serverkonsole ohne Punkt.

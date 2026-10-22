@@ -920,6 +920,11 @@ namespace EternalRealms.Shared.Content
         /// später ohne Programmänderung an.
         /// </summary>
         public int LevelCap { get; set; } = 60;
+        /// <summary>Entwicklungsstand für Hinweise in den Clients, z. B. „Alpha“ (leer = fertiges Spiel).</summary>
+        public string Stage { get; set; } = "";
+
+        /// <summary>„Eternal Realms Alpha 0.9.0“ – für Titelzeilen und Wasserzeichen.</summary>
+        public string Label => Stage.Length > 0 ? $"{Name} {Stage} {Version}" : $"{Name} {Version}";
     }
 
     /// <summary>

@@ -498,6 +498,7 @@ namespace EternalRealms.Shared.Content
                 Need(Mounts.ContainsKey(it.TeachesMount!), $"Gegenstand {it.Id}: unbekanntes Reittier {it.TeachesMount}");
             // Content-Migrationen (Kapitel 56): Ziele müssen existieren, entfernte/umbenannte Quellen dürfen es nicht mehr.
             var migIds = new HashSet<string>();
+            Need(Manifest.Stage.Length <= 20, "Manifest: stage zu lang (höchstens 20 Zeichen)");
             Need(Manifest.LevelCap >= 1 && Manifest.LevelCap <= Rules.Experience.MaxLevel, $"Manifest: levelCap {Manifest.LevelCap} muss zwischen 1 und {Rules.Experience.MaxLevel} liegen");
             Need(System.Text.RegularExpressions.Regex.IsMatch(Manifest.Version, @"^\d+\.\d+\.\d+$"), $"Manifest: Version '{Manifest.Version}' muss die Form 1.2.3 haben");
             foreach (var m in Migrations)
