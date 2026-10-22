@@ -1,0 +1,80 @@
+# Alpha-Build des Unity-Clients (Windows und Linux) auf Knopfdruck: Actions → „Unity-Build“ → Run workflow.
+# Braucht eine Unity-Lizenz als Repository-Secrets (Settings → Secrets and variables → Actions):
+#   UNITY_LICENSE   Inhalt der .ulf-Datei (Unity Personal genügt, siehe docs/ALPHA.md → „Client bauen“)
+#   UNITY_EMAIL     E-Mail des Unity-Kontos
+#   UNITY_PASSWORD  Passwort des Unity-Kontos
+# Ohne diese Secrets bricht der Lauf mit einem Hinweis ab; die normale CI (ci.yml) ist davon nicht betroffen.
+name: Unity-Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      server:
+        description: "Voreingestellter Alpha-Server (host:port), leer = Tester tragen ihn ein"
+        required: false
+        default: ""
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - targetPlatform: StandaloneWindows64
+            erTarget: Windows
+          - targetPlatform: StandaloneLinux64
+            erTarget: Linux
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unity-Lizenz vorhanden?
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        run: |
+          if [ -z "$UNITY_LICENSE" ]; then
+            echo "::error::Secret UNITY_LICENSE fehlt – siehe Kopf dieser Datei und docs/ALPHA.md (Client bauen)."
+            exit 1
+          fi
+
+      - name: Serveradresse prüfen
+        env:
+          SERVER: ${{ github.event.inputs.server }}
+        run: |
+          if [ -n "$SERVER" ] && ! [[ "$SERVER" =~ ^[A-Za-z0-9.-]+(:[0-9]{1,5})?$ ]]; then
+            echo "::error::Serveradresse '$SERVER' ungültig (erwartet host oder host:port)."
+            exit 1
+          fi
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Gemeinsame Bibliothek und Content ins Unity-Projekt
+        run: bash tools/build-unity-plugins.sh
+
+      - uses: actions/cache@v4
+        with:
+          path: client/Unity/Library
+          key: unity-library-${{ matrix.targetPlatform }}-${{ hashFiles('client/Unity/Packages/manifest.json', 'client/Unity/ProjectSettings/ProjectVersion.txt') }}
+
+      - name: Client bauen
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: client/Unity
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildMethod: EternalRealms.Client.Editor.EternalRealmsTools.BuildFromCommandLine
+          customParameters: >-
+            -erTarget ${{ matrix.erTarget }} -erSkipCopy -erOut /github/workspace/build/client/${{ matrix.erTarget }}
+            ${{ github.event.inputs.server != '' && format('-erServer {0}', github.event.inputs.server) || '' }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: eternal-realms-alpha-${{ matrix.erTarget }}
+          path: build/client/${{ matrix.erTarget }}
+          if-no-files-found: error

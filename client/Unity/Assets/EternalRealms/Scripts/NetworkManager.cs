@@ -21,10 +21,20 @@ namespace EternalRealms.Client
         public string? LoadError { get; private set; }
         private float _pingTimer;
 
+        private const string LastServerPref = "EternalRealms.LastServer";
+
         private void Awake()
         {
             Instance = this;
             Client = new GameClient();
+            // Voreinstellung des Alpha-Builds (StreamingAssets/server.txt), danach die zuletzt benutzte Adresse.
+            try
+            {
+                var preset = Path.Combine(Application.streamingAssetsPath, "server.txt");
+                if (File.Exists(preset)) ApplyServer(File.ReadAllText(preset));
+            }
+            catch (System.Exception) { }
+            ApplyServer(PlayerPrefs.GetString(LastServerPref, ""));
             try
             {
                 Content = ContentDatabase.LoadFromDirectory(Path.Combine(Application.streamingAssetsPath, "content"));
@@ -36,7 +46,21 @@ namespace EternalRealms.Client
             }
         }
 
-        public bool Connect() => Client.Connect(Host, Port);
+        public bool Connect()
+        {
+            PlayerPrefs.SetString(LastServerPref, $"{Host}:{Port}");
+            return Client.Connect(Host, Port);
+        }
+
+        /// <summary>„host“ oder „host:port“ übernehmen; Leeres und Ungültiges wird ignoriert.</summary>
+        private void ApplyServer(string text)
+        {
+            text = (text ?? "").Trim();
+            if (text.Length == 0) return;
+            int colon = text.LastIndexOf(':');
+            if (colon > 0 && int.TryParse(text.Substring(colon + 1), out var port) && port > 0 && port < 65536) { Host = text.Substring(0, colon); Port = port; }
+            else if (colon < 0) Host = text;
+        }
 
         private void Update()
         {

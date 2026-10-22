@@ -60,11 +60,42 @@ systemctl start eternal-realms
 - **Abbruch:** ohne Bestätigung durch den Datenbanknamen und solange der Server laut Statusdatei läuft.
 - **Rückweg:** mit `tools/restore.sh` und der eben erstellten Sicherung.
 
+## Client bauen
+
+Der Unity-Client wird einmal von der Spielleitung gebaut und an die Tester verteilt. Dafür gibt es zwei Wege.
+
+**A) Selbst im Unity-Editor**
+
+1. Unity Hub und **Unity 6 (6000.0 LTS)** installieren. Dazu die Module **Windows Build Support** und gegebenenfalls **Linux Build Support** – das Modul der eigenen Plattform ist immer dabei.
+2. Das **.NET-8-SDK** installieren und vor dem ersten Öffnen einmal die gemeinsamen DLLs erzeugen:
+   - Windows: `powershell -ExecutionPolicy Bypass -File tools\build-unity-plugins.ps1`
+   - Linux/macOS: `tools/build-unity-plugins.sh`
+3. `client/Unity` im Unity Hub öffnen. Eine neuere 6000.0-Version darf das Projekt aktualisieren.
+4. Menü **Eternal Realms → Alpha-Build → Serveradresse festlegen …**, z. B. `alpha.example.org:7777`, oder leer lassen.
+5. Menü **Eternal Realms → Alpha-Build → Windows (64 Bit)**. Danach liegt der Build unter `build/client/<version>-windows/` mit `LIESMICH.txt` für die Tester.
+
+Der Build legt die Startszene selbst an, stellt die Eingabe auf „Both“ und übernimmt Version und Namen aus dem Manifest. Sollten in der Konsole Fehler auftauchen: Bitte die Meldungen kopieren und mir schicken.
+
+**B) Ohne eigene Unity-Installation über GitHub Actions**
+
+Der Workflow „Unity-Build“ läuft nur auf Knopfdruck und erzeugt Windows- und Linux-Builds als Artefakte. Er braucht eine Unity-Lizenz als Repository-Secrets:
+
+1. Unity-Konto anlegen (Unity Personal ist kostenlos).
+2. Lizenzdatei (`.ulf`) erzeugen:
+   - Einmal Unity Hub installieren, anmelden und eine Personal-Lizenz aktivieren.
+   - Die Datei liegt dann unter Windows in `C:\ProgramData\Unity\Unity_lic.ulf`, unter Linux in `~/.local/share/unity3d/Unity/Unity_lic.ulf`.
+3. Im Repository unter **Settings → Secrets and variables → Actions** anlegen:
+   - `UNITY_LICENSE` mit dem Inhalt der `.ulf`-Datei;
+   - `UNITY_EMAIL` und `UNITY_PASSWORD` mit den Daten des Unity-Kontos.
+4. **Actions → Unity-Build → Run workflow**, optional mit Serveradresse. Die Builds erscheinen nach dem Lauf unter „Artifacts“.
+
+**Prüfung ohne Editor:** Die CI kompiliert die Client- und Editor-Skripte bei jedem Push gegen die Referenzassemblys von Unity 6000.0.64f1. Lokal geht das mit `tools/fetch-unity-refs.sh` und danach `dotnet build tools/UnityCheck -p:UnityManaged=~/.cache/eternal-realms/unity-6000.0.64f1/Editor/Data/Managed`. Ob der Client im Editor wirklich startet, zeigt aber erst der erste echte Build.
+
 ## Für Tester
 
 **Client:**
 
-- **Unity-Client:** Den Build stellt die Spielleitung bereit (siehe README → Unity-Client).
+- **Unity-Client:** Den Build stellt die Spielleitung bereit (siehe „Client bauen“). Die Serveradresse ist dann meist schon eingetragen.
 - **Ohne Unity:** Der Textclient liegt im Release unter `client-konsole/`:
   `dotnet EternalRealms.ConsoleClient.dll <server> 7777`, danach `register <konto> <passwort> <Einladungscode>`.
   Mit `hilfe` erscheinen alle Befehle.
@@ -120,7 +151,7 @@ SELECT id, at, character_name, zone, level, text FROM bug_reports WHERE NOT hand
 
 ## Bekannte Grenzen der Alpha
 
-- Der Unity-Client ist bisher nur gegen Referenzassemblys kompiliert und noch nicht in einem echten Unity-Editor gestartet. Der erste Build gehört deshalb in die Alpha.
+- Der Unity-Client ist gegen die Referenzassemblys von Unity 6 kompiliert, aber noch nicht in einem echten Unity-Editor gestartet. Der erste Build gehört deshalb in die Alpha.
 - Grafik und Klang sind prozedural, also Platzhalter ohne eigene Modelle und Musik.
 - Die Balance von heroischer Krypta und Stufe 12–20 beruht auf Simulationen mit KI-Gruppen. Genau dafür ist die Alpha da.
 - Ein Wipe zwischen den Phasen ist eingeplant. Fortschritt aus der Alpha bleibt nicht garantiert erhalten.

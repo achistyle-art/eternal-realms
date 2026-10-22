@@ -46,6 +46,7 @@ jobs:
 
   unity-compile:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -53,3 +54,14 @@ jobs:
           dotnet-version: "8.0.x"
       - name: Unity-Skripte kompilieren (ohne Editor)
         run: dotnet build tools/UnityCheck
+      # Genauer: gegen Unity 6 selbst (inkl. Editor-Skripte und Alpha-Build); die Referenzen bleiben im Cache.
+      - uses: actions/cache@v4
+        id: unity-refs
+        with:
+          path: ~/.cache/eternal-realms/unity-6000.0.64f1
+          key: unity-refs-6000.0.64f1
+      - name: Unity-6-Referenzen laden
+        if: steps.unity-refs.outputs.cache-hit != 'true'
+        run: tools/fetch-unity-refs.sh
+      - name: Unity-Skripte gegen Unity 6 kompilieren (mit Editor-Skripten)
+        run: dotnet build tools/UnityCheck -p:UnityManaged=$HOME/.cache/eternal-realms/unity-6000.0.64f1/Editor/Data/Managed -o build/unitycheck6

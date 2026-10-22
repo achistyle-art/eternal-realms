@@ -61,14 +61,17 @@ docker compose up --build        # PostgreSQL 16 und Realmserver auf UDP 7777
 
 ### Unity-Client
 
-1. Unity 6 (6000.0 LTS) installieren und `client/Unity` als Projekt öffnen.
-2. Menü **Eternal Realms → Shared-DLL und Content kopieren** ausführen. Es baut `EternalRealms.Shared` und kopiert die DLLs sowie den Content nach `Assets/Plugins` und `Assets/StreamingAssets`. Alternativ geht das mit `tools/build-unity-plugins.sh`.
-3. *Project Settings → Player → Active Input Handling* auf **Both** oder **Input Manager (Old)** stellen.
-4. Eine beliebige (auch leere) Szene starten. Der Client baut sich selbst auf: Anmeldung, Charaktereditor, Spielwelt.
+1. Unity 6 (6000.0 LTS) und das .NET-8-SDK installieren.
+2. **Vor dem ersten Öffnen** die gemeinsamen DLLs und den Content ins Projekt kopieren:
+   - Windows: `powershell -ExecutionPolicy Bypass -File tools\build-unity-plugins.ps1`
+   - Linux/macOS: `tools/build-unity-plugins.sh`
+   Später geht das auch im Editor über **Eternal Realms → Shared-DLL und Content kopieren**.
+3. `client/Unity` als Projekt öffnen und eine beliebige, auch leere Szene starten. Der Client baut sich selbst auf: Anmeldung, Charaktereditor, Spielwelt. Falls die Eingabe Fehler wirft: *Project Settings → Player → Active Input Handling* auf **Both** stellen. Der Alpha-Build erledigt das selbst.
+4. Alpha-Build für Tester: **Eternal Realms → Alpha-Build → Windows (64 Bit)**. Siehe [Alpha → Client bauen](docs/ALPHA.md#client-bauen), dort steht auch der Build über GitHub Actions.
 
 Steuerung: **WASD** laufen, **Q/E** seitwärts, **Maus links/rechts** Kamera bzw. Figur drehen, **Linksklick** Ziel wählen, **Rechtsklick** angreifen oder ansprechen, **Tab** nächstes Ziel, **1–0** Aktionsleiste, **F** interagieren, **Enter** Chat (`/p` Gruppe, `/g` Allgemein, `/w Name`, `/inv Name`), **L** Quests, **B** Taschen, **K** Zauberbuch, **N** Talente, **P** Gruppe und KI-Mitspieler.
 
-> Die Unity-Skripte wurden gegen die UnityEngine-Referenzassemblys (2021.3) kompiliert. In einem echten Unity-6-Editor wurde das Projekt in dieser Umgebung noch nicht geöffnet. Rückmeldungen aus dem ersten Start sind deshalb willkommen.
+> Die CI kompiliert die Unity-Skripte, auch die Editor-Skripte, gegen die Referenzassemblys von Unity 6000.0.64f1. In einem echten Unity-6-Editor wurde das Projekt in dieser Umgebung noch nicht geöffnet. Rückmeldungen aus dem ersten Start sind deshalb willkommen.
 
 ## Konfiguration (Umgebungsvariablen)
 

@@ -352,3 +352,17 @@ Auf Wunsch zunächst nur bis Stufe 20; die Stufen 21–60 folgen später.
 **Nur kompiliergeprüft** (Unity): Einladungsfeld, `/bug`, Wasserzeichen, Fehlerprotokoll.
 
 **Zurückgestellt:** Steam-Anbindung und kosmetische Bezahlinhalte – erst nach der Alpha.
+
+**Client-Build für die Alpha:**
+- **Henne-Ei-Problem behoben:** Das Editor-Menü hängt nicht mehr von den Client-Skripten ab. Die DLLs lassen sich vor dem ersten Öffnen mit `tools/build-unity-plugins.ps1` (Windows) bzw. `.sh` erzeugen.
+- **Menü „Eternal Realms → Alpha-Build“** für Windows, Linux und macOS:
+  - legt die Startszene an und übernimmt Version und Namen aus dem Manifest;
+  - stellt die Eingabe auf „Both“ und setzt die Serveradresse vor (`StreamingAssets/server.txt`);
+  - legt eine `LIESMICH.txt` für Tester bei.
+  - Für die Kommandozeile und die CI: `-executeMethod EternalRealms.Client.Editor.EternalRealmsTools.BuildFromCommandLine`.
+- **Workflow „Unity-Build“** (GitHub Actions, auf Knopfdruck, braucht die Unity-Lizenz als Secret). Er baut Windows und Linux als Artefakte.
+- **CI gegen Unity 6:** Client- und Editor-Skripte werden gegen die Referenzassemblys von 6000.0.64f1 kompiliert (`tools/fetch-unity-refs.sh`, zwischengespeichert).
+
+**Noch offen:**
+- Erster Start im echten Editor und erster echter Build. Beides braucht eine Unity-Lizenz und ist hier nicht möglich.
+- Der Workflow „Unity-Build“ ist deshalb noch nicht gelaufen.

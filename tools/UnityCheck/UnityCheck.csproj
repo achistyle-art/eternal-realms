@@ -14,6 +14,19 @@
   <ItemGroup>
     <Compile Include="../../client/Unity/Assets/EternalRealms/Scripts/*.cs" />
     <ProjectReference Include="../../src/EternalRealms.Shared/EternalRealms.Shared.csproj" />
+  </ItemGroup>
+  <!-- Standard (CI): Referenzassemblys von Unity 2021.3 aus NuGet. -->
+  <ItemGroup Condition="'$(UnityManaged)' == ''">
     <PackageReference Include="UnityEngine.Modules" Version="2021.3.33" />
+  </ItemGroup>
+  <!--
+    Genauer: gegen einen echten Unity-6-Editor, inklusive der Editor-Skripte (Menü, Alpha-Build).
+      dotnet build tools/UnityCheck -p:UnityManaged=<Unity>/Editor/Data/Managed
+    Der Ordner enthält UnityEngine/ (Module) – mehr braucht es nicht, eine Lizenz ist dafür nicht nötig.
+  -->
+  <ItemGroup Condition="'$(UnityManaged)' != ''">
+    <Compile Include="../../client/Unity/Assets/EternalRealms/Editor/*.cs" />
+    <Reference Include="$(UnityManaged)/UnityEngine/UnityEngine.*.dll" Private="false" />
+    <Reference Include="$(UnityManaged)/UnityEngine/UnityEditor.*.dll" Private="false" />
   </ItemGroup>
 </Project>

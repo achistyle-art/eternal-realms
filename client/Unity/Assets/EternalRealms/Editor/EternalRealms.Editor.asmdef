@@ -1,6 +1,6 @@
 {
     "name": "EternalRealms.Editor",
-    "references": ["EternalRealms.Client"],
+    "references": [],
     "includePlatforms": ["Editor"],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
